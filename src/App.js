@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAllData } from "./util/index";
-import Header from "./component/layout/Header/Header";
+import Home from "./component/Home/Home";
 
 const URL = "http://localhost:8000/api/v1/";
 
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Home />
 
       <h1>{message}</h1>
     </>
