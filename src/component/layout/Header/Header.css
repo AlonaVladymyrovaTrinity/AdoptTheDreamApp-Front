@@ -1,3 +1,5 @@
+/* Desctop Design*/
+
 * {
   padding: 0;
   margin: 0;
@@ -7,9 +9,9 @@
 
 .header {
   padding: 0 1rem;
-  padding: 0 25px;
-  height: 80px;
+  height: 5rem;
   background-color: transparent;
+  max-width: 95%;
 }
 .header_wrap {
   height: 100%;
@@ -20,11 +22,11 @@
   /* background: hsla(0, 3%, 23%, 0.6);
   backdrop-filter: blur(5px); */
   color: #2d3748;
-  font-size: 20px;
+  font-size: 1.5rem;
   padding: 0 1rem;
 }
 .logo_wrapper {
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 .header_navBar {
   display: flex;
@@ -35,14 +37,14 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 40px;
+  padding: 0 1.5rem;
 }
 .header_actions {
   display: flex;
   align-items: center;
 }
 .header_search {
-  padding: 0 10px;
+  padding: 0 1rem;
 }
 /* .headers_likes {
   padding: 0 10px;
@@ -51,6 +53,14 @@
   background-color: transparent;
   border-color: transparent;
   color: #2d3748;
-  font-size: 20px;
-  padding: 0 10px;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 768px) {
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 330px) {
 }
