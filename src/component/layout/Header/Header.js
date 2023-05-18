@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { TbCat } from "react-icons/tb";
 import { TbDog } from "react-icons/tb";
 import { TbSearch } from "react-icons/tb";
@@ -12,8 +13,8 @@ const Header = () => {
         <div className="header_wrap">
           <div className="logo_wrapper">
             <div className="logo">
-              <TbCat size="30px" />
-              <TbDog size="30px" />
+              <TbCat size="2rem" />
+              <TbDog size="2rem" />
             </div>
           </div>
           <ul className="header_navBar">
@@ -25,10 +26,10 @@ const Header = () => {
           </ul>
           <div className="header_actions">
             <div className="header_search">
-              <TbSearch size="30px" />
+              <TbSearch size="2rem" />
             </div>
             {/* <div className="headers_likes">
-              <TbHeart size="30px" />
+              <TbHeart size="2rem" />
             </div> */}
             <button className="header_logIn">LogIn</button>
           </div>
