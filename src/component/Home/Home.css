@@ -1,0 +1,33 @@
+body {
+  background: rgb(248, 242, 242);
+}
+.home_banner {
+  position: relative;
+  z-index: 100;
+}
+video {
+  width: 100%;
+  height: 40rem;
+  object-fit: cover;
+}
+header {
+  position: absolute;
+  width: auto;
+  justify-content: center;
+}
+
+/* .home_banner_content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    color: white;
+  } */
+/* .header {
+    position: absolute;
+    justify-content: first baseline;
+  } */
