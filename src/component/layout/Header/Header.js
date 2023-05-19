@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { TbCat } from "react-icons/tb";
 import { TbDog } from "react-icons/tb";
 import { TbSearch } from "react-icons/tb";
@@ -17,11 +19,21 @@ const Header = () => {
             </div>
           </div>
           <ul className="header_navBar">
-            <li className="navBar_item">Home</li>
-            <li className="navBar_item">Pets</li>
-            <li className="navBar_item">Donate</li>
-            <li className="navBar_item">Contact</li>
-            <li className="navBar_item">About</li>
+            <li className="navBar_item">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="navBar_item">
+              <Link to="/pets">Pets</Link>
+            </li>
+            <li className="navBar_item">
+              <Link to="/process/donate">Donate</Link>
+            </li>
+            <li className="navBar_item">
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li className="navBar_item">
+              <Link to="/about">About</Link>
+            </li>
           </ul>
           <div className="header_actions">
             <div className="header_search">
