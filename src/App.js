@@ -18,7 +18,6 @@ import ConfirmApplication from "./component/Adoption/ConfirmApplication";
 import NotFound from "./component/layout/NotFound/NotFound";
 import Footer from "./component/layout/Footer/Footer";
 import NoFavorites from "./component/NoFavorites/NoFavorites";
-// import ProtectedRoute from "./component/Route/ProtectedRoute";
 import Donate from "./component/Donate/Donate";
 
 function ProtectedRoute({ isAuthenticated, children }) {
