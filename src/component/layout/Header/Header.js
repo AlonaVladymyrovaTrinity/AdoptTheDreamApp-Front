@@ -1,6 +1,6 @@
 import React from "react";
-// import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 import { TbCat } from "react-icons/tb";
 import { TbDog } from "react-icons/tb";
 import { TbSearch } from "react-icons/tb";
@@ -20,13 +20,13 @@ const Header = () => {
           </div>
           <ul className="header_navBar">
             <li className="navBar_item">
-              <Link to="/home">Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li className="navBar_item">
               <Link to="/pets">Pets</Link>
             </li>
             <li className="navBar_item">
-              <Link to="/donate">Donate</Link>
+              <Link to="/process/donate">Donate</Link>
             </li>
             <li className="navBar_item">
               <Link to="/contact">Contact</Link>
