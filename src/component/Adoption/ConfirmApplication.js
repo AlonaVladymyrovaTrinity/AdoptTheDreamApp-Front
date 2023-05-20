@@ -1,7 +1,7 @@
 import React from "react";
 
-const ConfirmApplicatio = () => {
-  return <h1>ConfirmApplicatio</h1>;
+const ConfirmApplication = () => {
+  return <h1>ConfirmApplication</h1>;
 };
 
-export default ConfirmApplicatio;
+export default ConfirmApplication;
