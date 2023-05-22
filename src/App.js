@@ -1,30 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { getAllData } from './util/index';
-
-const URL = 'http://localhost:8000/api/v1/';
+import React from 'react';
+import Footer from './component/layout/Footer/Footer';
+import './App.css'
 
 function App() {
 
-const [message, setMessage] = useState(''); 
+    return (
+        <>
+            <div className="content"></div>
+            <Footer />
+        </>
+    );
 
-  useEffect(() => {
-
-    (async () => {
-      const myData = await getAllData(URL)
-      setMessage(myData.data);
-    })();
-      
-    return () => {
-      console.log('unmounting');
-    }
-
-  }, []);
-
-  return (
-    <>
-      <h1>{message}</h1>
-    </>
-  );
 }
 
 export default App;
