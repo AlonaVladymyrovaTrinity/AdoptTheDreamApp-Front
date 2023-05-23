@@ -105,8 +105,8 @@ function App() {
                     <Route path="/nofavorites" element={<NoFavorites />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
-                <Footer />
             </main>
+            <Footer />
         </>
     );
 }
