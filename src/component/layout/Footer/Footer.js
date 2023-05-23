@@ -6,12 +6,11 @@ const Footer = () => {
     return (
         <footer>
             <Container fluid>
-                <Row className="footer align-items-center">
+                <Row className="footer align-items-center border-top">
                     <Col xs="12" lg="6" className="footer-copyright">
-                        <p className="footer-copyright-text">
-                            &copy; {new Date().getFullYear()} All Rights
-                            Reserved
-                        </p>
+                        <span className="footer-copyright-text">
+                            &copy; {new Date().getFullYear()} All Rights Reserved
+                        </span>
                     </Col>
                     <Col xs="12" lg="6">
                         <ul className="footer-links">

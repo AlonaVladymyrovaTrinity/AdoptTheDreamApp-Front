@@ -5,9 +5,10 @@ import './About.css';
 const About = () => {
     return (
         <>
-            <div className="card">
-                <div className="card__text">
-                    <img src={photoDog} alt="About" />
+            <div className="about-page">
+                <h1>About our business</h1>
+                <div className="about-page-text">
+                    <img src={photoDog} alt="dog" />
                     <p>"Find Your Fur-ever Friend!"</p>
                     <p>
                         Description: Welcome to Pawsome Companions, your go-to
