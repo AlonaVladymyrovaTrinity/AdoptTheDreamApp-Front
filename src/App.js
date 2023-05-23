@@ -19,7 +19,6 @@ import NotFound from './component/layout/NotFound/NotFound';
 import Footer from './component/layout/Footer/Footer';
 import NoFavorites from './component/NoFavorites/NoFavorites';
 import Donate from './component/Donate/Donate';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProtectedRoute({ isAuthenticated, children }) {
     if (!isAuthenticated) {
