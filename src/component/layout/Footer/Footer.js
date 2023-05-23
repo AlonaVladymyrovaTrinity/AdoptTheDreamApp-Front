@@ -1,41 +1,35 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import './Footer.css';
 
 const Footer = () => {
-
     return (
-        <FooterContainer className="main-footer">
-            <div className="footer-middle">
-                <div className="container">
-                    <div className="row">
-                        {/*Column 1 */}
-                        <div className="col-md-3 col-sm-6">
-                            <h4>Contact</h4>
-                        </div>
-                        {/*Column 2 */}
-                        <div className="col-md-3 col-sm-6">
-                            <h4>Our Team</h4>
-                        </div>
-                    </div>
-                    {/*Footer Bottom */}
-                    <div className="footer-bottom">
-                        <p className="text-xs-center">
-                            &copy; All Rights Reserved
+        <footer>
+            <Container fluid>
+                <Row className="footer align-items-center">
+                    <Col xs="12" lg="6" className="footer-copyright">
+                        <p className="footer-copyright-text">
+                            &copy; {new Date().getFullYear()} All Rights
+                            Reserved
                         </p>
-                    </div>
-                </div>
-            </div>
-        </FooterContainer>
+                    </Col>
+                    <Col xs="12" lg="6">
+                        <ul className="footer-links">
+                            <li className="footer-link">
+                                <a href="/about">About</a>
+                            </li>
+                            <li className="footer-link">
+                                <a href="/team">Our Team</a>
+                            </li>
+                            <li className="footer-link">
+                                <a href="/contact">Contact</a>
+                            </li>
+                        </ul>
+                    </Col>
+                </Row>
+            </Container>
+        </footer>
     );
-}
+};
 
 export default Footer;
-
-const FooterContainer = styled.footer`
-    .footer-middle {
-        background: var(--mainDark);
-        padding-top: 3rem; 
-        color: var(--mainWhite);
-    }
-
-`;

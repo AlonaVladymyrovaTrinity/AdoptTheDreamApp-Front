@@ -1,0 +1,81 @@
+/* Desctop Design*/
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background: rgb(248, 242, 242);
+}
+
+.header {
+  padding: 0 1rem;
+  height: 5rem;
+  background-color: transparent;
+  max-width: 95%;
+}
+.header_wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* background: hsla(0, 3%, 23%, 0.6);
+  backdrop-filter: blur(5px); */
+  color: #2d3748;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+}
+.logo_wrapper {
+  padding: 0 1rem;
+}
+.header_navBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.navBar_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 1.5rem;
+}
+.navBar_item a {
+  text-decoration: none;
+  color: #2d3748;
+}
+
+.header_actions {
+  display: flex;
+  align-items: center;
+}
+.header_search {
+  background-color: transparent;
+  border-color: transparent;
+  color: #2d3748;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+}
+.header_search:hover {
+  cursor: pointer;
+}
+/* .headers_likes {
+  padding: 0 10px;
+} */
+.header_logIn {
+  background-color: transparent;
+  border-color: transparent;
+  color: #2d3748;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+}
+.header_logIn:hover {
+  cursor: pointer;
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 768px) {
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 330px) {
+}
