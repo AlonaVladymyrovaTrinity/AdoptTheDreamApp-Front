@@ -1,11 +1,15 @@
 .header {
   color: #000000;
 }
-.container {
+
+.not-found-page__container {
   display: flex;
-  justify-content: center; /* Horizontal centering */
-  align-items: center; /* Vertical centering */
+  justify-content: center;
+  /* Horizontal centering */
+  align-items: center;
+  /* Vertical centering */
 }
+
 .not-found-wrapper div {
   background-color: #bebebe;
   max-width: 37.5rem;
@@ -13,14 +17,17 @@
   padding: 0.938rem;
   margin: 1.25rem 0.313rem 1.25rem 1.25rem;
 }
+
 .not-found-wrapper h2 {
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.625rem;
   color: #000000;
 }
+
 .img-page-not-found {
-  width: 100%; /* Adjust the width percentage to your desired size */
+  width: 100%;
+  /* Adjust the width percentage to your desired size */
   height: auto;
   object-fit: cover;
 }
