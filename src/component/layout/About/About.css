@@ -3,39 +3,34 @@ img {
     height: 40rem;
 }
 
-body {
-    background-color: #f9ecdf;
-    color: #3f2f23;
-}
-
 h1 {
     text-align: center;
     font-size: 3em;
-    
 }
 
-.card {
+.about-page {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.card__text {
+.about-page-text {
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
-.card__text p {
+.about-page-text p {
     display: flex;
-    font-size: 1.5em;
+    font-size: 1.2rem;
     text-align: justify;
 }
 
-.card__text p:first-child {
+.about-page-text p:first-child {
     margin-top: 0;
 }
 
-.card__text img {
+.about-page-text img {
     float: right;
     margin-left: 1rem;
 }

@@ -1,0 +1,21 @@
+.footer {
+    height: 4rem;
+}
+
+.footer-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.footer-link a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer-copyright-text {
+    color: rgb(110, 108, 108);
+}
