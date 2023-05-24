@@ -36,14 +36,19 @@ const Header = () => {
             </li>
           </ul>
           <div className="header_actions">
-            <button className="header_search">
-              <TbSearch size="2rem" />
-            </button>
+            <div id="header_search">
+              <Link to="/search">
+                {/* <button className="header_search"> */}
+                <TbSearch size="2rem" />
+                {/* </button> */}
+              </Link>
+            </div>
             {/* <button className="headers_likes">
             <TbHeart size="2rem" />
             </button> */}
-
-            <button className="header_logIn">LogIn</button>
+            <Link to="/login">
+              <button className="header_logIn">LogIn</button>
+            </Link>
           </div>
         </div>
       </div>

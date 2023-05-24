@@ -43,64 +43,69 @@ function App() {
     return (
         <>
             <Header />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/pet/:id" element={<PetDetails />} />
-                <Route path="/pets" element={<Pets />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/about" element={<About />} />
-                <Route
-                    path="/account"
-                    element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <Profile onLogout={handleLogout} />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/me/update"
-                    element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <UpdateProfile onLogout={handleLogout} />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route
-                    path="/password/update"
-                    element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <UpdatePassword />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route path="/password/forgot" element={<ForgotPassword />} />
-                <Route path="/password/reset" element={<ResetPassword />} />
-                <Route
-                    path="/login"
-                    element={<LoginSignUp onLogin={handleLogin} />}
-                />
-                <Route path="/favorites" element={<FavoritesPets />} />
-                <Route
-                    path="/process/donate"
-                    element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <Donate />
-                        </ProtectedRoute>
-                    }
-                />
+            <main>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/pet/:id" element={<PetDetails />} />
+                    <Route path="/pets" element={<Pets />} />
+                    <Route path="/search" element={<Search />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/about" element={<About />} />
+                    <Route
+                        path="/account"
+                        element={
+                            <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                <Profile onLogout={handleLogout} />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/me/update"
+                        element={
+                            <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                <UpdateProfile onLogout={handleLogout} />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/password/update"
+                        element={
+                            <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                <UpdatePassword />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/password/forgot"
+                        element={<ForgotPassword />}
+                    />
+                    <Route path="/password/reset" element={<ResetPassword />} />
+                    <Route
+                        path="/login"
+                        element={<LoginSignUp onLogin={handleLogin} />}
+                    />
+                    <Route path="/favorites" element={<FavoritesPets />} />
+                    <Route
+                        path="/process/donate"
+                        element={
+                            <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                <Donate />
+                            </ProtectedRoute>
+                        }
+                    />
 
-                <Route
-                    path="/application/confirm"
-                    element={
-                        <ProtectedRoute isAuthenticated={isAuthenticated}>
-                            <ConfirmApplication />
-                        </ProtectedRoute>
-                    }
-                />
-                <Route path="/nofavorites" element={<NoFavorites />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+                    <Route
+                        path="/application/confirm"
+                        element={
+                            <ProtectedRoute isAuthenticated={isAuthenticated}>
+                                <ConfirmApplication />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route path="/nofavorites" element={<NoFavorites />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </main>
             <Footer />
         </>
     );

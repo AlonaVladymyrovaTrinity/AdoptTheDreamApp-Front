@@ -5,13 +5,11 @@ import './Home.css';
 const Home = () => {
     return (
         <>
-            <main>
-                <div className="home_banner">
-                    <video src={redCat} autoPlay loop muted />
+            <div className="home_banner">
+                <video src={redCat} autoPlay loop muted />
 
-                    <div className="home_banner_content"></div>
-                </div>
-            </main>
+                <div className="home_banner_content"></div>
+            </div>
         </>
     );
 };
