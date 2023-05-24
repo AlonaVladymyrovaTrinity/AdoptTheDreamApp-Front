@@ -7,16 +7,16 @@
   align-items: center; /* Vertical centering */
 }
 .not-found-wrapper div {
-  background-color: rgb(248, 242, 242);
-  max-width: 600px;
-  border-radius: 15px;
-  padding: 15px 15px 15px 15px;
-  margin: 20px 5px 20px 20px;
+  background-color: #bebebe;
+  max-width: 37.5rem;
+  border-radius: 0.938rem;
+  padding: 0.938rem;
+  margin: 1.25rem 0.313rem 1.25rem 1.25rem;
 }
 .not-found-wrapper h2 {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   color: #000000;
 }
 .img-page-not-found {

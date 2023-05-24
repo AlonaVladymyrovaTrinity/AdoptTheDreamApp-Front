@@ -1,7 +1,7 @@
 import React from "react";
 
-const NoFavorites = () => {
-  return <h1>NoFavorites</h1>;
+const Donate = () => {
+  return <h1>Donate</h1>;
 };
 
-export default NoFavorites;
+export default Donate;
