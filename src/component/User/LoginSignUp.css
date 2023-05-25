@@ -15,6 +15,7 @@
   height: 30rem;
   box-sizing: border-box;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .login_signUp_toggle {

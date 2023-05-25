@@ -1,16 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { TbCat } from "react-icons/tb";
-import { TbDog } from "react-icons/tb";
-import { TbSearch } from "react-icons/tb";
+import { TbCat } from 'react-icons/tb';
+import { TbDog } from 'react-icons/tb';
+import { TbSearch } from 'react-icons/tb';
 // import { TbHeart } from "react-icons/tb";
-import "./Header.css";
+import './Header.css';
 
 const Header = () => {
   return (
     <>
-      <div className="header">
+      <div className="header_nav">
         <div className="header_wrap">
           <div className="logo_wrapper">
             <div className="logo">
