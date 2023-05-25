@@ -1,33 +1,78 @@
-body {
+/* body {
   background: rgb(248, 242, 242);
+} */
+header {
+  position: absolute;
+  /* position: fixed; */
+  width: auto;
+  justify-content: center;
+  top: 0;
 }
 .home_banner {
   position: relative;
-  z-index: 100;
+  /* z-index: 100; */
+  width: 100%;
+  height: 40rem;
+  margin-bottom: 2rem;
 }
 video {
   width: 100%;
   height: 40rem;
   object-fit: cover;
 }
-header {
+
+.home_banner_content {
   position: absolute;
-  width: auto;
+  width: 100%;
+  height: 40rem;
+  top: 0;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+  color: white;
+  padding-left: 4rem;
+}
+.cardsContainer {
+  margin-left: 6rem;
+  margin-top: 2rem;
 }
 
-/* .home_banner_content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  
+.homePage_txt {
+  text-align: center;
+  /* padding: 2rem 1rem; */
+  margin: 2rem;
+}
+
+.find_pet_button button {
+  background-color: var(--color-btn-tomato);
+  border: 2px solid rgb(206, 92, 72);
+  border-radius: 18px;
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 900px) {
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 600px) {
+  .homePage_main {
     display: flex;
-    
-    justify-content: center;
+    flex-direction: column;
+  }
+  .home_banner_content {
+    height: 5rem;
+    position: relative;
     align-items: center;
-    color: white;
-  } */
-/* .header {
-    position: absolute;
-    justify-content: first baseline;
-  } */
+  }
+  .home_banner_content h1 {
+    color: var(--color-txt);
+  }
+
+  video {
+    display: none;
+  }
+  .home_banner {
+    height: fit-content;
+  }
+}

@@ -1,17 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import redCat from '../../images/redCat.mp4';
 import './Home.css';
+import './Home.css';
+import Loader from '../layout/Loader/Loader';
+import PetCard from './PetCard';
+import NavigateButton from '../layout/NavigateButton';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 const Home = () => {
-    return (
-        <>
-            <div className="home_banner">
-                <video src={redCat} autoPlay loop muted />
+  const [loading, setLoading] = useState(true);
+  //loading simulation
+  setTimeout(() => {
+    setLoading(false);
+  }, 1000);
 
-                <div className="home_banner_content"></div>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="home_banner">
+        <div className="overlay"></div>
+        <video src={redCat} autoPlay loop muted />
+        <div className="home_banner_content">
+          <h1>WELCOME TO ADOPT PET</h1>
+          <div className="find_pet_button">
+            <NavigateButton
+              linkName={'/pets'}
+              children={'FIND YOUR FRIENDS'}
+              size="btn-lg"
+            />
+          </div>
+        </div>
+      </div>
+      <span className="homePage_txt">
+        <h3>CHOOSE YOUR PET</h3>
+      </span>
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="cardsContainer" fluid="md" id="container">
+          <Row xs={1} md={3} className="row-cols-auto g-col-4">
+            {Array.from({ length: 9 }).map((_, idx) => (
+              <Col className="mb-4" key={idx}>
+                <PetCard />
+              </Col>
+            ))}
+          </Row>
+        </div>
+      )}
+    </>
+  );
 };
 
 export default Home;
