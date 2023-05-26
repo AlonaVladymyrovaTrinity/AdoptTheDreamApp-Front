@@ -1,17 +1,17 @@
 import React from 'react';
 import redCat from '../../images/redCat.mp4';
-import './Home.css';
+import style from './Home.module.css';
 
 const Home = () => {
-    return (
-        <>
-            <div className="home_banner">
-                <video src={redCat} autoPlay loop muted />
+  return (
+    <>
+      <div className={style.home_banner}>
+        <video src={redCat} autoPlay loop muted />
 
-                <div className="home_banner_content"></div>
-            </div>
-        </>
-    );
+        <div className={style.home_banner_content}></div>
+      </div>
+    </>
+  );
 };
 
 export default Home;

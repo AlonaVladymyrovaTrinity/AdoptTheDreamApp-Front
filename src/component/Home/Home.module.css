@@ -1,6 +1,6 @@
-body {
+/* body {
   background: rgb(248, 242, 242);
-}
+} */
 .home_banner {
   position: relative;
   z-index: 100;
@@ -10,7 +10,7 @@ video {
   height: 40rem;
   object-fit: cover;
 }
-header {
+.home_header {
   position: absolute;
   width: auto;
   justify-content: center;
