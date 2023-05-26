@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
 //The NavigateButton lets us navigate to another screen in our app.
-const NavigateButton = ({ linkName, children, variant, size }) => {
+const NavigateButton = ({ linkName, children, className, variant, size }) => {
   // linkName is a destination name of the route
   //variant and size - style of bootstrap Button (variant:'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark', 'light', 'link'; size:'sm', 'lg')
   const navigate = useNavigate();
@@ -13,7 +13,12 @@ const NavigateButton = ({ linkName, children, variant, size }) => {
   return (
     <>
       <div className="mb-2">
-        <Button onClick={clickHandler} variant={variant} size={size}>
+        <Button
+          onClick={clickHandler}
+          className={className}
+          variant={variant}
+          size={size}
+        >
           {children}
         </Button>
       </div>
