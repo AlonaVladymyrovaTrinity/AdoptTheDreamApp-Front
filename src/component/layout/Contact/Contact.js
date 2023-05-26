@@ -1,41 +1,62 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import contactPage from '../../../images/contactPage.jpg';
 import './Contact.css';
-//import Container from 'react-bootstrap/Container';
-//import Row from 'react-bootstrap/Row';
-//import Col from 'react-bootstrap/Col';
+import { Card, ListGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPhoneSquare } from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelopeCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
-const Contact = () => {
-    return (
-        <div className="background-container">
-            <div
-                style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    height: '100vh',
-                }}
-            >
-                <div style={{ marginLeft: '10%' }}>
-                    <Card
-                        text="black"
-                        style={{ width: '30rem', height: '20rem' }}
-                        className="mb-2"
-                    >
-                        <Card.Header>Contact Us</Card.Header>
-                        <Card.Body>
-                            <Card.Title>Center-Left Card</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card
-                                title and make up the bulk of the card's
-                                content.
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </div>
-            </div>
-        </div>
-    );
-};
+const Contact = () => (
+    <div className="background-container">
+        <Card className="mb-2">
+            <Card.Header className="contact-card-header">Contact Us</Card.Header>
+            <Card.Body>
+                <Card.Text>
+                    We'd love to hear from you! If you have any questions, feedback, or
+                    inquiries, please don't hesitate to get in touch with us. Our team is
+                    here to assist you and provide the information you need.
+                </Card.Text>
+            </Card.Body>
+            <ListGroup className="contact-group-list">
+                <ListGroup.Item className="list-group-flush">
+                    <FontAwesomeIcon
+                        icon={faPhoneSquare}
+                        style={{
+                            color: '#f45c1a',
+                            width: '2rem',
+                            marginRight: '1rem',
+                        }}
+                        size="2xl"
+                    />
+                    111-25-45
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <FontAwesomeIcon
+                        icon={faLocationDot}
+                        style={{
+                            color: '#f45c1a',
+                            width: '2rem',
+                            marginRight: '1rem',
+                        }}
+                        size="2xl"
+                    />{' '}
+                    125 Main Street
+                </ListGroup.Item>
+                <ListGroup.Item>
+                    <FontAwesomeIcon
+                        icon={faEnvelopeCircleCheck}
+                        style={{
+                            color: '#f45c1a',
+                            width: '2rem',
+                            marginRight: '1rem',
+                        }}
+                        size="2xl"
+                    />{' '}
+                    petadopted@gmail.com
+                </ListGroup.Item>
+            </ListGroup>
+        </Card>
+    </div>
+);
 
 export default Contact;
