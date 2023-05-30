@@ -1,5 +1,5 @@
 import React from 'react';
-import './Contact.css';
+import styles from '../Contact/Contact.module.css';
 import { Card, ListGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhoneSquare } from '@fortawesome/free-solid-svg-icons';
@@ -7,9 +7,9 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelopeCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 const Contact = () => (
-    <div className="background-container">
-        <Card className="mb-2">
-            <Card.Header className="contact-card-header">Contact Us</Card.Header>
+    <div className={styles['background-container']}>
+        <Card className={styles['contact-card']}>
+            <Card.Header className={styles['contact-card-header']}>Contact Us</Card.Header>
             <Card.Body>
                 <Card.Text>
                     We'd love to hear from you! If you have any questions, feedback, or
@@ -17,8 +17,8 @@ const Contact = () => (
                     here to assist you and provide the information you need.
                 </Card.Text>
             </Card.Body>
-            <ListGroup className="contact-group-list">
-                <ListGroup.Item className="list-group-flush">
+            <ListGroup className={styles['contact-group-list']}>
+                <ListGroup.Item className={styles['list-group-flush']}>
                     <FontAwesomeIcon
                         icon={faPhoneSquare}
                         style={{
