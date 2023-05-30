@@ -13,11 +13,11 @@
 }
 .color-btn-tomato {
   background-color: var(--color-btn-tomato);
-  color: #fff;
+  color: var(--white-color);
 }
 .color-btn-tomato:hover {
   background-color: var(--color-btn-tomato);
-  color: #fff;
+  color: var(--white-color);
 }
 .bnt-shape {
   border-radius: 50%;

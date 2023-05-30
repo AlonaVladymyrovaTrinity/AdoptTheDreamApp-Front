@@ -1,4 +1,4 @@
-import React, { useState /*, { useEffect }*/ } from 'react';
+import React, { useState } from 'react';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ import {
   MDBCardImage,
   MDBTypography,
 } from 'mdb-react-ui-kit';
-import './Profile.css';
+import style from './Profile.module.css';
 
 const Profile = () => {
   //---server loading simulation---
@@ -48,16 +48,16 @@ const Profile = () => {
           // }}
           >
             {/* ---User Profile Container--- */}
-            <MDBContainer className="  profile-container">
+            <MDBContainer className={style['profile-container']}>
               {' '}
               <MDBRow className="justify-content-center align-items-center">
-                <MDBCol lg="9" className=" mb-lg-0">
+                <MDBCol lg="9" className="mb-lg-0">
                   <MDBCard style={{ borderRadius: '.5rem' }}>
                     <MDBRow className="g-0">
                       {/* Left side of the User Profile card */}
                       <MDBCol
                         md="4"
-                        className="gradient-custom text-center text-white"
+                        className={`${style['gradient-custom']} text-center text-white`}
                         style={{
                           borderRadius: '.5rem',
                         }}
@@ -80,7 +80,7 @@ const Profile = () => {
                         <NavigateButton
                           linkName="/me/update"
                           children
-                          className={'btn color-btn-tomato'}
+                          className={`btn ${style['color-btn-tomato']}`}
                           variant="btn-primary"
                           size="sm"
                         >
@@ -100,9 +100,7 @@ const Profile = () => {
                             <NavigateButton
                               linkName="/"
                               children
-                              className={
-                                'btn color-btn-tomato bnt-shape position-absolute top-0 end-0 mt-3 me-3'
-                              }
+                              className={`btn ${style['color-btn-tomato']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
                               variant="btn-primary"
                               size="btn-lg"
                             >
@@ -153,7 +151,7 @@ const Profile = () => {
                               <NavigateButton
                                 linkName="/password/update"
                                 children
-                                className={'btn color-btn-tomato'}
+                                className={`btn ${style['color-btn-tomato']}`}
                                 variant="btn-primary"
                                 size="btn-lg"
                               >
@@ -165,7 +163,7 @@ const Profile = () => {
                               <NavigateButton
                                 linkName="/favorites"
                                 children
-                                className={'btn color-btn-tomato'}
+                                className={`btn ${style['color-btn-tomato']}`}
                                 variant="btn-primary"
                                 size="btn-lg"
                               >
