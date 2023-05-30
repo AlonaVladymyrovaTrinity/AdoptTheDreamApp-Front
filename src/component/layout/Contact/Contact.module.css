@@ -1,0 +1,39 @@
+.background-container {
+    background-image: url("../../../images/contactPage.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.background-container > div {
+    margin-left: 2% !important;
+    margin-top: -15% !important;
+    position: absolute !important;
+    left: 0 !important;
+}
+
+.contact-card {
+    width: 20rem !important;
+    height: 25rem !important;
+}
+
+.contact-group-list {
+    border-radius: 0%;
+    --bs-list-group-bg: rgb(248, 242, 242);
+    --bs-list-group-border-width: 0px;
+}
+
+.contact-card-header {
+    background-color: rgb(248, 242, 242);
+    text-align: center;
+}
+
+.icon-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
