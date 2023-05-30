@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import redCat from '../../images/redCat.mp4';
-import './Home.css';
-import './Home.css';
+import style from './Home.module.css';
 import Loader from '../layout/Loader/Loader';
 import PetCard from './PetCard';
 import NavigateButton from '../layout/NavigateButton';
@@ -17,12 +16,12 @@ const Home = () => {
 
   return (
     <>
-      <div className="home_banner">
-        <div className="overlay"></div>
+      <div className={style.home_banner}>
+        <div className={style.overlay}></div>
         <video src={redCat} autoPlay loop muted />
-        <div className="home_banner_content">
+        <div className={style.home_banner_content}>
           <h1>WELCOME TO ADOPT PET</h1>
-          <div className="find_pet_button">
+          <div className={style.find_pet_button}>
             <NavigateButton
               linkName={'/pets'}
               children={'FIND YOUR FRIENDS'}
@@ -31,13 +30,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <span className="homePage_txt">
+      <span className={style.homePage_txt}>
         <h3>CHOOSE YOUR PET</h3>
       </span>
       {loading ? (
         <Loader />
       ) : (
-        <div className="cardsContainer" fluid="md" id="container">
+        <div className={style.cardsContainer} fluid="md" id="container">
           <Row xs={1} md={3} className="row-cols-auto g-col-4">
             {Array.from({ length: 9 }).map((_, idx) => (
               <Col className="mb-4" key={idx}>
