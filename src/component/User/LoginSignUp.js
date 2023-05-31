@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoginSignUp.css';
+import style from './LoginSignUp.module.css';
 import Loader from '../layout/Loader/Loader';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -89,31 +89,33 @@ const LoginSignUp = () => {
       {/* Conditional rendering based on loading state */}
       {loading ? (
         // Spinner styled component
-        <Loader className="small-spinner" />
+        <Loader className={style['small-spinner']} />
       ) : (
         <>
-          <div className="LoginSignUpContainer">
-            <div className="LoginSignUpBox">
+          <div className={style['LoginSignUpContainer']}>
+            <div className={style['LoginSignUpBox']}>
               <div>
                 {/* LOGIN/REGISTER toggle buttoons */}
-                <div className="login_signUp_toggle">
+                <div className={style['login_signUp_toggle']}>
                   <p onClick={() => switchTabs('login')}>LOGIN</p>
                   <p onClick={() => switchTabs('register')}>REGISTER</p>
                 </div>
                 <button
                   className={`${
-                    activeTab === 'login' ? 'shiftToNeutral' : 'shiftToRight'
+                    activeTab === 'login'
+                      ? `${style['shiftToNeutral']}`
+                      : `${style['shiftToRight']}`
                   }`}
                 ></button>
               </div>
               {/* LoginForm tab */}
               <form
-                className={`loginForm ${activeTab === 'login' ? '' : ''} ${
-                  activeTab === 'register' ? 'shiftToLeft' : ''
-                }`}
+                className={`${style.loginForm} ${
+                  activeTab === 'login' ? '' : ''
+                } ${activeTab === 'register' ? `${style.shiftToLeft}` : ''}`}
                 onSubmit={loginSubmit}
               >
-                <div className="loginEmail">
+                <div className={style['loginEmail']}>
                   {/* InputWithIcon Component for LoginForm field Email: input element with icon. */}
                   <InputWithIcon
                     type={'email'}
@@ -125,7 +127,7 @@ const LoginSignUp = () => {
                     <FontAwesomeIcon icon={faEnvelope} />
                   </InputWithIcon>
                 </div>
-                <div className="loginPassword">
+                <div className={style['loginPassword']}>
                   {/* InputWithIcon Component for LoginForm field Password: input element with icon. */}
                   <InputWithIcon
                     type={'password'}
@@ -139,17 +141,23 @@ const LoginSignUp = () => {
                 </div>
                 <Link to="/password/forgot">Forget Password ?</Link>
                 {/* LoginForm submition button */}
-                <input type="submit" value="Login" className="loginBtn" />
+                <input
+                  type="submit"
+                  value="Login"
+                  className={style['loginBtn']}
+                />
               </form>
               {/* SignUpForm tab */}
               <form
-                className={`signUpForm ${activeTab === 'login' ? '' : ''} ${
-                  activeTab === 'register' ? 'shiftToNeutralForm' : ''
+                className={`${style.signUpForm} ${
+                  activeTab === 'login' ? '' : ''
+                } ${
+                  activeTab === 'register' ? `${style.shiftToNeutralForm}` : ''
                 }`}
                 encType="multipart/form-data" //this attribute is necessary for file uploads
                 onSubmit={registerSubmit}
               >
-                <div className="signUpName">
+                <div className={style.signUpName}>
                   {/* InputWithIcon Component for SignUpForm field Name: input element with icon. */}
                   <InputWithIcon
                     type={'text'}
@@ -163,7 +171,7 @@ const LoginSignUp = () => {
                     <FontAwesomeIcon icon={faUser} />
                   </InputWithIcon>
                 </div>
-                <div className="signUpEmail">
+                <div className={style.signUpEmail}>
                   {/* InputWithIcon Component for SignUpForm field Email: input element with icon. */}
                   <InputWithIcon
                     type={'email'}
@@ -177,7 +185,7 @@ const LoginSignUp = () => {
                     <FontAwesomeIcon icon={faEnvelope} />
                   </InputWithIcon>
                 </div>
-                <div className="signUpPassword">
+                <div className={style.signUpPassword}>
                   {/* InputWithIcon Component for SignUpForm field Password: input element with icon. */}
                   <InputWithIcon
                     type={'password'}
@@ -191,7 +199,7 @@ const LoginSignUp = () => {
                     <FontAwesomeIcon icon={faUnlockKeyhole} />
                   </InputWithIcon>
                 </div>
-                <div className="registerImage">
+                <div className={style.registerImage}>
                   {/* Avatar Previe image */}
                   <img src={avatarPreview} alt="Avatar Preview" />
                   {/* Add avatar button */}
@@ -203,7 +211,11 @@ const LoginSignUp = () => {
                   />
                 </div>
                 {/* SignUpForm submition button */}
-                <input type="submit" value="Register" className="signUpBtn" />
+                <input
+                  type="submit"
+                  value="Register"
+                  className={style.signUpBtn}
+                />
               </form>
             </div>
           </div>
