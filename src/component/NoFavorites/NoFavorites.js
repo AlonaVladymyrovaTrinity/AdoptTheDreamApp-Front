@@ -5,33 +5,22 @@ import NavigateButton from '../layout/NavigateButton/NavigateButton';
 
 const NoFavorites = () => {
   return (
-    <>
-      <div>
-        <h1 className={style['header']}>You don't have favorites pet yet!</h1>
-      </div>
-      <div className={style['no-favorite-page__container']}>
-        <div className={style['no-favorite-wrapper']}>
-          <div>
-            <img
-              className={style['img-page-no-favorite']}
-              src={imgNoPets}
-              alt="no-favorite"
-            />
-          </div>
+    <div className={style.container}>
+      <h1 className={style.header}>You don't have favorite pets yet!</h1>
+      <div className={style.imageWrapper}>
+        <img className={style.image} src={imgNoPets} alt="no-favorite" />
+        <div className={style.buttonWrapper}>
+          <NavigateButton
+            linkName={'/pets'}
+            size="btn-lg"
+            variant="btn-primary"
+            className={style.button}
+          >
+            View Pets
+          </NavigateButton>
         </div>
       </div>
-
-        {/* <div className={style['no-favorites-pets-button']}> */}
-            <NavigateButton
-              linkName={'/pets'}
-              children
-              size="btn-lg"
-              variant="btn-primary"
-              className={`btn ${style['no-favorites-pets-button']} position-absolute top-0 end-0 mt-3 me-3`}
-            ><span>View Pets</span></NavigateButton>
-        {/* </div> */}
-    </>
+    </div>
   );
 };
-
 export default NoFavorites;
