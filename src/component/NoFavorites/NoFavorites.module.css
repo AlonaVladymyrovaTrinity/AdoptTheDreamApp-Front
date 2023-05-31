@@ -1,3 +1,6 @@
+main {
+  background-color: var(--color-background);
+}
 .container {
   display: flex;
   flex-direction: column;
@@ -6,28 +9,31 @@
 }
 
 .header {
-  font-size: 1,5rem;
-  margin-bottom: 1,5rem;
+  font-size: 0,5,rem;
+  margin-bottom: 1,rem;
+  color: var( --color-txt);
+  margin-top: 3rem;
 }
 
 .imageWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 }
 
 .image {
-  width: 19rem;
-  height: 19rem;
-  margin-bottom: 20px
+  width: 24rem;
+  height: 24rem;
+  margin-bottom: 50px
 }
 
 .button {
-  background-color: var(--color-btn);
-  border: 3px solid var(--color-btn-border);
-  border-radius: 20px;
+  background-color: #f0463a;
+  border: 3px solid var(--color-header-footer); 
+  border-radius: 18px;
   font-size: 18px;
-  padding: 10px 20px;
+  padding: 5px 20px;
 }
 
 
