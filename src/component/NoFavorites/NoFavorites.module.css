@@ -32,3 +32,8 @@
   object-fit: cover;
 }
 
+.no-favorites-pets-button {
+  background-color: var(--color-btn);
+  border: 3px solid var(--color-btn-border);
+  border-radius: 18px;
+}
