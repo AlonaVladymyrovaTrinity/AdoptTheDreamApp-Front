@@ -9,6 +9,22 @@
   --color-txt: #2d3748;
   --color-btn-tomato: tomato;
   --color-btn-border: rgba(189, 56, 29, 0.976);
+  --white-color: #fff;
+}
+
+:root {
+  /* Colors */
+  --color-background: #FFF4EC;
+  --color-txt: #45312E;
+  --color-btn: #F27D88;
+  --color-btn-hover: #fa9da6;
+  --color-action-btn: #ff3264;
+  --color-action-btn-hover: #ff668c;
+  --color-header-footer: #FF9671;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-beige: #F3DEDB;
+
 }
 
 main {

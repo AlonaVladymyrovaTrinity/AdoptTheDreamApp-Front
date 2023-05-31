@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import BackButtonSvg from "../../../images/arrow-back.svg";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import BackButtonSvg from '../../../images/arrow-back.svg';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const BackButtonWrapper = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const BackLink = styled(Link)`
   font-weight: bold;
 
   &.link-color {
-    color: #39191e;
+    color: #000;
   }
 `;
 // This is functional styled 'StyledBackButton' component that renders a styled back button
