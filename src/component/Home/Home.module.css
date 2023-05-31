@@ -61,7 +61,7 @@ video {
     padding-left: 0;
   }
   .home_banner_content h1 {
-    color: var(--color-white);
+    color: var(--color-txt);
   }
 
   video {
