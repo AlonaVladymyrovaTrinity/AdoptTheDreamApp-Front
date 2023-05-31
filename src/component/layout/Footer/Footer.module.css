@@ -1,21 +1,29 @@
+.footer-color {
+  background-color: var(--color-header-footer);
+}
 .footer {
-    height: 4rem;
+  height: 4rem;
 }
 
 .footer-links {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
 }
 
 .footer-link a {
-    color: #000000;
-    text-decoration: none;
+  color: var(--color-txt);
+  text-decoration: none;
+}
+
+.footer-link a:hover {
+  color: var(--color-grey);
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .footer-copyright-text {
-    color: rgb(110, 108, 108);
+  color: var(--color-grey);
 }

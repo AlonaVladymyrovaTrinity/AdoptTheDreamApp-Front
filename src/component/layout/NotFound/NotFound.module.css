@@ -1,33 +1,37 @@
-.header {
-  color: #000000;
+.not-found-body {
+  background-color: var(--color-background);
 }
-
-.not-found-page__container {
+.not-found-header {
+  color: var(--color-txt);
   display: flex;
   justify-content: center;
+}
+
+.not-found-page-container {
+  display: flex;
   /* Horizontal centering */
-  align-items: center;
+  justify-content: center;
   /* Vertical centering */
+  align-items: center;
 }
 
 .not-found-wrapper div {
-  background-color: #bebebe;
+  background-color: var(--color-beige);
   max-width: 37.5rem;
   border-radius: 0.938rem;
   padding: 0.938rem;
-  margin: 1.25rem 0.313rem 1.25rem 1.25rem;
+  margin: 1.25rem;
 }
 
 .not-found-wrapper h2 {
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.625rem;
-  color: #000000;
+  color: var(--color-txt);
 }
 
 .img-page-not-found {
   width: 100%;
-  /* Adjust the width percentage to your desired size */
   height: auto;
   object-fit: cover;
 }

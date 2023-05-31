@@ -19,6 +19,8 @@ import NotFound from './component/layout/NotFound/NotFound';
 import Footer from './component/layout/Footer/Footer';
 import NoFavorites from './component/NoFavorites/NoFavorites';
 import Donate from './component/Donate/Donate';
+import OurTeam from './component/layout/OurTeam/OurTeam';
+import style from './App.module.css';
 
 function ProtectedRoute({ isAuthenticated, children }) {
   if (!isAuthenticated) {
@@ -43,7 +45,7 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className={style['app-body']}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pet/:id" element={<PetDetails />} />
@@ -100,6 +102,7 @@ function App() {
             }
           />
           <Route path="/nofavorites" element={<NoFavorites />} />
+          <Route path="/team" element={<OurTeam />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

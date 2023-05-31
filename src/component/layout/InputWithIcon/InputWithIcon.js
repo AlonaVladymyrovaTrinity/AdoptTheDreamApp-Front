@@ -17,7 +17,7 @@ const InputWithIcon = ({
       {children}
       {/* Input element which is configured as a “controlled component” with attributes such as “value”, “onChange” and others */}
       <input
-        className={style['input-with-ico']}
+        className={`${style['input-with-ico']} form-control`}
         type={type}
         placeholder={placeholder}
         value={value}
