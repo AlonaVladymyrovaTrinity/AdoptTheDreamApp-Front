@@ -1,5 +1,5 @@
 import React from 'react';
-import './InputWithIcon.css';
+import style from './InputWithIcon.module.css';
 import PropTypes from 'prop-types';
 // Functional React component named InputWithIcon with props
 const InputWithIcon = ({
@@ -17,6 +17,7 @@ const InputWithIcon = ({
       {children}
       {/* Input element which is configured as a “controlled component” with attributes such as “value”, “onChange” and others */}
       <input
+        className={style['input-with-ico']}
         type={type}
         placeholder={placeholder}
         value={value}

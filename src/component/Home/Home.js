@@ -3,7 +3,7 @@ import redCat from '../../images/redCat.mp4';
 import style from './Home.module.css';
 import Loader from '../layout/Loader/Loader';
 import PetCard from './PetCard';
-import NavigateButton from '../layout/NavigateButton';
+import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
