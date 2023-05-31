@@ -5,11 +5,16 @@
 }
 :root {
   /* Colors */
-  --color-background: #f7f2f2;
-  --color-txt: #2d3748;
-  --color-btn-tomato: tomato;
-  --color-btn-border: rgba(189, 56, 29, 0.976);
-  --white-color: #fff;
+  --color-background: #fff4ec;
+  --color-txt: #45312e;
+  --color-btn: #f27d88;
+  --color-btn-hover: #fa9da6;
+  --color-action-btn: #ff3264;
+  --color-action-btn-hover: #ff668c;
+  --color-header-footer: #ff9671;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-beige: #f3dedb;
 }
 
 main {
