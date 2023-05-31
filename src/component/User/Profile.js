@@ -80,7 +80,7 @@ const Profile = () => {
                         <NavigateButton
                           linkName="/me/update"
                           children
-                          className={`btn ${style['color-btn-tomato']}`}
+                          className={`btn ${style['color-btn-edit-prof']}`}
                           variant="btn-primary"
                           size="sm"
                         >
@@ -100,7 +100,7 @@ const Profile = () => {
                             <NavigateButton
                               linkName="/"
                               children
-                              className={`btn ${style['color-btn-tomato']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
+                              className={`btn ${style['color-btn']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
                               variant="btn-primary"
                               size="btn-lg"
                             >
@@ -151,7 +151,7 @@ const Profile = () => {
                               <NavigateButton
                                 linkName="/password/update"
                                 children
-                                className={`btn ${style['color-btn-tomato']}`}
+                                className={`btn ${style['color-btn']}`}
                                 variant="btn-primary"
                                 size="btn-lg"
                               >
@@ -163,7 +163,7 @@ const Profile = () => {
                               <NavigateButton
                                 linkName="/favorites"
                                 children
-                                className={`btn ${style['color-btn-tomato']}`}
+                                className={`btn ${style['color-btn']}`}
                                 variant="btn-primary"
                                 size="btn-lg"
                               >

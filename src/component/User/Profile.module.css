@@ -1,23 +1,35 @@
 .gradient-custom {
-  background: #f6d365;
-  background: -webkit-linear-gradient(
-    to right bottom,
-    rgba(246, 211, 101, 1),
-    rgba(253, 160, 133, 1)
-  );
-  background: linear-gradient(
-    to right bottom,
-    rgba(246, 211, 101, 1),
-    rgba(253, 160, 133, 1)
+  background-image: linear-gradient(
+    to left top,
+    #ff3264,
+    #fd466b,
+    #fb5571,
+    #f96278,
+    #f66e7f,
+    #f67c87,
+    #f68a90,
+    #f59799,
+    #f6a9a7,
+    #f6bbb7,
+    #f5cdc8,
+    #f3dedb
   );
 }
-.color-btn-tomato {
-  background-color: var(--color-btn-tomato);
-  color: var(--white-color);
+.color-btn-edit-prof {
+  background-color: var(--color-white);
+  color: var(--color-action-btn);
 }
-.color-btn-tomato:hover {
-  background-color: var(--color-btn-tomato);
-  color: var(--white-color);
+.color-btn-edit-prof:hover {
+  background-color: var(--color-white);
+  color: var(--color-action-btn-hover);
+}
+.color-btn {
+  background-color: var(--color-btn);
+  color: var(--color-white);
+}
+.color-btn:hover {
+  background-color: var(--color-btn-hover);
+  color: var(--color-white);
 }
 .bnt-shape {
   border-radius: 50%;

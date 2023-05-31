@@ -20,7 +20,7 @@ const PetCard = () => {
             src={whiteCat}
             alt="white cat"
           />
-          <Card.Body>
+          <Card.Body style={{ color: 'var(--color-txt)' }}>
             <Card.Title>Card title</Card.Title>
             <Card.Text>
               This is a longer card with supporting text below as a natural

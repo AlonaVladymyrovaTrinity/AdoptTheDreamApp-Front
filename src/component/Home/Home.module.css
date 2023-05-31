@@ -28,9 +28,9 @@ video {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  color: white;
+  color: var(--color-white);
   padding-left: 4rem;
-  background-color: transparent;
+  background-color: var(--color-transparent);
 }
 .cardsContainer {
   margin-left: 6rem;
@@ -40,10 +40,11 @@ video {
 .homePage_txt {
   text-align: center;
   margin: 2rem;
+  color: var(--color-txt);
 }
 .find_pet_button button {
-  background-color: var(--color-btn-tomato);
-  border: 3px solid var(--color-btn-border);
+  background-color: var(--color-action-btn);
+  border: none;
   border-radius: 18px;
 }
 
@@ -53,10 +54,6 @@ video {
 
 /* Responsive Design Mobile */
 @media screen and (max-width: 600px) {
-  /* .homePage_main {
-    background-color: red;
-    width: 100%;
-  } */
   .home_banner_content {
     height: 5rem;
     position: relative;
@@ -64,7 +61,7 @@ video {
     padding-left: 0;
   }
   .home_banner_content h1 {
-    color: var(--color-txt);
+    color: var(--color-white);
   }
 
   video {
