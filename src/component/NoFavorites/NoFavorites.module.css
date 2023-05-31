@@ -1,0 +1,34 @@
+.header {
+  color: #000000;
+}
+
+.no-favorite-page__container {
+  display: flex;
+  justify-content: center;
+  /* Horizontal centering */
+  align-items: center;
+  /* Vertical centering */
+}
+
+.no-favorite-wrapper div {
+  background-color: #bebebe;
+  max-width: 37.5rem;
+  border-radius: 0.938rem;
+  padding: 0.938rem;
+  margin: 1.25rem 0.313rem 1.25rem 1.25rem;
+}
+
+.no-favorite-wrapper h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+  color: #000000;
+}
+
+.img-page-no-favorite {
+  width: 100%;
+  /* Adjust the width percentage to your desired size */
+  height: auto;
+  object-fit: cover;
+}
+
