@@ -1,3 +1,8 @@
+.pets_container {
+  background-color: var(--color-background);
+  color: var(--color-txt);
+  position: relative;
+}
 .home_header {
   position: absolute;
   /* position: fixed; */
@@ -30,17 +35,7 @@ video {
   align-items: flex-start;
   color: var(--color-white);
   padding-left: 4rem;
-  background-color: var(--color-transparent);
-}
-.cardsContainer {
-  margin-left: 6rem;
-  margin-top: 2rem;
-}
-
-.homePage_txt {
-  text-align: center;
-  margin: 2rem;
-  color: var(--color-txt);
+  background-color: transparent;
 }
 .find_pet_button button {
   background-color: var(--color-action-btn);
@@ -51,27 +46,26 @@ video {
 .find_pet_button button:hover {
   background-color: var(--color-action-btn-hover);
 }
+.homePage_txt {
+  text-align: center;
+  margin: 2rem;
+}
+.cardsContainerWithSelect {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.cardsContainer {
+  margin-left: 2rem;
+}
 
 /* Responsive Design Mobile */
 @media screen and (max-width: 900px) {
+  /* .cardsContainer {
+        --breakpoint-grid_columns: 2;
+      } */
 }
 
 /* Responsive Design Mobile */
 @media screen and (max-width: 600px) {
-  .home_banner_content {
-    height: 5rem;
-    position: relative;
-    align-items: center;
-    padding-left: 0;
-  }
-  .home_banner_content h1 {
-    color: var(--color-txt);
-  }
-
-  video {
-    display: none;
-  }
-  .home_banner {
-    height: fit-content;
-  }
 }

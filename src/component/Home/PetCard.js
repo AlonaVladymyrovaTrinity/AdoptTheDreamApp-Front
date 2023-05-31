@@ -1,34 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import whiteCat from '../../images/whiteCat.jpg';
 import { Link } from 'react-router-dom';
+import FavoriteCheckbox from '../layout/FavoriteCheckbox/FavoriteCheckbox';
 
 const PetCard = () => {
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <div className="petCard">
       <Card
-        className="border-1 shadow p-3 m-5 bg-body rounded"
+        className="border-0 p-3 bg-transparent rounded relative"
         style={{ width: '20rem' }}
       >
-        <Link
-          className="card-block stretched-link text-decoration-none"
-          to="/pet/cat`"
-        >
-          <Card.Img
-            variant="top"
-            style={{ width: '100%', height: '18rem', objectFit: 'cover' }}
-            src={whiteCat}
-            alt="white cat"
-          />
-          <Card.Body style={{ color: 'var(--color-txt)' }}>
-            <Card.Title>Card title</Card.Title>
-            <Card.Text>
-              This is a longer card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
-          </Card.Body>
-        </Link>
+        <div className="link_and_checkbox">
+          <div className="position-absolute top-0 end-0 mt-4 me-4">
+            <FavoriteCheckbox
+              isChecked={isChecked}
+              setIsChecked={setIsChecked}
+            />
+          </div>
+
+          <Link
+            className="card-block stretched-link text-decoration-none"
+            to="/pet/cat`"
+          >
+            <Card.Img
+              className="border-0 rounded"
+              variant="top"
+              style={{ width: '100%', height: '18rem', objectFit: 'cover' }}
+              src={whiteCat}
+              alt="white cat"
+            />
+            <Card.Body style={{ color: 'var(--color-txt)' }}>
+              <Card.Title>Name</Card.Title>
+              <Card.Text>Gender Age Color Breed</Card.Text>
+            </Card.Body>
+          </Link>
+        </div>
       </Card>
     </div>
   );
