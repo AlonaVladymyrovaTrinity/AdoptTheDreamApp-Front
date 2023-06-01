@@ -1,0 +1,9 @@
+{
+  "prettier.vueIndentScriptAndStyle": true,
+  "editor.tabSize": 2,
+  "auto-close-tag.insertSpaceBeforeSelfClosingTag": true,
+  "extensions.supportVirtualWorkspaces": {
+  
+    "pub.name": false
+  }
+}
