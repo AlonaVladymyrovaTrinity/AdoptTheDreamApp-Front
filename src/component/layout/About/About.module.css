@@ -1,36 +1,37 @@
-img {
-    width: 30rem;
-    height: 40rem;
+.about-img {
+  width: 30rem;
+  height: 40rem;
 }
 
-h1 {
-    text-align: center;
-    font-size: 3em;
+.about-page h1 {
+  text-align: center;
+  font-size: 3em;
 }
 
 .about-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-txt);
 }
 
 .about-page-text {
-    margin-left: 1rem;
-    margin-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .about-page-text p {
-    display: flex;
-    font-size: 1.2rem;
-    text-align: justify;
+  display: flex;
+  font-size: 1.2rem;
+  text-align: justify;
 }
 
 .about-page-text p:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .about-page-text img {
-    float: right;
-    margin-left: 1rem;
+  float: right;
+  margin-left: 1rem;
 }

@@ -9,24 +9,24 @@ const BackButtonWrapper = styled.div`
   align-items: center;
   text-decoration: none;
   justify-content: left;
-  margin: 10px 0 0 15px;
+  margin: 0.625rem 0 0 0;
 `;
 const GoBackImg = styled.img`
   align-items: center;
-  width: 35px;
-  height: 40px;
-  font-size: 10px;
+  width: 2.188rem;
+  height: 2.5rem;
+  font-size: 0.625rem;
   font-weight: none;
   text-transform: none;
 `;
 const BackLink = styled(Link)`
   text-decoration: none;
-  color: #ffffff;
+  color: var(--color-white);
   font-size: 1rem;
   font-weight: bold;
 
   &.link-color {
-    color: #000;
+    color: var(--color-black);
   }
 `;
 // This is functional styled 'StyledBackButton' component that renders a styled back button

@@ -141,11 +141,9 @@ const LoginSignUp = () => {
                 </div>
                 <Link to="/password/forgot">Forget Password ?</Link>
                 {/* LoginForm submition button */}
-                <input
-                  type="submit"
-                  value="Login"
-                  className={style['loginBtn']}
-                />
+                <button className={`btn ${style.loginBtn}`} type="submit">
+                  Login
+                </button>
               </form>
               {/* SignUpForm tab */}
               <form
@@ -211,11 +209,9 @@ const LoginSignUp = () => {
                   />
                 </div>
                 {/* SignUpForm submition button */}
-                <input
-                  type="submit"
-                  value="Register"
-                  className={style.signUpBtn}
-                />
+                <button className={`btn ${style.signUpBtn}`} type="submit">
+                  Register
+                </button>
               </form>
             </div>
           </div>

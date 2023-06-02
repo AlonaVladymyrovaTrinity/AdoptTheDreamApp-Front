@@ -1,15 +1,14 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import style from './Footer.module.css';
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className={style['footer-color']}>
       <Container fluid>
-        <Row
-          className={`${style.footer} ${style['align-items-center']} ${style['border-top']}`}
-        >
-          <Col xs="12" lg="6" className={style['footer-copyright']}>
+        <Row className={`${style.footer} align-items-center border-top`}>
+          <Col xs="12" lg="6" className="footer-copyright">
             <span className={style['footer-copyright-text']}>
               &copy; {new Date().getFullYear()} All Rights Reserved
             </span>
@@ -17,13 +16,13 @@ const Footer = () => {
           <Col xs="12" lg="6">
             <ul className={style['footer-links']}>
               <li className={style['footer-link']}>
-                <a href="/about">About</a>
+                <Link to="/about">About</Link>
               </li>
               <li className={style['footer-link']}>
-                <a href="/team">Our Team</a>
+                <Link to="/team">Our Team</Link>
               </li>
               <li className={style['footer-link']}>
-                <a href="/contact">Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </Col>
