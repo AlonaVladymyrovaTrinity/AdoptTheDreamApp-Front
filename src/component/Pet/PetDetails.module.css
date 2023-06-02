@@ -1,0 +1,8 @@
+.favorite-button {
+  background-color: var(--color-btn);
+  color: var(--color-white);
+}
+
+.favorite {
+  background-color: var(--color-btn) ;
+}
