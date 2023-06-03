@@ -8,22 +8,15 @@ import { faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import ProfileImg from '../../images/Profile.png';
 import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
+import { login, register } from '../../actions/userAction';
+import { useNavigate } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 
 const LoginSignUp = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('login');
-  //This function switch tabs: login/register
-  //depending on LOGIN/REGISTER toggle buttoons
-  const switchTabs = (tab) => {
-    setActiveTab(tab);
-  };
-
-  //---server loading simulation---
-  const [loading, setLoading] = useState(true);
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-  //--------------------------------
-
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
 
@@ -33,36 +26,58 @@ const LoginSignUp = () => {
     password: '',
   });
 
+  //---server loading simulation---
+  const [loading, setLoading] = useState(false);
+  // setTimeout(() => {
+  //   setLoading(loading);
+  // }, 1000);
+  //--------------------------------
+
+  //This function switch tabs: login/register
+  //depending on LOGIN/REGISTER toggle buttoons
+  const switchTabs = (tab) => {
+    setActiveTab(tab);
+  };
   const { name, email, password } = user;
 
   const [avatar, setAvatar] = useState(ProfileImg);
   const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
 
-  //The loginSubmit function handles the form submission by preventing the default form submission behavior
-  // and logging the login email and password to the console for temporary debugging purposes.
+  // This code defines a function that prevents the default form submission behavior, calls a login function with email, password,
+  // and a loading state updater, and then redirects the user to the '/account' page.
   const loginSubmit = (e) => {
     e.preventDefault();
-    //---temporary console output of Login Submit form. This data will be passed to beknd later---
-    console.log(loginEmail, loginPassword);
-    //-------------------------
+    setLoading(loading);
+
+    login(
+      loginEmail,
+      loginPassword,
+      setLoading,
+      setErrorMessage,
+      setSuccessMessage
+    );
+    setLoading(loading);
+    // Redirect to /account
+    navigate('/account');
   };
 
-  //The registerSubmit function handles the form submission by preventing the default form submission behavior,
-  //creating a new FormData object with form data, and logging the form data to the console for temporary debugging purposes.
+  // The registerSubmit function prevents the default form submission behavior, creates a new FormData
+  // object with user input values, and invokes the register function with the form data, loading state
+  // updater, error message state updater, and success message state updater as arguments.
   const registerSubmit = (e) => {
     e.preventDefault();
-
     const myForm = new FormData();
     myForm.set('name', name);
     myForm.set('email', email);
     myForm.set('password', password);
     myForm.set('avatar', avatar);
     //---temporary console output of Register Submit form. This data will be passed to beknd later---
-    console.log('Form Data');
-    for (let obj of myForm) {
-      console.log(obj);
-    }
+    // console.log('Form Data');
+    // for (let obj of myForm) {
+    //   console.log(obj);
+    // }
     //-------------------------
+    register(myForm, setLoading, setErrorMessage, setSuccessMessage);
   };
 
   //This function handles data changes in an input form, updating the avatar-related state if triggered by an avatar input field,
@@ -92,6 +107,25 @@ const LoginSignUp = () => {
         <Loader className={style['small-spinner']} />
       ) : (
         <>
+          {successMessage && (
+            <Alert
+              variant="success"
+              onClose={() => setSuccessMessage('')}
+              dismissible
+            >
+              {successMessage}
+            </Alert>
+          )}
+          {errorMessage && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorMessage('')}
+              dismissible
+            >
+              {errorMessage}
+            </Alert>
+          )}
+          {/* {errorMessage && <Alert variant="danger">{errorMessage}</Alert>} */}
           <div className={style['LoginSignUpContainer']}>
             <div className={style['LoginSignUpBox']}>
               <div>
