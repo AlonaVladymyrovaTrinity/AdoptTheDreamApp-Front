@@ -10,7 +10,7 @@ const PetCard = () => {
   return (
     <div className="petCard">
       <Card
-        className="border-0 p-3 bg-transparent rounded relative"
+        className="border-0 bg-transparent rounded relative"
         style={{ width: '20rem' }}
       >
         <div className="link_and_checkbox">

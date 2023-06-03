@@ -30,22 +30,10 @@ function Header() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto gap-5">
-            <Nav.Link
-              className={style.navLinkHeader}
-              // onClick={() => handleActive('/')}
-              // active
-              // aria-current="page"
-              href="/"
-              // style={{ color: id === '/' ? 'var(--color-white)' : '' }}
-            >
+            <Nav.Link className={style.navLinkHeader} href="/">
               Home
             </Nav.Link>
-            <Nav.Link
-              className={style.navLinkHeader}
-              // onClick={() => handleActive('pets')}
-              href="/pets"
-              // style={{ color: id === 'pets' ? 'var(--color-white)' : '' }}
-            >
+            <Nav.Link className={style.navLinkHeader} href="/pets">
               Pets
             </Nav.Link>
             <Nav.Link className={style.navLinkHeader} href="/process/donate">
@@ -76,7 +64,6 @@ function Header() {
               <Button
                 className={style.searchButton}
                 outline
-                // color="var(--color-black)"
                 variant="outline-default"
                 style={{
                   border: 2,
