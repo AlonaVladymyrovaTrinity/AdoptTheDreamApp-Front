@@ -1,3 +1,13 @@
+/* Google Fonts - Poppins */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -23,4 +33,43 @@
 
 main {
   flex: 1;
+}
+
+/*The CSS class "sr-only" is used to hide element visually from
+sighted users while still making them accessible to assistive
+technologies such as screen readers (SR), making website more 
+inclusive for all users. That's why the name of the class is 
+"sr-only", which means "for Screen Readers only". 
+*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+html {
+  font-size: 100%;
+}
+
+/* Responsive Design Tablet */
+
+@media screen and (max-width: 991px) {
+  html {
+    /*width < 900?*/
+    font-size: 80%;
+  }
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 600px) {
+  html {
+    /*600px*/
+    font-size: 60%;
+  }
 }

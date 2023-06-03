@@ -26,9 +26,13 @@ const PetCard = () => {
             to="/pet/cat`"
           >
             <Card.Img
-              className="border-0 rounded"
               variant="top"
-              style={{ width: '100%', height: '18rem', objectFit: 'cover' }}
+              style={{
+                width: '100%',
+                height: '18rem',
+                objectFit: 'cover',
+                borderRadius: '20px',
+              }}
               src={whiteCat}
               alt="white cat"
             />
