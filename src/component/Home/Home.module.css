@@ -59,12 +59,14 @@ video {
   background-color: var(--color-action-btn-hover);
 }
 
-/* Responsive Design Mobile */
-@media screen and (max-width: 900px) {
+/* Responsive Design Tablet */
+@media screen and (max-width: 61.94em) {
+  /*991px*/
 }
 
 /* Responsive Design Mobile */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 37.5em) {
+  /*600px*/
   .home_banner_content {
     height: 5rem;
     position: relative;
