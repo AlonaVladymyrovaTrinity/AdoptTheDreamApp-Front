@@ -38,7 +38,7 @@ const Pets = () => {
           <h3>CHOOSE YOUR PET</h3>
         </span>
         {loading ? (
-          <Loader />
+          <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
             <div className={style.selectBox}>
