@@ -5,13 +5,12 @@ import Cookies from 'js-cookie';
 export const login = async (
   email,
   password,
-  setLoading,
   setErrorMessage,
-  setSuccessMessage
+  setSuccessMessage,
+  dispatch
 ) => {
+  dispatch({ type: 'LOGIN_REQUEST' });
   try {
-    setLoading(true);
-
     const res = await axios.post(
       '/api/v1/login',
       { email, password },
@@ -21,42 +20,42 @@ export const login = async (
         },
       }
     );
+    dispatch({ type: 'LOGIN_SUCCESS' });
     console.log(res); // Loging the response for testing purposes
-    setSuccessMessage('User successfully created.');
+    setSuccessMessage('User successfully logged in.');
     // Store token in cookie
     Cookies.set('token', res.token);
-    setLoading(false);
   } catch (error) {
-    // Error handling will be here: showing an error message
+    dispatch({ type: 'LOGIN_FAILURE' });
+    // Error handling: showing an error message
     console.error('Error:', error);
     setErrorMessage('An error occurred during login. Please try again.');
-    setLoading(false);
   } finally {
-    setLoading(false);
   }
 };
 
 // Register
 export const register = async (
   userData,
-  setLoading,
   setErrorMessage,
-  setSuccessMessage
+  setSuccessMessage,
+  dispatch
 ) => {
+  dispatch({ type: 'REGISTER_USER_REQUEST' });
   try {
-    setLoading(true);
     const res = await axios.post('/api/v1/register', userData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    // console.log(res);
-    console.log(res.statusText);
-    setSuccessMessage('User successfully created.');
+    dispatch({ type: 'REGISTER_USER_SUCCESS' });
+    console.log(res); // Loging the response for testing purposes
+    console.log(res.statusText); // Loging the statusText response for testing purposes
+    setSuccessMessage('User account successfully created. You can login now');
     // Store token in cookie
     Cookies.set('token', res.token);
-    setLoading(false);
   } catch (error) {
+    dispatch({ type: 'REGISTER_USER_FAIL' });
     // Error handling: showing an error message
     console.error('Error:', error);
     if (error.response && error.response.data && error.response.data.msg) {
@@ -66,8 +65,6 @@ export const register = async (
       );
       console.log(error.response.data.msg);
     }
-    setLoading(false);
   } finally {
-    setLoading(false);
   }
 };

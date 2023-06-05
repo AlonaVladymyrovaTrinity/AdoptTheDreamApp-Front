@@ -18,6 +18,10 @@ import {
 import style from './Profile.module.css';
 
 const Profile = () => {
+  // const handleLogout = () => {
+  //   dispatch({ type: 'LOGOUT' });
+  // };
+
   //---server loading simulation---
   const [loading, setLoading] = useState(true);
   setTimeout(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import style from './LoginSignUp.module.css';
 import Loader from '../layout/Loader/Loader';
 import { Link } from 'react-router-dom';
@@ -11,8 +11,11 @@ import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
 import { login, register } from '../../actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import { initialState, userReducer } from '../../reducers/userReducer';
 
 const LoginSignUp = () => {
+  const [state, dispatch] = useReducer(userReducer, initialState);
+
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('login');
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,13 +29,6 @@ const LoginSignUp = () => {
     password: '',
   });
 
-  //---server loading simulation---
-  const [loading, setLoading] = useState(false);
-  // setTimeout(() => {
-  //   setLoading(loading);
-  // }, 1000);
-  //--------------------------------
-
   //This function switch tabs: login/register
   //depending on LOGIN/REGISTER toggle buttoons
   const switchTabs = (tab) => {
@@ -41,25 +37,38 @@ const LoginSignUp = () => {
   const { name, email, password } = user;
 
   const [avatar, setAvatar] = useState(ProfileImg);
-  const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
+  // const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
 
   // This code defines a function that prevents the default form submission behavior, calls a login function with email, password,
   // and a loading state updater, and then redirects the user to the '/account' page.
   const loginSubmit = (e) => {
     e.preventDefault();
-    setLoading(loading);
-
     login(
       loginEmail,
       loginPassword,
-      setLoading,
       setErrorMessage,
-      setSuccessMessage
+      setSuccessMessage,
+      dispatch
     );
-    setLoading(loading);
-    // Redirect to /account
-    navigate('/account');
+    setLoginEmail('');
+    setLoginPassword('');
   };
+  // Reset function to set specific state values back to initial values
+  const resetFields = () => {
+    setUser({ ...user, name: '', email: '', password: '' });
+    setAvatar(ProfileImg);
+  };
+
+  useEffect(() => {
+    // Redirect to '/account'
+    if (state.isAuthenticated) {
+      navigate('/account');
+    }
+    // Switching tabs from 'register' to 'login' if registration succesfule
+    if (state.registrationSuccess) {
+      setActiveTab('login');
+    }
+  }, [state.isAuthenticated, navigate, state.registrationSuccess]);
 
   // The registerSubmit function prevents the default form submission behavior, creates a new FormData
   // object with user input values, and invokes the register function with the form data, loading state
@@ -71,13 +80,9 @@ const LoginSignUp = () => {
     myForm.set('email', email);
     myForm.set('password', password);
     myForm.set('avatar', avatar);
-    //---temporary console output of Register Submit form. This data will be passed to beknd later---
-    // console.log('Form Data');
-    // for (let obj of myForm) {
-    //   console.log(obj);
-    // }
-    //-------------------------
-    register(myForm, setLoading, setErrorMessage, setSuccessMessage);
+    register(myForm, setErrorMessage, setSuccessMessage, dispatch);
+    // Reset fields
+    resetFields();
   };
 
   //This function handles data changes in an input form, updating the avatar-related state if triggered by an avatar input field,
@@ -88,7 +93,7 @@ const LoginSignUp = () => {
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setAvatarPreview(reader.result);
+          // setAvatarPreview(reader.result);
           setAvatar(reader.result);
         }
       };
@@ -102,9 +107,9 @@ const LoginSignUp = () => {
   return (
     <>
       {/* Conditional rendering based on loading state */}
-      {loading ? (
+      {state.loading ? (
         // Spinner styled component
-        <Loader className={style['small-spinner']} />
+        <Loader className="small-spinner" />
       ) : (
         <>
           {successMessage && (
@@ -125,7 +130,6 @@ const LoginSignUp = () => {
               {errorMessage}
             </Alert>
           )}
-          {/* {errorMessage && <Alert variant="danger">{errorMessage}</Alert>} */}
           <div className={style['LoginSignUpContainer']}>
             <div className={style['LoginSignUpBox']}>
               <div>
@@ -173,7 +177,7 @@ const LoginSignUp = () => {
                     <FontAwesomeIcon icon={faUnlockKeyhole} />
                   </InputWithIcon>
                 </div>
-                <Link to="/password/forgot">Forget Password ?</Link>
+                <Link to="/password/forgot">Forgot Password ?</Link>
                 {/* LoginForm submition button */}
                 <button className={`btn ${style.loginBtn}`} type="submit">
                   Login
@@ -231,17 +235,17 @@ const LoginSignUp = () => {
                     <FontAwesomeIcon icon={faUnlockKeyhole} />
                   </InputWithIcon>
                 </div>
-                <div className={style.registerImage}>
-                  {/* Avatar Previe image */}
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  {/* Add avatar button */}
-                  <input
+                {/* <div className={style.registerImage}> */}
+                {/* Avatar Previe image */}
+                {/* <img src={avatarPreview} alt="Avatar Preview" /> */}
+                {/* Add avatar button */}
+                {/* <input
                     type="file"
                     name="avatar"
                     accept="image/*"
                     onChange={registerDataChange}
                   />
-                </div>
+                </div> */}
                 {/* SignUpForm submition button */}
                 <button className={`btn ${style.signUpBtn}`} type="submit">
                   Register
