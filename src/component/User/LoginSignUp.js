@@ -30,7 +30,7 @@ const LoginSignUp = () => {
   });
 
   //This function switch tabs: login/register
-  //depending on LOGIN/REGISTER toggle buttoons
+  //depending on LOGIN/REGISTER toggle buttons
   const switchTabs = (tab) => {
     setActiveTab(tab);
   };
@@ -64,11 +64,7 @@ const LoginSignUp = () => {
     if (state.isAuthenticated) {
       navigate('/account');
     }
-    // Switching tabs from 'register' to 'login' if registration succesfule
-    if (state.registrationSuccess) {
-      setActiveTab('login');
-    }
-  }, [state.isAuthenticated, navigate, state.registrationSuccess]);
+  }, [state.isAuthenticated, navigate]);
 
   // The registerSubmit function prevents the default form submission behavior, creates a new FormData
   // object with user input values, and invokes the register function with the form data, loading state
@@ -133,7 +129,7 @@ const LoginSignUp = () => {
           <div className={style['LoginSignUpContainer']}>
             <div className={style['LoginSignUpBox']}>
               <div>
-                {/* LOGIN/REGISTER toggle buttoons */}
+                {/* LOGIN/REGISTER toggle buttons */}
                 <div className={style['login_signUp_toggle']}>
                   <p onClick={() => switchTabs('login')}>LOGIN</p>
                   <p onClick={() => switchTabs('register')}>REGISTER</p>

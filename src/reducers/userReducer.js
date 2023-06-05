@@ -2,7 +2,6 @@
 export const initialState = {
   isAuthenticated: false,
   loading: false,
-  registrationSuccess: false,
 };
 // Reducer function
 export const userReducer = (state, action) => {
@@ -13,26 +12,18 @@ export const userReducer = (state, action) => {
         ...state,
         loading: true,
         isAuthenticated: false,
-        registrationSuccess: false,
       };
     case 'LOGIN_SUCCESS':
-      return {
-        ...state,
-        isAuthenticated: true,
-        loading: false,
-      };
     case 'REGISTER_USER_SUCCESS':
       return {
         ...state,
-        registrationSuccess: true,
-        isAuthenticated: false,
+        isAuthenticated: true,
         loading: false,
       };
     case 'LOGIN_FAILURE':
     case 'REGISTER_USER_FAIL':
       return {
         ...state,
-        registrationSuccess: false,
         loading: false,
         isAuthenticated: false,
       };
