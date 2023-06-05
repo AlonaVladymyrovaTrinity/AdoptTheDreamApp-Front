@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import style from './PetDetails.module.css';
+//import style from './PetDetails.module.css';
 const data = {
   id: 1233356,
   breed: 'Siamesse',
