@@ -41,7 +41,9 @@ const Home = () => {
             <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
               {Array.from({ length: 9 }).map((_, idx) => (
                 <Col className="mb-4" key={idx}>
-                  <PetCard />
+                  <div className={style.grid_item}>
+                    <PetCard />
+                  </div>
                 </Col>
               ))}
             </Row>

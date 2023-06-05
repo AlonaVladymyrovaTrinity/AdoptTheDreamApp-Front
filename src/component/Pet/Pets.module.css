@@ -58,6 +58,11 @@ video {
 .cardsContainer {
   margin-left: 2rem;
 }
+.grid_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* Responsive Design Mobile */
 @media screen and (max-width: 900px) {

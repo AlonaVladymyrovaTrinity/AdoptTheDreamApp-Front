@@ -31,15 +31,22 @@ video {
   color: var(--color-white);
   padding-left: 4rem;
   background-color: var(--color-transparent);
+  gap: 1rem;
 }
 .cardsContainer {
-  margin-left: 6rem;
+  /* margin-left: 6rem; */
   margin-top: 2rem;
+  margin-inline: 5rem;
+}
+.grid_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .homePage_txt {
   text-align: center;
-  margin: 2rem;
+  margin: 3rem;
   color: var(--color-txt);
 }
 .find_pet_button button {
@@ -63,6 +70,7 @@ video {
     position: relative;
     align-items: center;
     padding-left: 0;
+    gap: 1rem;
   }
   .home_banner_content h1 {
     color: var(--color-txt);
@@ -71,7 +79,13 @@ video {
   video {
     display: none;
   }
+
   .home_banner {
     height: fit-content;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .cardsContainer {
+    margin-inline: 1rem;
   }
 }
