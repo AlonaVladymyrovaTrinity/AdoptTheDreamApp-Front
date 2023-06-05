@@ -59,15 +59,15 @@ html {
 
 /* Responsive Design Tablet */
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 61.94em) {
   html {
-    /*width < 900?*/
+    /*width < 991px*/
     font-size: 80%;
   }
 }
 
 /* Responsive Design Mobile */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 37.5em) {
   html {
     /*600px*/
     font-size: 70%;
@@ -75,9 +75,9 @@ html {
 }
 
 /* Responsive Design Mobile */
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 18.75em) {
   html {
     /*300px*/
-    font-size: 60%;
+    font-size: 50%;
   }
 }

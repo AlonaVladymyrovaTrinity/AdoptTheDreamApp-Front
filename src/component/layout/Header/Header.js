@@ -9,7 +9,7 @@ import { TbCat } from 'react-icons/tb';
 import { TbDog } from 'react-icons/tb';
 import style from './Header.module.css';
 
-function Header() {
+const Header = () => {
   return (
     <Navbar
       collapseOnSelect
@@ -63,7 +63,6 @@ function Header() {
               />
               <Button
                 className={style.searchButton}
-                outline
                 variant="outline-default"
                 style={{
                   border: 2,
@@ -97,6 +96,6 @@ function Header() {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default Header;
