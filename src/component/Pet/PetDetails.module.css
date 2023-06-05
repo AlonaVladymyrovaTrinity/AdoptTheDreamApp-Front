@@ -4,10 +4,6 @@
   border: none;
 }
 
-.pet-details-header {
-  display:none;
-}
-
 .frame {
   border: 5px solid pink;
   padding: 2rem;

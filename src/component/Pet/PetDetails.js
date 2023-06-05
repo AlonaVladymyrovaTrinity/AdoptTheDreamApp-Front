@@ -69,7 +69,7 @@ const PetDetails = () => {
         style={{ marginRight: 'auto', marginTop: '4rem' }}
       >
         <div className={style['frame']}>
-          <h1 className={style['pet-details-header']}>Animal Details</h1>
+          <h1 className={style['sr-only']}>Animal Details</h1>
           <p>Name: Whiskers</p>
           <p>ID: {data.id}</p>
           <p>{data.breed}</p>
