@@ -78,6 +78,6 @@ html {
 @media screen and (max-width: 18.75em) {
   html {
     /*300px*/
-    font-size: 60%;
+    font-size: 50%;
   }
 }
