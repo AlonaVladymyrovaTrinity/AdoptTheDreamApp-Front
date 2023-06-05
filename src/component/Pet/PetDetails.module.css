@@ -1,8 +1,14 @@
-.favorite-button {
+.favoriteButton {
   background-color: var(--color-btn);
-  color: var(--color-white);
+  color: white;
+  border: none;
 }
 
-.favorite {
-  background-color: var(--color-btn) ;
+.pet-details-header {
+  display:none;
+}
+
+.frame {
+  border: 5px solid pink;
+  padding: 2rem;
 }

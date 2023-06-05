@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-//import style from './PetDetails.module.css';
+import style from './PetDetails.module.css';
 const data = {
   id: 1233356,
   breed: 'Siamesse',
@@ -66,10 +66,11 @@ const PetDetails = () => {
         sm={12}
         md={6}
         className="d-flex flex-column align-items-start justify-content-start align-items-md-end"
-        style={{ marginRight: 'auto' }}
+        style={{ marginRight: 'auto', marginTop: '4rem' }}
       >
-        <div>
-          <h1 className="text-center">Pet Details</h1> {/*add display:none */}
+        <div className={style['frame']}>
+          <h1 className={style['pet-details-header']}>Animal Details</h1>
+          <p>Name: Whiskers</p>
           <p>ID: {data.id}</p>
           <p>{data.breed}</p>
           <p>Type: Cat</p>
@@ -104,7 +105,7 @@ const PetDetails = () => {
             your heart, just like Whiskers did with her lucky family."
           </p>
           <Button
-            className={isFavorite ? 'favorite-button favorite' : 'favorite-button'}
+            className={isFavorite ? `${style.favoriteButton} ${style.favorite}` : style.favoriteButton}
             onClick={handleAddToFavorites}
           >
             {isFavorite ? (
@@ -120,7 +121,7 @@ const PetDetails = () => {
             )}
           </Button>
         </div>
-      </Col>
+        </Col>
     </Row>
   );
 };
