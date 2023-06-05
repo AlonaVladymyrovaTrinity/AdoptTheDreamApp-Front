@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import redCat from '../../images/redCat.mp4';
+// import redCat from '../../images/redCat.mp4';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
-import NavigateButton from '../layout/NavigateButton/NavigateButton';
+// import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import style from './Pets.module.css';
@@ -19,21 +19,21 @@ const Pets = () => {
   return (
     <>
       <div className={style.pets_container}>
-        <div className={style.home_banner}>
+        {/* <div className={style.home_banner}>
           <div className={style.overlay}></div>
           <video src={redCat} autoPlay loop muted />
           <div className={style.home_banner_content}>
             <h1>WELCOME TO ADOPT PET</h1>
             {/* <p>FIND YOUR FRIEND</p> */}
-            <div className={style.find_pet_button}>
+        {/* <div className={style.find_pet_button}>
               <NavigateButton
                 linkName={'/pets'}
                 children={'FIND YOUR FRIENDS'}
-                size="btn-lg"
-              />
-            </div>
-          </div>
-        </div>
+                size="btn-lg" */}
+        {/* /> */}
+        {/* </div> */}
+        {/* </div> */}
+        {/* </div>  */}
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>
@@ -129,7 +129,9 @@ const Pets = () => {
               <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
                 {Array.from({ length: 9 }).map((_, idx) => (
                   <Col className="mb-4" key={idx}>
-                    <PetCard />
+                    <div className={style.grid_item}>
+                      <PetCard />
+                    </div>
                   </Col>
                 ))}
               </Row>

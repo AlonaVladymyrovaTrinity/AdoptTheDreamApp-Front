@@ -10,7 +10,7 @@ const PetCard = () => {
   return (
     <div className="petCard">
       <Card
-        className="border-0 p-3 bg-transparent rounded relative"
+        className="border-0 bg-transparent rounded relative"
         style={{ width: '20rem' }}
       >
         <div className="link_and_checkbox">
@@ -26,9 +26,13 @@ const PetCard = () => {
             to="/pet/cat`"
           >
             <Card.Img
-              className="border-0 rounded"
               variant="top"
-              style={{ width: '100%', height: '18rem', objectFit: 'cover' }}
+              style={{
+                width: '100%',
+                height: '18rem',
+                objectFit: 'cover',
+                borderRadius: '20px',
+              }}
               src={whiteCat}
               alt="white cat"
             />
