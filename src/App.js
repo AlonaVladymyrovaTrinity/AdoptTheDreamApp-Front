@@ -48,7 +48,8 @@ function App() {
       <main className={style['app-body']}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pet/:id" element={<PetDetails />} />
+          {/* <Route path="/pet/:id" element={<PetDetails />} /> */}
+          <Route path="/pet/cat`" element={<PetDetails />} />
           <Route path="/pets" element={<Pets />} />
           <Route path="/search" element={<Search />} />
           <Route path="/contact" element={<Contact />} />

@@ -1,0 +1,10 @@
+.favoriteButton {
+  background-color: var(--color-btn);
+  color: white;
+  border: none;
+}
+
+.frame {
+  border: 5px solid pink;
+  padding: 2rem;
+}
