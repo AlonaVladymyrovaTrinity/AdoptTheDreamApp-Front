@@ -35,7 +35,7 @@ const Home = () => {
           <h3>CHOOSE YOUR PET</h3>
         </span>
         {loading ? (
-          <Loader />
+          <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainer} fluid="md" id="container">
             <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
