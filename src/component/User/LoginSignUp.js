@@ -128,7 +128,7 @@ const LoginSignUp = () => {
           )}
           <div className={style['LoginSignUpContainer']}>
             <div className={style['LoginSignUpBox']}>
-              <div>
+              <div className={style.ContainerWithButtons}>
                 {/* LOGIN/REGISTER toggle buttons */}
                 <div className={style['login_signUp_toggle']}>
                   <p onClick={() => switchTabs('login')}>LOGIN</p>

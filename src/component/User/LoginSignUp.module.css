@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: flex;
+  /* position: flex; */
   padding-top: 15%;
   padding-bottom: 25%;
   top: 0;
@@ -25,22 +25,26 @@
   border: var(--bs-card-border-width) solid var(--bs-card-border-color);
   border-radius: var(--bs-card-border-radius);
 }
-
+.ContainerWithButtons {
+  display: flex;
+  flex-direction: column;
+}
 .login_signUp_toggle {
   display: flex;
-  height: 2rem;
+  min-height: 3rem;
+  margin-bottom: 0;
 }
 
 .login_signUp_toggle > p {
   color: var(--color-txt);
   transition: all 0.5s;
   cursor: pointer;
-  min-height: 3rem;
   background-color: var(--color-beige);
   display: grid;
   padding-top: 0.1rem;
   place-items: center;
   width: 100%;
+  margin-bottom: 0;
 }
 
 .login_signUp_toggle > p:hover {
@@ -53,6 +57,7 @@
   width: 50%;
   border: none;
   transition: all 0.5s;
+  margin: 0;
 }
 
 .loginForm,
