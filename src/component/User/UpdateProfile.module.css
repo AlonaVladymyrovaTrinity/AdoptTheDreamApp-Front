@@ -30,10 +30,12 @@
   text-align: center;
   color: var(--color-txt);
   font-size: 1rem;
-  padding: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--color-grey);
   width: 50%;
   margin: auto;
+  font-weight: 400;
 }
 
 .updateProfileForm {
