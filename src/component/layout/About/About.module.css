@@ -35,3 +35,20 @@
   float: right;
   margin-left: 1rem;
 }
+
+@media screen and (max-width: 61.94em) {
+  /*width < 991px*/
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 37.5em) {
+  /*600px*/
+  .about-img {
+    display: none;
+  }
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 18.75em) {
+  /*300px*/
+}

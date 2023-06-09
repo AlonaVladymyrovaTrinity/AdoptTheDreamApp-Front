@@ -1,11 +1,12 @@
 /* Google Fonts - Poppins */
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+  /* font-family: 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif; */
+  font-family: 'Poppins', sans-serif;
 }
 
 #root {
@@ -16,7 +17,7 @@
 
 :root {
   /* Colors */
-  --color-background: #fff4ec;
+  /* --color-background: #fff4ec;
   --color-txt: #45312e;
   --color-btn: #f27d88;
   --color-btn-hover: #fa9da6;
@@ -28,9 +29,62 @@
   --color-beige: #f3dedb;
   --color-transparent: transparent;
   --color-grey: #6e6c6c;
+  --color-btn-nofavorites: #f0463a; */
+}
+
+:root {
+  /* Colors1 !!!*/
+  /* --color-background: #fff;
+  --color-txt: #15253e;
+  --color-btn: #c42026;
+  --color-btn-hover: #fa9da6;
+  --color-action-btn: #c42026;
+  --color-action-btn-hover: #ff668c;
+  --color-header-footer: #15253e;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-beige: #f3dedb;
+  --color-transparent: transparent;
+  --color-grey: #6e6c6c;
+  --color-btn-nofavorites: #f0463a; */
+}
+:root {
+  /* Colors2 !!!!!!*/
+  --color-background: #fffffa;
+  --color-txt: #333138;
+  /* --color-btn: #ff312e; */
+  --color-btn: #e9697e;
+  --color-btn-hover: #fa9da6;
+  --color-search-btn: #d90429;
+  /* --color-action-btn: #ff312e; */
+  --color-action-btn: #d90429;
+
+  --color-action-btn-hover: #ca485e;
+  --color-header-footer: #333138;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-beige: #f3dedb;
+  --color-transparent: transparent;
+  --color-grey: #ffffff8c;
   --color-btn-nofavorites: #f0463a;
 }
 
+:root {
+  /* Colors5 !!!*/
+  /* --color-background: #edf2f4;
+  --color-txt: #2b2d42;
+  --color-btn: #d90429;
+  --color-btn-hover: #fa9da6;
+  --color-action-btn: #d90429;
+  --color-action-btn-hover: #ff668c;
+  --color-header-footer: #8d99ae;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-beige: #f3dedb;
+  --color-transparent: transparent;
+  --color-grey: #6e6c6c;
+  --color-btn-nofavorites: #f0463a; */
+}
 main {
   flex: 1;
 }

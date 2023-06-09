@@ -64,18 +64,18 @@ const Header = () => {
               <Button
                 className={style.searchButton}
                 variant="outline-default"
-                style={{
-                  border: 2,
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  borderRadius: 50,
-                  backgroundColor: 'var(--color-btn)',
-                  position: 'relative',
-                  right: 31,
-                  paddingTop: 1,
-                  paddingBottom: 4,
-                  paddingInline: 5,
-                }}
+                // style={{
+                //   border: 2,
+                //   cursor: 'pointer',
+                //   textAlign: 'center',
+                //   borderRadius: 50,
+                //   backgroundColor: 'var(--color-search-btn)',
+                //   position: 'relative',
+                //   right: 31,
+                //   paddingTop: 1,
+                //   paddingBottom: 4,
+                //   paddingInline: 5,
+                // }}
                 onClick={() => {
                   alert('search');
                 }}
