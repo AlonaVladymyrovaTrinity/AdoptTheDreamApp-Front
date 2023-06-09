@@ -62,7 +62,7 @@ const UpdateProfile = () => {
           <div className={style.updateProfileContainer}>
             <div className={style.updateProfileBox}>
               {/* Page description title */}
-              <h2 className={style.updateProfileHeading}>Update Profile</h2>
+              <h2 className={style.updateProfileHeading}>UPDATE PROFILE</h2>
 
               <form
                 className={style.updateProfileForm}

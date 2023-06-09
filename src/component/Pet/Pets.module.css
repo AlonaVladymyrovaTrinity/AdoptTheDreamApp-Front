@@ -55,9 +55,7 @@ video {
   flex-direction: row;
   width: 100%;
 }
-.cardsContainer {
-  margin-left: 2rem;
-}
+
 .grid_item {
   display: flex;
   align-items: center;

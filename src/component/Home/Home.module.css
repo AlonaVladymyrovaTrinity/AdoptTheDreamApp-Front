@@ -35,8 +35,9 @@ video {
 }
 .cardsContainer {
   /* margin-left: 6rem; */
-  margin-top: 2rem;
-  margin-inline: 5rem;
+  /* margin-top: 2rem;
+  margin-inline: 5rem; */
+  padding: 5% 0;
 }
 .grid_item {
   display: flex;

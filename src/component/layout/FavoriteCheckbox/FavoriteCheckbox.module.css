@@ -82,3 +82,16 @@
     display: none;
   }
 }
+
+@media screen and (max-width: 37.5em) {
+  /*600px*/
+  .con-like {
+    transform: scale(0.8);
+  }
+}
+/* Responsive Design Mobile */
+@media screen and (max-width: 18.75em) {
+  .con-like {
+    transform: scale(0.6);
+  }
+}
