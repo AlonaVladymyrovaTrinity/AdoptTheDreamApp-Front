@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -29,30 +29,36 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    loadUser(dispatch);
+    const fetchData = async () => {
+      try {
+        await loadUser(dispatch);
+      } catch (error) {
+        setErrorMessage('Error loading user');
+      }
+    };
+    fetchData();
   }, []);
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
     if (state.isAuthenticated === false) {
-      // console.log(state.isAuthenticated);
       navigate('/');
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
     }
   };
+  const user = useMemo(() => state.user || {}, [state.user]);
 
-  const user = state.user || {};
-
-  if (
-    !user ||
-    (Array.isArray(user) && user.length === 0) ||
-    (typeof user === 'string' && user.trim() === '') ||
-    (typeof user === 'object' && Object.keys(user).length === 0)
-  ) {
-    setErrorMessage('Error: User data is missing or empty.');
-    return <Alert variant="danger">{errorMessage}</Alert>;
-  }
+  useEffect(() => {
+    if (
+      !user ||
+      (Array.isArray(user) && user.length === 0) ||
+      (typeof user === 'string' && user.trim() === '') ||
+      (typeof user === 'object' && Object.keys(user).length === 0)
+    ) {
+      setErrorMessage('Error: User data is missing or empty.');
+    }
+  }, [user]);
 
   return (
     <>
