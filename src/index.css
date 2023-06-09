@@ -53,19 +53,22 @@
   --color-background: #fffffa;
   --color-txt: #333138;
   /* --color-btn: #ff312e; */
-  --color-btn: #e9697e;
+  /* --color-btn: #e9697e; */
+  --color-btn: #d83c56;
+
   --color-btn-hover: #fa9da6;
   --color-search-btn: #d90429;
   /* --color-action-btn: #ff312e; */
   --color-action-btn: #d90429;
 
-  --color-action-btn-hover: #ca485e;
+  --color-action-btn-hover: #fa7885;
   --color-header-footer: #333138;
   --color-white: #fff;
   --color-black: #000;
   --color-beige: #f3dedb;
   --color-transparent: transparent;
   --color-grey: #ffffff8c;
+  --color-icon-gray: #747171;
   --color-btn-nofavorites: #f0463a;
 }
 

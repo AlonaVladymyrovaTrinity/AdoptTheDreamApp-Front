@@ -55,7 +55,6 @@
   padding-bottom: 4px;
   padding-inline: 5px; */
   background-color: var(--color-action-btn-hover) !important;
-  /* transform: scale(0.99); */
   box-shadow: 0 2px 5px var(--color-gray);
 }
 

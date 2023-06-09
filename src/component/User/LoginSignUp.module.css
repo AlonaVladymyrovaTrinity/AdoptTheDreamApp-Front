@@ -88,7 +88,7 @@
   position: absolute;
   transform: translateX(0.8rem);
   font-size: 1.6rem;
-  color: var(--color-grey);
+  color: var(--color-icon-gray);
 }
 
 .loginForm > a {
