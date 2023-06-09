@@ -1,0 +1,46 @@
+.button-favorite {
+  background-color: var(--color-action-btn);
+  color: var(--color-white);
+  border: none;
+}
+
+.button-favorite-remove {
+  background-color: var(--color-btn);
+  color: var(--color-white);
+  border: none;
+}
+
+.button-favorite:hover {
+  background-color: var(--color-action-btn);
+  color: var(--color-white);
+}
+
+.button-favorite-remove:hover {
+  background-color: var(--color-btn);
+  color: var(--color-white);
+}
+
+.custom-pagination-item > a {
+  background-color: var(--color-action-btn) !important;
+  color: var(--color-white);
+  border: none;
+}
+
+.custom-pagination-item > a:hover {
+  color: var(--color-white);
+}
+.custom-pagination-item > span {
+  background-color: var(--color-btn) !important;
+  border: none;
+}
+
+/* .custom-pagination-item:hover {
+  /* background-color: var(--color-btn) !important; */
+  /* color: var(--color-white); 
+} */
+
+.favorite-card {
+  width: '18rem';
+  margin-bottom: '20px';
+}
+
