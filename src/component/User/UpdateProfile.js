@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
-import ProfileImg from '../../images/Profile.png';
+// import ProfileImg from '../../images/Profile.png';
 
 const UpdateProfile = () => {
   //---server loading simulation---
@@ -17,8 +17,8 @@ const UpdateProfile = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
+  // const [avatar, setAvatar] = useState();
+  // const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
 
   //The updateProfileSubmit function handles the form submission by preventing the default form submission behavior,
   //creating a new FormData object with form data, and logging the form data to the console for temporary debugging purposes.
@@ -29,7 +29,7 @@ const UpdateProfile = () => {
 
     myForm.set('name', name);
     myForm.set('email', email);
-    myForm.set('avatar', avatar);
+    // myForm.set('avatar', avatar);
     //---temporary console output of Register Submit form. This data will be passed to beknd later---
     console.log('Form Data');
     for (let obj of myForm) {
@@ -38,25 +38,25 @@ const UpdateProfile = () => {
     //-------------------------
   };
   //This updateProfileDataChange function updates the profile data by setting the avatar preview and avatar based on the selected file.
-  const updateProfileDataChange = (e) => {
-    const reader = new FileReader();
+  // const updateProfileDataChange = (e) => {
+  //   const reader = new FileReader();
 
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatarPreview(reader.result);
-        setAvatar(reader.result);
-      }
-    };
+  //   reader.onload = () => {
+  //     if (reader.readyState === 2) {
+  //       setAvatarPreview(reader.result);
+  //       setAvatar(reader.result);
+  //     }
+  //   };
 
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  //   reader.readAsDataURL(e.target.files[0]);
+  // };
 
   return (
     <>
       {/* Conditional rendering based on loading state */}
       {loading ? (
         // Spinner styled component
-        <Loader className={style['small-spinner']} />
+        <Loader className="small-spinner" />
       ) : (
         <>
           <div className={style.updateProfileContainer}>
@@ -94,17 +94,17 @@ const UpdateProfile = () => {
                     <FontAwesomeIcon icon={faEnvelope} />
                   </InputWithIcon>
                 </div>
-                <div className={style.updateProfileImage}>
-                  {/* Avatar Previe image */}
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  {/* Add avatar button */}
-                  <input
+                {/* <div className={style.updateProfileImage}> */}
+                {/* Avatar Previe image */}
+                {/* <img src={avatarPreview} alt="Avatar Preview" /> */}
+                {/* Add avatar button */}
+                {/* <input
                     type="file"
                     name="avatar"
                     accept="image/*"
                     onChange={updateProfileDataChange}
                   />
-                </div>
+                </div> */}
                 {/* updateProfileForm submition button */}
                 <button
                   className={`btn ${style.updateProfileBtn}`}
