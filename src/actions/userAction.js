@@ -24,9 +24,10 @@ export const login = async (
     console.log('login result:' + JSON.stringify(res)); // Loging the response for testing purposes
     setSuccessMessage('User successfully logged in.');
 
-    // Store token and user ID in cookies
+    // Store token, name and user ID in cookies
     Cookies.set('token', res.data.token);
     Cookies.set('userId', res.data.userId);
+    Cookies.set('userName', res.data.user.name);
   } catch (error) {
     dispatch({ type: 'LOGIN_FAILURE' });
     // Error handling: showing an error message
@@ -54,9 +55,10 @@ export const register = async (
     console.log(res.statusText); // Loging the statusText response for testing purposes
     setSuccessMessage('User account successfully created. You can login now');
 
-    // Store token and user ID in cookies
+    // Store token, name and user ID in cookies
     Cookies.set('token', res.data.token);
     Cookies.set('userId', res.data.userId);
+    Cookies.set('userName', res.data.user.name);
   } catch (error) {
     dispatch({ type: 'REGISTER_USER_FAIL' });
     // Error handling: showing an error message
