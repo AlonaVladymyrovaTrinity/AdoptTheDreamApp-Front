@@ -25,6 +25,7 @@ import style from './Profile.module.css';
 
 const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
   const navigate = useNavigate();
 
@@ -41,24 +42,12 @@ const Profile = () => {
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    if (state.isAuthenticated === false) {
-      navigate('/');
-    } else {
-      setErrorMessage('Logout unsuccessful. Try again');
-    }
+    state.isAuthenticated === false
+      ? navigate('/') && setSuccessMessage('User successfully signed out!')
+      : setErrorMessage('Logout unsuccessful. Try again');
   };
-  const user = useMemo(() => state.user || {}, [state.user]);
 
-  useEffect(() => {
-    if (
-      !user ||
-      (Array.isArray(user) && user.length === 0) ||
-      (typeof user === 'string' && user.trim() === '') ||
-      (typeof user === 'object' && Object.keys(user).length === 0)
-    ) {
-      setErrorMessage('Error: User data is missing or empty.');
-    }
-  }, [user]);
+  const user = useMemo(() => state.user || {}, [state.user]);
 
   return (
     <>
@@ -66,6 +55,15 @@ const Profile = () => {
         <Loader className="small-spinner" />
       ) : (
         <>
+          {successMessage && (
+            <Alert
+              variant="success"
+              onClose={() => setSuccessMessage('')}
+              dismissible
+            >
+              {successMessage}
+            </Alert>
+          )}
           {errorMessage && (
             <Alert
               variant="danger"
