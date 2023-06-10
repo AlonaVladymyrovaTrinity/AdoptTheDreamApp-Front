@@ -76,11 +76,14 @@ export const loadUser = async (dispatch) => {
   try {
     dispatch({ type: 'LOAD_USER_REQUEST' });
 
-    axios.defaults.withCredentials = true;
+    // axios.defaults.withCredentials = true;
     const response = await axios.get(`/api/v1/me/${Cookies.get('userId')}`, {
       withCredentials: true,
+      // headers: {
+      //   Authorization: `Bearer ${Cookies.get('token')}`,
+      // },
       headers: {
-        Authorization: `Bearer ${Cookies.get('token')}`,
+        'Content-Type': 'application/json',
       },
     });
 
