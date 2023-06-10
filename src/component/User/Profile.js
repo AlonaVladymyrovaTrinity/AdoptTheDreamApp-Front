@@ -27,6 +27,7 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
+  const [logaut, setLogaut] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,10 +43,22 @@ const Profile = () => {
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    state.isAuthenticated === false
-      ? navigate('/') && setSuccessMessage('User successfully signed out!')
-      : setErrorMessage('Logout unsuccessful. Try again');
+    if (logaut === true) {
+      setSuccessMessage('User successfully signed out!');
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    } else {
+      setSuccessMessage('');
+      setErrorMessage('Logout unsuccessful. Try again');
+    }
   };
+
+  useEffect(() => {
+    if (state.isAuthenticated === false) {
+      setLogaut(true);
+    }
+  }, [state.isAuthenticated]);
 
   const user = useMemo(() => state.user || {}, [state.user]);
 
