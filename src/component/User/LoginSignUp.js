@@ -61,7 +61,7 @@ const LoginSignUp = () => {
 
   useEffect(() => {
     // Redirect to '/account'
-    if (state.isAuthenticated) {
+    if (state.isAuthenticated === true) {
       navigate('/account');
     }
   }, [state.isAuthenticated, navigate]);
