@@ -27,7 +27,7 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
-  const [logaut, setLogaut] = useState(false);
+  const [logout, setLogout] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT_SUCCESS' });
-    if (logaut === true) {
+    if (logout === true) {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/');
@@ -56,7 +56,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (state.isAuthenticated === false) {
-      setLogaut(true);
+      setLogout(true);
     }
   }, [state.isAuthenticated]);
 
