@@ -37,11 +37,20 @@
 
 .profile-container {
   min-width: 38rem;
-  padding-top: 10%;
-  padding-bottom: 10%;
-  margin: 0 auto;
-  position: flex;
-  left: 0;
-  right: 0;
+  max-width: 70rem;
+  padding-bottom: 5%;
   overflow: hidden;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profile-heading-wrapper {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.profile-heading {
+  font-weight: 400;
 }

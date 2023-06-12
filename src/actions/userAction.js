@@ -21,7 +21,7 @@ export const login = async (
       }
     );
     dispatch({ type: 'LOGIN_SUCCESS' });
-    console.log('login result:' + JSON.stringify(res)); // Loging the response for testing purposes
+    console.log('login result:' + JSON.stringify(res)); // logging the response for testing purposes
     setSuccessMessage('User successfully logged in.');
 
     // Store token, name and user ID in cookies
@@ -51,8 +51,8 @@ export const register = async (
       },
     });
     dispatch({ type: 'REGISTER_USER_SUCCESS' });
-    console.log(JSON.stringify(res)); // Loging the response for testing purposes
-    console.log(res.statusText); // Loging the statusText response for testing purposes
+    console.log(JSON.stringify(res)); // logging the response for testing purposes
+    console.log(res.statusText); // logging the statusText response for testing purposes
     setSuccessMessage('User account successfully created. You can login now');
 
     // Store token, name and user ID in cookies
@@ -79,7 +79,7 @@ export const loadUser = async (dispatch) => {
     dispatch({ type: 'LOAD_USER_REQUEST' });
 
     // axios.defaults.withCredentials = true;
-    const response = await axios.get(`/api/v1/me/${Cookies.get('userId')}`, {
+    const response = await axios.get(`/api/v1/me`, {
       withCredentials: true,
       // headers: {
       //   Authorization: `Bearer ${Cookies.get('token')}`,
@@ -90,7 +90,7 @@ export const loadUser = async (dispatch) => {
     });
 
     dispatch({ type: 'LOAD_USER_SUCCESS', payload: response.data.user });
-    console.log('respons: ' + JSON.stringify(response.data.user)); // Loging the response for testing purposes
+    console.log('response: ' + JSON.stringify(response.data.user)); // logging the response for testing purposes
   } catch (error) {
     dispatch({
       type: 'LOAD_USER_FAIL',
