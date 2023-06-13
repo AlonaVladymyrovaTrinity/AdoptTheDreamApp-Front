@@ -1,0 +1,17 @@
+.confirmApplicationSubmitBtn button {
+  background-color: var(--color-action-btn);
+  /* border: 3px solid var(--color-btn-border); */
+  border-radius: 18px;
+  border: none;
+  padding: 0.65rem;
+  box-shadow: 0 2px 5px var(--color-gray);
+}
+.confirmApplicationSubmitBtn button:hover {
+  background-color: var(--color-action-btn-hover);
+  box-shadow: 0 2px 5px var(--color-gray);
+}
+.confirmApplicationSubmitBtn button:active {
+  background-color: var(--color-action-btn-hover) !important;
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px var(--color-gray);
+}
