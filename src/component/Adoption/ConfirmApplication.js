@@ -29,10 +29,11 @@ import style from './ConfirmApplication.module.css';
 //-----------------End--------------------------//
 
 const ConfirmApplication = () => {
-  const [validated, setValidated] = useState(false);
+  // const [validated, setValidated] = useState(false);
   const [value, setValue] = useState('');
 
   const handleChange = (event) => {
+    console.log(event.target.value);
     setValue(event.target.value);
   };
   // const [selects, setSelects] = useState();
@@ -57,7 +58,8 @@ const ConfirmApplication = () => {
     <>
       <Container style={{ width: '80%' }}>
         <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
-        <Form noValidate validated={validated}>
+        <Form>
+          {/* <Form noValidate validated={validated}> */}
           {/* <Form noValidate validated={validated} onSubmit={handleSubmit}> */}
           {/* <Form ref={form} onSubmit={sendEmail}> */}
           {/* <Container fluid> */}
@@ -78,7 +80,7 @@ const ConfirmApplication = () => {
                   // onChange={handleChange}
                   required
                   className="w-50"
-                  // aria-label="Default select example"
+                  aria-label="Default select example"
                 >
                   <option value="" disabled>
                     Please select
@@ -318,6 +320,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3 ms-0">
               <Form.Group controlId="validationCustom17">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -325,9 +329,9 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                  <option value="3">Sometimes</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="sometimes">Sometimes</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -349,6 +353,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom19">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -356,8 +362,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -379,6 +385,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom21">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -386,8 +394,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -424,6 +432,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom24">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -431,8 +441,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -454,6 +464,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom26">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -461,8 +473,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -472,6 +484,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom27">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -479,8 +493,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Own</option>
-                  <option value="2">Rent</option>
+                  <option value="own">Own</option>
+                  <option value="rent">Rent</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -505,6 +519,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom29">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -512,8 +528,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -535,6 +551,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom31">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -542,8 +560,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -580,6 +598,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom34">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -587,8 +607,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -610,6 +630,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom36">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -617,8 +639,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -628,6 +650,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom37">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -635,8 +659,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -693,6 +717,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom41">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -700,9 +726,13 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">Depends on the expense</option>
-                  <option value="3">Not sure/Can't answer</option>
+                  <option value="yes">Yes</option>
+                  <option value="depends on the expense">
+                    Depends on the expense
+                  </option>
+                  <option value="not sure/Can't answer">
+                    Not sure/Can't answer
+                  </option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -716,6 +746,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom42">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -723,9 +755,13 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">Depends on the expense</option>
-                  <option value="3">Not sure/Can't answer</option>
+                  <option value="yes">Yes</option>
+                  <option value="depends on the expense">
+                    Depends on the expense
+                  </option>
+                  <option value="not sure/Can't answer">
+                    Not sure/Can't answer
+                  </option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -738,6 +774,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom43">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -745,8 +783,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -756,6 +794,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom44">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -763,8 +803,8 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -798,6 +838,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom47">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -805,9 +847,9 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                  <option value="3">N/A</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="n/a">N/A</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -817,6 +859,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom48">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -824,9 +868,9 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                  <option value="3">N/A</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="n/a">N/A</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -836,6 +880,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom49">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -843,9 +889,9 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                  <option value="3">N/A</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="n/a">N/A</option>
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -855,8 +901,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom50">
                 <Form.Select
-                  // value={selects}
-                  // onChange={handleChange}
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -876,6 +922,8 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom51">
                 <Form.Select
+                  value={value}
+                  onChange={handleChange}
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -883,9 +931,9 @@ const ConfirmApplication = () => {
                   <option value="" disabled>
                     Please select
                   </option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                  <option value="3">N/A</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="n/a">N/A</option>
                 </Form.Select>
               </Form.Group>
             </Row>
