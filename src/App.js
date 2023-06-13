@@ -23,7 +23,7 @@ import OurTeam from './component/layout/OurTeam/OurTeam';
 import style from './App.module.css';
 
 function ProtectedRoute({ isAuthenticated, children }) {
-  if (!isAuthenticated) {
+  if (isAuthenticated === false) {
     return <Navigate to="/login" replace />;
   }
   return children;

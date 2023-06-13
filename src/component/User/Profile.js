@@ -5,11 +5,13 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import { initialState, userReducer } from '../../reducers/userReducer';
-import { loadUser } from '../../actions/userAction';
+import { loadUser, logout } from '../../actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ProfileImg from '../../images/Profile.png';
+import moment from 'moment';
+import { format } from 'date-fns';
 
 import {
   MDBCol,
@@ -27,7 +29,7 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
-  const [logout, setLogout] = useState(false);
+  const [logoutResponse, setLogoutResponse] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,22 +43,28 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const handleLogout = () => {
-    dispatch({ type: 'LOGOUT_SUCCESS' });
-    if (logout === true) {
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
+    try {
+      await logout(dispatch);
+    } catch (error) {
+      setErrorMessage('Error logging out');
+    }
+    if (logoutResponse === true) {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/');
       }, 1000);
     } else {
-      setSuccessMessage('');
       setErrorMessage('Logout unsuccessful. Try again');
     }
   };
 
   useEffect(() => {
     if (state.isAuthenticated === false) {
-      setLogout(true);
+      setLogoutResponse(true);
     }
   }, [state.isAuthenticated]);
 
@@ -179,9 +187,23 @@ const Profile = () => {
                             {/*User Joined On Date */}
                             <MDBCol size="6" className="mb-5">
                               <MDBTypography tag="h6">Joined On:</MDBTypography>
-                              <MDBCardText className="text-muted">
-                                {String(user.createdAt)}
-                              </MDBCardText>
+                              {user.createdAt !== undefined ? (
+                                <MDBCardText className="text-muted">
+                                  {String(
+                                    format(
+                                      new Date(user.createdAt),
+                                      'MM/dd/yyyy HH:mm'
+                                    ) +
+                                      ' (' +
+                                      moment(user.createdAt).fromNow() +
+                                      ')'
+                                  )}
+                                </MDBCardText>
+                              ) : (
+                                <MDBCardText className="text-muted">
+                                  Loading...
+                                </MDBCardText>
+                              )}
                             </MDBCol>
                           </section>
                           {/* -------------------------*/}
