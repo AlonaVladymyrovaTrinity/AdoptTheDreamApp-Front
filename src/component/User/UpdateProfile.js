@@ -1,64 +1,101 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import style from './UpdateProfile.module.css';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
-import ProfileImg from '../../images/Profile.png';
+import { updateUserProfile } from '../../actions/userAction';
+import Alert from 'react-bootstrap/Alert';
+import { initialState, profileReducer } from '../../reducers/userReducer';
+import { useNavigate } from 'react-router-dom';
+
+//This functionality will be added later
+// import ProfileImg from '../../images/Profile.png';
 
 const UpdateProfile = () => {
-  //---server loading simulation---
-  const [loading, setLoading] = useState(true);
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-  //--------------------------------
+  const navigate = useNavigate();
+  const [state, dispatch] = useReducer(profileReducer, initialState);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState();
-  const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
+
+  //This functionality will be added later
+  // const [avatar, setAvatar] = useState();
+  // const [avatarPreview, setAvatarPreview] = useState(ProfileImg);
 
   //The updateProfileSubmit function handles the form submission by preventing the default form submission behavior,
   //creating a new FormData object with form data, and logging the form data to the console for temporary debugging purposes.
   const updateProfileSubmit = (e) => {
     e.preventDefault();
-
+    setSuccessMessage('');
+    setErrorMessage('');
+    // Check if email and name are empty
+    if (!email || !name) {
+      setErrorMessage('Please enter your name and email');
+      // Check if email and name are empty
+      return;
+    }
     const myForm = new FormData();
-
     myForm.set('name', name);
     myForm.set('email', email);
-    myForm.set('avatar', avatar);
-    //---temporary console output of Register Submit form. This data will be passed to beknd later---
-    console.log('Form Data');
-    for (let obj of myForm) {
-      console.log(obj);
+    //This functionality will be added later
+    // myForm.set('avatar', avatar);
+    updateUserProfile(myForm, setErrorMessage, setSuccessMessage, dispatch);
+  };
+
+  useEffect(() => {
+    // Redirect to '/account'
+    if (state.isUpdated === true) {
+      setTimeout(() => {
+        navigate('/account');
+      }, 1000);
     }
-    //-------------------------
-  };
+  }, [state.isUpdated, navigate]);
+
+  //This functionality will be added later
   //This updateProfileDataChange function updates the profile data by setting the avatar preview and avatar based on the selected file.
-  const updateProfileDataChange = (e) => {
-    const reader = new FileReader();
+  // const updateProfileDataChange = (e) => {
+  //   const reader = new FileReader();
 
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setAvatarPreview(reader.result);
-        setAvatar(reader.result);
-      }
-    };
+  //   reader.onload = () => {
+  //     if (reader.readyState === 2) {
+  //       setAvatarPreview(reader.result);
+  //       setAvatar(reader.result);
+  //     }
+  //   };
 
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  //   reader.readAsDataURL(e.target.files[0]);
+  // };
 
   return (
     <>
       {/* Conditional rendering based on loading state */}
-      {loading ? (
+      {state.loading ? (
         // Spinner styled component
-        <Loader className={style['small-spinner']} />
+        <Loader className="small-spinner" />
       ) : (
         <>
+          {successMessage && (
+            <Alert
+              variant="success"
+              onClose={() => setSuccessMessage('')}
+              dismissible
+            >
+              {successMessage}
+            </Alert>
+          )}
+          {errorMessage && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorMessage('')}
+              dismissible
+            >
+              {errorMessage}
+            </Alert>
+          )}
           <div className={style.updateProfileContainer}>
             <div className={style.updateProfileBox}>
               {/* Page description title */}
@@ -94,17 +131,18 @@ const UpdateProfile = () => {
                     <FontAwesomeIcon icon={faEnvelope} />
                   </InputWithIcon>
                 </div>
-                <div className={style.updateProfileImage}>
-                  {/* Avatar Previe image */}
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  {/* Add avatar button */}
-                  <input
+                {/* This functionality will be added later  */}
+                {/* <div className={style.updateProfileImage}> */}
+                {/* Avatar Previe image */}
+                {/* <img src={avatarPreview} alt="Avatar Preview" /> */}
+                {/* Add avatar button */}
+                {/* <input
                     type="file"
                     name="avatar"
                     accept="image/*"
                     onChange={updateProfileDataChange}
                   />
-                </div>
+                </div> */}
                 {/* updateProfileForm submition button */}
                 <button
                   className={`btn ${style.updateProfileBtn}`}

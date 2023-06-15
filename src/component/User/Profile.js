@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
-
 import NavigateButton from '../layout/NavigateButton/NavigateButton';
+import { initialState, userReducer } from '../../reducers/userReducer';
+import { loadUser, logout } from '../../actions/userAction';
+import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+import ProfileImg from '../../images/Profile.png';
+import moment from 'moment';
+import { format } from 'date-fns';
+
 import {
   MDBCol,
   MDBContainer,
@@ -18,39 +26,79 @@ import {
 import style from './Profile.module.css';
 
 const Profile = () => {
-  // const handleLogout = () => {
-  //   dispatch({ type: 'LOGOUT' });
-  // };
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [state, dispatch] = useReducer(userReducer, initialState);
+  const [logoutResponse, setLogoutResponse] = useState(false);
+  const navigate = useNavigate();
 
-  //---server loading simulation---
-  const [loading, setLoading] = useState(true);
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-  //--------------------------------
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await loadUser(dispatch);
+      } catch (error) {
+        setErrorMessage('Error loading user');
+      }
+    };
+    fetchData();
+  }, []);
 
-  //---------temporarily object-----
-  const user = {
-    name: 'Ivan Ivanov',
-    email: 'useremail@gmail.com',
-    createdAt: '02/02/2021',
-    avatar: {
-      url: 'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp',
-    },
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
+    try {
+      await logout(dispatch);
+    } catch (error) {
+      setErrorMessage('Error logging out');
+    }
+    if (logoutResponse === true) {
+      setSuccessMessage('User successfully signed out!');
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    } else {
+      setErrorMessage('Logout unsuccessful. Try again');
+    }
   };
-  //--------------------------------
+
+  useEffect(() => {
+    if (state.isAuthenticated === false) {
+      setLogoutResponse(true);
+    }
+  }, [state.isAuthenticated]);
+
+  const user = useMemo(() => state.user || {}, [state.user]);
 
   return (
     <>
-      {loading ? (
+      {state.loading ? (
         <Loader className="small-spinner" />
       ) : (
         <>
-          <section
-          // style={{
-          //   backgroundColor: '#fff',
-          // }}
-          >
+          {successMessage && (
+            <Alert
+              variant="success"
+              onClose={() => setSuccessMessage('')}
+              dismissible
+            >
+              {successMessage}
+            </Alert>
+          )}
+          {errorMessage && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorMessage('')}
+              dismissible
+            >
+              {errorMessage}
+            </Alert>
+          )}
+          <div className={style['profile-heading-wrapper']}>
+            <h1 className="sr-only">User Profile</h1>
+            <h2 className={style['profile-heading']}>Welcome, {user.name}!</h2>
+          </div>
+          <section>
             {/* ---User Profile Container--- */}
             <MDBContainer className={style['profile-container']}>
               {' '}
@@ -70,7 +118,7 @@ const Profile = () => {
                         <MDBCardText className="my-5">My Profile</MDBCardText>
                         {/* User Image */}
                         <MDBCardImage
-                          src={user.avatar.url}
+                          src={ProfileImg}
                           alt={user.name}
                           className="my-3"
                           style={{ width: '8rem' }}
@@ -100,18 +148,19 @@ const Profile = () => {
                           <MDBTypography tag="h6">Information</MDBTypography>
 
                           <MDBRow size="6" className="mb-3">
-                            {/* Reusable custom component NavigateButton for Logout profile */}
-                            <NavigateButton
-                              linkName="/"
-                              children
-                              className={`btn ${style['color-btn']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
-                              variant="btn-primary"
-                              size="btn-lg"
-                            >
-                              <span>
-                                <FontAwesomeIcon icon={faSignOut} />
-                              </span>
-                            </NavigateButton>
+                            {/* Button for Logout profile */}
+                            <div className="mb-2">
+                              <Button
+                                onClick={handleLogout}
+                                className={`btn ${style['color-btn']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
+                                variant="btn-primary"
+                                size="btn-lg"
+                              >
+                                <span>
+                                  <FontAwesomeIcon icon={faSignOut} />
+                                </span>
+                              </Button>
+                            </div>
                           </MDBRow>
 
                           {/*----Main user information----*/}
@@ -138,9 +187,23 @@ const Profile = () => {
                             {/*User Joined On Date */}
                             <MDBCol size="6" className="mb-5">
                               <MDBTypography tag="h6">Joined On:</MDBTypography>
-                              <MDBCardText className="text-muted">
-                                {String(user.createdAt)}
-                              </MDBCardText>
+                              {user.createdAt !== undefined ? (
+                                <MDBCardText className="text-muted">
+                                  {String(
+                                    format(
+                                      new Date(user.createdAt),
+                                      'MM/dd/yyyy HH:mm'
+                                    ) +
+                                      ' (' +
+                                      moment(user.createdAt).fromNow() +
+                                      ')'
+                                  )}
+                                </MDBCardText>
+                              ) : (
+                                <MDBCardText className="text-muted">
+                                  Loading...
+                                </MDBCardText>
+                              )}
                             </MDBCol>
                           </section>
                           {/* -------------------------*/}

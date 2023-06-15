@@ -72,6 +72,20 @@ video {
   box-shadow: 0 2px 5px var(--color-gray);
 }
 
+.custom-pagination-item > a {
+  background-color: var(--color-icon-gray) !important;
+  color: var( --color-grey);
+  border: none;
+}
+
+.custom-pagination-item > a:hover {
+  color: var(--color-white);
+}
+.custom-pagination-item > span {
+  background-color: var( --color-header-footer) !important;
+  border: none;
+}
+
 /* Responsive Design Tablet */
 @media screen and (max-width: 61.94em) {
   /*991px*/
