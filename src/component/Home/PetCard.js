@@ -25,7 +25,7 @@ const PetCard = ({ pet }) => {
 
             <Link
               className="card-block stretched-link text-decoration-none"
-              to="/pet/cat`"
+              to="/pet/cat"
             >
               <Card.Img
                 variant="top"
@@ -52,7 +52,7 @@ const PetCard = ({ pet }) => {
                   <span className="fw-bold">Gender:</span> {pet.gender} •{' '}
                   <span className="fw-bold">Age:</span> {pet.age} •{' '}
                   <span className="fw-bold">Color:</span> {pet.color} •{' '}
-                  <span className="fw-bold">Breed:</span> {pet.breed} •{' '}
+                  <span className="fw-bold">Breed:</span> {pet.breed}
                 </Card.Text>
               </Card.Body>
             </Link>

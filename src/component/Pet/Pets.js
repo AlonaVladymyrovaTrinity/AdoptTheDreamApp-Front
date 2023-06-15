@@ -23,7 +23,7 @@ const Pets = () => {
         await getPet(dispatch);
       } catch (error) {
         setErrorMessage('');
-        setErrorMessage('Error loading pet');
+        setErrorMessage('Error loading pets');
       }
     };
     fetchData();
@@ -32,28 +32,12 @@ const Pets = () => {
 
   return (
     <>
-      {' '}
       {errorMessage && (
         <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
           {errorMessage}
         </Alert>
       )}
       <div className={style.pets_container}>
-        {/* <div className={style.home_banner}>
-          <div className={style.overlay}></div>
-          <video src={redCat} autoPlay loop muted />
-          <div className={style.home_banner_content}>
-            <h1>WELCOME TO ADOPT PET</h1>
-            {/* <p>FIND YOUR FRIEND</p> */}
-        {/* <div className={style.find_pet_button}>
-              <NavigateButton
-                linkName={'/pets'}
-                children={'FIND YOUR FRIENDS'}
-                size="btn-lg" */}
-        {/* /> */}
-        {/* </div> */}
-        {/* </div> */}
-        {/* </div>  */}
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>

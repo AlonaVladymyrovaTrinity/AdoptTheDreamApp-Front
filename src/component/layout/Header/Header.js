@@ -8,6 +8,9 @@ import { TbSearch } from 'react-icons/tb';
 import { TbCat } from 'react-icons/tb';
 import { TbDog } from 'react-icons/tb';
 import style from './Header.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   return (
@@ -85,11 +88,19 @@ const Header = () => {
                   className="mb-0.6 color-var(--color-black)"
                 />
               </Button>
+              <Nav>
+                <Nav.Link href="/favorites" className={style.navLinkHeader}>
+                  <FontAwesomeIcon icon={faHeart} />
+                </Nav.Link>
+              </Nav>
             </Form>
           </div>
           <Nav>
-            <Nav.Link className={style.navLinkLogInHeader} href="/login">
+            {/* <Nav.Link className={style.navLinkLogInHeader} href="/login">
               LogIn
+            </Nav.Link> */}
+            <Nav.Link href="/account" className={style.navLinkHeader}>
+              <FontAwesomeIcon icon={faUser} />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
