@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
-// import whiteCat from '../../images/whiteCat.jpg';
-import contactPage from '../../images/contactPage.jpg';
+import cartoonCat from '../../images/cartoonCat.jpg';
+import cartoonDog from '../../images/cartoonDog.jpg';
 import { Link } from 'react-router-dom';
 import FavoriteCheckbox from '../layout/FavoriteCheckbox/FavoriteCheckbox';
 
-const PetCard = () => {
+const PetCard = ({ pet }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
@@ -35,13 +35,25 @@ const PetCard = () => {
                   objectFit: 'cover',
                   borderRadius: '20px',
                 }}
-                src={contactPage}
-                // src={whiteCat}
-                // alt="white cat"
+                src={
+                  pet.image[0] === '/uploads/example.jpeg' &&
+                  pet.petType === 'Cat'
+                    ? cartoonCat
+                    : pet.image[0] === '/uploads/example.jpeg' &&
+                      pet.petType === 'Dog'
+                    ? cartoonDog
+                    : pet.image[0]
+                }
+                alt={pet.petName}
               />
               <Card.Body style={{ color: 'var(--color-txt)' }}>
-                <Card.Title>Name</Card.Title>
-                <Card.Text>Gender Age Color Breed</Card.Text>
+                <Card.Title>{pet.petName}</Card.Title>
+                <Card.Text>
+                  <span className="fw-bold">Gender:</span> {pet.gender} •{' '}
+                  <span className="fw-bold">Age:</span> {pet.age} •{' '}
+                  <span className="fw-bold">Color:</span> {pet.color} •{' '}
+                  <span className="fw-bold">Breed:</span> {pet.breed} •{' '}
+                </Card.Text>
               </Card.Body>
             </Link>
           </div>
