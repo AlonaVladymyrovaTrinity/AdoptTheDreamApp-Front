@@ -10,6 +10,8 @@ import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
 import { loadPet } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
+import cartoonCat from '../../images/cartoonCat.jpg';
+import cartoonDog from '../../images/cartoonDog.jpg';
 
 const PetDetails = () => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -75,7 +77,13 @@ const PetDetails = () => {
                           className="d-flex align-items-center justify-content-center"
                         >
                           <img
-                            src={img}
+                            src={img === '/uploads/example.jpeg' &&
+                            petDetails.petType === 'Cat'
+                              ? cartoonCat
+                              : img === '/uploads/example.jpeg' &&
+                              petDetails.petType === 'Dog'
+                              ? cartoonDog
+                              : img}
                             alt="Animal 1"
                             style={{ width: '90%', height: '90%', objectFit: 'stretch' }}
                             />

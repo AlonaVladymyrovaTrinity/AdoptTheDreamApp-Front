@@ -25,7 +25,7 @@ const PetCard = ({ pet }) => {
 
             <Link
               className="card-block stretched-link text-decoration-none"
-              to="/pet/647ede3ed7c7de21f0f2a2f0"
+              to={`/pet/${pet._id}`}
             >
               <Card.Img
                 variant="top"
