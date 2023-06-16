@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer, useEffect, useMemo } from 'react';
 // import redCat from '../../images/redCat.mp4';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
@@ -8,36 +8,40 @@ import Row from 'react-bootstrap/Row';
 import style from './Pets.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import { initialState, petsReducer } from '../../reducers/petReducer';
+import { getPet } from '../../actions/petAction';
+import Alert from 'react-bootstrap/Alert';
 
 const Pets = () => {
-  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
+  const [state, dispatch] = useReducer(petsReducer, initialState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getPet(dispatch);
+      } catch (error) {
+        setErrorMessage('');
+        setErrorMessage('Error loading pets');
+      }
+    };
+    fetchData();
+  }, []);
+  const pets = useMemo(() => state.pets || {}, [state.pets]);
 
   return (
     <>
+      {errorMessage && (
+        <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+          {errorMessage}
+        </Alert>
+      )}
       <div className={style.pets_container}>
-        {/* <div className={style.home_banner}>
-          <div className={style.overlay}></div>
-          <video src={redCat} autoPlay loop muted />
-          <div className={style.home_banner_content}>
-            <h1>WELCOME TO ADOPT PET</h1>
-            {/* <p>FIND YOUR FRIEND</p> */}
-        {/* <div className={style.find_pet_button}>
-              <NavigateButton
-                linkName={'/pets'}
-                children={'FIND YOUR FRIENDS'}
-                size="btn-lg" */}
-        {/* /> */}
-        {/* </div> */}
-        {/* </div> */}
-        {/* </div>  */}
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>
-        {loading ? (
+        {state.loading ? (
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
@@ -127,13 +131,15 @@ const Pets = () => {
             </div>
             <div className={style.cardsContainer} fluid="md" id="container">
               <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
-                {Array.from({ length: 9 }).map((_, idx) => (
-                  <Col className="mb-4" key={idx}>
-                    <div className={style.grid_item}>
-                      <PetCard />
-                    </div>
-                  </Col>
-                ))}
+                {Object.values(pets)
+                  // .from({ length: 9 })
+                  .map((pet, idx) => (
+                    <Col className="mb-4" key={idx}>
+                      <div className={style.grid_item}>
+                        <PetCard pet={pet} />
+                      </div>
+                    </Col>
+                  ))}
               </Row>
             </div>
           </div>
