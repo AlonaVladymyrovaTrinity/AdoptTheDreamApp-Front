@@ -1,6 +1,5 @@
 export const initialState = {
-  loading: true,
-  pet: null
+  loading: false
 };
 
 export const petReducer = (state, action) => {
@@ -23,6 +22,32 @@ export const petReducer = (state, action) => {
         pet: null,
         error: action.payload,
       };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const petsReducer = (state = { pets: [] }, action) => {
+  switch (action.type) {
+    case 'ALL_PET_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        pets: [],
+      };
+    case 'ALL_PET_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        pets: action.payload.pets,
+      };
+    case 'ALL_PET_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
