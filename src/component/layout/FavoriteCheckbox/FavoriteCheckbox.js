@@ -13,6 +13,7 @@ const FavoriteCheckbox = ({ isChecked, setIsChecked }) => {
     <div className={style['con-like']}>
       <input
         className={style.like}
+        // disabled={true}
         type="checkbox"
         id="checkbox"
         checked={isChecked}

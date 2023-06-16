@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useReducer, useMemo } from 'react';
 import redCat from '../../images/redCat.mp4';
 import style from './Home.module.css';
 import Loader from '../layout/Loader/Loader';
@@ -7,28 +7,44 @@ import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Pagination from 'react-bootstrap/Pagination';
+import { initialState, petsReducer } from '../../reducers/petReducer';
+import { getPet } from '../../actions/petAction';
+import Alert from 'react-bootstrap/Alert';
 
 const Home = () => {
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // Initial page is 1
-  //loading simulation
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const totalItems = 20; // Replace with your total number of items
+  const [state, dispatch] = useReducer(petsReducer, initialState);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getPet(dispatch);
+      } catch (error) {
+        setErrorMessage('');
+        setErrorMessage('Error loading pets');
+      }
+    };
+    fetchData();
+  }, []);
+  const pets = useMemo(() => state.pets || {}, [state.pets]);
+
+  const totalItems = Object.values(pets).length; //20; // Replace with your total number of items
   const itemsPerPage = 18; // Replace with the number of items to display per page
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const visibleItems = Array.from({ length: totalItems }).slice(
-    startIndex,
-    endIndex
-  );
+  const visibleItems = Object.values(pets).slice(startIndex, endIndex);
 
   return (
     <>
+      {errorMessage && (
+        <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+          {errorMessage}
+        </Alert>
+      )}
       <div /*className={style.home_container}*/>
         <div className={style.home_banner}>
           <div className={style.overlay}></div>
@@ -47,7 +63,7 @@ const Home = () => {
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>
-        {loading ? (
+        {state.loading ? (
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainer} fluid="md" id="container">
@@ -57,10 +73,10 @@ const Home = () => {
               lg={3}
               className="row-cols-auto g-col-4 ps-5 pe-5"
             >
-              {visibleItems.map((_, idx) => (
+              {visibleItems.map((pet, idx) => (
                 <Col className="mb-4" key={idx}>
                   <div className={style.grid_item}>
-                    <PetCard />
+                    <PetCard pet={pet} />
                   </div>
                 </Col>
               ))}
