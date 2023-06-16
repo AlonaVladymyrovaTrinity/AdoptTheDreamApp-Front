@@ -4,6 +4,15 @@
   border: none;
 }
 
+.favoriteButton:hover {
+  background-color: var(--color-btn-hover);
+  }
+  
+.favoriteButton:active {
+  background-color: var(--color-action-btn-hover) !important;
+  outline: none; 
+  }
+
 .frame {
   border: 5px solid pink;
   padding: 2rem;
