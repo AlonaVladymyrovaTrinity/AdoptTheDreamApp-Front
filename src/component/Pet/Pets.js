@@ -163,8 +163,9 @@ const Pets = () => {
                   ))}
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Age</option>
                   <option value="1">One</option>
@@ -172,8 +173,9 @@ const Pets = () => {
                   <option value="3">Three</option>
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Size</option>
                   <option value="1">One</option>
@@ -181,16 +183,18 @@ const Pets = () => {
                   <option value="3">Three</option>
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Gender</option>
                   <option value="1">Male</option>
                   <option value="2">Female</option>
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Good with</option>
                   <option value="1">One</option>
@@ -198,8 +202,9 @@ const Pets = () => {
                   <option value="3">Three</option>
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Coat length</option>
                   <option value="1">One</option>
@@ -207,8 +212,9 @@ const Pets = () => {
                   <option value="3">Three</option>
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Color</option>
                   <option value="1">One</option>
@@ -216,8 +222,9 @@ const Pets = () => {
                   <option value="3">Three</option>
                 </Form.Select>
                 <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
+                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
                   aria-label="Default select example"
+                  disabled={true}
                 >
                   <option>Care & behavior</option>
                   <option value="1">One</option>
