@@ -61,3 +61,9 @@ video {
   align-items: center;
   justify-content: center;
 }
+
+.select-option:disabled {
+  background-color: dimgrey;
+  color: #a9a9a9;
+  opacity: 1;
+}
