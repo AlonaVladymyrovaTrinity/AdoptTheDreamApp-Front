@@ -16,9 +16,11 @@ import {
 } from '../../reducers/petReducer';
 import { getPet, getCatBreeds, getDogBreeds } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
+import Pagination from 'react-bootstrap/Pagination';
 
 const Pets = () => {
   const [errorMessage, setErrorMessage] = useState('');
+
   const [state, dispatch] = useReducer(petsReducer, initialState);
   const [stateCatBreed, dispatchCatBreed] = useReducer(
     catBreedsReducer,
@@ -28,6 +30,8 @@ const Pets = () => {
     dogBreedsReducer,
     initialState
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 18;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +44,15 @@ const Pets = () => {
     };
     fetchData();
   }, []);
-  const pets = useMemo(() => state.pets || {}, [state.pets]);
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const pets = useMemo(() => Object.values(state.pets || {}), [state.pets]);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPets = pets.slice(indexOfFirstItem, indexOfLastItem);
 
   const [selectedType, setSelectedType] = useState('');
   useEffect(() => {
@@ -79,18 +91,6 @@ const Pets = () => {
     });
   }
 
-  // const catBreeds = stateCatBreed.catBreeds || [];
-  // const dogBreeds = stateDogBreed.dogBreeds || [];
-
-  // const optionsBreed = {};
-
-  // catBreeds.forEach((breed) => {
-  //   optionsBreed[breed] = breed;
-  // });
-  // dogBreeds.forEach((breed) => {
-  //   optionsBreed[breed] = breed;
-  // });
-
   const optionsType = {
     Cat: 'Cat',
     Dog: 'Dog',
@@ -100,27 +100,12 @@ const Pets = () => {
   const handleSelectTypeChange = (event) => {
     const selectedPetType = event.target.value;
     setSelectedType(selectedPetType);
-    // localStorage.setItem("selectedPetType", selectedPetType); // Save to local storage
-    //const type = selectedPetType;
-    //alert(type);
-    //API function call here
-    // funcName(
-    //   atribut,
-    //   dispatch
-    // );
-    //setPetsList(petsList);
   };
   const handleSelectBreedChange = async (event) => {
     const selectedPetBreed = event.target.value;
     setSelectedBreed(selectedPetBreed);
     const breed = selectedPetBreed;
     alert(breed);
-    //API function call here
-    // funcName(
-    //   atribut,
-    //   dispatch
-    // );
-    //setPetsList(petsList);
   };
   return (
     <>
@@ -139,15 +124,6 @@ const Pets = () => {
           <div className={style.cardsContainerWithSelect}>
             <div className={style.selectBox}>
               <Nav style={{ width: '12rem' }} className="flex-column p-3">
-                {/* <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
-                  // className={style['select-option']}
-                  aria-label="Default select example"
-                >
-                  <option>Type</option>
-                  <option value="1">Cat</option>
-                  <option value="2">Dog</option>
-                </Form.Select> */}
                 <Form.Select
                   id="PetType"
                   name="PetType"
@@ -165,16 +141,6 @@ const Pets = () => {
                     </option>
                   ))}
                 </Form.Select>
-
-                {/* <Form.Select
-                  className="border-1 bg-transparent rounded mb-3"
-                  aria-label="Default select example"
-                >
-                  <option>Breed</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </Form.Select> */}
                 <Form.Select
                   id="PetBreed"
                   name="PetBreed"
@@ -262,19 +228,33 @@ const Pets = () => {
             </div>
             <div className={style.cardsContainer} fluid="md" id="container">
               <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
-                {Object.values(pets)
-                  // .from({ length: 9 })
-                  .map((pet, idx) => (
-                    <Col className="mb-4" key={idx}>
-                      <div className={style.grid_item}>
-                        <PetCard pet={pet} />
-                      </div>
-                    </Col>
-                  ))}
+                {Object.values(currentPets).map((pet, idx) => (
+                  <Col className="mb-4" key={idx}>
+                    <div className={style.grid_item}>
+                      <PetCard pet={pet} />
+                    </div>
+                  </Col>
+                ))}
               </Row>
             </div>
           </div>
         )}
+      </div>
+      <div className="d-flex justify-content-center mt-4">
+        <Pagination className="pagination-centered">
+          {Array.from({
+            length: Math.ceil(pets.length / itemsPerPage),
+          }).map((_, index) => (
+            <Pagination.Item
+              key={index}
+              active={currentPage === index + 1}
+              onClick={() => handlePageClick(index + 1)}
+              className={style['custom-pagination-link']}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+        </Pagination>
       </div>
     </>
   );

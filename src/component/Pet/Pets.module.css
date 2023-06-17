@@ -67,3 +67,17 @@ video {
   color: #a9a9a9;
   opacity: 1;
 }
+
+.custom-pagination-link > a {
+  background-color: var(--color-action-btn) !important;
+  color: var(--color-white);
+  border: none;
+}
+
+.custom-pagination-link > a:hover {
+  color: var(--color-white);
+}
+.custom-pagination-link > span {
+  background-color: var(--color-btn) !important;
+  border: none;
+}
