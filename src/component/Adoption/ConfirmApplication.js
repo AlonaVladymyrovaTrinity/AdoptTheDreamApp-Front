@@ -1,4 +1,4 @@
-import { useState, useId } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -8,31 +8,143 @@ import style from './ConfirmApplication.module.css';
 
 const ConfirmApplication = () => {
   const [validated, setValidated] = useState(false);
-  const [value, setValue] = useState();
-  const selectID = useId();
-  console.log({ value });
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedWorkFromHome, setSelectedWorkFromHome] = useState('');
+  const [selectedAllergic, setSelectedAllergic] = useState('');
+  const [selectedAgreementAdoptingPet, setSelectedAgreementAdoptingPet] =
+    useState('');
+  const [selectedFearAnimals, setSelectedFearAnimals] = useState('');
+  const [selectedAreaAnimalRegulation, setSelectedAreaAnimalRegulation] =
+    useState('');
+  const [selectedOwnOrRentHome, setSelectedOwnOrRentHome] = useState('');
+  const [selectedPlanningToMove, setSelectedPlanningToMove] = useState('');
+  const [selectedHaveAYard, setSelectedHaveAYard] = useState('');
+  const [selectedAlredyHavePets, setSelectedAlredyHavePets] = useState('');
+  const [selectedSprayedNeutered, setSelectedSprayedNeutered] = useState('');
+  const [selectedPetAGift, setSelectedPetAGift] = useState('');
+  const [selectedVetCare, setSelectedVetCare] = useState('');
+  const [
+    selectedFinancialResponsibilities,
+    setSelectedFinancialResponsibilities,
+  ] = useState('');
+  const [selectedHireProfTrainer, setSelectedHireProfTrainer] = useState('');
+  const [selectedPetsInThePast, setSelectedPetsInThePast] = useState('');
+  const [selectedPetsGottenLost, setSelectedPetsGottenLost] = useState('');
+  const [selectedPetsBeenPoisoned, setSelectedPetsBeenPoisoned] = useState('');
+  const [selectedPetHitByVehicle, setSelectedPetHitByVehicle] = useState('');
+  const [selectedGivenPetToShelter, setSelectedGivenPetToShelter] =
+    useState('');
+  const [selectedGivenPetAway, setSelectedGivenPetAway] = useState('');
 
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    setValue(e.target.value);
+  // const [value, setValue] = useState('');
 
-    // const onChange = (event) => {
-    //   setValue(event.target.value);
+  // const handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   setValue(e.target.value);
+  // };
+  // const handleSelectTypeChange = (event) => {
+  //   const selectedPetType = event.target.value;
+  //   setSelectedType(selectedPetType);
+  // };
+
+  const handleSelectTypeChange = (event) => {
+    console.log(event.target.value);
+    setSelectedType(event.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(value);
-
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-    // setValidated(true);
+  const handleSelectWorkFromHomeChange = (event) => {
+    console.log(event.target.value);
+    setSelectedWorkFromHome(event.target.value);
   };
+  const handleSelectAllergicChange = (event) => {
+    const selectedHaveAllergic = event.target.value;
+    setSelectedAllergic(selectedHaveAllergic);
+  };
+  const handleSelectAgreementAdoptingPetChange = (event) => {
+    console.log(event.target.value);
+    setSelectedAgreementAdoptingPet(event.target.value);
+  };
+  const handleSelectFearAnimalsChange = (event) => {
+    console.log(event.target.value);
+    setSelectedFearAnimals(event.target.value);
+  };
+  const handleSelectAreaAnimalRegulationChange = (event) => {
+    console.log(event.target.value);
+    setSelectedAreaAnimalRegulation(event.target.value);
+  };
+  const handleSelectOwnOrRentHomeChange = (event) => {
+    console.log(event.target.value);
+    setSelectedOwnOrRentHome(event.target.value);
+  };
+  const handleSelectPlanningToMoveChange = (event) => {
+    console.log(event.target.value);
+    setSelectedPlanningToMove(event.target.value);
+  };
+  const handleSelectHaveAYardChange = (event) => {
+    console.log(event.target.value);
+    setSelectedHaveAYard(event.target.value);
+  };
+  const handleSelectAlredyHavePetsChange = (event) => {
+    console.log(event.target.value);
+    setSelectedAlredyHavePets(event.target.value);
+  };
+  const handleSelectSprayedNeuteredChange = (event) => {
+    console.log(event.target.value);
+    setSelectedSprayedNeutered(event.target.value);
+  };
+  const handleSelectPetAGiftChange = (event) => {
+    console.log(event.target.value);
+    setSelectedPetAGift(event.target.value);
+  };
+  const handleSelectVetCareChange = (event) => {
+    console.log(event.target.value);
+    setSelectedVetCare(event.target.value);
+  };
+  const handleSelectFinancialResponsibilitiesChange = (event) => {
+    console.log(event.target.value);
+    setSelectedFinancialResponsibilities(event.target.value);
+  };
+  const handleSelectHireProfTrainerChange = (event) => {
+    console.log(event.target.value);
+    setSelectedHireProfTrainer(event.target.value);
+  };
+  const handleSelectPetsInThePastChange = (event) => {
+    console.log(event.target.value);
+    setSelectedPetsInThePast(event.target.value);
+  };
+  const handleSelectPetsGottenLostChange = (event) => {
+    console.log(event.target.value);
+    setSelectedPetsGottenLost(event.target.value);
+  };
+  const handleSelectPetsBeenPoisonedChange = (event) => {
+    console.log(event.target.value);
+    setSelectedPetsBeenPoisoned(event.target.value);
+  };
+  const handleSelectPetHitByVehicleChange = (event) => {
+    console.log(event.target.value);
+    setSelectedPetHitByVehicle(event.target.value);
+  };
+  const handleSelectGivenPetToShelterChange = (event) => {
+    console.log(event.target.value);
+    setSelectedGivenPetToShelter(event.target.value);
+  };
+  const handleSelectGivenPetAwayChange = (event) => {
+    console.log(event.target.value);
+    setSelectedGivenPetAway(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+  };
+  // const form = event.currentTarget;
+  // if (form.checkValidity() === false) {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  // }
+  // setValidated(true);
+
   // const [selectedFruit, setSelectedFruit] = useState('');
-  console.log(selectID);
 
   return (
     <>
@@ -41,7 +153,7 @@ const ConfirmApplication = () => {
         <Form
           noValidate
           validated={validated}
-          method="post"
+          // method="post"
           onSubmit={handleSubmit}
         >
           <Row xs={1} md={1} lg={2} xl={2} className="ms-1 me-1">
@@ -50,15 +162,14 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group controlId="formBasicSelect">
-                <Form.Label>Select Pet Type</Form.Label>
+                {/* <Form.Label>Select Pet Type</Form.Label> */}
                 {/* <Form.Group controlId={selectID}> */}
                 {/* <Form.Group controlId="formSelectPetType"> */}
                 <Form.Select
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  // onChange={handleChange}
-                  name="petType"
-                  id={selectID}
+                  value={selectedType}
+                  onChange={handleSelectTypeChange}
+                  name="PetType"
+                  id="PetType"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -257,26 +368,25 @@ const ConfirmApplication = () => {
             <Col md={8}>
               <p>Do you work from home?</p>
             </Col>
-            <Row className="mb-3 ms-0">
-              {/* <Form.Group controlId="formSelect"> */}
-              <Form.Select
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                // onChange={handleChange}
-                name="workFromHome"
-                id={selectID}
-                required
-                className="w-50"
-                aria-label="Default select example"
-              >
-                <option value="" disabled>
-                  Please select
-                </option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="sometimes">Sometimes</option>
-              </Form.Select>
-              {/* </Form.Group> */}
+            <Row className="mb-3">
+              <Form.Group controlId="formSelect">
+                <Form.Select
+                  value={selectedWorkFromHome}
+                  onChange={handleSelectWorkFromHomeChange}
+                  name="WorkFromHome"
+                  id="WorkFromHome"
+                  required
+                  className="w-50"
+                  aria-label="Default select example"
+                >
+                  <option value="" disabled>
+                    Please select
+                  </option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="sometimes">Sometimes</option>
+                </Form.Select>
+              </Form.Group>
             </Row>
             <Col md={8}>
               <p>Names and Ages of Children in Your Home</p>
@@ -290,24 +400,23 @@ const ConfirmApplication = () => {
               <p>Is anyone in your home allergic to animals?</p>
             </Col>
             <Row className="mb-3">
-              {/* <Form.Group controlId="formSelect"> */}
-              <Form.Select
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                // onChange={handleChange}
-                name="allergic"
-                id={selectID}
-                required
-                className="w-50"
-                aria-label="Default select example"
-              >
-                <option value="" disabled>
-                  Please select
-                </option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-              </Form.Select>
-              {/* </Form.Group> */}
+              <Form.Group controlId="formSelect">
+                <Form.Select
+                  value={selectedAllergic}
+                  onChange={handleSelectAllergicChange}
+                  name="Allergic"
+                  id="Allergic"
+                  required
+                  className="w-50"
+                  aria-label="Default select example"
+                >
+                  <option value="" disabled>
+                    Please select
+                  </option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </Form.Select>
+              </Form.Group>
             </Row>
             <Col md={8}>
               <p>If yes, explain:</p>
@@ -323,10 +432,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="formSelect">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="agreementAdoptingPet"
-                  id={selectID}
+                  value={selectedAgreementAdoptingPet}
+                  onChange={handleSelectAgreementAdoptingPetChange}
+                  name="AgreementAdoptingPet"
+                  id="AgreementAdoptingPet"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -364,10 +473,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom24">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="fearAnimals"
-                  id={selectID}
+                  value={selectedFearAnimals}
+                  onChange={handleSelectFearAnimalsChange}
+                  name="FearAnimals"
+                  id="FearAnimals"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -394,10 +503,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom26">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="animalRegulation"
-                  id={selectID}
+                  value={selectedAreaAnimalRegulation}
+                  onChange={handleSelectAreaAnimalRegulationChange}
+                  name="AreaAnimalRegulation"
+                  id="AreaAnimalRegulation"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -416,10 +525,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom27">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="ownRentHome"
-                  id={selectID}
+                  value={selectedOwnOrRentHome}
+                  onChange={handleSelectOwnOrRentHomeChange}
+                  name="OwnOrRentHome"
+                  id="OwnOrRentHome"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -449,10 +558,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom29">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="planningToMove"
-                  id={selectID}
+                  value={selectedPlanningToMove}
+                  onChange={handleSelectPlanningToMoveChange}
+                  name="PlanningToMove"
+                  id="PlanningToMove"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -479,10 +588,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom31">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="haveAYard"
-                  id={selectID}
+                  value={selectedHaveAYard}
+                  onChange={handleSelectHaveAYardChange}
+                  name="HaveAYard"
+                  id="HaveAYard"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -520,10 +629,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom34">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="alredyHavePets"
-                  id={selectID}
+                  value={selectedAlredyHavePets}
+                  onChange={handleSelectAlredyHavePetsChange}
+                  name="AlredyHavePets"
+                  id="AlredyHavePets"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -550,10 +659,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom36">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="sprayedNeutered"
-                  id={selectID}
+                  value={selectedSprayedNeutered}
+                  onChange={handleSelectSprayedNeuteredChange}
+                  name="SprayedNeutered"
+                  id="SprayedNeutered"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -572,10 +681,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom37">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="petGift"
-                  id={selectID}
+                  value={selectedPetAGift}
+                  onChange={handleSelectPetAGiftChange}
+                  name="PetAGift"
+                  id="PetAGift"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -629,10 +738,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom41">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="vetCare"
-                  id={selectID}
+                  value={selectedVetCare}
+                  onChange={handleSelectVetCareChange}
+                  name="VetCare"
+                  id="VetCare"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -660,10 +769,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom42">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="financialResponsibilities"
-                  id={selectID}
+                  value={selectedFinancialResponsibilities}
+                  onChange={handleSelectFinancialResponsibilitiesChange}
+                  name="FinancialResponsibilities"
+                  id="FinancialResponsibilities"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -690,10 +799,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom43">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="hireProfTrainer"
-                  id={selectID}
+                  value={selectedHireProfTrainer}
+                  onChange={handleSelectHireProfTrainerChange}
+                  name="HireProfTrainer"
+                  id="HireProfTrainer"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -712,10 +821,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom44">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="petsInThePast"
-                  id={selectID}
+                  value={selectedPetsInThePast}
+                  onChange={handleSelectPetsInThePastChange}
+                  name="PetsInThePast"
+                  id="PetsInThePast"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -750,10 +859,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom47">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="petsGottenLost"
-                  id={selectID}
+                  value={selectedPetsGottenLost}
+                  onChange={handleSelectPetsGottenLostChange}
+                  name="PetsGottenLost"
+                  id="PetsGottenLost"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -773,10 +882,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom48">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="petsBeenPoisoned"
-                  id={selectID}
+                  value={selectedPetsBeenPoisoned}
+                  onChange={handleSelectPetsBeenPoisonedChange}
+                  name="PetsBeenPoisoned"
+                  id="PetsBeenPoisoned"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -796,10 +905,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom49">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="petHitByVehicle"
-                  id={selectID}
+                  value={selectedPetHitByVehicle}
+                  onChange={handleSelectPetHitByVehicleChange}
+                  name="PetHitByVehicle"
+                  id="PetHitByVehicle"
                   required
                   className="w-50"
                   aria-label="Default select example"
@@ -819,15 +928,15 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom50">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="givenPetToShelter"
-                  id={selectID}
+                  value={selectedGivenPetToShelter}
+                  onChange={handleSelectGivenPetToShelterChange}
+                  name="GivenPetToShelter"
+                  id="GivenPetToShelter"
                   required
                   className="w-50"
                   aria-label="Default select example"
                 >
-                  <option disabled defaultValue="Please select">
+                  <option value="" disabled>
                     Please select
                   </option>
                   <option value="yes">Yes</option>
@@ -842,10 +951,10 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group controlId="validationCustom51">
                 <Form.Select
-                  value={value}
-                  onChange={handleChange}
-                  name="givenPetAway"
-                  id={selectID}
+                  value={selectedGivenPetAway}
+                  onChange={handleSelectGivenPetAwayChange}
+                  name="GivenPetAway"
+                  id="GivenPetAway"
                   required
                   className="w-50"
                   aria-label="Default select example"
