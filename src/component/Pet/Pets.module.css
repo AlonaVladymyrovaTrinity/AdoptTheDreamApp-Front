@@ -62,6 +62,11 @@ video {
   justify-content: center;
 }
 
+.select-option:disabled {
+  background-color: dimgrey;
+  color: #a9a9a9;
+  opacity: 1;
+}
 
 .custom-pagination-link > a {
   background-color: var(--color-action-btn) !important;
@@ -76,5 +81,3 @@ video {
   background-color: var(--color-btn) !important;
   border: none;
 }
-
-

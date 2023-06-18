@@ -1,5 +1,5 @@
 export const initialState = {
-  loading: false
+  loading: false,
 };
 
 export const petReducer = (state, action) => {
@@ -42,6 +42,58 @@ export const petsReducer = (state = { pets: [] }, action) => {
         pets: action.payload.pets,
       };
     case 'ALL_PET_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const catBreedsReducer = (state = { catBreeds: [] }, action) => {
+  switch (action.type) {
+    case 'CAT_BREEDS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        catBreeds: [],
+      };
+    case 'CAT_BREEDS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        catBreeds: action.payload.cats,
+      };
+    case 'CAT_BREEDS_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const dogBreedsReducer = (state = { dogBreeds: [] }, action) => {
+  switch (action.type) {
+    case 'DOG_BREEDS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        dogBreeds: [],
+      };
+    case 'DOG_BREEDS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        dogBreeds: action.payload.dogs,
+      };
+    case 'DOG_BREEDS_FAIL':
       return {
         ...state,
         loading: false,

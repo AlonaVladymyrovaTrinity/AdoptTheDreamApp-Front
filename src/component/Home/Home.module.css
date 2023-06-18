@@ -64,8 +64,8 @@ video {
   transform: scale(0.98);
 }
 .custom-pagination-item > a {
-  background-color: var(--color-icon-gray) !important;
-  color: var(--color-grey);
+  background-color: var(--color-action-btn) !important;
+  color: var(--color-white);
   border: none;
 }
 
@@ -73,7 +73,7 @@ video {
   color: var(--color-white);
 }
 .custom-pagination-item > span {
-  background-color: var(--color-header-footer) !important;
+  background-color: var(--color-btn) !important;
   border: none;
 }
 
