@@ -53,9 +53,14 @@ video {
 .cardsContainerWithSelect {
   display: flex;
   flex-direction: row;
+  justify-items: center;
   width: 100%;
 }
-
+.cardsContainer {
+  width: 100%;
+  margin-top: 1rem;
+  padding-inline: 3rem;
+}
 .grid_item {
   display: flex;
   align-items: center;
@@ -80,4 +85,23 @@ video {
 .custom-pagination-link > span {
   background-color: var(--color-btn) !important;
   border: none;
+}
+
+/* Responsive Design Tablet */
+
+@media screen and (max-width: 61.94em) {
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 37.5em) {
+  .cardsContainer {
+    padding-inline: 1rem;
+  }
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 18.75em) {
+  .cardsContainer {
+    padding-inline: 0rem;
+  }
 }

@@ -35,3 +35,16 @@
   float: right;
   margin-left: 1rem;
 }
+
+/* Responsive Design Tablet */
+@media screen and (max-width: 61.94em) {
+  /*991px*/
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 37.5em) {
+  /*600px*/
+  .about-page-text img {
+    display: none;
+  }
+}
