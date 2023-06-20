@@ -62,54 +62,53 @@ const PetDetails = () => {
               <Col
                 sm={12}
                 md={6}
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginRight: 'auto', marginTop: '2rem' }}
+                className="d-flex align-items-start justify-content-center"
+                style={{ marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
               >
-                {petDetails.image && petDetails.image.length > 0 ? (
-                  <Carousel
-                    activeIndex={index}
-                    onSelect={handleSelect}
-                    interval={null}
-                    style={{ width: '100%', height: '100%' }}
-                  >
-                    {petDetails.image.map((img, i) => {
-                      return (
-                        <Carousel.Item
-                          key={i}
-                          className="d-flex align-items-center justify-content-center"
-                        >
-                          <img
-                            src={
-                              img === '/uploads/example.jpeg' &&
-                              petDetails.petType === 'Cat'
-                                ? cartoonCat
-                                : img === '/uploads/example.jpeg' &&
-                                  petDetails.petType === 'Dog'
-                                ? cartoonDog
-                                : img
-                            }
-                            alt="Animal 1"
-                            style={{
-                              width: '90%',
-                              height: '90%',
-                              objectFit: 'stretch',
-                            }}
-                          />
-                        </Carousel.Item>
-                      );
-                    })}
-                  </Carousel>
-                ) : (
-                  <div style={{ maxWidth: '100%', margin: '4rem' }}>
-                    NO PET PICTURE
-                  </div>
-                )}
+                <Carousel
+                  activeIndex={index}
+                  onSelect={handleSelect}
+                  hover='pause'
+                  style={{ overflow: "hidden" }}
+                >
+                  {petDetails.image.length > 0 ? (
+                    petDetails.image.map(it => it.full).map((img, i) =>
+                      <Carousel.Item
+                        key={i}
+                      >
+                        <img src={img}
+                          alt={petDetails.petName}
+                          style={{ height: "560px" }}
+                        />
+                      </Carousel.Item>
+                    )
+                  ) : (
+                    <Carousel.Item
+                      key={0}
+                      className="d-flex align-items-center justify-content-center"
+                    >
+                      <img
+                        src={
+                          petDetails.petType === 'Cat'
+                            ? cartoonCat
+                            : cartoonDog
+                        }
+                        alt={petDetails.petName}
+                        style={{
+                          width: '90%',
+                          height: '90%',
+                          objectFit: 'stretch',
+                        }}
+                      />
+                    </Carousel.Item>
+                  )}
+                </Carousel>
               </Col>
               <Col
                 sm={12}
                 md={6}
                 className="d-flex align-items-center justify-content-center"
-                style={{ marginRight: 'auto', marginTop: '2rem' }}
+                style={{ marginRight: 'auto', marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
               >
                 <div
                   className={style['frame']}
