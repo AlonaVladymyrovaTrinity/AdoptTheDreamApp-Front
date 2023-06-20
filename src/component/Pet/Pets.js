@@ -13,8 +13,16 @@ import {
   petsReducer,
   catBreedsReducer,
   dogBreedsReducer,
+  catColorsReducer,
+  dogColorsReducer,
 } from '../../reducers/petReducer';
-import { getPet, getCatBreeds, getDogBreeds } from '../../actions/petAction';
+import {
+  getPet,
+  getCatBreeds,
+  getDogBreeds,
+  getCatColors,
+  getDogColors,
+} from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -30,9 +38,25 @@ const Pets = () => {
     dogBreedsReducer,
     initialState
   );
+
+  const [stateCatColor, dispatchCatColor] = useReducer(
+    catColorsReducer,
+    initialState
+  );
+  const [stateDogColor, dispatchDogColor] = useReducer(
+    dogColorsReducer,
+    initialState
+  );
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedAge, setSelectedAge] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedGoodWith, setSelectedGoodWith] = useState('');
+  const [selectedCoatLength, setSelectedCoatLength] = useState('');
+  const [selectedCareAndBehav, setSelectedCareAndBehav] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 18;
-
+  // useEffect for getPet
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,8 +77,7 @@ const Pets = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPets = pets.slice(indexOfFirstItem, indexOfLastItem);
-
-  const [selectedType, setSelectedType] = useState('');
+  // useEffect for Breeds
   useEffect(() => {
     const fetchBreeds = async () => {
       if (selectedType === 'Cat') {
@@ -76,6 +99,30 @@ const Pets = () => {
     };
     fetchBreeds();
   }, [selectedType]);
+  // useEffect for Colors
+  useEffect(() => {
+    const fetchColors = async () => {
+      if (selectedType === 'Cat') {
+        try {
+          await getCatColors(dispatchCatColor);
+        } catch (error) {
+          setErrorMessage('');
+          setErrorMessage('Error loading cat Colors');
+        }
+      }
+      if (selectedType === 'Dog') {
+        try {
+          await getDogColors(dispatchDogColor);
+        } catch (error) {
+          setErrorMessage('');
+          setErrorMessage('Error loading dog Colors');
+        }
+      }
+    };
+    fetchColors();
+  }, [selectedType]);
+
+  // Options
 
   const optionsBreed = {};
   if (selectedType === 'Cat') {
@@ -91,22 +138,120 @@ const Pets = () => {
     });
   }
 
+  const optionsColor = {};
+  if (selectedType === 'Cat') {
+    const catColors = stateCatColor.catColors || [];
+    catColors.forEach((color) => {
+      optionsColor[color] = color;
+    });
+  }
+  if (selectedType === 'Dog') {
+    const dogColors = stateDogColor.dogColors || [];
+    dogColors.forEach((color) => {
+      optionsColor[color] = color;
+    });
+  }
+
   const optionsType = {
     Cat: 'Cat',
     Dog: 'Dog',
   };
+  const optionsAge = {
+    Baby: selectedType === 'Cat' ? 'Kitten' : 'Puppy',
+    Young: 'Young',
+    Adult: 'Adult',
+    Senior: 'Senior',
+  };
+  const optionsSize = {
+    Small: 'Small (0-6 lbs)',
+    Medium: 'Medium (7-11 lbs)',
+    Large: 'Large (12-16 lbs)',
+    ExtraLarge: 'Extra Large (17 lbs or more)',
+  };
+  const optionsGender = {
+    Male: 'Male',
+    Female: 'Female',
+  };
+  const optionsGoodWith = {
+    children: 'Kids',
+    dogs: 'Dogs',
+    cats: 'Other cats',
+  };
+  const optionsCoatLength = {
+    Short: 'Short',
+    Medium: 'Medium',
+    Long: 'Long',
+    Curly: 'Curly',
+  };
+  const optionsCareAndBehav = {
+    house_trained: 'House-trained',
+    declawed: 'Declawed',
+    special_needs: 'Special Needs',
+  };
   const [selectedBreed, setSelectedBreed] = useState('');
-
+  const [selectedColor, setSelectedColor] = useState('');
+  // Type
   const handleSelectTypeChange = (event) => {
     const selectedPetType = event.target.value;
     setSelectedType(selectedPetType);
   };
+  // Breed
   const handleSelectBreedChange = async (event) => {
     const selectedPetBreed = event.target.value;
     setSelectedBreed(selectedPetBreed);
     const breed = selectedPetBreed;
-    alert(breed);
+    alert(breed); // temporary alert for testing
   };
+  // Color
+  const handleSelectColorChange = async (event) => {
+    const selectedPetColor = event.target.value;
+    setSelectedColor(selectedPetColor);
+    const color = selectedPetColor;
+    alert(color); // temporary alert for testing
+  };
+  // Age
+  const handleSelectAgeChange = async (event) => {
+    const selectedPetAge = event.target.value;
+    setSelectedAge(selectedPetAge);
+    const age = selectedPetAge;
+    alert(age); // temporary alert for testing
+  };
+  // Size
+  const handleSelectSizeChange = async (event) => {
+    const selectedPetSize = event.target.value;
+    setSelectedSize(selectedPetSize);
+    const size = selectedPetSize;
+    alert(size); // temporary alert for testing
+  };
+  // Gender
+  const handleSelectGenderChange = async (event) => {
+    const selectedPetGender = event.target.value;
+    setSelectedGender(selectedPetGender);
+    const gender = selectedPetGender;
+    alert(gender); // temporary alert for testing
+  };
+  // Good With
+  const handleSelectGoodWithChange = async (event) => {
+    const selectedPetGoodWith = event.target.value;
+    setSelectedGoodWith(selectedPetGoodWith);
+    const goodWith = selectedPetGoodWith;
+    alert(goodWith); // temporary alert for testing
+  };
+  // Coat Length
+  const handleSelectCoatLengthChange = async (event) => {
+    const selectedPetCoatLength = event.target.value;
+    setSelectedCoatLength(selectedPetCoatLength);
+    const coatLength = selectedPetCoatLength;
+    alert(coatLength); // temporary alert for testing
+  };
+  // Care & Behavior
+  const handleSelectCareAndBehavChange = async (event) => {
+    const selectedPetCareAndBehav = event.target.value;
+    setSelectedCareAndBehav(selectedPetCareAndBehav);
+    const careAndBehav = selectedPetCareAndBehav;
+    alert(careAndBehav); // temporary alert for testing
+  };
+
   return (
     <>
       {errorMessage && (
@@ -124,6 +269,7 @@ const Pets = () => {
           <div className={style.cardsContainerWithSelect}>
             <div className={style.selectBox}>
               <Nav style={{ width: '12rem' }} className="flex-column p-3">
+                {/* -----Type----- */}
                 <Form.Select
                   id="PetType"
                   name="PetType"
@@ -141,6 +287,7 @@ const Pets = () => {
                     </option>
                   ))}
                 </Form.Select>
+                {/* -----Breed----- */}
                 <Form.Select
                   id="PetBreed"
                   name="PetBreed"
@@ -162,81 +309,167 @@ const Pets = () => {
                     </option>
                   ))}
                 </Form.Select>
+                {/* -----Age----- */}
                 <Form.Select
+                  id="PetAge"
+                  name="PetAge"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectAgeChange}
+                  value={selectedAge}
                 >
-                  <option>Age</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled value="">
+                    Age
+                  </option>
+                  {Object.entries(optionsAge).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {/* -----Size----- */}
                 <Form.Select
+                  id="PetSize"
+                  name="PetSize"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectSizeChange}
+                  value={selectedSize}
                 >
-                  <option>Size</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled value="">
+                    Size
+                  </option>
+                  {Object.entries(optionsSize).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {/* -----Gender----- */}
                 <Form.Select
+                  id="PetGender"
+                  name="PetGender"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectGenderChange}
+                  value={selectedGender}
                 >
-                  <option>Gender</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
+                  <option disabled value="">
+                    Gender
+                  </option>
+                  {Object.entries(optionsGender).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {/* -----Good with----- */}
                 <Form.Select
+                  id="PetGoodWith"
+                  name="PetGoodWith"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectGoodWithChange}
+                  value={selectedGoodWith}
                 >
-                  <option>Good with</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled value="">
+                    Good with
+                  </option>
+                  {Object.entries(optionsGoodWith).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {/* -----Coat length----- */}
                 <Form.Select
+                  id="PetCoatLength"
+                  name="PetCoatLength"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectCoatLengthChange}
+                  value={selectedCoatLength}
                 >
-                  <option>Coat length</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled value="">
+                    Coat length
+                  </option>
+                  {Object.entries(optionsCoatLength).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {/* -----Color----- */}
                 <Form.Select
+                  id="PetColor"
+                  name="PetColor"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectColorChange}
+                  value={selectedColor}
                 >
-                  <option>Color</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled value="">
+                    Color
+                  </option>
+                  {Object.entries(optionsColor).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
+                {/* -----Care & behavior----- */}
                 <Form.Select
+                  id="PetCareAndBehav"
+                  name="PetCareAndBehav"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  aria-label="Default select example"
-                  disabled={true}
+                  disabled={
+                    !Array.isArray(pets) ||
+                    pets.length === 0 ||
+                    selectedType === ''
+                  }
+                  onChange={handleSelectCareAndBehavChange}
+                  value={selectedCareAndBehav}
                 >
-                  <option>Care & behavior</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  <option disabled value="">
+                    Care & behavior
+                  </option>
+                  {Object.entries(optionsCareAndBehav).map(([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ))}
                 </Form.Select>
               </Nav>
             </div>
+            {/* Pet Card container */}
             <div className={style.cardsContainer} fluid="md" id="container">
-              <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
+              <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
                 {Object.values(currentPets).map((pet, idx) => (
-                  <Col className="mb-4" key={idx}>
+                  <Col className="mb-4 ps-0 pe-0" key={idx}>
                     <div className={style.grid_item}>
                       <PetCard pet={pet} />
                     </div>
@@ -247,6 +480,7 @@ const Pets = () => {
           </div>
         )}
       </div>
+      {/* Pagination */}
       <div className="d-flex justify-content-center mt-4">
         <Pagination className="pagination-centered">
           {Array.from({

@@ -43,7 +43,6 @@ export const getCatBreeds = async (dispatch) => {
   try {
     dispatch({ type: 'CAT_BREEDS_REQUEST' });
     const response = await axios.get(`/api/v1/cat-breeds`, {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -66,7 +65,6 @@ export const getDogBreeds = async (dispatch) => {
   try {
     dispatch({ type: 'DOG_BREEDS_REQUEST' });
     const response = await axios.get(`/api/v1/dog-breeds`, {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -79,6 +77,50 @@ export const getDogBreeds = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: 'DOG_BREEDS_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Get Cat Colors
+export const getCatColors = async (dispatch) => {
+  try {
+    dispatch({ type: 'CAT_COLORS_REQUEST' });
+    const response = await axios.get(`/api/v1/cat-colors`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    //console.log('Get Cat Colors response: ' + JSON.stringify(response.data)); // logging the response for testing purposes
+    dispatch({
+      type: 'CAT_COLORS_SUCCESS',
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'CAT_COLORS_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Get Dog Colors
+export const getDogColors = async (dispatch) => {
+  try {
+    dispatch({ type: 'DOG_COLORS_REQUEST' });
+    const response = await axios.get(`/api/v1/dog-colors`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    //console.log('Get Dog Colors response: ' + JSON.stringify(response.data)); // logging the response for testing purposes
+    dispatch({
+      type: 'DOG_COLORS_SUCCESS',
+      payload: response.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: 'DOG_COLORS_FAIL',
       payload: error.response?.data?.message || error.message,
     });
   }
