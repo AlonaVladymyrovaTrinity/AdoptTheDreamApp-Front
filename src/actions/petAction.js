@@ -43,7 +43,6 @@ export const getCatBreeds = async (dispatch) => {
   try {
     dispatch({ type: 'CAT_BREEDS_REQUEST' });
     const response = await axios.get(`/api/v1/cat-breeds`, {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -66,7 +65,6 @@ export const getDogBreeds = async (dispatch) => {
   try {
     dispatch({ type: 'DOG_BREEDS_REQUEST' });
     const response = await axios.get(`/api/v1/dog-breeds`, {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -89,7 +87,6 @@ export const getCatColors = async (dispatch) => {
   try {
     dispatch({ type: 'CAT_COLORS_REQUEST' });
     const response = await axios.get(`/api/v1/cat-colors`, {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -112,7 +109,6 @@ export const getDogColors = async (dispatch) => {
   try {
     dispatch({ type: 'DOG_COLORS_REQUEST' });
     const response = await axios.get(`/api/v1/dog-colors`, {
-      withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
