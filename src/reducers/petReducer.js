@@ -104,3 +104,55 @@ export const dogBreedsReducer = (state = { dogBreeds: [] }, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
+
+export const catColorsReducer = (state = { catColors: [] }, action) => {
+  switch (action.type) {
+    case 'CAT_COLORS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        catColors: [],
+      };
+    case 'CAT_COLORS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        catColors: action.payload.cats,
+      };
+    case 'CAT_COLORS_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const dogColorsReducer = (state = { dogColors: [] }, action) => {
+  switch (action.type) {
+    case 'DOG_COLORS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        dogColors: [],
+      };
+    case 'DOG_COLORS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        dogColors: action.payload.dogs,
+      };
+    case 'DOG_COLORS_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
