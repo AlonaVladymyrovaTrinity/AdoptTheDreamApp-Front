@@ -467,9 +467,9 @@ const Pets = () => {
             </div>
             {/* Pet Card container */}
             <div className={style.cardsContainer} fluid="md" id="container">
-              <Row xs={1} md={2} lg={3} className="row-cols-auto g-col-4">
+              <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
                 {Object.values(currentPets).map((pet, idx) => (
-                  <Col className="mb-4" key={idx}>
+                  <Col className="mb-4 ps-0 pe-0" key={idx}>
                     <div className={style.grid_item}>
                       <PetCard pet={pet} />
                     </div>
