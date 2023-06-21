@@ -12,6 +12,9 @@ import { loadPet } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 const PetDetails = () => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -21,11 +24,24 @@ const PetDetails = () => {
   let { id } = useParams();
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
 
+  const goodWith = useMemo(() => {
+    if (!state.pet) return ""
+    return Object.entries(state.pet.goodWith)
+      .filter(([_, value]) => (value))
+      .map(([key, _]) => key).join(", ")
+  }, [state.pet]);
+
+  const careAndBehaviour = useMemo(() => {
+    if (!state.pet) return ""
+    return Object.entries(state.pet.careAndBehaviour)
+      .filter(([_, value]) => (value))
+      .map(([key, _]) => key).join(", ")
+  }, [state.pet]);
+
   useEffect(() => {
     const fetchPetData = async () => {
       try {
         await loadPet(id, setErrorMessage, dispatch);
-        console.log('DONE');
       } catch (error) {
         dispatch({ type: 'LOAD_PET_FAILURE' });
         setErrorMessage(`An error occurred during loading pet with id ${id}`);
@@ -36,6 +52,13 @@ const PetDetails = () => {
 
   const handleAddToFavorites = () => {
     setIsFavorite(true);
+  };
+
+  const navigate = useNavigate();
+
+  const handleAdopt = () => {
+    Cookies.set('PetName', petDetails.petName);
+    navigate('/application/confirm');
   };
 
   const handleSelect = (selectedIndex, e) => {
@@ -122,13 +145,14 @@ const PetDetails = () => {
                   <p>Age: {petDetails.age}</p>
                   <p>Size: {petDetails.size}</p>
                   <p>Gender: {petDetails.gender}</p>
-                  <p>Good with: {petDetails.goodWith.join(', ')}</p>
+                  <p>Good with: {goodWith}</p>
                   <p>Coat Length: {petDetails.coatLength}</p>
                   <p>Color: {petDetails.color}</p>
                   <p>
-                    Care & Behavior: {petDetails.careAndBehaviour.join(', ')}
+                    Care & Behavior: {careAndBehaviour}
                   </p>
-                  <p>{petDetails.description}</p>
+                  <p>Description: {petDetails.description}</p>
+                  <div className={style.buttonContainer}>
                   <Button
                     className={
                       isFavorite
@@ -149,6 +173,20 @@ const PetDetails = () => {
                       </>
                     )}
                   </Button>
+                  
+                  <div className={style.buttonSpacing}>
+                  <Button
+                    onClick={handleAdopt}
+                    className={style.adoptButton}
+                    variant="btn-primary"
+                    size="btn-lg"
+                  >
+                    <span>
+                      <FontAwesomeIcon icon={faHeart} /> Adopt
+                    </span>
+                  </Button>
+                  </div>
+                  </div>
                 </div>
               </Col>
             </Row>
