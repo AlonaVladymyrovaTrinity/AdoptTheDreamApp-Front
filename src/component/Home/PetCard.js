@@ -11,8 +11,6 @@ const PetCard = ({ pet }) => {
 
   const { isAuthenticated } = useContext(UserContext);
   const isFavoriteHidden = isAuthenticated === 'false' ? true : false;
-  console.log('isAuthenticated: ', isAuthenticated);
-  console.log('isFavoriteHidden: ', isFavoriteHidden);
 
   return (
     <div className="petCard_wrapper ps-1 pe-1">

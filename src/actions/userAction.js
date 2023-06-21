@@ -99,13 +99,13 @@ export const loadUser = async (dispatch) => {
 // Logout User
 export const logout = async (dispatch) => {
   try {
-    const response = await axios.get(`/api/v1/logout`, {
+    /* const response = */ await axios.get(`/api/v1/logout`, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    console.log('Logout response: ' + JSON.stringify(response.data.success)); // logging the response for testing purposes
+    // console.log('Logout response: ' + JSON.stringify(response.data.success)); // logging the response for testing purposes
     dispatch({ type: 'LOGOUT_SUCCESS' });
     Cookies.set('isAuthenticated', false);
   } catch (error) {
