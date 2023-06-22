@@ -42,6 +42,7 @@ const PetDetails = () => {
     const fetchPetData = async () => {
       try {
         await loadPet(id, setErrorMessage, dispatch);
+
       } catch (error) {
         dispatch({ type: 'LOAD_PET_FAILURE' });
         setErrorMessage(`An error occurred during loading pet with id ${id}`);
@@ -57,6 +58,8 @@ const PetDetails = () => {
   const navigate = useNavigate();
 
   const handleAdopt = () => {
+    Cookies.set('PetID', petDetails._id);
+    Cookies.set('PetType', petDetails.petType);
     Cookies.set('PetName', petDetails.petName);
     navigate('/application/confirm');
   };
@@ -88,6 +91,7 @@ const PetDetails = () => {
                 className="d-flex align-items-start justify-content-center"
                 style={{ marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
               >
+
                 <Carousel
                   activeIndex={index}
                   onSelect={handleSelect}
@@ -153,39 +157,39 @@ const PetDetails = () => {
                   </p>
                   <p>Description: {petDetails.description}</p>
                   <div className={style.buttonContainer}>
-                  <Button
-                    className={
-                      isFavorite
-                        ? `${style.favoriteButton} ${style.favorite}`
-                        : style.favoriteButton
-                    }
-                    onClick={handleAddToFavorites}
-                  >
-                    {isFavorite ? (
-                      <>
-                        <FontAwesomeIcon icon={faHeart} className="me-2" />
-                        Added to Favorites
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon icon={faHeart} className="me-2" />
-                        Add to Favorites
-                      </>
-                    )}
-                  </Button>
-                  
-                  <div className={style.buttonSpacing}>
-                  <Button
-                    onClick={handleAdopt}
-                    className={style.adoptButton}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    <span>
-                      <FontAwesomeIcon icon={faHeart} /> Adopt
-                    </span>
-                  </Button>
-                  </div>
+                    <Button
+                      className={
+                        isFavorite
+                          ? `${style.favoriteButton} ${style.favorite}`
+                          : style.favoriteButton
+                      }
+                      onClick={handleAddToFavorites}
+                    >
+                      {isFavorite ? (
+                        <>
+                          <FontAwesomeIcon icon={faHeart} className="me-2" />
+                          Added to Favorites
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon icon={faHeart} className="me-2" />
+                          Add to Favorites
+                        </>
+                      )}
+                    </Button>
+
+                    <div className={style.buttonSpacing}>
+                      <Button
+                        onClick={handleAdopt}
+                        className={style.adoptButton}
+                        variant="btn-primary"
+                        size="btn-lg"
+                      >
+                        <span>
+                          <FontAwesomeIcon icon={faHeart} /> Adopt
+                        </span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Col>

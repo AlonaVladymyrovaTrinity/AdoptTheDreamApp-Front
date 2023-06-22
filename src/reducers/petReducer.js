@@ -2,6 +2,11 @@ export const initialState = {
   loading: false,
 };
 
+export const initialStateFavoritePets = {
+  loading: false,
+  favoritePets: null
+}
+
 export const petReducer = (state, action) => {
   switch (action.type) {
     case 'LOAD_PET_REQUEST':
@@ -156,3 +161,29 @@ export const dogColorsReducer = (state = { dogColors: [] }, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
+
+export const favoritePetsReducer = (state, action) => {
+  switch (action.type) {
+    case 'GET_FAVORITE_PETS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_FAVORITE_PETS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: action.payload,
+      };
+    case 'GET_FAVORITE_PETS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        pet: null,
+        error: action.payload,
+      };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+

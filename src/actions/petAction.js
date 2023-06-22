@@ -125,3 +125,19 @@ export const getDogColors = async (dispatch) => {
     });
   }
 };
+
+// Get favorites pets for logged in user
+export const getFavoritePets = async (dispatch) => {
+  dispatch({ type: 'GET_FAVORITE_PETS_REQUEST' });
+  try {
+    const response = await axios.get(`/api/v1/favorites`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    dispatch({ type: 'GET_FAVORITE_PETS_SUCCESS', payload: response.data.pets });
+  } catch (error) {
+    dispatch({ type: 'GET_FAVORITE_PETS_FAILURE' });
+  }
+};
