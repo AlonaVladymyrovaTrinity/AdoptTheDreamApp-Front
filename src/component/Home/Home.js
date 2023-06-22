@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
   const pets = useMemo(() => state.pets || {}, [state.pets]);
 
-  const totalItems = Object.values(pets).length; //20; // Replace with your total number of items
+  const totalItems = Object.values(pets).length; // Replace with your total number of items
   const itemsPerPage = 18; // Replace with the number of items to display per page
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
