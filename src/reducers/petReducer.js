@@ -1,6 +1,12 @@
 export const initialState = {
   loading: false,
+  isFavorite: false,
+  pet: null
 };
+
+// // Action types
+// const ADD_PET = 'ADD_PET';
+// const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
 
 export const petReducer = (state, action) => {
   switch (action.type) {
@@ -22,6 +28,57 @@ export const petReducer = (state, action) => {
         pet: null,
         error: action.payload,
       };
+    case 'FAVORITE_PET_ON_PET_DETAILS_REQUEST':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'FAVORITE_PET_ON_PET_DETAILS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        isFavorite: true,
+      };
+    case 'FAVORITE_PET_ON_PET_DETAILS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+      case 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST':
+        return {
+          ...state,
+          loading: true
+        };
+      case 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS':
+        return {
+          ...state,
+          loading: false,
+          isFavorite: false,
+        };
+      case 'UNFAVORITE_PET_ON_PET_DETAILS_FAILURE':
+        return {
+          ...state,
+          loading: false,
+          error: action.payload
+        };
+        case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_REQUEST':
+          return {
+            ...state,
+            loading: true
+          };
+        case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS':
+          return {
+            ...state,
+            loading: false,
+            isFavorite: action.payload,
+          };
+        case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_FAILURE':
+          return {
+            ...state,
+            loading: false,
+            error: action.payload
+          };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -156,3 +213,11 @@ export const dogColorsReducer = (state = { dogColors: [] }, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
+
+
+
+
+
+
+export default petReducer;
+

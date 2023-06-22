@@ -16,6 +16,7 @@ export const loadPet = async (id, setErrorMessage, dispatch) => {
     setErrorMessage(`An error occurred during loading pet with id ${id}`);
   }
 };
+
 // Get All Pets
 export const getPet = async (dispatch) => {
   try {
@@ -38,6 +39,7 @@ export const getPet = async (dispatch) => {
     });
   }
 };
+
 // Get Cat Breeds
 export const getCatBreeds = async (dispatch) => {
   try {
@@ -121,6 +123,67 @@ export const getDogColors = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: 'DOG_COLORS_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Add Pet to Favorites
+export const addPetToFavorites = async (id, dispatch) => {
+  dispatch({ type: 'FAVORITE_PET_ON_PET_DETAILS_REQUEST' });
+  try {
+    await axios.patch('/api/v1/favorites/add', { petId: id }, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log("SUCCESS")
+    dispatch({
+      type: 'FAVORITE_PET_ON_PET_DETAILS_SUCCESS'
+    });
+  } catch (error) {
+    console.log("FAILURE")
+    dispatch({
+      type: 'FAVORITE_PET_ON_PET_DETAILS_FAILURE',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Remove Pet from Favorites
+export const removePetFromFavorites = async (id, dispatch) => {
+  dispatch({ type: 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST' });
+  try {
+    await axios.patch('/api/v1/favorites/add', { petId: id }, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log("SUCCESS")
+    dispatch({
+      type: 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS'
+    });
+  } catch (error) {
+    console.log("FAILURE")
+    dispatch({
+      type: 'UNFAVORITE_PET_ON_PET_DETAILS_FAILURE',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Get Pet isFavorite (for current logged in user)
+export const getPetIsFavoriteStatus = async (id, dispatch) => {
+  dispatch({ type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_REQUEST' });
+  try {
+    const response = await axios.get(`/api/v1/favorites/${id}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log("SUCCESS")
+    dispatch({
+      type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS',
+      payload: response.data.isFavorite
+    });
+  } catch (error) {
+    console.log("FAILURE")
+    dispatch({
+      type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_FAILURE',
       payload: error.response?.data?.message || error.message,
     });
   }

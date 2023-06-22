@@ -8,34 +8,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { loadPet } from '../../actions/petAction';
+import { loadPet, addPetToFavorites, removePetFromFavorites, getPetIsFavoriteStatus } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
+// import { useSelector, useDispatch } from 'react-redux';
 
-const PetDetails = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const PetDetails = ({ pet }) => {
+  const [isFavorite, setIsFavorite] = useReducer(petReducer, initialState);
   const [index, setIndex] = useState(0);
+  // const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [state, dispatch] = useReducer(petReducer, initialState);
   let { id } = useParams();
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
 
+
   useEffect(() => {
     const fetchPetData = async () => {
-      try {
-        await loadPet(id, setErrorMessage, dispatch);
-        console.log('DONE');
-      } catch (error) {
-        dispatch({ type: 'LOAD_PET_FAILURE' });
-        setErrorMessage(`An error occurred during loading pet with id ${id}`);
-      }
+      await loadPet(id, setErrorMessage, dispatch);
+      await getPetIsFavoriteStatus(id, dispatch);
     };
     fetchPetData();
   }, [id]);
 
-  const handleAddToFavorites = () => {
-    setIsFavorite(true);
+  const toggleFavorite = () => {
+    if (!isFavorite) {
+      addPetToFavorites(id, dispatch)
+    } else {
+      removePetFromFavorites(id, dispatch)
+    }
   };
 
   const handleSelect = (selectedIndex, e) => {
@@ -136,7 +138,7 @@ const PetDetails = () => {
                         ? `${style.favoriteButton} ${style.favorite}`
                         : style.favoriteButton
                     }
-                    onClick={handleAddToFavorites}
+                    onClick={toggleFavorite}
                   >
                     {isFavorite ? (
                       <>
