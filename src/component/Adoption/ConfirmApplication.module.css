@@ -15,3 +15,7 @@
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-gray);
 }
+.currentDate h5 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

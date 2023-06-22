@@ -25,7 +25,7 @@ const PetCard = ({ pet }) => {
 
             <Link
               className="card-block stretched-link text-decoration-none"
-              to="/pet/cat"
+              to={`/pet/${pet._id}`}
             >
               <Card.Img
                 variant="top"
@@ -36,13 +36,11 @@ const PetCard = ({ pet }) => {
                   borderRadius: '20px',
                 }}
                 src={
-                  pet.image[0] === '/uploads/example.jpeg' &&
-                  pet.petType === 'Cat'
+                  pet.image.length === 0 && pet.petType === 'Cat'
                     ? cartoonCat
-                    : pet.image[0] === '/uploads/example.jpeg' &&
-                      pet.petType === 'Dog'
+                    : pet.image.length === 0 && pet.petType === 'Dog'
                     ? cartoonDog
-                    : pet.image[0]
+                    : pet.image[0].medium
                 }
                 alt={pet.petName}
               />

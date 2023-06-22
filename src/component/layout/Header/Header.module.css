@@ -12,7 +12,6 @@
   letter-spacing: normal;
   display: inline-block;
   position: relative;
-  color: var(--color-white);
 }
 .visited .navLinkHeader,
 .visited .navLinkLogInHeader {

@@ -53,11 +53,55 @@ video {
 .cardsContainerWithSelect {
   display: flex;
   flex-direction: row;
+  justify-items: center;
   width: 100%;
 }
-
+.cardsContainer {
+  width: 100%;
+  margin-top: 1rem;
+  padding-inline: 3rem;
+}
 .grid_item {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.select-option:disabled {
+  background-color: dimgrey;
+  color: #a9a9a9;
+  opacity: 1;
+}
+
+.custom-pagination-link > a {
+  background-color: var(--color-action-btn) !important;
+  color: var(--color-white);
+  border: none;
+}
+
+.custom-pagination-link > a:hover {
+  color: var(--color-white);
+}
+.custom-pagination-link > span {
+  background-color: var(--color-btn) !important;
+  border: none;
+}
+
+/* Responsive Design Tablet */
+
+@media screen and (max-width: 61.94em) {
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 37.5em) {
+  .cardsContainer {
+    padding-inline: 1rem;
+  }
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 18.75em) {
+  .cardsContainer {
+    padding-inline: 0rem;
+  }
 }

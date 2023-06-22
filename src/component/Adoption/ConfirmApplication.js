@@ -5,9 +5,21 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import style from './ConfirmApplication.module.css';
+import { format } from 'date-fns';
+import moment from 'moment';
 
 const ConfirmApplication = () => {
-  const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState(true);
+  const [form, setForm] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // const setField = (field, value) => {
+  //   setForm({
+  //     ...form,
+  //     [field]: value,
+  //   });
+  // };
 
   //------------------------select-------------------//
   const [selectedType, setSelectedType] = useState('');
@@ -37,106 +49,6 @@ const ConfirmApplication = () => {
   const [selectedGivenPetToShelter, setSelectedGivenPetToShelter] =
     useState('');
   const [selectedGivenPetAway, setSelectedGivenPetAway] = useState('');
-
-  // const [value, setValue] = useState('');
-
-  // const handleChange = (e) => {
-  //   console.log(e.target.value);
-  //   setValue(e.target.value);
-  // };
-  // const handleSelectTypeChange = (event) => {
-  //   const selectedPetType = event.target.value;
-  //   setSelectedType(selectedPetType);
-  // };
-
-  // const handleSelectTypeChange = (event) => {
-  //   const selectedType = event.target.value;
-  //   setSelectedType(selectedType);
-  //   const type = selectedType;
-  //   console.log(type);
-  //   alert(type);
-  // };
-
-  // const handleSelectWorkFromHomeChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedWorkFromHome(event.target.value);
-  // };
-  // const handleSelectAllergicChange = (event) => {
-  //   const selectedHaveAllergic = event.target.value;
-  //   setSelectedAllergic(selectedHaveAllergic);
-  // };
-  // const handleSelectAgreementAdoptingPetChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedAgreementAdoptingPet(event.target.value);
-  // };
-  // const handleSelectFearAnimalsChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedFearAnimals(event.target.value);
-  // };
-  // const handleSelectAreaAnimalRegulationChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedAreaAnimalRegulation(event.target.value);
-  // };
-  // const handleSelectOwnOrRentHomeChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedOwnOrRentHome(event.target.value);
-  // };
-  // const handleSelectPlanningToMoveChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedPlanningToMove(event.target.value);
-  // };
-  // const handleSelectHaveAYardChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedHaveAYard(event.target.value);
-  // };
-  // const handleSelectAlredyHavePetsChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedAlredyHavePets(event.target.value);
-  // };
-  // const handleSelectSprayedNeuteredChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedSprayedNeutered(event.target.value);
-  // };
-  // const handleSelectPetAGiftChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedPetAGift(event.target.value);
-  // };
-  // const handleSelectVetCareChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedVetCare(event.target.value);
-  // };
-  // const handleSelectFinancialResponsibilitiesChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedFinancialResponsibilities(event.target.value);
-  // };
-  // const handleSelectHireProfTrainerChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedHireProfTrainer(event.target.value);
-  // };
-  // const handleSelectPetsInThePastChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedPetsInThePast(event.target.value);
-  // };
-  // const handleSelectPetsGottenLostChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedPetsGottenLost(event.target.value);
-  // };
-  // const handleSelectPetsBeenPoisonedChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedPetsBeenPoisoned(event.target.value);
-  // };
-  // const handleSelectPetHitByVehicleChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedPetHitByVehicle(event.target.value);
-  // };
-  // const handleSelectGivenPetToShelterChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedGivenPetToShelter(event.target.value);
-  // };
-  // const handleSelectGivenPetAwayChange = (event) => {
-  //   console.log(event.target.value);
-  //   setSelectedGivenPetAway(event.target.value);
-  // };
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -182,132 +94,156 @@ const ConfirmApplication = () => {
   const [givenPetAwayExplain, setGivenPetAwayExplain] = useState('');
   const [notRelatedPeopleInfo, setNotRelatedPeopleInfo] = useState('');
   const [vetInfo, setVetInfo] = useState('');
+  const [agreement, setAgreement] = useState('');
   //--------------------------end input type='text'------------------------//
-  const [dateOfApplication, setDateOfApplication] = useState();
+  // const [dateOfApplication, setDateOfApplication] = useState(
+  //   moment().format('MM/dd/yyyy')
+  // );
+  // const onChangeDate = (date) => {
+  //   const newDate = setDateOfApplication(
+  //     moment(new Date(date.target.value)).format('MM/dd/yyyy')
+  //   );
+  //   setDateOfApplication(newDate);
+  // };
+  const currentDate = new Date().toLocaleDateString();
+
+  //-----------------------------------------------------------------------//
+  //  const form = event.currentTarget;
+  // if (form.checkValidity() === false) {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  // }
+  // setValidated(true);
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log('Type of pet: ' + selectedType);
-    console.log('Name of pet: ' + petName);
-    console.log('First Name: ' + firstName);
-    console.log('Last Name: ' + lastName);
-    console.log('First Name of Co-Applicants: ' + coApplicantsFirstName);
-    console.log('Last Name of Co-Applicants: ' + coApplicantsLastName);
-    console.log('Age of Applicant: ' + applicantAge);
-    console.log(
-      'Address: ' + streetAddress + ' ' + city + ' ' + state + ' ' + zip
-    );
-    console.log('Phone Number: ' + phoneNumber);
+    if (event) event.preventDefault();
+    setIsSubmitting(true);
+
+    // setErrors(validate(values));
+    //console.log(Form);
+    // console.log('Type of pet: ' + selectedType);
+    // console.log('Name of pet: ' + petName);
+    // console.log('First Name: ' + firstName);
+    // console.log('Last Name: ' + lastName);
+    // console.log('First Name of Co-Applicants: ' + coApplicantsFirstName);
+    // console.log('Last Name of Co-Applicants: ' + coApplicantsLastName);
+    // console.log('Age of Applicant: ' + applicantAge);
+    // console.log(
+    //   'Address: ' + streetAddress + ' ' + city + ' ' + state + ' ' + zip
+    // );
+    // console.log('Phone Number: ' + phoneNumber);
     console.log('E-mail Address: ' + emailAddress);
-    console.log('Occupation and Employer: ' + occupationAndEmployer);
-    console.log('Work Address: ' + workAddress);
-    console.log(
-      'Co-Applicant`s Occupation, Employer, and Work Address: ' +
-        coApplicantOccupationEmployerWorkAddress
-    );
-    console.log('Do you work from home?: ' + selectedWorkFromHome);
-    console.log('Names and Ages of Children in Your Home: ' + nameAgeChildren);
-    console.log(
-      'Is anyone in your home allergic to animals?: ' + selectedAllergic
-    );
-    console.log('If yes, explain: ' + allergicExplain);
-    console.log(
-      'Is everyone in your home in agreement about adopting a pet?: ' +
-        selectedAgreementAdoptingPet
-    );
-    console.log('If no, explain: ' + agreementExplain);
-    console.log(
-      'Who will be responsible for the grooming, housebreaking, and training of this pet?: ' +
-        responsibleGroomingTrainingPerson
-    );
-    console.log(
-      'Does anyone in your home fear animals?: ' + selectedFearAnimals
-    );
-    console.log('If yes, explain: ' + fearAnimalsExplain);
-    console.log(
-      'Are you familiar with animal regulations in your area? ' +
-        selectedAreaAnimalRegulation
-    );
-    console.log('Do you own or rent your home? ' + selectedOwnOrRentHome);
-    console.log(
-      'Please list management company`s or landlord`s name, address, and phone number: ' +
-        managementCompanyInfo
-    );
-    console.log(
-      'Are you planning to move in the near future? ' + selectedPlanningToMove
-    );
-    console.log('Please briefly describe your home: ' + homeDescription);
-    console.log('Do you have a yard? ' + selectedHaveAYard);
-    console.log('If yes, is it fenced? How high is the fence? ' + fenceHigh);
-    console.log(
-      'Tell us briefly, in your own words, why you want to bring a pet into your home: ' +
-        reasonOfAdoption
-    );
-    console.log(
-      'Do you already have a pet(s) in your home? ' + selectedAlredyHavePets
-    );
-    console.log('If yes, what kind and how old? ' + kindAgeExistingPet);
-    console.log(
-      'Are all your current pets spayed/neutered? ' + selectedSprayedNeutered
-    );
-    console.log(
-      'Is the pet you are applying for, going to be a gift? ' + selectedPetAGift
-    );
-    console.log(
-      'If no one is home, where will the pet be kept? ' + keptPetAlone
-    );
-    console.log(
-      'How many hours during a typical day will the pet be left alone? ' +
-        howLongPetLeftAlone
-    );
-    console.log(
-      'If you can no longer care for pet , who will contact our rescue to return pet? Please include their name, address, and phone number: ' +
-        returnPetPerson
-    );
-    console.log(
-      'Should your adopted pet develop special needs over time, will you still keep this pet, get proper veterinary care and follow your vet`s guidelines, including whatever treatments/medications/special foods are required? ' +
-        selectedVetCare
-    );
-    console.log(
-      'Will you assume all financial responsibilities for the pet you adopt, including inoculations, regular veterinary care, good quality food, licensing, ID tag, dog bed, leash, collar, etc.? ' +
-        selectedFinancialResponsibilities
-    );
-    console.log(
-      'Are you willing to hire a professional trainer to correct any behavioral issues that arise? ' +
-        selectedHireProfTrainer
-    );
-    console.log('Have you had pets in the past? ' + selectedPetsInThePast);
-    console.log('If yes, please tell us about them: ' + petsInThePastInfo);
-    console.log(
-      'How many years did you own your pet(s)? ' + petsInThePastPeriod
-    );
-    console.log(
-      'Have any of your pets ever gotten lost? ' + selectedPetsGottenLost
-    );
-    console.log(
-      'Have any of your pets ever been poisoned? ' + selectedPetsBeenPoisoned
-    );
-    console.log(
-      'Has any pet in your care ever been hit by a vehicle? ' +
-        selectedPetHitByVehicle
-    );
-    console.log(
-      'Have you ever given a pet to a shelter? ' + selectedGivenPetToShelter
-    );
-    console.log(
-      'Have you ever given a pet away to someone? ' + selectedGivenPetAway
-    );
-    console.log(
-      'If you`ve given away a pet in the past, please explain: ' +
-        givenPetAwayExplain
-    );
-    console.log(
-      'Please provide names, phone numbers, and relationship of two (see vet reference note) people not related to you: ' +
-        notRelatedPeopleInfo
-    );
-    console.log('Vet`s name, address, and phone number: ' + vetInfo);
-    console.log(dateOfApplication);
+    // console.log('Occupation and Employer: ' + occupationAndEmployer);
+    // console.log('Work Address: ' + workAddress);
+    // console.log(
+    //   'Co-Applicant`s Occupation, Employer, and Work Address: ' +
+    //     coApplicantOccupationEmployerWorkAddress
+    // );
+    // console.log('Do you work from home?: ' + selectedWorkFromHome);
+    // console.log('Names and Ages of Children in Your Home: ' + nameAgeChildren);
+    // console.log(
+    //   'Is anyone in your home allergic to animals?: ' + selectedAllergic
+    // );
+    // console.log('If yes, explain: ' + allergicExplain);
+    // console.log(
+    //   'Is everyone in your home in agreement about adopting a pet?: ' +
+    //     selectedAgreementAdoptingPet
+    // );
+    // console.log('If no, explain: ' + agreementExplain);
+    // console.log(
+    //   'Who will be responsible for the grooming, housebreaking, and training of this pet?: ' +
+    //     responsibleGroomingTrainingPerson
+    // );
+    // console.log(
+    //   'Does anyone in your home fear animals?: ' + selectedFearAnimals
+    // );
+    // console.log('If yes, explain: ' + fearAnimalsExplain);
+    // console.log(
+    //   'Are you familiar with animal regulations in your area? ' +
+    //     selectedAreaAnimalRegulation
+    // );
+    // console.log('Do you own or rent your home? ' + selectedOwnOrRentHome);
+    // console.log(
+    //   'Please list management company`s or landlord`s name, address, and phone number: ' +
+    //     managementCompanyInfo
+    // );
+    // console.log(
+    //   'Are you planning to move in the near future? ' + selectedPlanningToMove
+    // );
+    // console.log('Please briefly describe your home: ' + homeDescription);
+    // console.log('Do you have a yard? ' + selectedHaveAYard);
+    // console.log('If yes, is it fenced? How high is the fence? ' + fenceHigh);
+    // console.log(
+    //   'Tell us briefly, in your own words, why you want to bring a pet into your home: ' +
+    //     reasonOfAdoption
+    // );
+    // console.log(
+    //   'Do you already have a pet(s) in your home? ' + selectedAlredyHavePets
+    // );
+    // console.log('If yes, what kind and how old? ' + kindAgeExistingPet);
+    // console.log(
+    //   'Are all your current pets spayed/neutered? ' + selectedSprayedNeutered
+    // );
+    // console.log(
+    //   'Is the pet you are applying for, going to be a gift? ' + selectedPetAGift
+    // );
+    // console.log(
+    //   'If no one is home, where will the pet be kept? ' + keptPetAlone
+    // );
+    // console.log(
+    //   'How many hours during a typical day will the pet be left alone? ' +
+    //     howLongPetLeftAlone
+    // );
+    // console.log(
+    //   'If you can no longer care for pet , who will contact our rescue to return pet? Please include their name, address, and phone number: ' +
+    //     returnPetPerson
+    // );
+    // console.log(
+    //   'Should your adopted pet develop special needs over time, will you still keep this pet, get proper veterinary care and follow your vet`s guidelines, including whatever treatments/medications/special foods are required? ' +
+    //     selectedVetCare
+    // );
+    // console.log(
+    //   'Will you assume all financial responsibilities for the pet you adopt, including inoculations, regular veterinary care, good quality food, licensing, ID tag, dog bed, leash, collar, etc.? ' +
+    //     selectedFinancialResponsibilities
+    // );
+    // console.log(
+    //   'Are you willing to hire a professional trainer to correct any behavioral issues that arise? ' +
+    //     selectedHireProfTrainer
+    // );
+    // console.log('Have you had pets in the past? ' + selectedPetsInThePast);
+    // console.log('If yes, please tell us about them: ' + petsInThePastInfo);
+    // console.log(
+    //   'How many years did you own your pet(s)? ' + petsInThePastPeriod
+    // );
+    // console.log(
+    //   'Have any of your pets ever gotten lost? ' + selectedPetsGottenLost
+    // );
+    // console.log(
+    //   'Have any of your pets ever been poisoned? ' + selectedPetsBeenPoisoned
+    // );
+    // console.log(
+    //   'Has any pet in your care ever been hit by a vehicle? ' +
+    //     selectedPetHitByVehicle
+    // );
+    // console.log(
+    //   'Have you ever given a pet to a shelter? ' + selectedGivenPetToShelter
+    // );
+    // console.log(
+    //   'Have you ever given a pet away to someone? ' + selectedGivenPetAway
+    // );
+    // console.log(
+    //   'If you`ve given away a pet in the past, please explain: ' +
+    //     givenPetAwayExplain
+    // );
+    // console.log(
+    //   'Please provide names, phone numbers, and relationship of two (see vet reference note) people not related to you: ' +
+    //     notRelatedPeopleInfo
+    // );
+    // console.log('Vet`s name, address, and phone number: ' + vetInfo);
+    //console.log(currentDate);
 
     //---------------------clear the forms--------------------------/
+    setSelectedType('');
     setPetName('');
     setFirstName('');
     setLastName('');
@@ -360,23 +296,17 @@ const ConfirmApplication = () => {
     setGivenPetAwayExplain('');
     setNotRelatedPeopleInfo('');
     setVetInfo('');
-    setDateOfApplication('');
+    // setDateOfApplication('');
   };
   //-----------------------------end clear the forms-------------------//
-  // const form = event.currentTarget;
-  // if (form.checkValidity() === false) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  // }
-  // setValidated(true);
 
   return (
     <>
       <Container style={{ width: '80%' }}>
         <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
         <Form
-          noValidate
-          validated={validated}
+          // noValidate
+          // validated={validated}
           // method="post"
           onSubmit={handleSubmit}
         >
@@ -423,7 +353,7 @@ const ConfirmApplication = () => {
                   // onChange={(e) => setPetName(e.target.value)}
                   id="inputPetName"
                   aria-label=" Input Pet Name" // for screen reader
-                  required
+                  // required
                   placeholder="Name of pet"
                   // defaultValue=""
                 />
@@ -598,9 +528,11 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
                 <Form.Control
+                  className={`input ${errors.email && 'is-danger'}`}
                   type="text"
                   id="inputEmailAddress"
-                  value={emailAddress}
+                  value={emailAddress || ''}
+                  // value={emailAddress}
                   placeholder="E-mail Address"
                   onChange={(e) => setEmailAddress(e.target.value)}
                   aria-label="input E-mail Address" // for screen reader
@@ -1501,26 +1433,40 @@ const ConfirmApplication = () => {
               questions above will disqualify me from adopting a pet, and will
               nullify all adoption(s) and/or adoption agreements.
             </p>
-            <Form.Group className="mb-3" controlId="invalidCheck1" required>
+            <Form.Group className="mb-3">
               <Form.Check
-                required
+                onChange={(e) => setAgreement(e.target.value)}
+                type="checkbox"
+                id="checkboxAgreeToTermsAndConditions"
                 label="Agree to terms and conditions"
                 feedback="You must agree before submitting."
                 feedbackType="invalid"
-              />
-            </Form.Group>
-            <Form.Group as={Col} md="2" controlId="validationCustom01">
-              <Form.Control
+                // defaultChecked={false}
+                checked={agreement}
                 required
-                type="date"
-                value={dateOfApplication}
-                onChange={(e) => setDateOfApplication(e.target.value)}
-                // defaultValue=""
-                className="mb-3"
               />
             </Form.Group>
+            {/* <Form.Group as={Col} md="2"> */}
+            {/* <Form.Control
+                type="date"
+                id="inputDate of Application"
+                value={dateOfApplication}
+                // placeholder=""
+                onChange={(e) => onChangeDate(e)}
+                required
+                className="mb-3"
+              /> */}
+            <div className={style.currentDate}>
+              <h5>{currentDate}</h5>
+            </div>
+            {/* </Form.Group> */}
             <div className={style.confirmApplicationSubmitBtn}>
-              <Button className="mb-5 b" type="submit">
+              <Button
+                className="mb-5 b"
+                type="submit"
+                onClick={handleSubmit}
+                disabled={!agreement}
+              >
                 Submit form
               </Button>
             </div>
