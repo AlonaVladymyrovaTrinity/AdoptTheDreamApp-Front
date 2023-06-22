@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,8 +11,12 @@ import style from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import UserContext from '../../../UserContext';
 
 const Header = () => {
+  const { isAuthenticated } = useContext(UserContext);
+  isAuthenticated === 'false' ? console.log('false') : console.log('true');
+
   return (
     <Navbar
       collapseOnSelect
@@ -88,20 +92,26 @@ const Header = () => {
                   className="mb-0.6 color-var(--color-black)"
                 />
               </Button>
-              <Nav>
-                <Nav.Link href="/favorites" className={style.navLinkHeader}>
-                  <FontAwesomeIcon icon={faHeart} />
-                </Nav.Link>
-              </Nav>
+              {isAuthenticated === 'true' ? (
+                <Nav>
+                  <Nav.Link href="/favorites" className={style.navLinkHeader}>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </Nav.Link>
+                </Nav>
+              ) : null}
             </Form>
           </div>
           <Nav>
-            {/* <Nav.Link className={style.navLinkLogInHeader} href="/login">
-              LogIn
-            </Nav.Link> */}
-            <Nav.Link href="/account" className={style.navLinkHeader}>
-              <FontAwesomeIcon icon={faUser} />
-            </Nav.Link>
+            {isAuthenticated === 'true' ? (
+              <Nav.Link href="/account" className={style.navLinkHeader}>
+                <FontAwesomeIcon icon={faUser} />
+              </Nav.Link>
+            ) : null}
+            {isAuthenticated === 'false' ? (
+              <Nav.Link className={style.navLinkLogInHeader} href="/login">
+                LogIn
+              </Nav.Link>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>
