@@ -1,11 +1,18 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useMemo,
+  useContext,
+} from 'react';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import { initialState, userReducer } from '../../reducers/userReducer';
-import { loadUser, logout } from '../../actions/userAction';
+//import { loadUser, logout } from '../../actions/userAction';
+import { loadUser } from '../../actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
@@ -24,6 +31,7 @@ import {
   MDBTypography,
 } from 'mdb-react-ui-kit';
 import style from './Profile.module.css';
+import AuthContext from '../../context/auth-context';
 
 const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,6 +40,7 @@ const Profile = () => {
   const [logoutResponse, setLogoutResponse] = useState(false);
   const navigate = useNavigate();
 
+  const { logout, dispatch: dispatchLogout } = useContext(AuthContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -48,7 +57,8 @@ const Profile = () => {
     setErrorMessage('');
     setSuccessMessage('');
     try {
-      await logout(dispatch);
+      //   await logout(dispatch);
+      await logout(dispatchLogout);
     } catch (error) {
       setErrorMessage('Error logging out');
     }

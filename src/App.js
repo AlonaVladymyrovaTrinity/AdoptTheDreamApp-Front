@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './component/layout/Header/Header';
 import About from './component/layout/About/About';
@@ -21,6 +21,7 @@ import NoFavorites from './component/NoFavorites/NoFavorites';
 import Donate from './component/Donate/Donate';
 import OurTeam from './component/layout/OurTeam/OurTeam';
 import style from './App.module.css';
+import AuthContext from './context/auth-context';
 
 function ProtectedRoute({ isAuthenticated, children }) {
   if (isAuthenticated === false) {
@@ -30,7 +31,14 @@ function ProtectedRoute({ isAuthenticated, children }) {
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  //const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { userId, userName } = useContext(AuthContext);
+  useEffect(() => {
+    setIsAuthenticated(userId ? true : false);
+  }, [userId]);
+  console.log(userId, userName);
+  console.log(isAuthenticated, 'FROM App is auth');
   // Function to handle user login
   const handleLogin = () => {
     // authentication logic will be implemented later

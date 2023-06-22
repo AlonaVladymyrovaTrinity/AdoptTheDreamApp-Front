@@ -12,7 +12,7 @@ export const login = async (
   dispatch({ type: 'LOGIN_REQUEST' });
   Cookies.set('isAuthenticated', false);
   try {
-    /* const res =*/ await axios.post(
+    const res = await axios.post(
       '/api/v1/login',
       { email, password },
       {
@@ -23,6 +23,8 @@ export const login = async (
     );
     dispatch({ type: 'LOGIN_SUCCESS' });
     Cookies.set('isAuthenticated', true);
+    Cookies.set('user-id', res.data.userId);
+    Cookies.set('user-name', res.data.user.name);
     //console.log('login result:' + JSON.stringify(res)); // logging the response for testing purposes
     setSuccessMessage('User successfully logged in.');
   } catch (error) {
@@ -44,13 +46,15 @@ export const register = async (
   dispatch({ type: 'REGISTER_USER_REQUEST' });
   Cookies.set('isAuthenticated', false);
   try {
-    /* const res = */ await axios.post('/api/v1/register', userData, {
+    const res = await axios.post('/api/v1/register', userData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
     dispatch({ type: 'REGISTER_USER_SUCCESS' });
     Cookies.set('isAuthenticated', true);
+    Cookies.set('user-id', res.data.userId);
+    Cookies.set('user-name', res.data.user.name);
     //console.log(JSON.stringify(res)); // logging the response for testing purposes
     //console.log(res.statusText); // logging the statusText response for testing purposes
     setSuccessMessage('User account successfully created. You can login now');
@@ -108,6 +112,8 @@ export const logout = async (dispatch) => {
     // console.log('Logout response: ' + JSON.stringify(response.data.success)); // logging the response for testing purposes
     dispatch({ type: 'LOGOUT_SUCCESS' });
     Cookies.set('isAuthenticated', false);
+    Cookies.remove('user-id', { path: '' });
+    Cookies.remove('user-name', { path: '' });
   } catch (error) {
     dispatch({
       type: 'LOGOUT_FAIL',

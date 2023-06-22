@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React /*, { useState, useEffect } */, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,36 +11,27 @@ import style from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
+import AuthContext from '../../../context/auth-context';
 
 const Header = () => {
-  const [isAuthenticatedUpd, setIsAuthenticatedUpd] = useState(
-    Cookies.get('isAuthenticated')
-  );
-  useEffect(() => {
-    //Cookies.get('isAuthenticated'); //=== 'false' ? false : true;
-    // const cookieValue = Cookies.get('isAuthenticated');
-    // console.log(cookieValue);
-    console.log(isAuthenticatedUpd);
-    if (isAuthenticatedUpd === 'true') {
-      console.log('authenticated!');
-      //setIsAuthenticatedUpd(true);
-    } else {
-      //setIsAuthenticatedUpd(false);
-      console.log('non-authenticated!');
-    }
-  }, [isAuthenticatedUpd]);
-
+  // const [isAuthenticatedUpd, setIsAuthenticatedUpd] = useState(
+  //   Cookies.get('isAuthenticated')
+  // );
   // useEffect(() => {
-  //   if (isAuthenticatedUpd) {
-  //     console.log('authenticated');
-  //     // Perform actions for authenticated users
+  //   //Cookies.get('isAuthenticated'); //=== 'false' ? false : true;
+  //   // const cookieValue = Cookies.get('isAuthenticated');
+  //   // console.log(cookieValue);
+  //   console.log(isAuthenticatedUpd);
+  //   if (isAuthenticatedUpd === 'true') {
+  //     console.log('authenticated!');
+  //     //setIsAuthenticatedUpd(true);
   //   } else {
-  //     console.log('non-authenticated');
-  //     // Perform actions for non-authenticated users
+  //     //setIsAuthenticatedUpd(false);
+  //     console.log('non-authenticated!');
   //   }
   // }, [isAuthenticatedUpd]);
 
+  const { userName } = useContext(AuthContext);
   return (
     <Navbar
       collapseOnSelect
