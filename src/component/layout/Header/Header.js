@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,11 +11,35 @@ import style from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import UserContext from '../../../UserContext';
+import Cookies from 'js-cookie';
 
 const Header = () => {
-  const { isAuthenticated } = useContext(UserContext);
-  isAuthenticated === 'false' ? console.log('false') : console.log('true');
+  const [isAuthenticatedUpd, setIsAuthenticatedUpd] = useState(
+    Cookies.get('isAuthenticated')
+  );
+  useEffect(() => {
+    //Cookies.get('isAuthenticated'); //=== 'false' ? false : true;
+    // const cookieValue = Cookies.get('isAuthenticated');
+    // console.log(cookieValue);
+    console.log(isAuthenticatedUpd);
+    if (isAuthenticatedUpd === 'true') {
+      console.log('authenticated!');
+      //setIsAuthenticatedUpd(true);
+    } else {
+      //setIsAuthenticatedUpd(false);
+      console.log('non-authenticated!');
+    }
+  }, [isAuthenticatedUpd]);
+
+  // useEffect(() => {
+  //   if (isAuthenticatedUpd) {
+  //     console.log('authenticated');
+  //     // Perform actions for authenticated users
+  //   } else {
+  //     console.log('non-authenticated');
+  //     // Perform actions for non-authenticated users
+  //   }
+  // }, [isAuthenticatedUpd]);
 
   return (
     <Navbar
@@ -92,7 +116,7 @@ const Header = () => {
                   className="mb-0.6 color-var(--color-black)"
                 />
               </Button>
-              {isAuthenticated === 'true' ? (
+              {isAuthenticatedUpd === true ? (
                 <Nav>
                   <Nav.Link href="/favorites" className={style.navLinkHeader}>
                     <FontAwesomeIcon icon={faHeart} />
@@ -102,12 +126,12 @@ const Header = () => {
             </Form>
           </div>
           <Nav>
-            {isAuthenticated === 'true' ? (
+            {isAuthenticatedUpd === true ? (
               <Nav.Link href="/account" className={style.navLinkHeader}>
                 <FontAwesomeIcon icon={faUser} />
               </Nav.Link>
             ) : null}
-            {isAuthenticated === 'false' ? (
+            {isAuthenticatedUpd === false ? (
               <Nav.Link className={style.navLinkLogInHeader} href="/login">
                 LogIn
               </Nav.Link>
