@@ -31,14 +31,15 @@ function ProtectedRoute({ isAuthenticated, children }) {
 }
 
 function App() {
-  //const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const { userId, userName } = useContext(AuthContext);
+  const { userId /*, userName*/ } = useContext(AuthContext);
   useEffect(() => {
     setIsAuthenticated(userId ? true : false);
   }, [userId]);
-  console.log(userId, userName);
-  console.log(isAuthenticated, 'FROM App is auth');
+
+  //console.log(userId, userName);
+  //console.log(isAuthenticated, 'FROM App is auth');
+
   // Function to handle user login
   const handleLogin = () => {
     // authentication logic will be implemented later

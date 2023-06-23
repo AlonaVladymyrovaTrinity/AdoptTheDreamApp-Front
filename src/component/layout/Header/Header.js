@@ -1,4 +1,4 @@
-import React /*, { useState, useEffect } */, { useContext } from 'react';
+import React, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,23 +14,6 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../context/auth-context';
 
 const Header = () => {
-  // const [isAuthenticatedUpd, setIsAuthenticatedUpd] = useState(
-  //   Cookies.get('isAuthenticated')
-  // );
-  // useEffect(() => {
-  //   //Cookies.get('isAuthenticated'); //=== 'false' ? false : true;
-  //   // const cookieValue = Cookies.get('isAuthenticated');
-  //   // console.log(cookieValue);
-  //   console.log(isAuthenticatedUpd);
-  //   if (isAuthenticatedUpd === 'true') {
-  //     console.log('authenticated!');
-  //     //setIsAuthenticatedUpd(true);
-  //   } else {
-  //     //setIsAuthenticatedUpd(false);
-  //     console.log('non-authenticated!');
-  //   }
-  // }, [isAuthenticatedUpd]);
-
   const { userName } = useContext(AuthContext);
   return (
     <Navbar
@@ -72,8 +55,8 @@ const Header = () => {
             <Form className="d-flex width-150 align-items-center">
               <Form.Control
                 type="text"
-                // placeholder="Search"
-                // className="me-2"
+                placeholder="Search"
+                //className="me-2"
                 aria-label="Search"
                 style={{
                   height: 33,

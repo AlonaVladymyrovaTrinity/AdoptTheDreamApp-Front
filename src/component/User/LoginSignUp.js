@@ -1,4 +1,4 @@
-import React, { /*useReducer,*/ useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import style from './LoginSignUp.module.css';
 import Loader from '../layout/Loader/Loader';
 import { Link } from 'react-router-dom';
@@ -8,14 +8,11 @@ import { faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import ProfileImg from '../../images/Profile.png';
 import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
-//import { login, register } from '../../actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
-//import { initialState, userReducer } from '../../reducers/userReducer';
 import AuthContext from '../../context/auth-context';
 
 const LoginSignUp = () => {
-  //const [state, dispatch] = useReducer(userReducer, initialState);
   const { state, dispatch, login, register } = useContext(AuthContext);
 
   const navigate = useNavigate();

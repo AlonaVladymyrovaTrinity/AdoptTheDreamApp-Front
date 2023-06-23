@@ -11,7 +11,6 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faSignOut } from '@fortawesome/free-solid-svg-icons';
 import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import { initialState, userReducer } from '../../reducers/userReducer';
-//import { loadUser, logout } from '../../actions/userAction';
 import { loadUser } from '../../actions/userAction';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
@@ -57,7 +56,6 @@ const Profile = () => {
     setErrorMessage('');
     setSuccessMessage('');
     try {
-      //   await logout(dispatch);
       await logout(dispatchLogout);
     } catch (error) {
       setErrorMessage('Error logging out');
@@ -65,7 +63,7 @@ const Profile = () => {
     if (logoutResponse === true) {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
-        navigate('/login');
+        navigate('/');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
