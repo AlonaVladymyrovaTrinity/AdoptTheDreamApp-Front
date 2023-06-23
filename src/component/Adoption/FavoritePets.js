@@ -67,7 +67,7 @@ const FavoritePets = () => {
           <Row>
             {currentPets.map((pet) => (
               <Col xs={12} sm={6} md={4} key={pet._id}>
-                <Card className={style['favorite-card']}>
+                <Card className={style['favorite-card']} style={{ height: '100%' }}>
                   <Card.Img variant="top" src={
                     pet.image.length > 0 ? pet.image[0].full :
                     pet.petType === 'Cat' ? cartoonCat : cartoonDog
