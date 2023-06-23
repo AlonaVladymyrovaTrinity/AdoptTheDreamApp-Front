@@ -92,8 +92,14 @@ const Header = () => {
               </Button>
               {userName ? (
                 <Nav>
-                  <Nav.Link href="/favorites" className={style.navLinkHeader}>
+                  <Nav.Link
+                    href="/favorites"
+                    className={style.navLinkHeader}
+                    title="Favorites"
+                    aria-label="Favorites"
+                  >
                     <FontAwesomeIcon icon={faHeart} />
+                    <span className="sr-only">Favorites</span>
                   </Nav.Link>
                 </Nav>
               ) : null}
@@ -101,12 +107,23 @@ const Header = () => {
           </div>
           <Nav>
             {userName ? (
-              <Nav.Link href="/account" className={style.navLinkHeader}>
+              <Nav.Link
+                href="/account"
+                title={`${userName}'s profile`}
+                aria-label={`${userName}'s profile`}
+                className={style.navLinkHeader}
+              >
                 <FontAwesomeIcon icon={faUser} />
+                <span className="sr-only">User profile</span>
               </Nav.Link>
             ) : null}
             {!userName ? (
-              <Nav.Link className={style.navLinkLogInHeader} href="/login">
+              <Nav.Link
+                className={style.navLinkLogInHeader}
+                href="/login"
+                title="Login"
+                aria-label={`Login`}
+              >
                 LogIn
               </Nav.Link>
             ) : null}

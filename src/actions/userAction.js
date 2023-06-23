@@ -122,14 +122,12 @@ export const updateUserProfile = async (
 ) => {
   dispatch({ type: 'UPDATE_PROFILE_REQUEST' });
   try {
-    const response = await axios.patch('/api/v1/me/update', userData, {
+    /*const response =*/ await axios.patch('/api/v1/me/update', userData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    console.log(
-      'Update Profile response: ' + JSON.stringify(response.data.msg)
-    ); // logging the response for testing purposes
+    // console.log('Update Profile response: ' + JSON.stringify(response.data.msg)); // logging the response for testing purposes
     dispatch({ type: 'UPDATE_PROFILE_SUCCESS' });
     setSuccessMessage('Profile successfully updated!');
   } catch (error) {
