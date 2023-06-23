@@ -7,6 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import style from './ConfirmApplication.module.css';
 import Cookies from 'js-cookie';
+import Alert from 'react-bootstrap/Alert';
 
 const ConfirmApplication = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const ConfirmApplication = () => {
   //const [form, setForm] = useState([]);
   const [errors, setErrors] = useState({});
   //const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   //------------------------select-------------------//
   const [selectedWorkFromHome, setSelectedWorkFromHome] = useState('');
@@ -89,24 +92,35 @@ const ConfirmApplication = () => {
   const currentDate = new Date().toLocaleDateString(); //date of Application
   const petId = Cookies.get('PetID');
   const petType = Cookies.get('PetType');
-
   const petName = Cookies.get('PetName');
+
   useEffect(() => {
     if (!Cookies.get('PetID')) {
       navigate('/pets');
     } else {
       navigate('/application/confirm');
-      // Continue with your logic for handling the cookie value
     }
   }, [navigate]);
   //-----------------------------------------------//
 
-  const validateForm = () => {
-    let formErrors = {};
-    // Perform validation checks
-    // if (name.trim() === '') {
-    //   formErrors.name = 'Name is required';
+  const validateForm = (event, form) => {
+    const formErrors = {};
+    // console.log(form);
+    // console.log(form.checkValidity() === false);
+    // if (form.checkValidity() === false) {
+    //   console.log('1');
+    //   event.preventDefault();
+    //   event.stopPropagation();
     // }
+    console.log(setValidated(true));
+    setValidated(true);
+    if (firstName.trim() === '') {
+      formErrors.firstName = 'First Name is required';
+      console.log('2');
+    }
+    if (lastName.trim() === '') {
+      formErrors.lastName = 'Last Name is required';
+    }
     if (email.trim() === '') {
       formErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -115,49 +129,21 @@ const ConfirmApplication = () => {
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
 
-  //   if (validateForm()) {
-  //     // Perform form submission or other actions
-  //     console.log('Form is valid');
-  //   } else {
-  //     console.log('Form validation failed');
-  //   }
-  // };
-  //   return (
-  //     <form onSubmit={handleSubmit}>
-  //       <div>
-  //         <label>Name:</label>
-  //         <input type="text" value={name} onChange={handleNameChange} />
-  //         {errors.name && <span>{errors.name}</span>}
-  //       </div>
-  //       <div>
-  //         <label>Email:</label>
-  //         <input type="email" value={email} onChange={handleEmailChange} />
-  //         {errors.email && <span>{errors.email}</span>}
-  //       </div>
-  //       <button type="submit">Submit</button>
-  //     </form>
-  //   );
-  // };
   //-----------------------------------------------------------------------//
   const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    // console.log(form);
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // }
+
     event.preventDefault();
-    if (validateForm()) {
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      setValidated(true);
-      // Perform form submission or other actions
+    if (validateForm(event, form)) {
       console.log('Form is valid');
+      setSuccessMessage('Form is valid');
 
-      Cookies.remove('PetID', { path: '' });
-      Cookies.remove('PetType', { path: '' });
-      Cookies.remove('PetName', { path: '' });
       console.log('Type of ID: ' + petId);
       console.log('Type of pet: ' + petType);
       console.log('Name of pet: ' + petName);
@@ -282,13 +268,32 @@ const ConfirmApplication = () => {
       );
       console.log('Vet`s name, address, and phone number: ' + vetInfo);
       console.log(currentDate);
+
+      Cookies.remove('PetID', { path: '' });
+      Cookies.remove('PetType', { path: '' });
+      Cookies.remove('PetName', { path: '' });
     } else {
       console.log('Form validation failed');
+      setErrorMessage('Form validation failed');
     }
   };
 
   return (
     <>
+      {successMessage && (
+        <Alert
+          variant="success"
+          onClose={() => setSuccessMessage('')}
+          dismissible
+        >
+          {successMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+          {errorMessage}
+        </Alert>
+      )}
       <Container style={{ width: '80%' }}>
         <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
         {/* {Object.keys(errors).length === 0 && isSubmitting && (
@@ -361,6 +366,11 @@ const ConfirmApplication = () => {
                   required
                   placeholder="First name"
                 />
+                {errors.firstName && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.firstName}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group as={Col} md="6" className="mb-3">
                 <Form.Control
@@ -372,6 +382,11 @@ const ConfirmApplication = () => {
                   required
                   placeholder="Last name"
                 />
+                {errors.lastName && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.lastName}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
