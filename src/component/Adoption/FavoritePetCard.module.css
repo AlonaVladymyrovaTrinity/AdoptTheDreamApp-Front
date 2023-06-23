@@ -19,3 +19,9 @@
   background-color: var(--color-btn);
   color: var(--color-white);
 }
+
+.favorite-card {
+  width: 18rem;
+  height: 12rem;
+  margin-bottom: 20px;  
+}

@@ -30,42 +30,41 @@ const FavoritePetCard = ({ pet }) => {
   };
 
   return (
-    <div className="petCard_wrapper ps-1 pe-1">
-      <div className="petCard">
-      <Card className={style['favorite-card']}>
-                  <Card.Img variant="top" src={
-                    pet.image.length > 0 ? pet.image[0].full : pet.petType === 'Cat' ? cartoonCat : cartoonDog
-                  } alt={pet.name} />
-                  <Card.Body>
-                    <Card.Title>{pet.name}</Card.Title>
-                    <Card.Text>{pet.description}</Card.Text>
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        margin: '10px',
-                      }}
-                    >
-                      <Button
-                        variant="danger"
-                        onClick={() => handleAdopt(pet.id)}
-                        className={style['button-favorite']}
-                        style={{ marginRight: '10px' }}
-                      >
-                        Adopt
-                      </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => removeFavorite(pet.id)}
-                        className={style['button-favorite-remove']}
-                      >
-                        Remove
-                      </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-      </div>
-    </div>
+    <Card className={style['favorite-card']}>
+      <Card.Img variant="top"
+        src={
+          pet.image.length > 0 ? pet.image[0].full : pet.petType === 'Cat' ? cartoonCat : cartoonDog
+        } alt={pet.name} />
+      <Card.Body>
+        <Card.Title>{pet.name}</Card.Title>
+        <Card.Text className="text-truncate">
+          {pet.description}
+        </Card.Text>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            margin: '10px',
+          }}
+        >
+          <Button
+            variant="danger"
+            onClick={() => handleAdopt(pet.id)}
+            className={style['button-favorite']}
+            style={{ marginRight: '10px' }}
+          >
+            Adopt
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => removeFavorite(pet.id)}
+            className={style['button-favorite-remove']}
+          >
+            Remove
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
   );
 };
 

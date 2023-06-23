@@ -2,11 +2,6 @@ export const initialState = {
   loading: false,
 };
 
-export const initialStateFavoritePets = {
-  loading: false,
-  favoritePets: null
-}
-
 export const petReducer = (state, action) => {
   switch (action.type) {
     case 'LOAD_PET_REQUEST':
@@ -26,6 +21,58 @@ export const petReducer = (state, action) => {
         loading: false,
         pet: null,
         error: action.payload,
+      };
+    case 'GET_FAVORITE_PETS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_FAVORITE_PETS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: action.payload,
+      };
+    case 'GET_FAVORITE_PETS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        pet: null,
+        error: action.payload,
+      };
+    case 'ADD_PET_TO_FAVORITES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'ADD_PET_TO_FAVORITES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: { ...action.payload }
+      };
+    case 'ADD_PET_TO_FAVORITES_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'XXXREMOVE_PET_FROM_FAVORITES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favorites: { ...action.payload }
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -157,31 +204,6 @@ export const dogColorsReducer = (state = { dogColors: [] }, action) => {
         error: action.payload,
       };
 
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`);
-  }
-};
-
-export const favoritePetsReducer = (state, action) => {
-  switch (action.type) {
-    case 'GET_FAVORITE_PETS_REQUEST':
-      return {
-        ...state,
-        loading: true,
-      };
-    case 'GET_FAVORITE_PETS_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        favoritePets: action.payload,
-      };
-    case 'GET_FAVORITE_PETS_FAILURE':
-      return {
-        ...state,
-        loading: false,
-        pet: null,
-        error: action.payload,
-      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

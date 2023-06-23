@@ -126,18 +126,36 @@ export const getDogColors = async (dispatch) => {
   }
 };
 
-// Get favorites pets for logged in user
-export const getFavoritePets = async (dispatch) => {
-  dispatch({ type: 'GET_FAVORITE_PETS_REQUEST' });
+// Add pet to favorites
+export const addPetToFavorites = async (petData, dispatch) => {
+  dispatch({ type: 'ADD_PET_TO_FAVORITES_REQUEST' });
   try {
-    const response = await axios.get(`/api/v1/favorites`, {
+    const response = await axios.patch(`/api/v1/favorites/add`, petData, {
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    dispatch({ type: 'GET_FAVORITE_PETS_SUCCESS', payload: response.data.pets });
+    dispatch({ type: 'ADD_PET_TO_FAVORITES_SUCCESS', payload: response.data.user.favorites });
   } catch (error) {
-    dispatch({ type: 'GET_FAVORITE_PETS_FAILURE' });
+    dispatch({ type: 'ADD_PET_TO_FAVORITES_FAILURE' });
+  }
+};
+
+// Remove pet from favorites
+export const removePetFromFavorites = async (petData, dispatch) => {
+  dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_REQUEST' });
+  try {
+    const response = await axios.patch(`/api/v1/favorites/remove`, petData, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log("response.data.user.favorites: " + JSON.stringify(response.data.user.favorites))
+
+    dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_SUCCESS', payload: response.data.user.favorites });
+  } catch (error) {
+    dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_FAILURE' });
   }
 };

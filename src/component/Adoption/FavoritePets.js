@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import style from './FavoritePets.module.css';
 import { useReducer, useMemo } from 'react';
-import { initialStateFavoritePets, favoritePetsReducer } from '../../reducers/petReducer';
+import { initialStateFavoritePets, favoritePetsReducer } from '../../reducers/favoritePetsReducer';
+import { getFavoritePets, removePetFromFavorites } from '../../actions/favoritePetsAction';
 import { useEffect } from 'react';
-import { getFavoritePets } from '../../actions/petAction';
-import FavoritePetCard from './FavoritePetCard';
+import cartoonCat from '../../images/cartoonCat.jpg';
+import cartoonDog from '../../images/cartoonDog.jpg';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const FavoritePets = () => {
   // const [favoritePets, setFavoritePets] = useState(pets);
@@ -13,39 +17,43 @@ const FavoritePets = () => {
 
   const [state, dispatch] = useReducer(favoritePetsReducer, initialStateFavoritePets);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchFavoritePets = async () => {
       await getFavoritePets(dispatch);
-      console.log('Favorite Pets loaded');
     };
     fetchFavoritePets();
   }, [])
 
-
   // Function to remove a pet from favorites
-  const removeFavorite = (petId) => {
-    // setFavoritePets(favoritePets.filter((pet) => pet.id !== petId));
+  const removeFavorite = async (pet) => {
+    await removePetFromFavorites({petId: pet._id}, dispatch)
   };
 
   // Function to handle adopting a pet
-  const handleAdopt = (petId) => {
-    console.log(`Adopt pet with ID: ${petId}`);
+  const handleAdopt = (pet) => {
+    console.log(`Adopt pet with ID: ${pet._id}`);
+    Cookies.set('PetID', pet._id);
+    Cookies.set('PetType', pet.petType);
+    Cookies.set('PetName', pet.petName);
+    navigate('/application/confirm');
   };
 
   // Pagination logic
   const petsPerPage = 3;
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const favoritePets = useMemo(() => Object.values(state.favoritePets || {}), [state.favoritePets]);
-  const currentPets = favoritePets.slice(indexOfFirstPet, indexOfLastPet);
+  const favorites = useMemo(() => Object.values(state.favorites || {}), [state.favorites]);
+  const currentPets = favorites.slice(indexOfFirstPet, indexOfLastPet);
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+<div>
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Favorite Pets</h1>
-      {favoritePets.length === 0 ? (
+      {!favorites || favorites.length === 0 ? (
         <p>No favorite pets selected.</p>
       ) : (
         <Container
@@ -58,8 +66,41 @@ const FavoritePets = () => {
         >
           <Row>
             {currentPets.map((pet) => (
-              <Col xs={12} sm={6} md={4} key={pet.id}>
-                <FavoritePetCard pet={pet} />
+              <Col xs={12} sm={6} md={4} key={pet._id}>
+                <Card className={style['favorite-card']}>
+                  <Card.Img variant="top" src={
+                    pet.image.length > 0 ? pet.image[0].full :
+                    pet.petType === 'Cat' ? cartoonCat : cartoonDog
+                  }
+                  alt={pet.name} />
+                  <Card.Body>
+                    <Card.Title>{pet.name}</Card.Title>
+                    <Card.Text className='text-truncate'>{pet.description}</Card.Text>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '10px',
+                      }}
+                    >
+                      <Button
+                        variant="danger"
+                        onClick={() => handleAdopt(pet)}
+                        className={style['button-favorite']}
+                        style={{ marginRight: '10px' }}
+                      >
+                        Adopt
+                      </Button>
+                      <Button
+                        variant="danger"
+                        onClick={() => removeFavorite(pet)}
+                        className={style['button-favorite-remove']}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
               </Col>
             ))}
           </Row>
@@ -70,7 +111,7 @@ const FavoritePets = () => {
       >
         <Pagination>
           {Array.from(
-            { length: Math.ceil(favoritePets.length / petsPerPage) },
+            { length: Math.ceil(favorites.length / petsPerPage) },
             (_, index) => (
               <Pagination.Item
                 key={index + 1}
