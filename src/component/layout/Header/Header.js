@@ -107,7 +107,7 @@ const Header = () => {
                   className="mb-0.6 color-var(--color-black)"
                 />
               </Button>
-              {isAuthenticatedUpd === true ? (
+              {userName ? (
                 <Nav>
                   <Nav.Link href="/favorites" className={style.navLinkHeader}>
                     <FontAwesomeIcon icon={faHeart} />
@@ -117,12 +117,12 @@ const Header = () => {
             </Form>
           </div>
           <Nav>
-            {isAuthenticatedUpd === true ? (
+            {userName ? (
               <Nav.Link href="/account" className={style.navLinkHeader}>
                 <FontAwesomeIcon icon={faUser} />
               </Nav.Link>
             ) : null}
-            {isAuthenticatedUpd === false ? (
+            {!userName ? (
               <Nav.Link className={style.navLinkLogInHeader} href="/login">
                 LogIn
               </Nav.Link>
