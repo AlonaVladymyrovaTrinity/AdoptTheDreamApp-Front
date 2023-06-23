@@ -15,7 +15,6 @@ import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-
 const PetDetails = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [index, setIndex] = useState(0);
@@ -25,17 +24,19 @@ const PetDetails = () => {
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
 
   const goodWith = useMemo(() => {
-    if (!state.pet) return ""
+    if (!state.pet) return '';
     return Object.entries(state.pet.goodWith)
-      .filter(([_, value]) => (value))
-      .map(([key, _]) => key).join(", ")
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+      .join(', ');
   }, [state.pet]);
 
   const careAndBehaviour = useMemo(() => {
-    if (!state.pet) return ""
+    if (!state.pet) return '';
     return Object.entries(state.pet.careAndBehaviour)
-      .filter(([_, value]) => (value))
-      .map(([key, _]) => key).join(", ")
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+      .join(', ');
   }, [state.pet]);
 
   useEffect(() => {
@@ -57,6 +58,8 @@ const PetDetails = () => {
   const navigate = useNavigate();
 
   const handleAdopt = () => {
+    Cookies.set('PetID', petDetails._id);
+    Cookies.set('PetType', petDetails.petType);
     Cookies.set('PetName', petDetails.petName);
     navigate('/application/confirm');
   };
@@ -86,25 +89,30 @@ const PetDetails = () => {
                 sm={12}
                 md={6}
                 className="d-flex align-items-start justify-content-center"
-                style={{ marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
+                style={{
+                  marginTop: '2rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                }}
               >
                 <Carousel
                   activeIndex={index}
                   onSelect={handleSelect}
-                  hover='pause'
-                  style={{ overflow: "hidden" }}
+                  hover="pause"
+                  style={{ overflow: 'hidden' }}
                 >
                   {petDetails.image.length > 0 ? (
-                    petDetails.image.map(it => it.full).map((img, i) =>
-                      <Carousel.Item
-                        key={i}
-                      >
-                        <img src={img}
-                          alt={petDetails.petName}
-                          style={{ height: "560px" }}
-                        />
-                      </Carousel.Item>
-                    )
+                    petDetails.image
+                      .map((it) => it.full)
+                      .map((img, i) => (
+                        <Carousel.Item key={i}>
+                          <img
+                            src={img}
+                            alt={petDetails.petName}
+                            style={{ height: '560px' }}
+                          />
+                        </Carousel.Item>
+                      ))
                   ) : (
                     <Carousel.Item
                       key={0}
@@ -112,9 +120,7 @@ const PetDetails = () => {
                     >
                       <img
                         src={
-                          petDetails.petType === 'Cat'
-                            ? cartoonCat
-                            : cartoonDog
+                          petDetails.petType === 'Cat' ? cartoonCat : cartoonDog
                         }
                         alt={petDetails.petName}
                         style={{
@@ -131,7 +137,12 @@ const PetDetails = () => {
                 sm={12}
                 md={6}
                 className="d-flex align-items-center justify-content-center"
-                style={{ marginRight: 'auto', marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
+                style={{
+                  marginRight: 'auto',
+                  marginTop: '2rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                }}
               >
                 <div
                   className={style['frame']}
@@ -148,44 +159,42 @@ const PetDetails = () => {
                   <p>Good with: {goodWith}</p>
                   <p>Coat Length: {petDetails.coatLength}</p>
                   <p>Color: {petDetails.color}</p>
-                  <p>
-                    Care & Behavior: {careAndBehaviour}
-                  </p>
+                  <p>Care & Behavior: {careAndBehaviour}</p>
                   <p>Description: {petDetails.description}</p>
                   <div className={style.buttonContainer}>
-                  <Button
-                    className={
-                      isFavorite
-                        ? `${style.favoriteButton} ${style.favorite}`
-                        : style.favoriteButton
-                    }
-                    onClick={handleAddToFavorites}
-                  >
-                    {isFavorite ? (
-                      <>
-                        <FontAwesomeIcon icon={faHeart} className="me-2" />
-                        Added to Favorites
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon icon={faHeart} className="me-2" />
-                        Add to Favorites
-                      </>
-                    )}
-                  </Button>
-                  
-                  <div className={style.buttonSpacing}>
-                  <Button
-                    onClick={handleAdopt}
-                    className={style.adoptButton}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    <span>
-                      <FontAwesomeIcon icon={faHeart} /> Adopt
-                    </span>
-                  </Button>
-                  </div>
+                    <Button
+                      className={
+                        isFavorite
+                          ? `${style.favoriteButton} ${style.favorite}`
+                          : style.favoriteButton
+                      }
+                      onClick={handleAddToFavorites}
+                    >
+                      {isFavorite ? (
+                        <>
+                          <FontAwesomeIcon icon={faHeart} className="me-2" />
+                          Added to Favorites
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon icon={faHeart} className="me-2" />
+                          Add to Favorites
+                        </>
+                      )}
+                    </Button>
+
+                    <div className={style.buttonSpacing}>
+                      <Button
+                        onClick={handleAdopt}
+                        className={style.adoptButton}
+                        variant="btn-primary"
+                        size="btn-lg"
+                      >
+                        <span>
+                          <FontAwesomeIcon icon={faHeart} /> Adopt
+                        </span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Col>

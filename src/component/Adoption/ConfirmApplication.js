@@ -1,28 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import style from './ConfirmApplication.module.css';
-import { format } from 'date-fns';
-import moment from 'moment';
+import Cookies from 'js-cookie';
 
 const ConfirmApplication = () => {
-  const [validated, setValidated] = useState(true);
-  const [form, setForm] = useState([]);
+  const navigate = useNavigate();
+  const [validated, setValidated] = useState(false);
+  //const [form, setForm] = useState([]);
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // const setField = (field, value) => {
-  //   setForm({
-  //     ...form,
-  //     [field]: value,
-  //   });
-  // };
+  //const [isSubmitting, setIsSubmitting] = useState(false);
 
   //------------------------select-------------------//
-  const [selectedType, setSelectedType] = useState('');
   const [selectedWorkFromHome, setSelectedWorkFromHome] = useState('');
   const [selectedAllergic, setSelectedAllergic] = useState('');
   const [selectedAgreementAdoptingPet, setSelectedAgreementAdoptingPet] =
@@ -50,12 +43,8 @@ const ConfirmApplication = () => {
     useState('');
   const [selectedGivenPetAway, setSelectedGivenPetAway] = useState('');
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log(event.target.value);
-  // };
   //------------------------input type='text'----------------------------------//
-  const [petName, setPetName] = useState('');
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [coApplicantsFirstName, setCoApplicantsFirstName] = useState('');
@@ -65,8 +54,8 @@ const ConfirmApplication = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [emailAddress, setEmailAddress] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [email, setEmail] = useState('');
   const [occupationAndEmployer, setOccupationAndEmployer] = useState('');
   const [workAddress, setWorkAddress] = useState('');
   const [
@@ -94,309 +83,294 @@ const ConfirmApplication = () => {
   const [givenPetAwayExplain, setGivenPetAwayExplain] = useState('');
   const [notRelatedPeopleInfo, setNotRelatedPeopleInfo] = useState('');
   const [vetInfo, setVetInfo] = useState('');
-  const [agreement, setAgreement] = useState('');
+  const [checked, setChecked] = useState(false);
   //--------------------------end input type='text'------------------------//
-  // const [dateOfApplication, setDateOfApplication] = useState(
-  //   moment().format('MM/dd/yyyy')
-  // );
-  // const onChangeDate = (date) => {
-  //   const newDate = setDateOfApplication(
-  //     moment(new Date(date.target.value)).format('MM/dd/yyyy')
-  //   );
-  //   setDateOfApplication(newDate);
-  // };
-  const currentDate = new Date().toLocaleDateString();
 
-  //-----------------------------------------------------------------------//
-  //  const form = event.currentTarget;
-  // if (form.checkValidity() === false) {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  // }
-  // setValidated(true);
+  const currentDate = new Date().toLocaleDateString(); //date of Application
+  const petId = Cookies.get('PetID');
+  const petType = Cookies.get('PetType');
 
-  const handleSubmit = (event) => {
-    if (event) event.preventDefault();
-    setIsSubmitting(true);
+  const petName = Cookies.get('PetName');
+  useEffect(() => {
+    if (!Cookies.get('PetID')) {
+      navigate('/pets');
+    } else {
+      navigate('/application/confirm');
+      // Continue with your logic for handling the cookie value
+    }
+  }, [navigate]);
+  //-----------------------------------------------//
 
-    // setErrors(validate(values));
-    //console.log(Form);
-    // console.log('Type of pet: ' + selectedType);
-    // console.log('Name of pet: ' + petName);
-    // console.log('First Name: ' + firstName);
-    // console.log('Last Name: ' + lastName);
-    // console.log('First Name of Co-Applicants: ' + coApplicantsFirstName);
-    // console.log('Last Name of Co-Applicants: ' + coApplicantsLastName);
-    // console.log('Age of Applicant: ' + applicantAge);
-    // console.log(
-    //   'Address: ' + streetAddress + ' ' + city + ' ' + state + ' ' + zip
-    // );
-    // console.log('Phone Number: ' + phoneNumber);
-    console.log('E-mail Address: ' + emailAddress);
-    // console.log('Occupation and Employer: ' + occupationAndEmployer);
-    // console.log('Work Address: ' + workAddress);
-    // console.log(
-    //   'Co-Applicant`s Occupation, Employer, and Work Address: ' +
-    //     coApplicantOccupationEmployerWorkAddress
-    // );
-    // console.log('Do you work from home?: ' + selectedWorkFromHome);
-    // console.log('Names and Ages of Children in Your Home: ' + nameAgeChildren);
-    // console.log(
-    //   'Is anyone in your home allergic to animals?: ' + selectedAllergic
-    // );
-    // console.log('If yes, explain: ' + allergicExplain);
-    // console.log(
-    //   'Is everyone in your home in agreement about adopting a pet?: ' +
-    //     selectedAgreementAdoptingPet
-    // );
-    // console.log('If no, explain: ' + agreementExplain);
-    // console.log(
-    //   'Who will be responsible for the grooming, housebreaking, and training of this pet?: ' +
-    //     responsibleGroomingTrainingPerson
-    // );
-    // console.log(
-    //   'Does anyone in your home fear animals?: ' + selectedFearAnimals
-    // );
-    // console.log('If yes, explain: ' + fearAnimalsExplain);
-    // console.log(
-    //   'Are you familiar with animal regulations in your area? ' +
-    //     selectedAreaAnimalRegulation
-    // );
-    // console.log('Do you own or rent your home? ' + selectedOwnOrRentHome);
-    // console.log(
-    //   'Please list management company`s or landlord`s name, address, and phone number: ' +
-    //     managementCompanyInfo
-    // );
-    // console.log(
-    //   'Are you planning to move in the near future? ' + selectedPlanningToMove
-    // );
-    // console.log('Please briefly describe your home: ' + homeDescription);
-    // console.log('Do you have a yard? ' + selectedHaveAYard);
-    // console.log('If yes, is it fenced? How high is the fence? ' + fenceHigh);
-    // console.log(
-    //   'Tell us briefly, in your own words, why you want to bring a pet into your home: ' +
-    //     reasonOfAdoption
-    // );
-    // console.log(
-    //   'Do you already have a pet(s) in your home? ' + selectedAlredyHavePets
-    // );
-    // console.log('If yes, what kind and how old? ' + kindAgeExistingPet);
-    // console.log(
-    //   'Are all your current pets spayed/neutered? ' + selectedSprayedNeutered
-    // );
-    // console.log(
-    //   'Is the pet you are applying for, going to be a gift? ' + selectedPetAGift
-    // );
-    // console.log(
-    //   'If no one is home, where will the pet be kept? ' + keptPetAlone
-    // );
-    // console.log(
-    //   'How many hours during a typical day will the pet be left alone? ' +
-    //     howLongPetLeftAlone
-    // );
-    // console.log(
-    //   'If you can no longer care for pet , who will contact our rescue to return pet? Please include their name, address, and phone number: ' +
-    //     returnPetPerson
-    // );
-    // console.log(
-    //   'Should your adopted pet develop special needs over time, will you still keep this pet, get proper veterinary care and follow your vet`s guidelines, including whatever treatments/medications/special foods are required? ' +
-    //     selectedVetCare
-    // );
-    // console.log(
-    //   'Will you assume all financial responsibilities for the pet you adopt, including inoculations, regular veterinary care, good quality food, licensing, ID tag, dog bed, leash, collar, etc.? ' +
-    //     selectedFinancialResponsibilities
-    // );
-    // console.log(
-    //   'Are you willing to hire a professional trainer to correct any behavioral issues that arise? ' +
-    //     selectedHireProfTrainer
-    // );
-    // console.log('Have you had pets in the past? ' + selectedPetsInThePast);
-    // console.log('If yes, please tell us about them: ' + petsInThePastInfo);
-    // console.log(
-    //   'How many years did you own your pet(s)? ' + petsInThePastPeriod
-    // );
-    // console.log(
-    //   'Have any of your pets ever gotten lost? ' + selectedPetsGottenLost
-    // );
-    // console.log(
-    //   'Have any of your pets ever been poisoned? ' + selectedPetsBeenPoisoned
-    // );
-    // console.log(
-    //   'Has any pet in your care ever been hit by a vehicle? ' +
-    //     selectedPetHitByVehicle
-    // );
-    // console.log(
-    //   'Have you ever given a pet to a shelter? ' + selectedGivenPetToShelter
-    // );
-    // console.log(
-    //   'Have you ever given a pet away to someone? ' + selectedGivenPetAway
-    // );
-    // console.log(
-    //   'If you`ve given away a pet in the past, please explain: ' +
-    //     givenPetAwayExplain
-    // );
-    // console.log(
-    //   'Please provide names, phone numbers, and relationship of two (see vet reference note) people not related to you: ' +
-    //     notRelatedPeopleInfo
-    // );
-    // console.log('Vet`s name, address, and phone number: ' + vetInfo);
-    //console.log(currentDate);
-
-    //---------------------clear the forms--------------------------/
-    setSelectedType('');
-    setPetName('');
-    setFirstName('');
-    setLastName('');
-    setCoApplicantsFirstName('');
-    setCoApplicantsLastName('');
-    setApplicantAge('');
-    setStreetAddress('');
-    setCity('');
-    setState('');
-    setZip('');
-    setPhoneNumber('');
-    setEmailAddress('');
-    setOccupationAndEmployer('');
-    setWorkAddress('');
-    setCoApplicantOccupationEmployerWorkAddress('');
-    setSelectedWorkFromHome('');
-    setNameAgeChildren('');
-    setSelectedAllergic('');
-    setAllergicExplain('');
-    setSelectedAgreementAdoptingPet('');
-    setAgrimentExplain('');
-    setResponsibleGroomingTrainingPerson('');
-    setSelectedFearAnimals('');
-    setFearAnimalsExplain('');
-    setSelectedAreaAnimalRegulation('');
-    setSelectedOwnOrRentHome('');
-    setManagementCompanyInfo('');
-    setSelectedPlanningToMove('');
-    setSelectedHaveAYard('');
-    setFenceHigh('');
-    setReasonOfAdoption('');
-    setSelectedAlredyHavePets('');
-    setKindAgeExistingPet('');
-    setSelectedSprayedNeutered('');
-    setSelectedPetAGift('');
-    setKeptPetAlone('');
-    setHowLongPetLeftAlone('');
-    setReturnPetPerson('');
-    setSelectedVetCare('');
-    setSelectedFinancialResponsibilities('');
-    setSelectedHireProfTrainer('');
-    setSelectedPetsInThePast('');
-    setPetsInThePastInfo('');
-    setPetsInThePastPeriod('');
-    setSelectedPetsGottenLost('');
-    setSelectedPetsBeenPoisoned('');
-    setSelectedPetHitByVehicle('');
-    setSelectedGivenPetToShelter('');
-    setSelectedGivenPetAway('');
-    setGivenPetAwayExplain('');
-    setNotRelatedPeopleInfo('');
-    setVetInfo('');
-    // setDateOfApplication('');
+  const validateForm = () => {
+    let formErrors = {};
+    // Perform validation checks
+    // if (name.trim() === '') {
+    //   formErrors.name = 'Name is required';
+    // }
+    if (email.trim() === '') {
+      formErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      formErrors.email = 'Invalid email format';
+    }
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
   };
-  //-----------------------------end clear the forms-------------------//
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if (validateForm()) {
+  //     // Perform form submission or other actions
+  //     console.log('Form is valid');
+  //   } else {
+  //     console.log('Form validation failed');
+  //   }
+  // };
+  //   return (
+  //     <form onSubmit={handleSubmit}>
+  //       <div>
+  //         <label>Name:</label>
+  //         <input type="text" value={name} onChange={handleNameChange} />
+  //         {errors.name && <span>{errors.name}</span>}
+  //       </div>
+  //       <div>
+  //         <label>Email:</label>
+  //         <input type="email" value={email} onChange={handleEmailChange} />
+  //         {errors.email && <span>{errors.email}</span>}
+  //       </div>
+  //       <button type="submit">Submit</button>
+  //     </form>
+  //   );
+  // };
+  //-----------------------------------------------------------------------//
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      setValidated(true);
+      // Perform form submission or other actions
+      console.log('Form is valid');
+
+      Cookies.remove('PetID', { path: '' });
+      Cookies.remove('PetType', { path: '' });
+      Cookies.remove('PetName', { path: '' });
+      console.log('Type of ID: ' + petId);
+      console.log('Type of pet: ' + petType);
+      console.log('Name of pet: ' + petName);
+      console.log('First Name: ' + firstName);
+      console.log('Last Name: ' + lastName);
+      console.log('First Name of Co-Applicants: ' + coApplicantsFirstName);
+      console.log('Last Name of Co-Applicants: ' + coApplicantsLastName);
+      console.log('Age of Applicant: ' + applicantAge);
+      console.log(
+        'Address: ' + streetAddress + ' ' + city + ' ' + state + ' ' + zip
+      );
+      console.log('Phone Number: ' + mobile);
+      console.log('E-mail Address: ' + email);
+      console.log('Occupation and Employer: ' + occupationAndEmployer);
+      console.log('Work Address: ' + workAddress);
+      console.log(
+        'Co-Applicant`s Occupation, Employer, and Work Address: ' +
+          coApplicantOccupationEmployerWorkAddress
+      );
+      console.log('Do you work from home?: ' + selectedWorkFromHome);
+      console.log(
+        'Names and Ages of Children in Your Home: ' + nameAgeChildren
+      );
+      console.log(
+        'Is anyone in your home allergic to animals?: ' + selectedAllergic
+      );
+      console.log('If yes, explain: ' + allergicExplain);
+      console.log(
+        'Is everyone in your home in agreement about adopting a pet?: ' +
+          selectedAgreementAdoptingPet
+      );
+      console.log('If no, explain: ' + agreementExplain);
+      console.log(
+        'Who will be responsible for the grooming, housebreaking, and training of this pet?: ' +
+          responsibleGroomingTrainingPerson
+      );
+      console.log(
+        'Does anyone in your home fear animals?: ' + selectedFearAnimals
+      );
+      console.log('If yes, explain: ' + fearAnimalsExplain);
+      console.log(
+        'Are you familiar with animal regulations in your area? ' +
+          selectedAreaAnimalRegulation
+      );
+      console.log('Do you own or rent your home? ' + selectedOwnOrRentHome);
+      console.log(
+        'Please list management company`s or landlord`s name, address, and phone number: ' +
+          managementCompanyInfo
+      );
+      console.log(
+        'Are you planning to move in the near future? ' + selectedPlanningToMove
+      );
+      console.log('Please briefly describe your home: ' + homeDescription);
+      console.log('Do you have a yard? ' + selectedHaveAYard);
+      console.log('If yes, is it fenced? How high is the fence? ' + fenceHigh);
+      console.log(
+        'Tell us briefly, in your own words, why you want to bring a pet into your home: ' +
+          reasonOfAdoption
+      );
+      console.log(
+        'Do you already have a pet(s) in your home? ' + selectedAlredyHavePets
+      );
+      console.log('If yes, what kind and how old? ' + kindAgeExistingPet);
+      console.log(
+        'Are all your current pets spayed/neutered? ' + selectedSprayedNeutered
+      );
+      console.log(
+        'Is the pet you are applying for, going to be a gift? ' +
+          selectedPetAGift
+      );
+      console.log(
+        'If no one is home, where will the pet be kept? ' + keptPetAlone
+      );
+      console.log(
+        'How many hours during a typical day will the pet be left alone? ' +
+          howLongPetLeftAlone
+      );
+      console.log(
+        'If you can no longer care for pet , who will contact our rescue to return pet? Please include their name, address, and phone number: ' +
+          returnPetPerson
+      );
+      console.log(
+        'Should your adopted pet develop special needs over time, will you still keep this pet, get proper veterinary care and follow your vet`s guidelines, including whatever treatments/medications/special foods are required? ' +
+          selectedVetCare
+      );
+      console.log(
+        'Will you assume all financial responsibilities for the pet you adopt, including inoculations, regular veterinary care, good quality food, licensing, ID tag, dog bed, leash, collar, etc.? ' +
+          selectedFinancialResponsibilities
+      );
+      console.log(
+        'Are you willing to hire a professional trainer to correct any behavioral issues that arise? ' +
+          selectedHireProfTrainer
+      );
+      console.log('Have you had pets in the past? ' + selectedPetsInThePast);
+      console.log('If yes, please tell us about them: ' + petsInThePastInfo);
+      console.log(
+        'How many years did you own your pet(s)? ' + petsInThePastPeriod
+      );
+      console.log(
+        'Have any of your pets ever gotten lost? ' + selectedPetsGottenLost
+      );
+      console.log(
+        'Have any of your pets ever been poisoned? ' + selectedPetsBeenPoisoned
+      );
+      console.log(
+        'Has any pet in your care ever been hit by a vehicle? ' +
+          selectedPetHitByVehicle
+      );
+      console.log(
+        'Have you ever given a pet to a shelter? ' + selectedGivenPetToShelter
+      );
+      console.log(
+        'Have you ever given a pet away to someone? ' + selectedGivenPetAway
+      );
+      console.log(
+        'If you`ve given away a pet in the past, please explain: ' +
+          givenPetAwayExplain
+      );
+      console.log(
+        'Please provide names, phone numbers, and relationship of two (see vet reference note) people not related to you: ' +
+          notRelatedPeopleInfo
+      );
+      console.log('Vet`s name, address, and phone number: ' + vetInfo);
+      console.log(currentDate);
+    } else {
+      console.log('Form validation failed');
+    }
+  };
 
   return (
     <>
       <Container style={{ width: '80%' }}>
         <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
+        {/* {Object.keys(errors).length === 0 && isSubmitting && (
+          <span className="success-msg">Application submited successfuly</span>
+        )} */}
         <Form
-          // noValidate
-          // validated={validated}
+          //noValidate
+          validated={validated}
           // method="post"
           onSubmit={handleSubmit}
         >
           <Row xs={1} md={1} lg={2} xl={2} className="ms-1 me-1">
             <Col md={8}>
+              <p>Pet ID</p>
+            </Col>
+            <Row className="mb-3">
+              <Form.Group as={Col} md="6">
+                <Form.Control
+                  type="text"
+                  id="inputPetID"
+                  aria-label=" Input Pet ID" // for screen reader
+                  required
+                  placeholder="Type of ID"
+                  defaultValue={Cookies.get('PetID')}
+                  disabled
+                />
+              </Form.Group>
+            </Row>
+            <Col md={8}>
               <p>Type of pet</p>
             </Col>
             <Row className="mb-3">
-              <Form.Group>
-                <Form.Select
-                  value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value)}
-                  name="PetType"
-                  id="selectPetType"
+              <Form.Group as={Col} md="6">
+                <Form.Control
+                  type="text"
+                  id="inputPetType"
+                  aria-label=" Input Pet Type" // for screen reader
                   required
-                  className="w-50"
-                  aria-label="Pet Type" // for screen reader
-                >
-                  <option value="" disabled>
-                    Please select
-                  </option>
-                  <option value="cat">Cat</option>
-                  <option value="dog">Dog</option>
-                </Form.Select>
+                  placeholder="Type of pet"
+                  defaultValue={Cookies.get('PetType')}
+                  disabled
+                />
               </Form.Group>
             </Row>
-            {/* <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-      <Form.Control
-        type="password"
-        id="inputPassword5"
-        aria-describedby="passwordHelpBlock"
-      />
-      <Form.Text id="passwordHelpBlock" muted>
-        Your password must be 8-20 characters long, contain letters and numbers,
-        and must not contain spaces, special characters, or emoji.
-      </Form.Text> */}
             <Col md={3}>Name of pet</Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Control
                   type="text"
-                  value={petName}
-                  onChange={(e) => setPetName(e.target.value)}
-                  // onChange={(e) => setPetName(e.target.value)}
                   id="inputPetName"
                   aria-label=" Input Pet Name" // for screen reader
-                  // required
+                  required
                   placeholder="Name of pet"
-                  // defaultValue=""
+                  defaultValue={Cookies.get('PetName')}
+                  disabled
                 />
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>Applicant's Full Name</p>
+              <p>Applicant's Full Name*</p>
             </Col>
             <Row>
-              <Form.Group
-                as={Col}
-                md="6"
-                // controlId="validationCustom03"
-                className="mb-3"
-              >
+              <Form.Group as={Col} md="6" className="mb-3">
                 <Form.Control
                   type="text"
                   id="inputApplicantsFirstName"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   aria-label=" Input Applicants First Name" // for screen reader
-                  // aria-describedby="firstNameOfApplicantBlock" //for screen readers
                   required
                   placeholder="First name"
-                  // defaultValue=""
                 />
               </Form.Group>
-              <Form.Group
-                as={Col}
-                md="6"
-                //controlId="validationCustom04"
-                className="mb-3"
-              >
+              <Form.Group as={Col} md="6" className="mb-3">
                 <Form.Control
                   type="text"
                   id="inputApplicantsLastName"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   aria-label="Input Applicants Last Name" // for screen reader
-                  // aria-describedby="lastNameOfApplicantBlock" //for screen readers
                   required
                   placeholder="Last name"
-                  // defaultValue=""
                 />
               </Form.Group>
             </Row>
@@ -407,8 +381,9 @@ const ConfirmApplication = () => {
               <Form.Group
                 as={Col}
                 md="6"
-                //controlId="validationCustom05"
                 className="mb-3"
+                //controlId="formValidationNull"
+                validation={null}
               >
                 <Form.Control
                   type="text"
@@ -416,17 +391,16 @@ const ConfirmApplication = () => {
                   value={coApplicantsFirstName}
                   onChange={(e) => setCoApplicantsFirstName(e.target.value)}
                   aria-label=" Input Co-Applicants First Name" // for screen reader
-                  // aria-describedby="firstNameOfCoApplicantBlock" //for screen readers
-                  required
+                  //required
                   placeholder="First name"
-                  // defaultValue=""
                 />
               </Form.Group>
               <Form.Group
                 as={Col}
                 md="6"
-                //controlId="validationCustom06"
                 className="mb-3"
+                //controlId="formValidationNull"
+                validationstate={null}
               >
                 <Form.Control
                   type="text"
@@ -434,15 +408,13 @@ const ConfirmApplication = () => {
                   value={coApplicantsLastName}
                   onChange={(e) => setCoApplicantsLastName(e.target.value)}
                   aria-label=" Input Co-Applicants Last Name" // for screen reader
-                  // aria-describedby="lastNameOfCoApplicantBlock" //for screen readers
-                  required
+                  //required
                   placeholder="Last name"
-                  // defaultValue=""
                 />
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>Age of Applicant</p>
+              <p>Age of Applicant*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
@@ -454,11 +426,10 @@ const ConfirmApplication = () => {
                   aria-label="Input Age of Applicant" // for screen reader
                   required
                   placeholder="Age"
-                  // defaultValue=""
                 />
               </Form.Group>
             </Row>
-            <Col md={3}>Address</Col>
+            <Col md={3}>Address*</Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
                 <Form.Control
@@ -469,7 +440,6 @@ const ConfirmApplication = () => {
                   aria-label="input Street Address" // for screen reader
                   required
                   placeholder="Street Address"
-                  // defaultValue=""
                 />
               </Form.Group>
             </Row>
@@ -509,40 +479,46 @@ const ConfirmApplication = () => {
                 />
               </Form.Group>
             </Row>
-            <Col md={3}>Phone Number</Col>
+            <Col md={3}>Phone Number*</Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Control
-                  type="text"
-                  id="inputPhoneNumber"
-                  value={phoneNumber}
+                  type="mobile"
+                  id="mobile"
+                  value={mobile}
                   placeholder="Phone Number"
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={(e) => setMobile(e.target.value)}
                   aria-label="input Phone Number" // for screen reader
                   required
                 />
-                {/* <Form.Control.Feedback>Looks good!</Form.Control.Feedback> */}
               </Form.Group>
             </Row>
-            <Col md={3}>E-mail Address</Col>
+            <Col md={3}>E-mail Address*</Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
                 <Form.Control
-                  className={`input ${errors.email && 'is-danger'}`}
-                  type="text"
-                  id="inputEmailAddress"
-                  value={emailAddress || ''}
-                  // value={emailAddress}
+                  //className={errors.email && 'input-errors'}
+                  // className={`input ${errors.email && 'is-danger'}`}
+                  type="email"
+                  //id="validationDefault01"
+                  //id="email"
+                  value={email}
                   placeholder="E-mail Address"
-                  onChange={(e) => setEmailAddress(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                   aria-label="input E-mail Address" // for screen reader
                   required
                 />
+                {/* {errors.email && <span>{errors.email}</span>} */}
+                {errors.email && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
 
             <Col md={8}>
-              <p>Occupation and Employer</p>
+              <p>Occupation and Employer*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
@@ -558,7 +534,7 @@ const ConfirmApplication = () => {
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>Work Address</p>
+              <p>Work Address*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
@@ -589,12 +565,12 @@ const ConfirmApplication = () => {
                   }
                   aria-label="input Co-Applicant's Occupation, Employer, and Work Address" // for screen reader
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>Do you work from home?</p>
+              <p>Do you work from home?*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group>
@@ -617,7 +593,7 @@ const ConfirmApplication = () => {
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>Names and Ages of Children in Your Home</p>
+              <p>Names and Ages of Children in Your Home*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group className="mb-3">
@@ -670,7 +646,7 @@ const ConfirmApplication = () => {
                   onChange={(e) => setAllergicExplain(e.target.value)}
                   aria-label="input Allergic Explanation" // for screen reader
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
@@ -712,14 +688,14 @@ const ConfirmApplication = () => {
                   onChange={(e) => setAgrimentExplain(e.target.value)}
                   aria-label="input Agreement Explanation" // for screen reader
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
             <Col md={8}>
               <p>
                 Who will be responsible for the grooming, housebreaking, and
-                training of this pet?
+                training of this pet?*
               </p>
             </Col>
             <Row className="mb-3">
@@ -775,7 +751,7 @@ const ConfirmApplication = () => {
                   onChange={(e) => setFearAnimalsExplain(e.target.value)}
                   aria-label="input Fear Animals Explanation" // for screen reader
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
@@ -828,7 +804,7 @@ const ConfirmApplication = () => {
             <Col md={8}>
               <p>
                 Please list management company's or landlord's name, address,
-                and phone number:
+                and phone number:*
               </p>
             </Col>
             <Row className="mb-3">
@@ -882,7 +858,7 @@ const ConfirmApplication = () => {
                   onChange={(e) => setHomeDescription(e.target.value)}
                   aria-label="input Home Description" // for screen reader
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
@@ -924,14 +900,14 @@ const ConfirmApplication = () => {
                   onChange={(e) => setFenceHigh(e.target.value)}
                   aria-label="input Fence High" // for screen reader
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
             <Col md={8}>
               <p>
                 Tell us briefly, in your own words, why you want to bring a pet
-                into your home:
+                into your home:*
               </p>
             </Col>
             <Row className="mb-3">
@@ -972,7 +948,7 @@ const ConfirmApplication = () => {
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>If yes, what kind and how old?</p>
+              <p>If yes, what kind and how old?*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group className="mb-3">
@@ -994,7 +970,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect11"> */}
                 <Form.Select
                   value={selectedSprayedNeutered}
                   onChange={(e) => setSelectedSprayedNeutered(e.target.value)}
@@ -1035,7 +1010,7 @@ const ConfirmApplication = () => {
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>If no one is home, where will the pet be kept?</p>
+              <p>If no one is home, where will the pet be kept?*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group className="mb-3">
@@ -1054,7 +1029,7 @@ const ConfirmApplication = () => {
             </Row>
             <Col md={8}>
               <p>
-                How many hours during a typical day will the pet be left alone?
+                How many hours during a typical day will the pet be left alone?*
               </p>
             </Col>
             <Row className="mb-3">
@@ -1076,7 +1051,7 @@ const ConfirmApplication = () => {
               <p>
                 If you can no longer care for pet , who will contact our rescue
                 to return pet? Please include their name, address, and phone
-                number.
+                number.*
               </p>
             </Col>
             <Row className="mb-3">
@@ -1104,7 +1079,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect13"> */}
                 <Form.Select
                   value={selectedVetCare}
                   onChange={(e) => setSelectedVetCare(e.target.value)}
@@ -1136,7 +1110,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect14"> */}
                 <Form.Select
                   value={selectedFinancialResponsibilities}
                   onChange={(e) =>
@@ -1169,7 +1142,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect15"> */}
                 <Form.Select
                   value={selectedHireProfTrainer}
                   onChange={(e) => setSelectedHireProfTrainer(e.target.value)}
@@ -1192,7 +1164,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect16"> */}
                 <Form.Select
                   value={selectedPetsInThePast}
                   onChange={(e) => setSelectedPetsInThePast(e.target.value)}
@@ -1223,7 +1194,7 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setPetsInThePastInfo(e.target.value)}
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
@@ -1240,7 +1211,7 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setPetsInThePastPeriod(e.target.value)}
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
@@ -1249,7 +1220,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect17"> */}
                 <Form.Select
                   value={selectedPetsGottenLost}
                   onChange={(e) => setSelectedPetsGottenLost(e.target.value)}
@@ -1273,7 +1243,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect18"> */}
                 <Form.Select
                   value={selectedPetsBeenPoisoned}
                   onChange={(e) => setSelectedPetsBeenPoisoned(e.target.value)}
@@ -1377,14 +1346,14 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setGivenPetAwayExplain(e.target.value)}
                   rows={3}
-                  required
+                  //required
                 />
               </Form.Group>
             </Row>
             <Col md={8}>
               <p>
                 Please provide names, phone numbers, and relationship of two
-                (see vet reference note) people not related to you:
+                (see vet reference note) people not related to you:*
               </p>
             </Col>
             <Row className="mb-3">
@@ -1402,7 +1371,7 @@ const ConfirmApplication = () => {
               </Form.Group>
             </Row>
             <Col md={8}>
-              <p>Vet's name, address, and phone number:</p>
+              <p>Vet's name, address, and phone number:*</p>
             </Col>
             <Row className="mb-3">
               <Form.Group className="mb-3">
@@ -1435,37 +1404,25 @@ const ConfirmApplication = () => {
             </p>
             <Form.Group className="mb-3">
               <Form.Check
-                onChange={(e) => setAgreement(e.target.value)}
+                onChange={() => setChecked(!checked)}
                 type="checkbox"
                 id="checkboxAgreeToTermsAndConditions"
                 label="Agree to terms and conditions"
                 feedback="You must agree before submitting."
                 feedbackType="invalid"
-                // defaultChecked={false}
-                checked={agreement}
+                checked={checked}
                 required
               />
             </Form.Group>
-            {/* <Form.Group as={Col} md="2"> */}
-            {/* <Form.Control
-                type="date"
-                id="inputDate of Application"
-                value={dateOfApplication}
-                // placeholder=""
-                onChange={(e) => onChangeDate(e)}
-                required
-                className="mb-3"
-              /> */}
             <div className={style.currentDate}>
               <h5>{currentDate}</h5>
             </div>
-            {/* </Form.Group> */}
             <div className={style.confirmApplicationSubmitBtn}>
               <Button
                 className="mb-5 b"
                 type="submit"
                 onClick={handleSubmit}
-                disabled={!agreement}
+                disabled={!checked}
               >
                 Submit form
               </Button>
