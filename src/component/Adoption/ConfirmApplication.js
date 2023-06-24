@@ -105,6 +105,7 @@ const ConfirmApplication = () => {
 
   const validateForm = (event, form) => {
     const formErrors = {};
+    const formErrorsMessage = 'This field is required';
     // console.log(form);
     // console.log(form.checkValidity() === false);
     // if (form.checkValidity() === false) {
@@ -112,11 +113,10 @@ const ConfirmApplication = () => {
     //   event.preventDefault();
     //   event.stopPropagation();
     // }
-    console.log(setValidated(true));
+    // console.log(setValidated(true));
     setValidated(true);
     if (firstName.trim() === '') {
       formErrors.firstName = 'First Name is required';
-      console.log('2');
     }
     if (lastName.trim() === '') {
       formErrors.lastName = 'Last Name is required';
@@ -145,101 +145,100 @@ const ConfirmApplication = () => {
       formErrors.email = 'Invalid email format';
     }
     if (occupationAndEmployer.trim() === '') {
-      //formErrors.occupationAndEmployer = 'Please fill out this field';
-      formErrors.occupationAndEmployer = 'This field is required';
+      formErrors.occupationAndEmployer = formErrorsMessage;
     }
     if (workAddress.trim() === '') {
-      formErrors.workAddress = 'This field is required';
+      formErrors.workAddress = formErrorsMessage;
     }
     if (selectedWorkFromHome.trim() === '') {
-      formErrors.selectedWorkFromHome = 'This field is required';
+      formErrors.selectedWorkFromHome = formErrorsMessage;
     }
     if (nameAgeChildren.trim() === '') {
-      formErrors.nameAgeChildren = 'This field is required';
+      formErrors.nameAgeChildren = formErrorsMessage;
     }
     if (selectedAllergic.trim() === '') {
-      formErrors.selectedAllergic = 'This field is required';
+      formErrors.selectedAllergic = formErrorsMessage;
     }
     if (selectedAgreementAdoptingPet.trim() === '') {
-      formErrors.selectedAgreementAdoptingPet = 'This field is required';
+      formErrors.selectedAgreementAdoptingPet = formErrorsMessage;
     }
     if (responsibleGroomingTrainingPerson.trim() === '') {
-      formErrors.responsibleGroomingTrainingPerson = 'This field is required';
+      formErrors.responsibleGroomingTrainingPerson = formErrorsMessage;
     }
     if (selectedFearAnimals.trim() === '') {
-      formErrors.selectedFearAnimals = 'This field is required';
+      formErrors.selectedFearAnimals = formErrorsMessage;
     }
     if (selectedAreaAnimalRegulation.trim() === '') {
-      formErrors.selectedAreaAnimalRegulation = 'This field is required';
+      formErrors.selectedAreaAnimalRegulation = formErrorsMessage;
     }
     if (selectedOwnOrRentHome.trim() === '') {
-      formErrors.selectedOwnOrRentHome = 'This field is required';
+      formErrors.selectedOwnOrRentHome = formErrorsMessage;
     }
     if (managementCompanyInfo.trim() === '') {
-      formErrors.managementCompanyInfo = 'This field is required';
+      formErrors.managementCompanyInfo = formErrorsMessage;
     }
     if (selectedPlanningToMove.trim() === '') {
-      formErrors.selectedPlanningToMove = 'This field is required';
+      formErrors.selectedPlanningToMove = formErrorsMessage;
     }
     if (selectedHaveAYard.trim() === '') {
-      formErrors.selectedHaveAYard = 'This field is required';
+      formErrors.selectedHaveAYard = formErrorsMessage;
     }
     if (reasonOfAdoption.trim() === '') {
-      formErrors.reasonOfAdoption = 'This field is required';
+      formErrors.reasonOfAdoption = formErrorsMessage;
     }
     if (selectedAlredyHavePets.trim() === '') {
-      formErrors.selectedAlredyHavePets = 'This field is required';
+      formErrors.selectedAlredyHavePets = formErrorsMessage;
     }
     if (kindAgeExistingPet.trim() === '') {
-      formErrors.kindAgeExistingPet = 'This field is required';
+      formErrors.kindAgeExistingPet = formErrorsMessage;
     }
     if (selectedSprayedNeutered.trim() === '') {
-      formErrors.selectedSprayedNeutered = 'This field is required';
+      formErrors.selectedSprayedNeutered = formErrorsMessage;
     }
     if (selectedPetAGift.trim() === '') {
-      formErrors.selectedPetAGift = 'This field is required';
+      formErrors.selectedPetAGift = formErrorsMessage;
     }
     if (keptPetAlone.trim() === '') {
-      formErrors.keptPetAlone = 'This field is required';
+      formErrors.keptPetAlone = formErrorsMessage;
     }
     if (howLongPetLeftAlone.trim() === '') {
-      formErrors.howLongPetLeftAlone = 'This field is required';
+      formErrors.howLongPetLeftAlone = formErrorsMessage;
     }
     if (returnPetPerson.trim() === '') {
-      formErrors.returnPetPerson = 'This field is required';
+      formErrors.returnPetPerson = formErrorsMessage;
     }
     if (selectedVetCare.trim() === '') {
-      formErrors.selectedVetCare = 'This field is required';
+      formErrors.selectedVetCare = formErrorsMessage;
     }
     if (selectedFinancialResponsibilities.trim() === '') {
-      formErrors.selectedFinancialResponsibilities = 'This field is required';
+      formErrors.selectedFinancialResponsibilities = formErrorsMessage;
     }
     if (selectedHireProfTrainer.trim() === '') {
-      formErrors.selectedHireProfTrainer = 'This field is required';
+      formErrors.selectedHireProfTrainer = formErrorsMessage;
     }
     if (selectedPetsInThePast.trim() === '') {
-      formErrors.selectedPetsInThePast = 'This field is required';
+      formErrors.selectedPetsInThePast = formErrorsMessage;
     }
     if (selectedPetsGottenLost.trim() === '') {
-      formErrors.selectedPetsGottenLost = 'This field is required';
+      formErrors.selectedPetsGottenLost = formErrorsMessage;
     }
     if (selectedPetsBeenPoisoned.trim() === '') {
-      formErrors.selectedPetsBeenPoisoned = 'This field is required';
+      formErrors.selectedPetsBeenPoisoned = formErrorsMessage;
     }
     if (selectedPetHitByVehicle.trim() === '') {
-      formErrors.selectedPetHitByVehicle = 'This field is required';
+      formErrors.selectedPetHitByVehicle = formErrorsMessage;
     }
     if (selectedGivenPetToShelter.trim() === '') {
-      formErrors.selectedGivenPetToShelter = 'This field is required';
+      formErrors.selectedGivenPetToShelter = formErrorsMessage;
     }
     if (selectedGivenPetAway.trim() === '') {
-      formErrors.selectedGivenPetAway = 'This field is required';
+      formErrors.selectedGivenPetAway = formErrorsMessage;
     }
     if (notRelatedPeopleInfo.trim() === '') {
-      formErrors.notRelatedPeopleInfo = 'This field is required';
+      formErrors.notRelatedPeopleInfo = formErrorsMessage;
     }
     if (vetInfo.trim() === '') {
-      formErrors.vetInfo = 'This field is required';
+      formErrors.vetInfo = formErrorsMessage;
     }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
@@ -257,8 +256,9 @@ const ConfirmApplication = () => {
     event.preventDefault();
     if (validateForm(event, form)) {
       console.log('Form is valid');
+      setErrorMessage('');
+      setSuccessMessage('');
       setSuccessMessage('Form is valid');
-
       console.log('Type of ID: ' + petId);
       console.log('Type of pet: ' + petType);
       console.log('Name of pet: ' + petName);
@@ -384,11 +384,13 @@ const ConfirmApplication = () => {
       console.log('Vet`s name, address, and phone number: ' + vetInfo);
       console.log(currentDate);
 
-      Cookies.remove('PetID', { path: '' });
-      Cookies.remove('PetType', { path: '' });
-      Cookies.remove('PetName', { path: '' });
+      Cookies.remove('PetID', { path: '/' });
+      Cookies.remove('PetType', { path: '/' });
+      Cookies.remove('PetName', { path: '/' });
     } else {
       console.log('Form validation failed');
+      setSuccessMessage('');
+      setErrorMessage('');
       setErrorMessage('Form validation failed');
     }
   };
@@ -453,7 +455,9 @@ const ConfirmApplication = () => {
                 />
               </Form.Group>
             </Row>
-            <Col md={3}>Name of pet</Col>
+            <Col md={8}>
+              <p>Name of pet</p>
+            </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Control
@@ -508,13 +512,7 @@ const ConfirmApplication = () => {
               <p>Co-Applicant's First Name (If Any)</p>
             </Col>
             <Row>
-              <Form.Group
-                as={Col}
-                md="6"
-                className="mb-3"
-                //controlId="formValidationNull"
-                validation={null}
-              >
+              <Form.Group as={Col} md="6" className="mb-3" validation={null}>
                 <Form.Control
                   type="text"
                   id="inputCoApplicantsFirstName"
@@ -529,7 +527,6 @@ const ConfirmApplication = () => {
                 as={Col}
                 md="6"
                 className="mb-3"
-                //controlId="formValidationNull"
                 validationstate={null}
               >
                 <Form.Control
@@ -564,7 +561,9 @@ const ConfirmApplication = () => {
                 )}
               </Form.Group>
             </Row>
-            <Col md={3}>Address*</Col>
+            <Col md={3}>
+              <p>Address*</p>
+            </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
                 <Form.Control
@@ -634,7 +633,9 @@ const ConfirmApplication = () => {
                 )}
               </Form.Group>
             </Row>
-            <Col md={3}>Phone Number*</Col>
+            <Col md={3}>
+              <p>Phone Number*</p>
+            </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Control
@@ -653,7 +654,9 @@ const ConfirmApplication = () => {
                 )}
               </Form.Group>
             </Row>
-            <Col md={3}>E-mail Address*</Col>
+            <Col md={3}>
+              <p>E-mail Address*</p>
+            </Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
                 <Form.Control
