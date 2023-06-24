@@ -4,13 +4,13 @@ import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
 import { Link } from 'react-router-dom';
 import FavoriteCheckbox from '../layout/FavoriteCheckbox/FavoriteCheckbox';
-import UserContext from '../../UserContext';
+import AuthContext from '../../context/auth-context';
 
 const PetCard = ({ pet }) => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const { isAuthenticated } = useContext(UserContext);
-  const isFavoriteHidden = isAuthenticated === 'false' ? true : false;
+  const { userName } = useContext(AuthContext);
+  const isFavoriteHidden = userName === null ? true : false;
 
   return (
     <div className="petCard_wrapper ps-1 pe-1">
