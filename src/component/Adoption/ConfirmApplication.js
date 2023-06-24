@@ -121,10 +121,125 @@ const ConfirmApplication = () => {
     if (lastName.trim() === '') {
       formErrors.lastName = 'Last Name is required';
     }
+    if (applicantAge.trim() === '') {
+      formErrors.applicantAge = 'Age is required';
+    }
+    if (streetAddress.trim() === '') {
+      formErrors.streetAddress = 'Street address is required';
+    }
+    if (city.trim() === '') {
+      formErrors.city = 'City is required';
+    }
+    if (state.trim() === '') {
+      formErrors.state = 'State is required';
+    }
+    if (zip.trim() === '') {
+      formErrors.zip = 'Zip code is required';
+    }
+    if (mobile.trim() === '') {
+      formErrors.mobile = 'Phone number is required';
+    }
     if (email.trim() === '') {
       formErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       formErrors.email = 'Invalid email format';
+    }
+    if (occupationAndEmployer.trim() === '') {
+      //formErrors.occupationAndEmployer = 'Please fill out this field';
+      formErrors.occupationAndEmployer = 'This field is required';
+    }
+    if (workAddress.trim() === '') {
+      formErrors.workAddress = 'This field is required';
+    }
+    if (selectedWorkFromHome.trim() === '') {
+      formErrors.selectedWorkFromHome = 'This field is required';
+    }
+    if (nameAgeChildren.trim() === '') {
+      formErrors.nameAgeChildren = 'This field is required';
+    }
+    if (selectedAllergic.trim() === '') {
+      formErrors.selectedAllergic = 'This field is required';
+    }
+    if (selectedAgreementAdoptingPet.trim() === '') {
+      formErrors.selectedAgreementAdoptingPet = 'This field is required';
+    }
+    if (responsibleGroomingTrainingPerson.trim() === '') {
+      formErrors.responsibleGroomingTrainingPerson = 'This field is required';
+    }
+    if (selectedFearAnimals.trim() === '') {
+      formErrors.selectedFearAnimals = 'This field is required';
+    }
+    if (selectedAreaAnimalRegulation.trim() === '') {
+      formErrors.selectedAreaAnimalRegulation = 'This field is required';
+    }
+    if (selectedOwnOrRentHome.trim() === '') {
+      formErrors.selectedOwnOrRentHome = 'This field is required';
+    }
+    if (managementCompanyInfo.trim() === '') {
+      formErrors.managementCompanyInfo = 'This field is required';
+    }
+    if (selectedPlanningToMove.trim() === '') {
+      formErrors.selectedPlanningToMove = 'This field is required';
+    }
+    if (selectedHaveAYard.trim() === '') {
+      formErrors.selectedHaveAYard = 'This field is required';
+    }
+    if (reasonOfAdoption.trim() === '') {
+      formErrors.reasonOfAdoption = 'This field is required';
+    }
+    if (selectedAlredyHavePets.trim() === '') {
+      formErrors.selectedAlredyHavePets = 'This field is required';
+    }
+    if (kindAgeExistingPet.trim() === '') {
+      formErrors.kindAgeExistingPet = 'This field is required';
+    }
+    if (selectedSprayedNeutered.trim() === '') {
+      formErrors.selectedSprayedNeutered = 'This field is required';
+    }
+    if (selectedPetAGift.trim() === '') {
+      formErrors.selectedPetAGift = 'This field is required';
+    }
+    if (keptPetAlone.trim() === '') {
+      formErrors.keptPetAlone = 'This field is required';
+    }
+    if (howLongPetLeftAlone.trim() === '') {
+      formErrors.howLongPetLeftAlone = 'This field is required';
+    }
+    if (returnPetPerson.trim() === '') {
+      formErrors.returnPetPerson = 'This field is required';
+    }
+    if (selectedVetCare.trim() === '') {
+      formErrors.selectedVetCare = 'This field is required';
+    }
+    if (selectedFinancialResponsibilities.trim() === '') {
+      formErrors.selectedFinancialResponsibilities = 'This field is required';
+    }
+    if (selectedHireProfTrainer.trim() === '') {
+      formErrors.selectedHireProfTrainer = 'This field is required';
+    }
+    if (selectedPetsInThePast.trim() === '') {
+      formErrors.selectedPetsInThePast = 'This field is required';
+    }
+    if (selectedPetsGottenLost.trim() === '') {
+      formErrors.selectedPetsGottenLost = 'This field is required';
+    }
+    if (selectedPetsBeenPoisoned.trim() === '') {
+      formErrors.selectedPetsBeenPoisoned = 'This field is required';
+    }
+    if (selectedPetHitByVehicle.trim() === '') {
+      formErrors.selectedPetHitByVehicle = 'This field is required';
+    }
+    if (selectedGivenPetToShelter.trim() === '') {
+      formErrors.selectedGivenPetToShelter = 'This field is required';
+    }
+    if (selectedGivenPetAway.trim() === '') {
+      formErrors.selectedGivenPetAway = 'This field is required';
+    }
+    if (notRelatedPeopleInfo.trim() === '') {
+      formErrors.notRelatedPeopleInfo = 'This field is required';
+    }
+    if (vetInfo.trim() === '') {
+      formErrors.vetInfo = 'This field is required';
     }
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
@@ -442,6 +557,11 @@ const ConfirmApplication = () => {
                   required
                   placeholder="Age"
                 />
+                {errors.applicantAge && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.applicantAge}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={3}>Address*</Col>
@@ -456,6 +576,11 @@ const ConfirmApplication = () => {
                   required
                   placeholder="Street Address"
                 />
+                {errors.streetAddress && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.streetAddress}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={3}></Col>
@@ -470,6 +595,11 @@ const ConfirmApplication = () => {
                   aria-label="input City" // for screen reader
                   required
                 />
+                {errors.city && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.city}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group as={Col} md="4" className="mb-3">
                 <Form.Control
@@ -481,6 +611,11 @@ const ConfirmApplication = () => {
                   aria-label="input State" // for screen reader
                   required
                 />
+                {errors.state && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.state}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
               <Form.Group as={Col} md="4" className="mb-3">
                 <Form.Control
@@ -492,6 +627,11 @@ const ConfirmApplication = () => {
                   aria-label="input Zip code" // for screen reader
                   required
                 />
+                {errors.zip && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.zip}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={3}>Phone Number*</Col>
@@ -506,24 +646,25 @@ const ConfirmApplication = () => {
                   aria-label="input Phone Number" // for screen reader
                   required
                 />
+                {errors.mobile && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.mobile}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={3}>E-mail Address*</Col>
             <Row className="mb-3">
               <Form.Group as={Col} md="12">
                 <Form.Control
-                  //className={errors.email && 'input-errors'}
-                  // className={`input ${errors.email && 'is-danger'}`}
                   type="email"
-                  //id="validationDefault01"
-                  //id="email"
+                  id="email"
                   value={email}
                   placeholder="E-mail Address"
                   onChange={(e) => setEmail(e.target.value)}
                   aria-label="input E-mail Address" // for screen reader
                   required
                 />
-                {/* {errors.email && <span>{errors.email}</span>} */}
                 {errors.email && (
                   <Form.Control.Feedback type="invalid">
                     {errors.email}
@@ -546,6 +687,11 @@ const ConfirmApplication = () => {
                   aria-label="input Occupation And Employer" // for screen reader
                   required
                 />
+                {errors.occupationAndEmployer && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.occupationAndEmployer}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -562,6 +708,11 @@ const ConfirmApplication = () => {
                   aria-label="input Work Address" // for screen reader
                   required
                 />
+                {errors.workAddress && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.workAddress}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -605,6 +756,11 @@ const ConfirmApplication = () => {
                   <option value="no">No</option>
                   <option value="sometimes">Sometimes</option>
                 </Form.Select>
+                {errors.selectedWorkFromHome && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedWorkFromHome}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -623,6 +779,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.nameAgeChildren && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.nameAgeChildren}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -645,6 +806,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedAllergic && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedAllergic}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -687,6 +853,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedAgreementAdoptingPet && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedAgreementAdoptingPet}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -728,6 +899,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.responsibleGroomingTrainingPerson && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.responsibleGroomingTrainingPerson}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -750,6 +926,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedFearAnimals && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedFearAnimals}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -792,6 +973,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedAreaAnimalRegulation && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedAreaAnimalRegulation}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -814,6 +1000,11 @@ const ConfirmApplication = () => {
                   <option value="own">Own</option>
                   <option value="rent">Rent</option>
                 </Form.Select>
+                {errors.selectedOwnOrRentHome && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedOwnOrRentHome}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -835,6 +1026,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.managementCompanyInfo && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.managementCompanyInfo}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -857,6 +1053,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedPlanningToMove && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedPlanningToMove}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -899,6 +1100,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedHaveAYard && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedHaveAYard}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -938,6 +1144,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.reasonOfAdoption && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.reasonOfAdoption}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -960,6 +1171,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedAlredyHavePets && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedAlredyHavePets}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -978,6 +1194,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.kindAgeExistingPet && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.kindAgeExistingPet}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1000,6 +1221,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedSprayedNeutered && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedSprayedNeutered}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1022,6 +1248,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedPetAGift && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedPetAGift}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1040,6 +1271,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.keptPetAlone && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.keptPetAlone}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1060,6 +1296,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.howLongPetLeftAlone && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.howLongPetLeftAlone}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1082,6 +1323,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.returnPetPerson && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.returnPetPerson}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1114,6 +1360,11 @@ const ConfirmApplication = () => {
                     Not sure/Can't answer
                   </option>
                 </Form.Select>
+                {errors.selectedVetCare && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedVetCare}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1147,6 +1398,11 @@ const ConfirmApplication = () => {
                     Not sure/Can't answer
                   </option>
                 </Form.Select>
+                {errors.selectedFinancialResponsibilities && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedFinancialResponsibilities}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1172,6 +1428,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedHireProfTrainer && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedHireProfTrainer}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1194,6 +1455,11 @@ const ConfirmApplication = () => {
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </Form.Select>
+                {errors.selectedPetsInThePast && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedPetsInThePast}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1251,6 +1517,11 @@ const ConfirmApplication = () => {
                   <option value="no">No</option>
                   <option value="n/a">N/A</option>
                 </Form.Select>
+                {errors.selectedPetsGottenLost && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedPetsGottenLost}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1274,6 +1545,11 @@ const ConfirmApplication = () => {
                   <option value="no">No</option>
                   <option value="n/a">N/A</option>
                 </Form.Select>
+                {errors.selectedPetsBeenPoisoned && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedPetsBeenPoisoned}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1298,6 +1574,11 @@ const ConfirmApplication = () => {
                   <option value="no">No</option>
                   <option value="n/a">N/A</option>
                 </Form.Select>
+                {errors.selectedPetHitByVehicle && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedPetHitByVehicle}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1322,6 +1603,11 @@ const ConfirmApplication = () => {
                   <option value="no">No</option>
                   <option value="n/a">N/A</option>
                 </Form.Select>
+                {errors.selectedGivenPetToShelter && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedGivenPetToShelter}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1346,6 +1632,11 @@ const ConfirmApplication = () => {
                   <option value="no">No</option>
                   <option value="n/a">N/A</option>
                 </Form.Select>
+                {errors.selectedGivenPetAway && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.selectedGivenPetAway}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1383,6 +1674,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.notRelatedPeopleInfo && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.notRelatedPeopleInfo}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
             <Col md={8}>
@@ -1400,6 +1696,11 @@ const ConfirmApplication = () => {
                   rows={3}
                   required
                 />
+                {errors.vetInfo && (
+                  <Form.Control.Feedback type="invalid">
+                    {errors.vetInfo}
+                  </Form.Control.Feedback>
+                )}
               </Form.Group>
             </Row>
           </Row>
