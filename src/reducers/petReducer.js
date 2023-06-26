@@ -40,6 +40,53 @@ export const petReducer = (state, action) => {
         isFavorite: true,
       };
     case 'FAVORITE_PET_ON_PET_DETAILS_FAILURE':
+    case 'GET_FAVORITE_PETS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_FAVORITE_PETS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: action.payload,
+      };
+    case 'GET_FAVORITE_PETS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        pet: null,
+        error: action.payload,
+      };
+    case 'ADD_PET_TO_FAVORITES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'ADD_PET_TO_FAVORITES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: { ...action.payload }
+      };
+    case 'ADD_PET_TO_FAVORITES_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'XXXREMOVE_PET_FROM_FAVORITES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favorites: { ...action.payload }
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_FAILURE':
       return {
         ...state,
         loading: false,
@@ -213,11 +260,6 @@ export const dogColorsReducer = (state = { dogColors: [] }, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
-
-
-
-
-
 
 export default petReducer;
 

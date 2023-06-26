@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { loadPet, addPetToFavorites, removePetFromFavorites, getPetIsFavoriteStatus } from '../../actions/petAction';
+import { loadPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
@@ -42,22 +42,25 @@ const PetDetails = ({ pet }) => {
   useEffect(() => {
     const fetchPetData = async () => {
       await loadPet(id, setErrorMessage, dispatch);
-      await getPetIsFavoriteStatus(id, dispatch);
     };
     fetchPetData();
   }, [id]);
 
-  const toggleFavorite = () => {
+  const toggleAddToFavorites = () => {
     if (!isFavorite) {
-      addPetToFavorites(id, dispatch)
+      addPetToFavorites({petId: petDetails._id}, dispatch)
+      setIsFavorite(true);
     } else {
-      removePetFromFavorites(id, dispatch)
+      removePetFromFavorites({petId: petDetails._id}, dispatch)
+      setIsFavorite(false);
     }
   };
 
   const navigate = useNavigate();
 
   const handleAdopt = () => {
+    Cookies.set('PetID', petDetails._id);
+    Cookies.set('PetType', petDetails.petType);
     Cookies.set('PetName', petDetails.petName);
     navigate('/application/confirm');
   };
@@ -89,6 +92,7 @@ const PetDetails = ({ pet }) => {
                 className="d-flex align-items-start justify-content-center"
                 style={{ marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
               >
+
                 <Carousel
                   activeIndex={index}
                   onSelect={handleSelect}
@@ -154,39 +158,39 @@ const PetDetails = ({ pet }) => {
                   </p>
                   <p>Description: {petDetails.description}</p>
                   <div className={style.buttonContainer}>
-                  <Button
-                    className={
-                      isFavorite
-                        ? `${style.favoriteButton} ${style.favorite}`
-                        : style.favoriteButton
-                    }
-                    onClick={toggleFavorite}
-                  >
-                    {isFavorite ? (
-                      <>
-                        <FontAwesomeIcon icon={faHeart} className="me-2" />
-                        Added to Favorites
-                      </>
-                    ) : (
-                      <>
-                        <FontAwesomeIcon icon={faHeart} className="me-2" />
-                        Add to Favorites
-                      </>
-                    )}
-                  </Button>
-                  
-                  <div className={style.buttonSpacing}>
-                  <Button
-                    onClick={handleAdopt}
-                    className={style.adoptButton}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    <span>
-                      <FontAwesomeIcon icon={faHeart} /> Adopt
-                    </span>
-                  </Button>
-                  </div>
+                    <Button
+                      className={
+                        isFavorite
+                          ? `${style.favoriteButton} ${style.favorite}`
+                          : style.favoriteButton
+                      }
+                      onClick={toggleAddToFavorites}
+                    >
+                      {isFavorite ? (
+                        <>
+                          <FontAwesomeIcon icon={faHeart} className="me-2" />
+                          Added to Favorites
+                        </>
+                      ) : (
+                        <>
+                          <FontAwesomeIcon icon={faHeart} className="me-2" />
+                          Add to Favorites
+                        </>
+                      )}
+                    </Button>
+
+                    <div className={style.buttonSpacing}>
+                      <Button
+                        onClick={handleAdopt}
+                        className={style.adoptButton}
+                        variant="btn-primary"
+                        size="btn-lg"
+                      >
+                        <span>
+                          <FontAwesomeIcon icon={faHeart} /> Adopt
+                        </span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Col>
