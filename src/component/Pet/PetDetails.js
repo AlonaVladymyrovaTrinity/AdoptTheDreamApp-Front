@@ -62,13 +62,6 @@ const PetDetails = ({ pet }) => {
     navigate('/application/confirm');
   };
 
-  const navigate = useNavigate();
-
-  const handleAdopt = () => {
-    Cookies.set('PetName', petDetails.petName);
-    navigate('/application/confirm');
-  };
-
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
