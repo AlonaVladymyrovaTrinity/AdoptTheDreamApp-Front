@@ -1,8 +1,6 @@
-import React, { useState, useReducer, useEffect, useMemo } from 'react';
-// import redCat from '../../images/redCat.mp4';
+import React, { useState, useReducer, useEffect /*, useMemo*/ } from 'react';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
-// import NavigateButton from '../layout/NavigateButton/NavigateButton';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import style from './Pets.module.css';
@@ -15,6 +13,7 @@ import {
   dogBreedsReducer,
   catColorsReducer,
   dogColorsReducer,
+  SearchPetFiltersReducer,
 } from '../../reducers/petReducer';
 import {
   getPet,
@@ -22,6 +21,7 @@ import {
   getDogBreeds,
   getCatColors,
   getDogColors,
+  getSearchPetFilters,
 } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import Pagination from 'react-bootstrap/Pagination';
@@ -43,10 +43,17 @@ const Pets = () => {
     catColorsReducer,
     initialState
   );
+
   const [stateDogColor, dispatchDogColor] = useReducer(
     dogColorsReducer,
     initialState
   );
+
+  const [statePetFilters, dispatchPetFilters] = useReducer(
+    SearchPetFiltersReducer,
+    initialState
+  );
+
   const [selectedType, setSelectedType] = useState('');
   const [selectedAge, setSelectedAge] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
@@ -55,6 +62,7 @@ const Pets = () => {
   const [selectedCoatLength, setSelectedCoatLength] = useState('');
   const [selectedCareAndBehav, setSelectedCareAndBehav] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [pets, setPets] = useState([]);
   const itemsPerPage = 18;
   // useEffect for getPet
   useEffect(() => {
@@ -73,10 +81,19 @@ const Pets = () => {
     setCurrentPage(pageNumber);
   };
 
-  const pets = useMemo(() => Object.values(state.pets || {}), [state.pets]);
+  // const pets = useMemo(() => Object.values(state.pets || {}), [state.pets])
+  useEffect(() => {
+    if (selectedType === '') {
+      setPets(state.pets || []);
+    } else {
+      setPets(statePetFilters.petFiltersResponse || []);
+    }
+  }, [selectedType, state.pets, statePetFilters.petFiltersResponse]);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPets = pets.slice(indexOfFirstItem, indexOfLastItem);
+
   // useEffect for Breeds
   useEffect(() => {
     const fetchBreeds = async () => {
@@ -190,66 +207,221 @@ const Pets = () => {
   };
   const [selectedBreed, setSelectedBreed] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
+
+  const petFiltersResults = async (
+    petType,
+    breed,
+    age,
+    size,
+    gender,
+    goodWith,
+    coatLength,
+    color,
+    careAndBehaviour
+  ) => {
+    console.log('petType: ' + petType);
+    console.log('selectedType: ' + selectedType);
+    console.log(petType !== selectedType);
+    if (petType !== selectedType) {
+      breed = '';
+      age = '';
+      size = '';
+      gender = '';
+      goodWith = '';
+      coatLength = '';
+      color = '';
+      careAndBehaviour = '';
+    }
+    try {
+      await getSearchPetFilters(
+        petType,
+        breed,
+        age,
+        size,
+        gender,
+        goodWith,
+        coatLength,
+        color,
+        careAndBehaviour,
+        dispatchPetFilters
+      );
+    } catch (error) {
+      setErrorMessage('');
+      setErrorMessage('Error loading dog Colors');
+    }
+  };
+
   // Type
   const handleSelectTypeChange = (event) => {
     const selectedPetType = event.target.value;
     setSelectedType(selectedPetType);
+    console.log('petType: ' + selectedPetType);
+    console.log('selectedType: ' + selectedType);
+    if (selectedPetType !== selectedType) {
+      setSelectedBreed('');
+      setSelectedAge('');
+      setSelectedSize('');
+      setSelectedGender('');
+      setSelectedGoodWith('');
+      setSelectedCoatLength('');
+      setSelectedColor('');
+      setSelectedCareAndBehav('');
+    }
+    petFiltersResults(
+      selectedPetType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Breed
   const handleSelectBreedChange = async (event) => {
     const selectedPetBreed = event.target.value;
     setSelectedBreed(selectedPetBreed);
-    const breed = selectedPetBreed;
-    alert(breed); // temporary alert for testing
+    //const breed = selectedPetBreed;
+    //alert(breed); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedPetBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Color
   const handleSelectColorChange = async (event) => {
     const selectedPetColor = event.target.value;
     setSelectedColor(selectedPetColor);
-    const color = selectedPetColor;
-    alert(color); // temporary alert for testing
+    //const color = selectedPetColor;
+    //alert(color); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedPetColor,
+      selectedCareAndBehav
+    );
   };
   // Age
   const handleSelectAgeChange = async (event) => {
     const selectedPetAge = event.target.value;
     setSelectedAge(selectedPetAge);
-    const age = selectedPetAge;
-    alert(age); // temporary alert for testing
+    //const age = selectedPetAge;
+    //alert(age); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedPetAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Size
   const handleSelectSizeChange = async (event) => {
     const selectedPetSize = event.target.value;
     setSelectedSize(selectedPetSize);
-    const size = selectedPetSize;
-    alert(size); // temporary alert for testing
+    //const size = selectedPetSize;
+    //alert(size); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedPetSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Gender
   const handleSelectGenderChange = async (event) => {
     const selectedPetGender = event.target.value;
     setSelectedGender(selectedPetGender);
-    const gender = selectedPetGender;
-    alert(gender); // temporary alert for testing
+    //const gender = selectedPetGender;
+    //alert(gender); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedPetGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Good With
   const handleSelectGoodWithChange = async (event) => {
     const selectedPetGoodWith = event.target.value;
     setSelectedGoodWith(selectedPetGoodWith);
-    const goodWith = selectedPetGoodWith;
-    alert(goodWith); // temporary alert for testing
+    //  const goodWith = selectedPetGoodWith;
+    //  alert(goodWith); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedPetGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Coat Length
   const handleSelectCoatLengthChange = async (event) => {
     const selectedPetCoatLength = event.target.value;
     setSelectedCoatLength(selectedPetCoatLength);
-    const coatLength = selectedPetCoatLength;
-    alert(coatLength); // temporary alert for testing
+    // const coatLength = selectedPetCoatLength;
+    // alert(coatLength); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedPetCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Care & Behavior
   const handleSelectCareAndBehavChange = async (event) => {
     const selectedPetCareAndBehav = event.target.value;
     setSelectedCareAndBehav(selectedPetCareAndBehav);
-    const careAndBehav = selectedPetCareAndBehav;
-    alert(careAndBehav); // temporary alert for testing
+    //  const careAndBehav = selectedPetCareAndBehav;
+    //  alert(careAndBehav); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedPetCareAndBehav
+    );
   };
 
   return (
@@ -263,7 +435,7 @@ const Pets = () => {
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>
-        {state.loading ? (
+        {state.loading || statePetFilters.loading ? (
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
@@ -274,7 +446,7 @@ const Pets = () => {
                   id="PetType"
                   name="PetType"
                   className="border-1 bg-transparent rounded mb-3"
-                  disabled={!Array.isArray(pets) || pets.length === 0}
+                  disabled={!Array.isArray(pets)}
                   onChange={handleSelectTypeChange}
                   value={selectedType}
                 >
@@ -292,11 +464,7 @@ const Pets = () => {
                   id="PetBreed"
                   name="PetBreed"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectBreedChange}
                   value={selectedBreed}
                 >
@@ -314,11 +482,7 @@ const Pets = () => {
                   id="PetAge"
                   name="PetAge"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectAgeChange}
                   value={selectedAge}
                 >
@@ -336,11 +500,7 @@ const Pets = () => {
                   id="PetSize"
                   name="PetSize"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectSizeChange}
                   value={selectedSize}
                 >
@@ -358,11 +518,7 @@ const Pets = () => {
                   id="PetGender"
                   name="PetGender"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectGenderChange}
                   value={selectedGender}
                 >
@@ -380,11 +536,7 @@ const Pets = () => {
                   id="PetGoodWith"
                   name="PetGoodWith"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectGoodWithChange}
                   value={selectedGoodWith}
                 >
@@ -402,11 +554,7 @@ const Pets = () => {
                   id="PetCoatLength"
                   name="PetCoatLength"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectCoatLengthChange}
                   value={selectedCoatLength}
                 >
@@ -424,11 +572,7 @@ const Pets = () => {
                   id="PetColor"
                   name="PetColor"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectColorChange}
                   value={selectedColor}
                 >
@@ -446,11 +590,7 @@ const Pets = () => {
                   id="PetCareAndBehav"
                   name="PetCareAndBehav"
                   className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={
-                    !Array.isArray(pets) ||
-                    pets.length === 0 ||
-                    selectedType === ''
-                  }
+                  disabled={!Array.isArray(pets) || selectedType === ''}
                   onChange={handleSelectCareAndBehavChange}
                   value={selectedCareAndBehav}
                 >
@@ -466,17 +606,24 @@ const Pets = () => {
               </Nav>
             </div>
             {/* Pet Card container */}
-            <div className={style.cardsContainer} fluid="md" id="container">
-              <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
-                {Object.values(currentPets).map((pet, idx) => (
-                  <Col className="mb-4 ps-0 pe-0" key={idx}>
-                    <div className={style.grid_item}>
-                      <PetCard pet={pet} />
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </div>
+            {pets.length === 0 ? (
+              <div className={style.cardsContainer} fluid="md" id="container">
+                No results matching your criteria. Consider broadening your
+                search.
+              </div>
+            ) : (
+              <div className={style.cardsContainer} fluid="md" id="container">
+                <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
+                  {Object.values(currentPets).map((pet, idx) => (
+                    <Col className="mb-4 ps-0 pe-0" key={idx}>
+                      <div className={style.grid_item}>
+                        <PetCard pet={pet} />
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            )}
           </div>
         )}
       </div>
