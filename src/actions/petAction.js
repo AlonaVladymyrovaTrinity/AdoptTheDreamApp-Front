@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get Pet Details
-export const loadPet = async (id, setErrorMessage, dispatch) => {
+export const getPet = async (id, setErrorMessage, dispatch) => {
   dispatch({ type: 'LOAD_PET_REQUEST' });
   try {
     const response = await axios.get(`/api/v1/pets/${id}`, {
@@ -18,7 +18,7 @@ export const loadPet = async (id, setErrorMessage, dispatch) => {
 };
 
 // Get All Pets
-export const getPet = async (dispatch) => {
+export const getAllPets = async (dispatch) => {
   try {
     dispatch({ type: 'ALL_PET_REQUEST' });
     const response = await axios.get(`/api/v1/pets`, {

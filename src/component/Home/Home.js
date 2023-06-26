@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Pagination from 'react-bootstrap/Pagination';
 import { initialState, petsReducer } from '../../reducers/petReducer';
-import { getPet } from '../../actions/petAction';
+import { getAllPets } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getPet(dispatch);
+        await getAllPets(dispatch);
       } catch (error) {
         setErrorMessage('');
         setErrorMessage('Error loading pets');

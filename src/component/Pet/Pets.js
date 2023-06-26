@@ -17,7 +17,7 @@ import {
   dogColorsReducer,
 } from '../../reducers/petReducer';
 import {
-  getPet,
+  getAllPets,
   getCatBreeds,
   getDogBreeds,
   getCatColors,
@@ -60,7 +60,7 @@ const Pets = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await getPet(dispatch);
+        await getAllPets(dispatch);
       } catch (error) {
         setErrorMessage('');
         setErrorMessage('Error loading pets');

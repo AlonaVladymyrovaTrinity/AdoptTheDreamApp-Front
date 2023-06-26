@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { loadPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
+import { getPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
@@ -41,7 +41,7 @@ const PetDetails = ({ pet }) => {
 
   useEffect(() => {
     const fetchPetData = async () => {
-      await loadPet(id, setErrorMessage, dispatch);
+      await getPet(id, setErrorMessage, dispatch);
     };
     fetchPetData();
   }, [id]);
