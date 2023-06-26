@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect /*, useMemo*/ } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
 import Col from 'react-bootstrap/Col';
@@ -25,6 +25,7 @@ import {
 } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import Pagination from 'react-bootstrap/Pagination';
+import { Button } from 'react-bootstrap';
 
 const Pets = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,6 +65,7 @@ const Pets = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pets, setPets] = useState([]);
   const itemsPerPage = 18;
+
   // useEffect for getPet
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +83,6 @@ const Pets = () => {
     setCurrentPage(pageNumber);
   };
 
-  // const pets = useMemo(() => Object.values(state.pets || {}), [state.pets])
   useEffect(() => {
     if (selectedType === '') {
       setPets(state.pets || []);
@@ -116,6 +117,7 @@ const Pets = () => {
     };
     fetchBreeds();
   }, [selectedType]);
+
   // useEffect for Colors
   useEffect(() => {
     const fetchColors = async () => {
@@ -139,8 +141,7 @@ const Pets = () => {
     fetchColors();
   }, [selectedType]);
 
-  // Options
-
+  // Options for select
   const optionsBreed = {};
   if (selectedType === 'Cat') {
     const catBreeds = stateCatBreed.catBreeds || [];
@@ -283,8 +284,6 @@ const Pets = () => {
   const handleSelectBreedChange = async (event) => {
     const selectedPetBreed = event.target.value;
     setSelectedBreed(selectedPetBreed);
-    //const breed = selectedPetBreed;
-    //alert(breed); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedPetBreed,
@@ -301,8 +300,6 @@ const Pets = () => {
   const handleSelectColorChange = async (event) => {
     const selectedPetColor = event.target.value;
     setSelectedColor(selectedPetColor);
-    //const color = selectedPetColor;
-    //alert(color); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -319,8 +316,6 @@ const Pets = () => {
   const handleSelectAgeChange = async (event) => {
     const selectedPetAge = event.target.value;
     setSelectedAge(selectedPetAge);
-    //const age = selectedPetAge;
-    //alert(age); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -337,8 +332,6 @@ const Pets = () => {
   const handleSelectSizeChange = async (event) => {
     const selectedPetSize = event.target.value;
     setSelectedSize(selectedPetSize);
-    //const size = selectedPetSize;
-    //alert(size); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -355,8 +348,6 @@ const Pets = () => {
   const handleSelectGenderChange = async (event) => {
     const selectedPetGender = event.target.value;
     setSelectedGender(selectedPetGender);
-    //const gender = selectedPetGender;
-    //alert(gender); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -373,8 +364,6 @@ const Pets = () => {
   const handleSelectGoodWithChange = async (event) => {
     const selectedPetGoodWith = event.target.value;
     setSelectedGoodWith(selectedPetGoodWith);
-    //  const goodWith = selectedPetGoodWith;
-    //  alert(goodWith); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -391,8 +380,6 @@ const Pets = () => {
   const handleSelectCoatLengthChange = async (event) => {
     const selectedPetCoatLength = event.target.value;
     setSelectedCoatLength(selectedPetCoatLength);
-    // const coatLength = selectedPetCoatLength;
-    // alert(coatLength); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -409,8 +396,6 @@ const Pets = () => {
   const handleSelectCareAndBehavChange = async (event) => {
     const selectedPetCareAndBehav = event.target.value;
     setSelectedCareAndBehav(selectedPetCareAndBehav);
-    //  const careAndBehav = selectedPetCareAndBehav;
-    //  alert(careAndBehav); // temporary alert for testing
     petFiltersResults(
       selectedType,
       selectedBreed,
@@ -423,7 +408,17 @@ const Pets = () => {
       selectedPetCareAndBehav
     );
   };
-
+  const handleClearFilters = () => {
+    setSelectedType('');
+    setSelectedBreed('');
+    setSelectedAge('');
+    setSelectedSize('');
+    setSelectedGender('');
+    setSelectedGoodWith('');
+    setSelectedCoatLength('');
+    setSelectedColor('');
+    setSelectedCareAndBehav('');
+  };
   return (
     <>
       {errorMessage && (
@@ -450,9 +445,7 @@ const Pets = () => {
                   onChange={handleSelectTypeChange}
                   value={selectedType}
                 >
-                  <option disabled value="">
-                    Type
-                  </option>
+                  <option value="">Select type:</option>
                   {Object.entries(optionsType).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -468,9 +461,7 @@ const Pets = () => {
                   onChange={handleSelectBreedChange}
                   value={selectedBreed}
                 >
-                  <option disabled value="">
-                    Breed
-                  </option>
+                  <option value="">Select breed:</option>
                   {Object.entries(optionsBreed).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -486,9 +477,7 @@ const Pets = () => {
                   onChange={handleSelectAgeChange}
                   value={selectedAge}
                 >
-                  <option disabled value="">
-                    Age
-                  </option>
+                  <option value="">Select age:</option>
                   {Object.entries(optionsAge).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -504,9 +493,7 @@ const Pets = () => {
                   onChange={handleSelectSizeChange}
                   value={selectedSize}
                 >
-                  <option disabled value="">
-                    Size
-                  </option>
+                  <option value="">Select size:</option>
                   {Object.entries(optionsSize).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -522,9 +509,7 @@ const Pets = () => {
                   onChange={handleSelectGenderChange}
                   value={selectedGender}
                 >
-                  <option disabled value="">
-                    Gender
-                  </option>
+                  <option value="">Select gender:</option>
                   {Object.entries(optionsGender).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -540,9 +525,7 @@ const Pets = () => {
                   onChange={handleSelectGoodWithChange}
                   value={selectedGoodWith}
                 >
-                  <option disabled value="">
-                    Good with
-                  </option>
+                  <option value="">Good with:</option>
                   {Object.entries(optionsGoodWith).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -558,9 +541,7 @@ const Pets = () => {
                   onChange={handleSelectCoatLengthChange}
                   value={selectedCoatLength}
                 >
-                  <option disabled value="">
-                    Coat length
-                  </option>
+                  <option value="">Select coat length:</option>
                   {Object.entries(optionsCoatLength).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -576,9 +557,7 @@ const Pets = () => {
                   onChange={handleSelectColorChange}
                   value={selectedColor}
                 >
-                  <option disabled value="">
-                    Color
-                  </option>
+                  <option value="">Select color:</option>
                   {Object.entries(optionsColor).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
@@ -594,15 +573,19 @@ const Pets = () => {
                   onChange={handleSelectCareAndBehavChange}
                   value={selectedCareAndBehav}
                 >
-                  <option disabled value="">
-                    Care & behavior
-                  </option>
+                  <option value="">Care & behavior:</option>
                   {Object.entries(optionsCareAndBehav).map(([value, label]) => (
                     <option key={value} value={value}>
                       {label}
                     </option>
                   ))}
                 </Form.Select>
+                <Button
+                  onClick={handleClearFilters}
+                  className={`btn ${style.clearFiltersBtn}`}
+                >
+                  <span>Clear all filters</span>
+                </Button>
               </Nav>
             </div>
             {/* Pet Card container */}

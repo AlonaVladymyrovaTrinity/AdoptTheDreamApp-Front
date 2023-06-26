@@ -86,6 +86,20 @@ video {
   background-color: var(--color-btn) !important;
   border: none;
 }
+.clearFiltersBtn {
+  background-color: var(--color-action-btn);
+  border: none;
+  border-radius: 18px;
+  color: var(--color-white);
+}
+.clearFiltersBtn:hover {
+  background-color: var(--color-action-btn-hover);
+}
+.clearFiltersBtn:active,
+.clearFiltersBtn:visited {
+  background-color: var(--color-action-btn-active) !important;
+  transform: scale(0.98);
+}
 
 /* Responsive Design Tablet */
 
