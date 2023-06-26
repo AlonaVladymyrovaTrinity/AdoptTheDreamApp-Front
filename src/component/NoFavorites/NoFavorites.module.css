@@ -37,7 +37,8 @@ main {
   padding: 5px 20px;
 }
 
-.no-favorites-button:hover {
+.no-favorites-button:hover,
+.no-favorites-button:focus {
   background-color: var(--color-btn-nofavorites-hover);
 }
 
