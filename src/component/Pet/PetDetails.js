@@ -12,7 +12,9 @@ import { loadPet, addPetToFavorites, removePetFromFavorites, getPetIsFavoriteSta
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 
 const PetDetails = ({ pet }) => {
   const [isFavorite, setIsFavorite] = useReducer(petReducer, initialState);
@@ -23,6 +25,19 @@ const PetDetails = ({ pet }) => {
   let { id } = useParams();
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
 
+  const goodWith = useMemo(() => {
+    if (!state.pet) return ""
+    return Object.entries(state.pet.goodWith)
+      .filter(([_, value]) => (value))
+      .map(([key, _]) => key).join(", ")
+  }, [state.pet]);
+
+  const careAndBehaviour = useMemo(() => {
+    if (!state.pet) return ""
+    return Object.entries(state.pet.careAndBehaviour)
+      .filter(([_, value]) => (value))
+      .map(([key, _]) => key).join(", ")
+  }, [state.pet]);
 
   useEffect(() => {
     const fetchPetData = async () => {
@@ -38,6 +53,20 @@ const PetDetails = ({ pet }) => {
     } else {
       removePetFromFavorites(id, dispatch)
     }
+  };
+
+  const navigate = useNavigate();
+
+  const handleAdopt = () => {
+    Cookies.set('PetName', petDetails.petName);
+    navigate('/application/confirm');
+  };
+
+  const navigate = useNavigate();
+
+  const handleAdopt = () => {
+    Cookies.set('PetName', petDetails.petName);
+    navigate('/application/confirm');
   };
 
   const handleSelect = (selectedIndex, e) => {
@@ -64,54 +93,53 @@ const PetDetails = ({ pet }) => {
               <Col
                 sm={12}
                 md={6}
-                className="d-flex align-items-center justify-content-center"
-                style={{ marginRight: 'auto', marginTop: '2rem' }}
+                className="d-flex align-items-start justify-content-center"
+                style={{ marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
               >
-                {petDetails.image && petDetails.image.length > 0 ? (
-                  <Carousel
-                    activeIndex={index}
-                    onSelect={handleSelect}
-                    interval={null}
-                    style={{ width: '100%', height: '100%' }}
-                  >
-                    {petDetails.image.map((img, i) => {
-                      return (
-                        <Carousel.Item
-                          key={i}
-                          className="d-flex align-items-center justify-content-center"
-                        >
-                          <img
-                            src={
-                              img === '/uploads/example.jpeg' &&
-                              petDetails.petType === 'Cat'
-                                ? cartoonCat
-                                : img === '/uploads/example.jpeg' &&
-                                  petDetails.petType === 'Dog'
-                                ? cartoonDog
-                                : img
-                            }
-                            alt="Animal 1"
-                            style={{
-                              width: '90%',
-                              height: '90%',
-                              objectFit: 'stretch',
-                            }}
-                          />
-                        </Carousel.Item>
-                      );
-                    })}
-                  </Carousel>
-                ) : (
-                  <div style={{ maxWidth: '100%', margin: '4rem' }}>
-                    NO PET PICTURE
-                  </div>
-                )}
+                <Carousel
+                  activeIndex={index}
+                  onSelect={handleSelect}
+                  hover='pause'
+                  style={{ overflow: "hidden" }}
+                >
+                  {petDetails.image.length > 0 ? (
+                    petDetails.image.map(it => it.full).map((img, i) =>
+                      <Carousel.Item
+                        key={i}
+                      >
+                        <img src={img}
+                          alt={petDetails.petName}
+                          style={{ height: "560px" }}
+                        />
+                      </Carousel.Item>
+                    )
+                  ) : (
+                    <Carousel.Item
+                      key={0}
+                      className="d-flex align-items-center justify-content-center"
+                    >
+                      <img
+                        src={
+                          petDetails.petType === 'Cat'
+                            ? cartoonCat
+                            : cartoonDog
+                        }
+                        alt={petDetails.petName}
+                        style={{
+                          width: '90%',
+                          height: '90%',
+                          objectFit: 'stretch',
+                        }}
+                      />
+                    </Carousel.Item>
+                  )}
+                </Carousel>
               </Col>
               <Col
                 sm={12}
                 md={6}
                 className="d-flex align-items-center justify-content-center"
-                style={{ marginRight: 'auto', marginTop: '2rem' }}
+                style={{ marginRight: 'auto', marginTop: '2rem', paddingLeft: '1rem', paddingRight: '1rem' }}
               >
                 <div
                   className={style['frame']}
@@ -125,13 +153,14 @@ const PetDetails = ({ pet }) => {
                   <p>Age: {petDetails.age}</p>
                   <p>Size: {petDetails.size}</p>
                   <p>Gender: {petDetails.gender}</p>
-                  <p>Good with: {petDetails.goodWith.join(', ')}</p>
+                  <p>Good with: {goodWith}</p>
                   <p>Coat Length: {petDetails.coatLength}</p>
                   <p>Color: {petDetails.color}</p>
                   <p>
-                    Care & Behavior: {petDetails.careAndBehaviour.join(', ')}
+                    Care & Behavior: {careAndBehaviour}
                   </p>
-                  <p>{petDetails.description}</p>
+                  <p>Description: {petDetails.description}</p>
+                  <div className={style.buttonContainer}>
                   <Button
                     className={
                       isFavorite
@@ -152,6 +181,20 @@ const PetDetails = ({ pet }) => {
                       </>
                     )}
                   </Button>
+                  
+                  <div className={style.buttonSpacing}>
+                  <Button
+                    onClick={handleAdopt}
+                    className={style.adoptButton}
+                    variant="btn-primary"
+                    size="btn-lg"
+                  >
+                    <span>
+                      <FontAwesomeIcon icon={faHeart} /> Adopt
+                    </span>
+                  </Button>
+                  </div>
+                  </div>
                 </div>
               </Col>
             </Row>
