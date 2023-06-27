@@ -108,7 +108,7 @@ const PetDetails = () => {
                           <img
                             src={img}
                             alt={petDetails.petName}
-                            style={{ height: '560px' }}
+                            style={{ height: '35rem' }}
                           />
                         </Carousel.Item>
                       ))
