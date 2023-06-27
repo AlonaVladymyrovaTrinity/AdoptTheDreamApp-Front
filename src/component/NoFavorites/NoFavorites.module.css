@@ -9,9 +9,9 @@ main {
 }
 
 .no-favorites-header {
-  font-size: 0,5,rem;
-  margin-bottom: 1,rem;
-  color: var( --color-txt);
+  font-size: 0, 5, rem;
+  margin-bottom: 1, rem;
+  color: var(--color-txt);
   margin-top: 3rem;
 }
 
@@ -22,18 +22,28 @@ main {
   padding: 1rem;
 }
 
-.no-favorites-header-image{
+.no-favorites-header-image {
   width: 24rem;
   height: 24rem;
-  margin-bottom: 50px
+  margin-bottom: 50px;
 }
 
 .no-favorites-button {
   background-color: var(--color-btn-nofavorites);
-  border: 3px solid var(--color-btn-nofavorites); 
+  color: var(--color-white);
+  border: none;
   border-radius: 18px;
   font-size: 18px;
   padding: 5px 20px;
 }
 
+.no-favorites-button:hover,
+.no-favorites-button:focus {
+  background-color: var(--color-btn-nofavorites-hover);
+}
 
+.no-favorites-button:active,
+.no-favorites-button:visited {
+  background-color: var(--color-btn-nofavorites-active) !important;
+  transform: scale(0.98);
+}

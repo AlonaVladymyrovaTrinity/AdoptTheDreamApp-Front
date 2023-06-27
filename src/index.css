@@ -31,6 +31,8 @@
   --color-grey: #ffffff8c;
   --color-icon-gray: #747171;
   --color-btn-nofavorites: #f0463a;
+  --color-btn-nofavorites-hover: #ea726a;
+  --color-btn-nofavorites-active: #ee554a;
 }
 
 main {
