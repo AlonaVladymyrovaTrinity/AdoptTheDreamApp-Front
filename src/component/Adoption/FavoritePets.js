@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
 import { Card, Button } from 'react-bootstrap';
 import style from './FavoritePets.module.css';
 import { useReducer, useMemo } from 'react';
 import { initialStateFavoritePets, favoritePetsReducer } from '../../reducers/favoritePetsReducer';
 import { getFavoritePets, removePetFromFavorites } from '../../actions/favoritePetsAction';
-import { useEffect } from 'react';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import AuthContext from '../../context/auth-context'
 
 const FavoritePets = () => {
-  // const [favoritePets, setFavoritePets] = useState(pets);
   const [currentPage, setCurrentPage] = useState(1);
-
   const [state, dispatch] = useReducer(favoritePetsReducer, initialStateFavoritePets);
-
   const navigate = useNavigate();
+  const { userId } = useContext(AuthContext);
+
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    if (!authenticated) {
+      navigate('/login');
+    }
+  }, [userId, navigate]);
 
   useEffect(() => {
     const fetchFavoritePets = async () => {
@@ -28,7 +33,7 @@ const FavoritePets = () => {
 
   // Function to remove a pet from favorites
   const removeFavorite = async (pet) => {
-    await removePetFromFavorites({petId: pet._id}, dispatch)
+    await removePetFromFavorites({ petId: pet._id }, dispatch)
   };
 
   // Function to handle adopting a pet
@@ -51,7 +56,7 @@ const FavoritePets = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-<div>
+    <div>
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Favorite Pets</h1>
       {!favorites || favorites.length === 0 ? (
         <p>No favorite pets selected.</p>
@@ -70,9 +75,9 @@ const FavoritePets = () => {
                 <Card className={style['favorite-card']} style={{ height: '100%' }}>
                   <Card.Img variant="top" src={
                     pet.image.length > 0 ? pet.image[0].full :
-                    pet.petType === 'Cat' ? cartoonCat : cartoonDog
+                      pet.petType === 'Cat' ? cartoonCat : cartoonDog
                   }
-                  alt={pet.name} />
+                    alt={pet.name} />
                   <Card.Body>
                     <Card.Title>{pet.name}</Card.Title>
                     <Card.Text className='text-truncate'>{pet.description}</Card.Text>

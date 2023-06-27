@@ -1,12 +1,12 @@
 export const initialState = {
   loading: false,
   isFavorite: false,
-  pet: null
+  pet: null,
+  pets: null,
+  isAuthenticated: false,
+  loadingFavorites: false,
+  favorites: null
 };
-
-// // Action types
-// const ADD_PET = 'ADD_PET';
-// const ADD_TO_FAVORITES = 'ADD_TO_FAVORITES';
 
 export const petReducer = (state, action) => {
   switch (action.type) {
@@ -40,92 +40,44 @@ export const petReducer = (state, action) => {
         isFavorite: true,
       };
     case 'FAVORITE_PET_ON_PET_DETAILS_FAILURE':
-    case 'GET_FAVORITE_PETS_REQUEST':
-      return {
-        ...state,
-        loading: true,
-      };
-    case 'GET_FAVORITE_PETS_SUCCESS':
       return {
         ...state,
         loading: false,
-        favoritePets: action.payload,
       };
-    case 'GET_FAVORITE_PETS_FAILURE':
+    case 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST':
+      return {
+        ...state,
+        loading: true
+      };
+    case 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS':
       return {
         ...state,
         loading: false,
-        pet: null,
-        error: action.payload,
+        isFavorite: false,
       };
-    case 'ADD_PET_TO_FAVORITES_REQUEST':
-      return {
-        ...state,
-        loading: true,
-      };
-    case 'ADD_PET_TO_FAVORITES_SUCCESS':
-      return {
-        ...state,
-        loading: false,
-        favoritePets: { ...action.payload }
-      };
-    case 'ADD_PET_TO_FAVORITES_FAILURE':
+    case 'UNFAVORITE_PET_ON_PET_DETAILS_FAILURE':
       return {
         ...state,
         loading: false,
         error: action.payload
       };
-    case 'REMOVE_PET_FROM_FAVORITES_REQUEST':
+    case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_REQUEST':
       return {
         ...state,
-        loading: true,
+        loading: true
       };
-    case 'XXXREMOVE_PET_FROM_FAVORITES_SUCCESS':
+    case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS':
       return {
         ...state,
         loading: false,
-        favorites: { ...action.payload }
+        isFavorite: action.payload,
       };
-    case 'REMOVE_PET_FROM_FAVORITES_FAILURE':
+    case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_FAILURE':
       return {
         ...state,
         loading: false,
         error: action.payload
       };
-      case 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST':
-        return {
-          ...state,
-          loading: true
-        };
-      case 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS':
-        return {
-          ...state,
-          loading: false,
-          isFavorite: false,
-        };
-      case 'UNFAVORITE_PET_ON_PET_DETAILS_FAILURE':
-        return {
-          ...state,
-          loading: false,
-          error: action.payload
-        };
-        case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_REQUEST':
-          return {
-            ...state,
-            loading: true
-          };
-        case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS':
-          return {
-            ...state,
-            loading: false,
-            isFavorite: action.payload,
-          };
-        case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_FAILURE':
-          return {
-            ...state,
-            loading: false,
-            error: action.payload
-          };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -151,7 +103,51 @@ export const petsReducer = (state = { pets: [] }, action) => {
         loading: false,
         error: action.payload,
       };
-
+    case 'ALL_FAVORITE_PETS_REQUEST':
+      return {
+        ...state,
+        loadingFavorites: true,
+      };
+    case 'ALL_FAVORITE_PETS_SUCCESS':
+      return {
+        ...state,
+        loadingFavorites: false,
+        favorites: action.payload,
+      };
+    case 'ALL_FAVORITE_PETS_FAIL':
+      return {
+        ...state,
+        loadingFavorites: false,
+        error: action.payload,
+      };
+    case 'ADD_PET_TO_FAVORITES_ON_PETS_REQUEST':
+      return {
+        ...state,
+      };
+    case 'ADD_PET_TO_FAVORITES_ON_PETS_SUCCESS':
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+    case 'ADD_PET_TO_FAVORITES_ON_PETS_FAIL':
+      return {
+        ...state,
+        error: action.payload
+      };
+      case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_REQUEST':
+        return {
+          ...state,
+        };
+      case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_SUCCESS':
+        return {
+          ...state,
+          favorites: action.payload,
+        };
+      case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_FAIL':
+        return {
+          ...state,
+          error: action.payload
+        };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

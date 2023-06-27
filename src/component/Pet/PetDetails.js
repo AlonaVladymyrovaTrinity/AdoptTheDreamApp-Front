@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react';
+import React, { useState, useEffect, useReducer, useMemo, useContext } from 'react';
 import { useParams } from 'react-router';
 import { Carousel, Button } from 'react-bootstrap';
 import Loader from '../layout/Loader/Loader';
@@ -8,22 +8,39 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { getPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
+import { getPet, addPetToFavoritesOnPetDetails, removePetFromFavoritesOnPetDetails, getSinglePetIsFavoriteStatus } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-
+import AuthContext from '../../context/auth-context'
 
 const PetDetails = ({ pet }) => {
-  const [isFavorite, setIsFavorite] = useReducer(petReducer, initialState);
   const [index, setIndex] = useState(0);
-  // const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [state, dispatch] = useReducer(petReducer, initialState);
   let { id } = useParams();
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
+  const isFavorite = useMemo(() => state.isFavorite || false, [state.isFavorite]);
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { userId } = useContext(AuthContext);
+
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    setIsAuthenticated(authenticated);
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchPetData = async () => {
+      await getPet(id, setErrorMessage, dispatch);
+      if (isAuthenticated) {
+        await getSinglePetIsFavoriteStatus(id, dispatch);
+      }
+    };
+    fetchPetData();
+  }, [id, isAuthenticated]);
 
   const goodWith = useMemo(() => {
     if (!state.pet) return ""
@@ -36,27 +53,21 @@ const PetDetails = ({ pet }) => {
     if (!state.pet) return ""
     return Object.entries(state.pet.careAndBehaviour)
       .filter(([_, value]) => (value))
-      .map(([key, _]) => key).join(", ")
+      .map(([key, _]) => key.replace(/_/g, ''))
+      .join(", ")
   }, [state.pet]);
 
-  useEffect(() => {
-    const fetchPetData = async () => {
-      await getPet(id, setErrorMessage, dispatch);
-    };
-    fetchPetData();
-  }, [id]);
-
   const toggleAddToFavorites = () => {
-    if (!isFavorite) {
-      addPetToFavorites({petId: petDetails._id}, dispatch)
-      setIsFavorite(true);
+    if (!isAuthenticated) {
+      navigate('/login');
     } else {
-      removePetFromFavorites({petId: petDetails._id}, dispatch)
-      setIsFavorite(false);
+      if (!isFavorite) {
+        addPetToFavoritesOnPetDetails(petDetails._id, dispatch)
+      } else {
+        removePetFromFavoritesOnPetDetails(petDetails._id, dispatch)
+      }
     }
   };
-
-  const navigate = useNavigate();
 
   const handleAdopt = () => {
     Cookies.set('PetID', petDetails._id);
@@ -106,7 +117,7 @@ const PetDetails = ({ pet }) => {
                       >
                         <img src={img}
                           alt={petDetails.petName}
-                          style={{ height: "560px" }}
+                          style={{ height: "35 rem" }}
                         />
                       </Carousel.Item>
                     )
@@ -143,16 +154,16 @@ const PetDetails = ({ pet }) => {
                   style={{ width: '100%', height: '100%' }}
                 >
                   <h1 className={'sr-only'}>Animal Details</h1>
-                  <p>Name: {petDetails.petName}</p>
-                  <p>ID: {petDetails._id}</p>
-                  <p>Breed: {petDetails.breed}</p>
-                  <p>Type: {petDetails.petType}</p>
-                  <p>Age: {petDetails.age}</p>
-                  <p>Size: {petDetails.size}</p>
-                  <p>Gender: {petDetails.gender}</p>
-                  <p>Good with: {goodWith}</p>
-                  <p>Coat Length: {petDetails.coatLength}</p>
-                  <p>Color: {petDetails.color}</p>
+                  <p>Name: {petDetails.petName === '' || petDetails.petName === null ? 'no information' : petDetails.petName}</p>
+                  <p>ID: {petDetails._id === '' || petDetails._id === null ? 'no information' : petDetails._id}</p>
+                  <p>Breed: {petDetails.breed === '' || petDetails.breed === null ? 'no information' : petDetails.breed}</p>
+                  <p>Type: {petDetails.petType === '' || petDetails.petType === null ? 'no information' : petDetails.petType}</p>
+                  <p>Age: {petDetails.age === '' || petDetails.age === null ? 'no information' : petDetails.age}</p>
+                  <p>Size: {petDetails.size === '' || petDetails.size === null ? 'no information' : petDetails.size}</p>
+                  <p>Gender: {petDetails.gender === '' || petDetails.gender === null ? 'no information' : petDetails.gender}</p>
+                  <p>Good with: {goodWith === '' || goodWith === null ? 'no information' : goodWith}</p>
+                  <p>Coat Length: {petDetails.coatLength === '' || petDetails.coatLength === null ? 'no information' : petDetails.coatLength}</p>
+                  <p>Color: {petDetails.color === '' || petDetails.color === null ? 'no information' : petDetails.color}</p>
                   <p>
                     Care & Behavior: {careAndBehaviour}
                   </p>

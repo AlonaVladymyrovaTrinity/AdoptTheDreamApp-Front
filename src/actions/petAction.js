@@ -27,7 +27,6 @@ export const getAllPets = async (dispatch) => {
         'Content-Type': 'application/json',
       },
     });
-    //console.log('Get All Pets response: ' + JSON.stringify(response.data)); // logging the response for testing purposes
     dispatch({
       type: 'ALL_PET_SUCCESS',
       payload: response.data,
@@ -35,6 +34,27 @@ export const getAllPets = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: 'ALL_PET_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const getAllFavorites = async (dispatch) => {
+  try {
+    dispatch({ type: 'ALL_FAVORITE_PETS_REQUEST' });
+    const response = await axios.get(`/api/v1/favorites`, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    dispatch({
+      type: 'ALL_FAVORITE_PETS_SUCCESS',
+      payload: response.data.pets.map(it => it._id),
+    });
+  } catch (error) {
+    dispatch({
+      type: 'ALL_FAVORITE_PETS_FAIL',
       payload: error.response?.data?.message || error.message,
     });
   }
@@ -129,18 +149,16 @@ export const getDogColors = async (dispatch) => {
 };
 
 // Add Pet to Favorites
-export const addPetToFavorites = async (id, dispatch) => {
+export const addPetToFavoritesOnPetDetails = async (id, dispatch) => {
   dispatch({ type: 'FAVORITE_PET_ON_PET_DETAILS_REQUEST' });
   try {
     await axios.patch('/api/v1/favorites/add', { petId: id }, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log("SUCCESS")
     dispatch({
       type: 'FAVORITE_PET_ON_PET_DETAILS_SUCCESS'
     });
   } catch (error) {
-    console.log("FAILURE")
     dispatch({
       type: 'FAVORITE_PET_ON_PET_DETAILS_FAILURE',
       payload: error.response?.data?.message || error.message,
@@ -149,18 +167,16 @@ export const addPetToFavorites = async (id, dispatch) => {
 };
 
 // Remove Pet from Favorites
-export const removePetFromFavorites = async (id, dispatch) => {
+export const removePetFromFavoritesOnPetDetails = async (id, dispatch) => {
   dispatch({ type: 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST' });
   try {
-    await axios.patch('/api/v1/favorites/add', { petId: id }, {
+    await axios.patch('/api/v1/favorites/remove', { petId: id }, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log("SUCCESS")
     dispatch({
       type: 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS'
     });
   } catch (error) {
-    console.log("FAILURE")
     dispatch({
       type: 'UNFAVORITE_PET_ON_PET_DETAILS_FAILURE',
       payload: error.response?.data?.message || error.message,
@@ -169,21 +185,55 @@ export const removePetFromFavorites = async (id, dispatch) => {
 };
 
 // Get Pet isFavorite (for current logged in user)
-export const getPetIsFavoriteStatus = async (id, dispatch) => {
+export const getSinglePetIsFavoriteStatus = async (id, dispatch) => {
   dispatch({ type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_REQUEST' });
   try {
     const response = await axios.get(`/api/v1/favorites/${id}`, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log("SUCCESS")
     dispatch({
       type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS',
       payload: response.data.isFavorite
     });
   } catch (error) {
-    console.log("FAILURE")
     dispatch({
       type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_FAILURE',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const addPetToFavoritesOnPets = async (id, dispatch) => {
+  dispatch({ type: 'ADD_PET_TO_FAVORITES_ON_PETS_REQUEST' });
+  try {
+    const response = await axios.patch('/api/v1/favorites/add', { petId: id }, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    dispatch({
+      type: 'ADD_PET_TO_FAVORITES_ON_PETS_SUCCESS',
+      payload: response.data.user.favorites
+    });
+  } catch (error) {
+    dispatch({
+      type: 'ADD_PET_TO_FAVORITES_ON_PETS_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+export const removePetFromFavoritesOnPets = async (id, dispatch) => {
+  dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_ON_PETS_REQUEST' });
+  try {
+    const response = await axios.patch('/api/v1/favorites/remove', { petId: id }, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    dispatch({
+      type: 'REMOVE_PET_FROM_FAVORITES_ON_PETS_SUCCESS',
+      payload: response.data.user.favorites
+    });
+  } catch (error) {
+    dispatch({
+      type: 'REMOVE_PET_FROM_FAVORITES_ON_PETS_FAIL',
       payload: error.response?.data?.message || error.message,
     });
   }

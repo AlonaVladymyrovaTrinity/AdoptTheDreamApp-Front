@@ -58,7 +58,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pet/:id" element={<PetDetails />} />
-          <Route path="/pets" element={<Pets />} />
+          <Route path="/pets" element={<Pets showFilters={true}/>} />
           <Route path="/search" element={<Search />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
