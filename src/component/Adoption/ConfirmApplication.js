@@ -145,7 +145,7 @@ const ConfirmApplication = () => {
     if (mobile.trim() === '') {
       formErrors.mobile = 'Phone number is required';
       // } else if (!/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/.test(mobile)) {
-    } else if (!/^\[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(mobile)) {
+    } else if (!/^([0-9]{3}-[0-9]{3}-[0-9]{4}$)/.test(mobile)) {
       formErrors.mobile =
         'Invalid Phone number format. Use format 111-111-1111.';
     }
@@ -645,7 +645,7 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Control
-                  type="text"
+                  type="tel"
                   id="mobile"
                   value={mobile}
                   placeholder="111-111-1111"
