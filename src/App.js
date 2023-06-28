@@ -5,7 +5,6 @@ import About from './component/layout/About/About';
 import Home from './component/Home/Home';
 import PetDetails from './component/Pet/PetDetails';
 import Pets from './component/Pet/Pets';
-import Search from './component/Pet/Search';
 import Contact from './component/layout/Contact/Contact';
 import Profile from './component/User/Profile';
 import UpdateProfile from './component/User/UpdateProfile';
@@ -31,14 +30,12 @@ function ProtectedRoute({ isAuthenticated, children }) {
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  const { userId /*, userName*/ } = useContext(AuthContext);
+  const { userId } = useContext(AuthContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(userId ? true : false);
+
   useEffect(() => {
     setIsAuthenticated(userId ? true : false);
   }, [userId]);
-
-  //console.log(userId, userName);
-  //console.log(isAuthenticated, 'FROM App is auth');
 
   // Function to handle user login
   const handleLogin = () => {
@@ -59,7 +56,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/pet/:id" element={<PetDetails />} />
           <Route path="/pets" element={<Pets />} />
-          <Route path="/search" element={<Search />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route
@@ -74,7 +70,7 @@ function App() {
             path="/me/update"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <UpdateProfile onLogout={handleLogout} />
+                <UpdateProfile />
               </ProtectedRoute>
             }
           />
@@ -92,7 +88,14 @@ function App() {
             path="/login"
             element={<LoginSignUp onLogin={handleLogin} />}
           />
-          <Route path="/favorites" element={<FavoritePets />} />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <FavoritePets />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/process/donate"
             element={
@@ -110,7 +113,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/nofavorites" element={<NoFavorites />} />
+          <Route
+            path="/nofavorites"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <NoFavorites />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/team" element={<OurTeam />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

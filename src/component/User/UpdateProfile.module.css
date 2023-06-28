@@ -94,14 +94,17 @@
   cursor: pointer;
 }
 
-.updateProfileBtn:hover {
+.updateProfileBtn:hover,
+.updateProfileBtn:focus {
   background-color: var(--color-action-btn-hover);
   box-shadow: 0 2px 5px var(--color-grey);
   color: var(--color-white);
   cursor: pointer;
 }
-.updateProfileBtn:active {
+.updateProfileBtn:active,
+.updateProfileBtn:visited {
   background-color: var(--color-action-btn-hover) !important;
+  color: var(--color-white) !important;
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-grey);
 }

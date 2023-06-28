@@ -2,7 +2,7 @@
   background-color: var(--color-btn);
   color: var(--color-white);
   border: none;
-  }
+}
 
 .favoriteButton:hover {
   background-color: var(--color-btn-hover);
@@ -38,7 +38,12 @@
   margin: 7px;
 }
 
-.frame {
+.frame-border {
   border: 5px solid pink;
-  padding: 2rem;
+}
+.frame-body {
+  padding: 1rem 2rem 2rem 2rem;
+}
+.back-button {
+  margin-left: 1.2rem;
 }

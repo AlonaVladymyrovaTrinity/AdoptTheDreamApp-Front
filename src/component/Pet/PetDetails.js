@@ -8,11 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { loadPet } from '../../actions/petAction';
+import { loadPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
+import StyledBackButton from '../layout/BackButton/StyledBackButton';
 import Cookies from 'js-cookie';
 
 const PetDetails = () => {
@@ -44,15 +45,22 @@ const PetDetails = () => {
       try {
         await loadPet(id, setErrorMessage, dispatch);
       } catch (error) {
-        dispatch({ type: 'LOAD_PET_FAILURE' });
         setErrorMessage(`An error occurred during loading pet with id ${id}`);
       }
     };
     fetchPetData();
   }, [id]);
 
-  const handleAddToFavorites = () => {
-    setIsFavorite(true);
+  const toggleAddToFavorites = () => {
+    if (!isFavorite) {
+      addPetToFavorites({petId: petDetails._id}, dispatch)
+      setIsFavorite(true);
+    } else {
+      removePetFromFavorites({petId: petDetails._id}, dispatch)
+      setIsFavorite(false);
+    }
+    
+    
   };
 
   const navigate = useNavigate();
@@ -95,6 +103,7 @@ const PetDetails = () => {
                   paddingRight: '1rem',
                 }}
               >
+
                 <Carousel
                   activeIndex={index}
                   onSelect={handleSelect}
@@ -109,7 +118,7 @@ const PetDetails = () => {
                           <img
                             src={img}
                             alt={petDetails.petName}
-                            style={{ height: '560px' }}
+                            style={{ height: '35rem' }}
                           />
                         </Carousel.Item>
                       ))
@@ -145,55 +154,67 @@ const PetDetails = () => {
                 }}
               >
                 <div
-                  className={style['frame']}
+                  className={style['frame-border']}
                   style={{ width: '100%', height: '100%' }}
                 >
-                  <h1 className={'sr-only'}>Animal Details</h1>
-                  <p>Name: {petDetails.petName}</p>
-                  <p>ID: {petDetails._id}</p>
-                  <p>Breed: {petDetails.breed}</p>
-                  <p>Type: {petDetails.petType}</p>
-                  <p>Age: {petDetails.age}</p>
-                  <p>Size: {petDetails.size}</p>
-                  <p>Gender: {petDetails.gender}</p>
-                  <p>Good with: {goodWith}</p>
-                  <p>Coat Length: {petDetails.coatLength}</p>
-                  <p>Color: {petDetails.color}</p>
-                  <p>Care & Behavior: {careAndBehaviour}</p>
-                  <p>Description: {petDetails.description}</p>
-                  <div className={style.buttonContainer}>
-                    <Button
-                      className={
-                        isFavorite
-                          ? `${style.favoriteButton} ${style.favorite}`
-                          : style.favoriteButton
-                      }
-                      onClick={handleAddToFavorites}
+                  <div className={style['back-button']}>
+                    <StyledBackButton
+                      linkName={'/pets'}
+                      className={'link-color'}
+                      style={{ marginBottom: '1rem' }}
+                      children
                     >
-                      {isFavorite ? (
-                        <>
-                          <FontAwesomeIcon icon={faHeart} className="me-2" />
-                          Added to Favorites
-                        </>
-                      ) : (
-                        <>
-                          <FontAwesomeIcon icon={faHeart} className="me-2" />
-                          Add to Favorites
-                        </>
-                      )}
-                    </Button>
-
-                    <div className={style.buttonSpacing}>
+                      <span>Go to Pets page</span>
+                    </StyledBackButton>
+                  </div>
+                  <div className={style['frame-body']}>
+                    <h1 className={'sr-only'}>Animal Details</h1>
+                    <p>Name: {petDetails.petName}</p>
+                    <p>ID: {petDetails._id}</p>
+                    <p>Breed: {petDetails.breed}</p>
+                    <p>Type: {petDetails.petType}</p>
+                    <p>Age: {petDetails.age}</p>
+                    <p>Size: {petDetails.size}</p>
+                    <p>Gender: {petDetails.gender}</p>
+                    <p>Good with: {goodWith}</p>
+                    <p>Coat Length: {petDetails.coatLength}</p>
+                    <p>Color: {petDetails.color}</p>
+                    <p>Care & Behavior: {careAndBehaviour}</p>
+                    <p>Description: {petDetails.description}</p>
+                    <div className={style.buttonContainer}>
                       <Button
-                        onClick={handleAdopt}
-                        className={style.adoptButton}
-                        variant="btn-primary"
-                        size="btn-lg"
+                        className={
+                          isFavorite
+                            ? `${style.favoriteButton} ${style.favorite}`
+                            : style.favoriteButton
+                        }
+                        onClick={toggleAddToFavorites}
                       >
-                        <span>
-                          <FontAwesomeIcon icon={faHeart} /> Adopt
-                        </span>
+                        {isFavorite ? (
+                          <>
+                            <FontAwesomeIcon icon={faHeart} className="me-2" />
+                            Added to Favorites
+                          </>
+                        ) : (
+                          <>
+                            <FontAwesomeIcon icon={faHeart} className="me-2" />
+                            Add to Favorites
+                          </>
+                        )}
                       </Button>
+
+                      <div className={style.buttonSpacing}>
+                        <Button
+                          onClick={handleAdopt}
+                          className={style.adoptButton}
+                          variant="btn-primary"
+                          size="btn-lg"
+                        >
+                          <span>
+                            <FontAwesomeIcon icon={faHeart} /> Adopt
+                          </span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
