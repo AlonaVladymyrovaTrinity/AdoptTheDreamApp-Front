@@ -144,9 +144,10 @@ const ConfirmApplication = () => {
     }
     if (mobile.trim() === '') {
       formErrors.mobile = 'Phone number is required';
-    } else if (!/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/.test(mobile)) {
-      // } else if (!/^\[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(mobile)) {
-      formErrors.mobile = 'Invalid Phone number format';
+      // } else if (!/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/.test(mobile)) {
+    } else if (!/^\[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(mobile)) {
+      formErrors.mobile =
+        'Invalid Phone number format. Use format 111-111-1111.';
     }
     if (email.trim() === '') {
       formErrors.email = 'Email is required';
