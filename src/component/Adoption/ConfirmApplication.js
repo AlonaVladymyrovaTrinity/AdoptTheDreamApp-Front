@@ -16,7 +16,6 @@ const ConfirmApplication = () => {
   const [validated, setValidated] = useState(false);
   //const [form, setForm] = useState([]);
   const [errors, setErrors] = useState({});
-  //const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -118,14 +117,7 @@ const ConfirmApplication = () => {
   const validateForm = (event, form) => {
     const formErrors = {};
     const formErrorsMessage = 'This field is required';
-    // console.log(form);
-    // console.log(form.checkValidity() === false);
-    // if (form.checkValidity() === false) {
-    //   console.log('1');
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-    // console.log(setValidated(true));
+
     setValidated(true);
     if (firstName.trim() === '') {
       formErrors.firstName = 'First Name is required';
@@ -152,16 +144,12 @@ const ConfirmApplication = () => {
     }
     if (mobile.trim() === '') {
       formErrors.mobile = 'Phone number is required';
-    } else if (!/^\[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(mobile)) {
+    } else if (!/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/.test(mobile)) {
+      // } else if (!/^\[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(mobile)) {
       formErrors.mobile = 'Invalid Phone number format';
     }
     if (email.trim() === '') {
       formErrors.email = 'Email is required';
-      // } else if (
-      //   !/^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-      //     email
-      //   )
-      // ) {
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       formErrors.email = 'Invalid email format';
     }
@@ -268,11 +256,6 @@ const ConfirmApplication = () => {
   //-----------------------------------------------------------------------//
   const handleSubmit = (event) => {
     const form = event.currentTarget;
-    // console.log(form);
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
 
     event.preventDefault();
     if (validateForm(event, form)) {
@@ -414,7 +397,7 @@ const ConfirmApplication = () => {
     } else {
       console.log('Form validation failed');
       setShow(false);
-      const handleClose = () => setShow(true);
+      //const handleClose = () => setShow(true);
       setSuccessMessage('');
       setErrorMessage('');
       setErrorMessage('Form validation failed');
@@ -439,15 +422,11 @@ const ConfirmApplication = () => {
       )}
       <Container style={{ width: '80%' }}>
         <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
-        {/* {Object.keys(errors).length === 0 && isSubmitting && (
-          <span className="success-msg">Application submited successfuly</span>
-        )} */}
+
         <Form
-          //noValidate
           validated={validated}
           // method="post"
           onSubmit={handleSubmit}
-          // onSubmit={handleSubmit}
         >
           <Row xs={1} md={1} lg={2} xl={2} className="ms-1 me-1">
             <Col md={8}>
@@ -1108,11 +1087,9 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect09"> */}
                 <Form.Select
                   value={selectedHaveAYard}
                   onChange={(e) => setSelectedHaveAYard(e.target.value)}
-                  // onChange={handleSelectHaveAYardChange}
                   name="HaveAYard"
                   id="selectHaveAYard"
                   required
@@ -1635,7 +1612,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect21"> */}
                 <Form.Select
                   value={selectedGivenPetAway}
                   onChange={(e) => setSelectedGivenPetAway(e.target.value)}
@@ -1762,10 +1738,6 @@ const ConfirmApplication = () => {
                 Submit form
               </Button>
             </div>
-            {/* <SubmitBtnWithPopup /> */}
-            {/* <Button variant="primary" onClick={handleShow}>
-              Launch static backdrop modal
-            </Button> */}
 
             <Modal
               show={show}
@@ -1776,7 +1748,10 @@ const ConfirmApplication = () => {
               <Modal.Header closeButton>
                 <Modal.Title>Thank you!</Modal.Title>
               </Modal.Header>
-              <Modal.Body>Your Adoption Application has been sent!</Modal.Body>
+              <Modal.Body>
+                Your Adoption Application has been sent! <br /> You will be
+                contacted shortly.
+              </Modal.Body>
               <Modal.Footer>
                 <div className={style.confirmApplicationModalCloseBtn}>
                   <Button className="mb-5 b" onClick={handleClose}>
@@ -1784,7 +1759,6 @@ const ConfirmApplication = () => {
                     <span className="sr-only">go to home page</span>
                   </Button>
                 </div>
-                {/* <Button variant="primary">Understood</Button> */}
               </Modal.Footer>
             </Modal>
           </div>
