@@ -1,11 +1,26 @@
 .LoginSignUpContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* height: 85vh; */
+  /* height: 100%; */
+  display: grid;
+  grid-template-rows: 85vh;
+  place-items: center;
+  place-self: center;
+  /* justify-items: center; */
+  /* align-items: center; */
 }
 
+/* .LoginSignUpContainer {
+/* align-items: center; */
+/* position: absolute; */
+/* max-width: 500px; */
+/* margin: auto auto; */
+/* top: 50%;
+  left: 50%; */
+/* transform: translate(-50%, -50%); */
+/* position: relative; */
+
 .LoginSignUpBox {
+  margin: 0 auto;
   width: 20rem;
   height: 30rem;
   box-sizing: border-box;
@@ -19,6 +34,20 @@
   border: var(--bs-card-border-width) solid var(--bs-card-border-color);
   border-radius: var(--bs-card-border-radius);
 }
+/* .LoginSignUpBox {
+  width: 20rem;
+  height: 30rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  background-color: var(--color-white);
+  --bs-card-border-width: 1px;
+  --bs-card-border-color: var(--bs-border-color-translucent);
+  --bs-card-border-radius: 0.375rem;
+  --bs-card-inner-border-radius: calc(0.375rem - 1px);
+  background-clip: border-box;
+  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  border-radius: var(--bs-card-border-radius);
+} */
 .ContainerWithButtons {
   display: flex;
   flex-direction: column;
