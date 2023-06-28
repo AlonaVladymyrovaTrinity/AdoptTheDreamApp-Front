@@ -159,3 +159,81 @@ export const removePetFromFavorites = async (petData, dispatch) => {
     dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_FAILURE' });
   }
 };
+// Search pet filters
+export const getSearchPetFilters = async (
+  petType,
+  breed,
+  age,
+  size,
+  gender,
+  goodWith,
+  coatLength,
+  color,
+  careAndBehaviour,
+  dispatch
+) => {
+  console.log(
+    'getSearchPetFilters: ' +
+      petType +
+      ' ' +
+      breed +
+      ' ' +
+      age +
+      ' ' +
+      size +
+      ' ' +
+      gender +
+      ' ' +
+      goodWith +
+      ' ' +
+      coatLength +
+      ' ' +
+      color +
+      ' ' +
+      careAndBehaviour
+  );
+  console.log(
+    `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${
+      breed ? `&breed=${breed}` : ''
+    }${age ? `&age=${age}` : ''}${size ? `&size=${size}` : ''}${
+      gender ? `&gender=${gender}` : ''
+    }${goodWith ? `&goodWith=${goodWith}` : ''}${
+      coatLength ? `&coatLength=${coatLength}` : ''
+    }${color ? `&color=${color}` : ''}${
+      careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
+    }`
+    // petType=${petType}&breed=${breed}&age=${age}&gender=${gender}&goodWith=${goodWith}&coatLength=${coatLength}&color=${color}&careAndBehaviour=${careAndBehaviour}`
+  );
+  dispatch({ type: 'GET_PET_FILTERS_REQUEST' });
+  try {
+    const response = await axios.get(
+      `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${
+        breed ? `&breed=${breed}` : ''
+      }${age ? `&age=${age}` : ''}${size ? `&size=${size}` : ''}${
+        gender ? `&gender=${gender}` : ''
+      }${goodWith ? `&goodWith=${goodWith}` : ''}${
+        coatLength ? `&coatLength=${coatLength}` : ''
+      }${color ? `&color=${color}` : ''}${
+        careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
+      }`,
+
+      //petType=${petType}&breed=${breed}&age=${age}&gender=${gender}&goodWith=${goodWith}&coatLength=${coatLength}&color=${color}&careAndBehaviour=${careAndBehaviour}`,
+
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(
+      'API Get search pet filters response count: ' +
+        JSON.stringify(response.data.pets.length)
+    ); // logging the response for testing purposes
+    dispatch({ type: 'GET_PET_FILTERS_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: 'GET_PET_FILTERS_FAILURE',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
