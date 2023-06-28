@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer, useEffect, useMemo, useContext } from 'react';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
 import Col from 'react-bootstrap/Col';
@@ -6,6 +6,10 @@ import Row from 'react-bootstrap/Row';
 import style from './Pets.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
+import AuthContext from '../../context/auth-context'
+import Alert from 'react-bootstrap/Alert';
+import Pagination from 'react-bootstrap/Pagination';
+import { Button } from 'react-bootstrap';
 import {
   initialState,
   petsReducer,
@@ -16,30 +20,58 @@ import {
   SearchPetFiltersReducer,
 } from '../../reducers/petReducer';
 import {
-  getPet,
+  getAllPets,
   getCatBreeds,
   getDogBreeds,
   getCatColors,
   getDogColors,
-  getSearchPetFilters,
+  addPetToFavoritesOnPets,
+  removePetFromFavoritesOnPets,
+  getAllFavorites,
+  getSearchPetFilters
 } from '../../actions/petAction';
-import Alert from 'react-bootstrap/Alert';
-import Pagination from 'react-bootstrap/Pagination';
-import { Button } from 'react-bootstrap';
 
-const Pets = () => {
+const Pets = ({ showFilters }) => {
+  const { userId } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState('');
-
   const [state, dispatch] = useReducer(petsReducer, initialState);
-  const [stateCatBreed, dispatchCatBreed] = useReducer(
-    catBreedsReducer,
-    initialState
-  );
+  const [stateCatBreed, dispatchCatBreed] = useReducer(catBreedsReducer, initialState);
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedAge, setSelectedAge] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedGoodWith, setSelectedGoodWith] = useState('');
+  const [selectedCoatLength, setSelectedCoatLength] = useState('');
+  const [selectedCareAndBehav, setSelectedCareAndBehav] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const itemsPerPage = 18;
+  const favorites = useMemo(() => Object.values(state.favorites || []), [state.favorites]);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const [pets, setPets] = useState([]);
+  const currentPets = pets.slice(indexOfFirstItem, indexOfLastItem);
+
+  const toggleFavoriteState = async (petId) => {
+    if (!favorites.includes(petId)) {
+      await addPetToFavoritesOnPets(petId, dispatch)
+    } else {
+      await removePetFromFavoritesOnPets(petId, dispatch)
+    }
+  };
+
+  const isFavorite = (petId) => {
+    return favorites.includes(petId)
+  }
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   const [stateDogBreed, dispatchDogBreed] = useReducer(
     dogBreedsReducer,
     initialState
   );
-
   const [stateCatColor, dispatchCatColor] = useReducer(
     catColorsReducer,
     initialState
@@ -55,33 +87,28 @@ const Pets = () => {
     initialState
   );
 
-  const [selectedType, setSelectedType] = useState('');
-  const [selectedAge, setSelectedAge] = useState('');
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedGender, setSelectedGender] = useState('');
-  const [selectedGoodWith, setSelectedGoodWith] = useState('');
-  const [selectedCoatLength, setSelectedCoatLength] = useState('');
-  const [selectedCareAndBehav, setSelectedCareAndBehav] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pets, setPets] = useState([]);
-  const itemsPerPage = 18;
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    setIsAuthenticated(authenticated);
+  }, [userId]);
 
-  // useEffect for getPet
+  // useEffect for getAllPets
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        await getPet(dispatch);
-      } catch (error) {
-        setErrorMessage('');
-        setErrorMessage('Error loading pets');
-      }
-    };
+      await getAllPets(dispatch);
+    }
     fetchData();
   }, []);
 
-  const handlePageClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  // useEffect for getAllFavoritePets
+  useEffect(() => {
+    const fetchAllFavorites = async () => {
+      await getAllFavorites(dispatch);
+    }
+    if (isAuthenticated) {
+      fetchAllFavorites()
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (selectedType === '') {
@@ -90,10 +117,6 @@ const Pets = () => {
       setPets(statePetFilters.petFiltersResponse || []);
     }
   }, [selectedType, state.pets, statePetFilters.petFiltersResponse]);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentPets = pets.slice(indexOfFirstItem, indexOfLastItem);
 
   // useEffect for Breeds
   useEffect(() => {
@@ -155,7 +178,6 @@ const Pets = () => {
       optionsBreed[breed] = breed;
     });
   }
-
   const optionsColor = {};
   if (selectedType === 'Cat') {
     const catColors = stateCatColor.catColors || [];
@@ -169,7 +191,6 @@ const Pets = () => {
       optionsColor[color] = color;
     });
   }
-
   const optionsType = {
     Cat: 'Cat',
     Dog: 'Dog',
@@ -434,179 +455,224 @@ const Pets = () => {
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
-            <div className={style.selectBox}>
-              <Nav style={{ width: '12rem' }} className="flex-column p-3">
-                {/* -----Type----- */}
-                <Form.Select
-                  id="PetType"
-                  name="PetType"
-                  className="border-1 bg-transparent rounded mb-3"
-                  disabled={!Array.isArray(pets)}
-                  onChange={handleSelectTypeChange}
-                  value={selectedType}
-                >
-                  <option value="">Select type:</option>
-                  {Object.entries(optionsType).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+            {showFilters &&
+              <div className={style.selectBox}>
+                <Nav style={{ width: '12rem' }} className="flex-column p-3">
+                  {/* -----Type----- */}
+                  <Form.Select
+                    id="PetType"
+                    name="PetType"
+                    className="border-1 bg-transparent rounded mb-3"
+                    disabled={!Array.isArray(pets) || pets.length === 0}
+                    onChange={handleSelectTypeChange}
+                    value={selectedType}
+                  >
+                    <option disabled value="">
+                      Type
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Breed----- */}
-                <Form.Select
-                  id="PetBreed"
-                  name="PetBreed"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectBreedChange}
-                  value={selectedBreed}
-                >
-                  <option value="">Select breed:</option>
-                  {Object.entries(optionsBreed).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsType).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Breed----- */}
+                  <Form.Select
+                    id="PetBreed"
+                    name="PetBreed"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectBreedChange}
+                    value={selectedBreed}
+                  >
+                    <option disabled value="">
+                      Breed
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Age----- */}
-                <Form.Select
-                  id="PetAge"
-                  name="PetAge"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectAgeChange}
-                  value={selectedAge}
-                >
-                  <option value="">Select age:</option>
-                  {Object.entries(optionsAge).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsBreed).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Age----- */}
+                  <Form.Select
+                    id="PetAge"
+                    name="PetAge"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectAgeChange}
+                    value={selectedAge}
+                  >
+                    <option disabled value="">
+                      Age
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Size----- */}
-                <Form.Select
-                  id="PetSize"
-                  name="PetSize"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectSizeChange}
-                  value={selectedSize}
-                >
-                  <option value="">Select size:</option>
-                  {Object.entries(optionsSize).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsAge).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Size----- */}
+                  <Form.Select
+                    id="PetSize"
+                    name="PetSize"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectSizeChange}
+                    value={selectedSize}
+                  >
+                    <option disabled value="">
+                      Size
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Gender----- */}
-                <Form.Select
-                  id="PetGender"
-                  name="PetGender"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectGenderChange}
-                  value={selectedGender}
-                >
-                  <option value="">Select gender:</option>
-                  {Object.entries(optionsGender).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsSize).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Gender----- */}
+                  <Form.Select
+                    id="PetGender"
+                    name="PetGender"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectGenderChange}
+                    value={selectedGender}
+                  >
+                    <option disabled value="">
+                      Gender
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Good with----- */}
-                <Form.Select
-                  id="PetGoodWith"
-                  name="PetGoodWith"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectGoodWithChange}
-                  value={selectedGoodWith}
-                >
-                  <option value="">Good with:</option>
-                  {Object.entries(optionsGoodWith).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsGender).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Good with----- */}
+                  <Form.Select
+                    id="PetGoodWith"
+                    name="PetGoodWith"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectGoodWithChange}
+                    value={selectedGoodWith}
+                  >
+                    <option disabled value="">
+                      Good with
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Coat length----- */}
-                <Form.Select
-                  id="PetCoatLength"
-                  name="PetCoatLength"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectCoatLengthChange}
-                  value={selectedCoatLength}
-                >
-                  <option value="">Select coat length:</option>
-                  {Object.entries(optionsCoatLength).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsGoodWith).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Coat length----- */}
+                  <Form.Select
+                    id="PetCoatLength"
+                    name="PetCoatLength"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectCoatLengthChange}
+                    value={selectedCoatLength}
+                  >
+                    <option disabled value="">
+                      Coat length
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Color----- */}
-                <Form.Select
-                  id="PetColor"
-                  name="PetColor"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectColorChange}
-                  value={selectedColor}
-                >
-                  <option value="">Select color:</option>
-                  {Object.entries(optionsColor).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsCoatLength).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Color----- */}
+                  <Form.Select
+                    id="PetColor"
+                    name="PetColor"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectColorChange}
+                    value={selectedColor}
+                  >
+                    <option disabled value="">
+                      Color
                     </option>
-                  ))}
-                </Form.Select>
-                {/* -----Care & behavior----- */}
-                <Form.Select
-                  id="PetCareAndBehav"
-                  name="PetCareAndBehav"
-                  className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                  disabled={!Array.isArray(pets) || selectedType === ''}
-                  onChange={handleSelectCareAndBehavChange}
-                  value={selectedCareAndBehav}
-                >
-                  <option value="">Care & behavior:</option>
-                  {Object.entries(optionsCareAndBehav).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
+                    {Object.entries(optionsColor).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  {/* -----Care & behavior----- */}
+                  <Form.Select
+                    id="PetCareAndBehav"
+                    name="PetCareAndBehav"
+                    className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
+                    disabled={
+                      !Array.isArray(pets) ||
+                      pets.length === 0 ||
+                      selectedType === ''
+                    }
+                    onChange={handleSelectCareAndBehavChange}
+                    value={selectedCareAndBehav}
+                  >
+                    <option disabled value="">
+                      Care & behavior
                     </option>
-                  ))}
-                </Form.Select>
-                <Button
-                  onClick={handleClearFilters}
-                  className={`btn ${style.clearFiltersBtn}`}
-                >
-                  <span>Clear all filters</span>
-                </Button>
-              </Nav>
-            </div>
+                    {Object.entries(optionsCareAndBehav).map(([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  <Button
+                    onClick={handleClearFilters}
+                    className={`btn ${style.clearFiltersBtn}`}
+                  >
+                    <span>Clear all filters</span>
+                  </Button>
+                </Nav>
+              </div>
+            }
             {/* Pet Card container */}
-            {pets.length === 0 ? (
-              <div className={style.cardsContainer} fluid="md" id="container">
-                No results matching your criteria. Consider broadening your
-                search.
-              </div>
-            ) : (
-              <div className={style.cardsContainer} fluid="md" id="container">
-                <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
-                  {Object.values(currentPets).map((pet, idx) => (
-                    <Col className="mb-4 ps-0 pe-0" key={idx}>
-                      <div className={style.grid_item}>
-                        <PetCard pet={pet} />
-                      </div>
-                    </Col>
-                  ))}
-                </Row>
-              </div>
-            )}
+            <div className={style.cardsContainer} fluid="md" id="container">
+              <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
+                {Object.values(currentPets).map((pet, idx) => (
+                  <Col className="mb-4 ps-0 pe-0" key={idx}>
+                    <div className={style.grid_item}>
+                      <PetCard onToggleFavoriteState={toggleFavoriteState} key={idx} pet={pet} isFavorite={isFavorite(pet._id)} />
+                    </div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
           </div>
         )}
       </div>

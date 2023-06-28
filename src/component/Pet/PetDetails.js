@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react';
+import React, { useState, useEffect, useReducer, useMemo, useContext } from 'react';
 import { useParams } from 'react-router';
 import { Carousel, Button } from 'react-bootstrap';
 import Loader from '../layout/Loader/Loader';
@@ -8,21 +8,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { loadPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
+import { getPet, addPetToFavoritesOnPetDetails, removePetFromFavoritesOnPetDetails, getSinglePetIsFavoriteStatus } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
 import StyledBackButton from '../layout/BackButton/StyledBackButton';
 import Cookies from 'js-cookie';
+import AuthContext from '../../context/auth-context'
 
-const PetDetails = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const PetDetails = ({ pet }) => {
   const [index, setIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState('');
   const [state, dispatch] = useReducer(petReducer, initialState);
   let { id } = useParams();
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
+  const isFavorite = useMemo(() => state.isFavorite || false, [state.isFavorite]);
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { userId } = useContext(AuthContext);
+
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    setIsAuthenticated(authenticated);
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchPetData = async () => {
+      await getPet(id, setErrorMessage, dispatch);
+      if (isAuthenticated) {
+        await getSinglePetIsFavoriteStatus(id, dispatch);
+      }
+    };
+    fetchPetData();
+  }, [id, isAuthenticated]);
 
   const goodWith = useMemo(() => {
     if (!state.pet) return '';
@@ -35,35 +54,22 @@ const PetDetails = () => {
   const careAndBehaviour = useMemo(() => {
     if (!state.pet) return '';
     return Object.entries(state.pet.careAndBehaviour)
-      .filter(([_, value]) => value)
-      .map(([key, _]) => key)
-      .join(', ');
+      .filter(([_, value]) => (value))
+      .map(([key, _]) => key.replace(/_/g, ''))
+      .join(", ")
   }, [state.pet]);
 
-  useEffect(() => {
-    const fetchPetData = async () => {
-      try {
-        await loadPet(id, setErrorMessage, dispatch);
-      } catch (error) {
-        setErrorMessage(`An error occurred during loading pet with id ${id}`);
-      }
-    };
-    fetchPetData();
-  }, [id]);
-
   const toggleAddToFavorites = () => {
-    if (!isFavorite) {
-      addPetToFavorites({petId: petDetails._id}, dispatch)
-      setIsFavorite(true);
+    if (!isAuthenticated) {
+      navigate('/login');
     } else {
-      removePetFromFavorites({petId: petDetails._id}, dispatch)
-      setIsFavorite(false);
+      if (!isFavorite) {
+        addPetToFavoritesOnPetDetails(petDetails._id, dispatch)
+      } else {
+        removePetFromFavoritesOnPetDetails(petDetails._id, dispatch)
+      }
     }
-    
-    
   };
-
-  const navigate = useNavigate();
 
   const handleAdopt = () => {
     Cookies.set('PetID', petDetails._id);
@@ -103,7 +109,6 @@ const PetDetails = () => {
                   paddingRight: '1rem',
                 }}
               >
-
                 <Carousel
                   activeIndex={index}
                   onSelect={handleSelect}
@@ -111,17 +116,16 @@ const PetDetails = () => {
                   style={{ overflow: 'hidden' }}
                 >
                   {petDetails.image.length > 0 ? (
-                    petDetails.image
-                      .map((it) => it.full)
-                      .map((img, i) => (
-                        <Carousel.Item key={i}>
-                          <img
-                            src={img}
-                            alt={petDetails.petName}
-                            style={{ height: '35rem' }}
-                          />
-                        </Carousel.Item>
-                      ))
+                    petDetails.image.map(it => it.full).map((img, i) =>
+                      <Carousel.Item
+                        key={i}
+                      >
+                        <img src={img}
+                          alt={petDetails.petName}
+                          style={{ width: '100%', height: '35rem' }}
+                        />
+                      </Carousel.Item>
+                    )
                   ) : (
                     <Carousel.Item
                       key={0}
@@ -169,17 +173,19 @@ const PetDetails = () => {
                   </div>
                   <div className={style['frame-body']}>
                     <h1 className={'sr-only'}>Animal Details</h1>
-                    <p>Name: {petDetails.petName}</p>
-                    <p>ID: {petDetails._id}</p>
-                    <p>Breed: {petDetails.breed}</p>
-                    <p>Type: {petDetails.petType}</p>
-                    <p>Age: {petDetails.age}</p>
-                    <p>Size: {petDetails.size}</p>
-                    <p>Gender: {petDetails.gender}</p>
-                    <p>Good with: {goodWith}</p>
-                    <p>Coat Length: {petDetails.coatLength}</p>
-                    <p>Color: {petDetails.color}</p>
-                    <p>Care & Behavior: {careAndBehaviour}</p>
+                    <p>Name: {petDetails.petName === '' || petDetails.petName === null ? 'no information' : petDetails.petName}</p>
+                    <p>ID: {petDetails._id === '' || petDetails._id === null ? 'no information' : petDetails._id}</p>
+                    <p>Breed: {petDetails.breed === '' || petDetails.breed === null ? 'no information' : petDetails.breed}</p>
+                    <p>Type: {petDetails.petType === '' || petDetails.petType === null ? 'no information' : petDetails.petType}</p>
+                    <p>Age: {petDetails.age === '' || petDetails.age === null ? 'no information' : petDetails.age}</p>
+                    <p>Size: {petDetails.size === '' || petDetails.size === null ? 'no information' : petDetails.size}</p>
+                    <p>Gender: {petDetails.gender === '' || petDetails.gender === null ? 'no information' : petDetails.gender}</p>
+                    <p>Good with: {goodWith === '' || goodWith === null ? 'no information' : goodWith}</p>
+                    <p>Coat Length: {petDetails.coatLength === '' || petDetails.coatLength === null ? 'no information' : petDetails.coatLength}</p>
+                    <p>Color: {petDetails.color === '' || petDetails.color === null ? 'no information' : petDetails.color}</p>
+                    <p>
+                      Care & Behavior: {careAndBehaviour}
+                    </p>
                     <p>Description: {petDetails.description}</p>
                     <div className={style.buttonContainer}>
                       <Button
@@ -202,7 +208,6 @@ const PetDetails = () => {
                           </>
                         )}
                       </Button>
-
                       <div className={style.buttonSpacing}>
                         <Button
                           onClick={handleAdopt}
@@ -222,7 +227,8 @@ const PetDetails = () => {
             </Row>
           )}
         </>
-      )}
+      )
+      }
     </>
   );
 };
