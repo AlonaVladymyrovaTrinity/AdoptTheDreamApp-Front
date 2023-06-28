@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { loadPet } from '../../actions/petAction';
+import { loadPet, addPetToFavorites, removePetFromFavorites } from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
@@ -45,15 +45,22 @@ const PetDetails = () => {
       try {
         await loadPet(id, setErrorMessage, dispatch);
       } catch (error) {
-        dispatch({ type: 'LOAD_PET_FAILURE' });
         setErrorMessage(`An error occurred during loading pet with id ${id}`);
       }
     };
     fetchPetData();
   }, [id]);
 
-  const handleAddToFavorites = () => {
-    setIsFavorite(true);
+  const toggleAddToFavorites = () => {
+    if (!isFavorite) {
+      addPetToFavorites({petId: petDetails._id}, dispatch)
+      setIsFavorite(true);
+    } else {
+      removePetFromFavorites({petId: petDetails._id}, dispatch)
+      setIsFavorite(false);
+    }
+    
+    
   };
 
   const navigate = useNavigate();
@@ -96,6 +103,7 @@ const PetDetails = () => {
                   paddingRight: '1rem',
                 }}
               >
+
                 <Carousel
                   activeIndex={index}
                   onSelect={handleSelect}
@@ -180,7 +188,7 @@ const PetDetails = () => {
                             ? `${style.favoriteButton} ${style.favorite}`
                             : style.favoriteButton
                         }
-                        onClick={handleAddToFavorites}
+                        onClick={toggleAddToFavorites}
                       >
                         {isFavorite ? (
                           <>

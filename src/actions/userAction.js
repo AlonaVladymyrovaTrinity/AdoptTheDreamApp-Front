@@ -21,8 +21,12 @@ export const login = async (
       }
     );
     dispatch({ type: 'LOGIN_SUCCESS' });
-    Cookies.set('user-id', res.data.userId);
-    Cookies.set('user-name', res.data.user.name);
+    Cookies.set('user-id', res.data.userId, {
+      expires: 60,
+    });
+    Cookies.set('user-name', res.data.user.name, {
+      expires: 60,
+    });
     //console.log('login result:' + JSON.stringify(res)); // logging the response for testing purposes
     setSuccessMessage('User successfully logged in.');
   } catch (error) {
@@ -48,8 +52,12 @@ export const register = async (
       },
     });
     dispatch({ type: 'REGISTER_USER_SUCCESS' });
-    Cookies.set('user-id', res.data.userId);
-    Cookies.set('user-name', res.data.user.name);
+    Cookies.set('user-id', res.data.userId, {
+      expires: 60,
+    });
+    Cookies.set('user-name', res.data.user.name, {
+      expires: 60,
+    });
     //console.log(JSON.stringify(res)); // logging the response for testing purposes
     //console.log(res.statusText); // logging the statusText response for testing purposes
     setSuccessMessage('User account successfully created. You can login now');
@@ -138,6 +146,42 @@ export const updateUserProfile = async (
     console.log('Error', error.message); // logging the error for testing purposes
     setErrorMessage(
       'Apologies, but an error occurred while updating your profile. Please try again later.'
+    );
+  }
+};
+
+// Update Password
+export const updateUserPassword = async (
+  oldPassword,
+  newPassword,
+  setErrorMessage,
+  dispatch
+) => {
+  dispatch({ type: 'UPDATE_PASSWORD_REQUEST' });
+  try {
+    const res = await axios.patch(
+      `/api/v1/me/password`,
+      { oldPassword, newPassword },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    dispatch({
+      type: 'UPDATE_PASSWORD_SUCCESS',
+      payload: res.statusText,
+    });
+    console.log('Update password result:', res.statusText); // logging the response message for testing purposes
+  } catch (error) {
+    dispatch({
+      type: 'UPDATE_PASSWORD_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+    // Error handling: showing an error message
+    console.error('Error:', error);
+    setErrorMessage(
+      'An error occurred during password update. Please try again.'
     );
   }
 };
