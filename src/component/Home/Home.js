@@ -15,7 +15,7 @@ const Home = () => {
             <div className={style.find_pet_button}>
               <NavigateButton
                 linkName={'/pets'}
-                children={'FIND YOUR FRIENDS'}
+                children={'FIND YOUR FRIEND'}
                 size="btn-lg"
               />
             </div>
