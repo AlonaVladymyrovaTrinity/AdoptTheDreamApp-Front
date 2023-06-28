@@ -22,6 +22,58 @@ export const petReducer = (state, action) => {
         pet: null,
         error: action.payload,
       };
+    case 'GET_FAVORITE_PETS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'GET_FAVORITE_PETS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: action.payload,
+      };
+    case 'GET_FAVORITE_PETS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        pet: null,
+        error: action.payload,
+      };
+    case 'ADD_PET_TO_FAVORITES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'ADD_PET_TO_FAVORITES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favoritePets: { ...action.payload }
+      };
+    case 'ADD_PET_TO_FAVORITES_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'XXXREMOVE_PET_FROM_FAVORITES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        favorites: { ...action.payload }
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
