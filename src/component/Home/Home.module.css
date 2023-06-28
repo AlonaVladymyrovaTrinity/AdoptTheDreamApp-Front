@@ -33,6 +33,10 @@ video {
   background-color: var(--color-transparent);
   gap: 1rem;
 }
+.home_banner_content h1 {
+  font-size: 50;
+  font-weight: 300;
+}
 .cardsContainer {
   /* margin-left: 6rem; */
   /* margin-top: 2rem;
@@ -55,9 +59,17 @@ video {
   /* border: 3px solid var(--color-btn-border); */
   border-radius: 18px;
   border: none;
+  padding: 0.65rem;
+  box-shadow: 0 2px 5px var(--color-gray);
 }
 .find_pet_button button:hover {
   background-color: var(--color-action-btn-hover);
+  box-shadow: 0 2px 5px var(--color-gray);
+}
+.find_pet_button button:active {
+  background-color: var(--color-action-btn-hover) !important;
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px var(--color-gray);
 }
 .find_pet_button button:active {
   background-color: var(--color-action-btn-hover) !important;

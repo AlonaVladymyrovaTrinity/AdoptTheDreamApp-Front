@@ -59,6 +59,8 @@ const PetDetails = () => {
   const navigate = useNavigate();
 
   const handleAdopt = () => {
+    Cookies.set('PetID', petDetails._id);
+    Cookies.set('PetType', petDetails.petType);
     Cookies.set('PetName', petDetails.petName);
     navigate('/application/confirm');
   };
