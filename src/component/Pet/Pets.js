@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import AuthContext from '../../context/auth-context'
 import Alert from 'react-bootstrap/Alert';
 import Pagination from 'react-bootstrap/Pagination';
+import { Button } from 'react-bootstrap';
 import {
   initialState,
   petsReducer,
@@ -16,6 +17,7 @@ import {
   dogBreedsReducer,
   catColorsReducer,
   dogColorsReducer,
+  SearchPetFiltersReducer,
 } from '../../reducers/petReducer';
 import {
   getAllPets,
@@ -25,7 +27,8 @@ import {
   getDogColors,
   addPetToFavoritesOnPets,
   removePetFromFavoritesOnPets,
-  getAllFavorites
+  getAllFavorites,
+  getSearchPetFilters
 } from '../../actions/petAction';
 
 const Pets = ({ showFilters }) => {
@@ -43,10 +46,10 @@ const Pets = ({ showFilters }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const itemsPerPage = 18;
-  const pets = useMemo(() => Object.values(state.pets || []), [state.pets]);
   const favorites = useMemo(() => Object.values(state.favorites || []), [state.favorites]);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const [pets, setPets] = useState([]);
   const currentPets = pets.slice(indexOfFirstItem, indexOfLastItem);
 
   const toggleFavoriteState = async (petId) => {
@@ -73,8 +76,14 @@ const Pets = ({ showFilters }) => {
     catColorsReducer,
     initialState
   );
+
   const [stateDogColor, dispatchDogColor] = useReducer(
     dogColorsReducer,
+    initialState
+  );
+
+  const [statePetFilters, dispatchPetFilters] = useReducer(
+    SearchPetFiltersReducer,
     initialState
   );
 
@@ -86,8 +95,8 @@ const Pets = ({ showFilters }) => {
   // useEffect for getAllPets
   useEffect(() => {
     const fetchData = async () => {
-        await getAllPets(dispatch);
-      }
+      await getAllPets(dispatch);
+    }
     fetchData();
   }, []);
 
@@ -100,6 +109,14 @@ const Pets = ({ showFilters }) => {
       fetchAllFavorites()
     }
   }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (selectedType === '') {
+      setPets(state.pets || []);
+    } else {
+      setPets(statePetFilters.petFiltersResponse || []);
+    }
+  }, [selectedType, state.pets, statePetFilters.petFiltersResponse]);
 
   // useEffect for Breeds
   useEffect(() => {
@@ -147,7 +164,7 @@ const Pets = ({ showFilters }) => {
     fetchColors();
   }, [selectedType]);
 
-  // Options
+  // Options for select
   const optionsBreed = {};
   if (selectedType === 'Cat') {
     const catBreeds = stateCatBreed.catBreeds || [];
@@ -212,68 +229,217 @@ const Pets = ({ showFilters }) => {
   };
   const [selectedBreed, setSelectedBreed] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
+
+  const petFiltersResults = async (
+    petType,
+    breed,
+    age,
+    size,
+    gender,
+    goodWith,
+    coatLength,
+    color,
+    careAndBehaviour
+  ) => {
+    console.log('petType: ' + petType);
+    console.log('selectedType: ' + selectedType);
+    console.log(petType !== selectedType);
+    if (petType !== selectedType) {
+      breed = '';
+      age = '';
+      size = '';
+      gender = '';
+      goodWith = '';
+      coatLength = '';
+      color = '';
+      careAndBehaviour = '';
+    }
+    try {
+      await getSearchPetFilters(
+        petType,
+        breed,
+        age,
+        size,
+        gender,
+        goodWith,
+        coatLength,
+        color,
+        careAndBehaviour,
+        dispatchPetFilters
+      );
+    } catch (error) {
+      setErrorMessage('');
+      setErrorMessage('Error loading dog Colors');
+    }
+  };
+
   // Type
   const handleSelectTypeChange = (event) => {
     const selectedPetType = event.target.value;
     setSelectedType(selectedPetType);
+    console.log('petType: ' + selectedPetType);
+    console.log('selectedType: ' + selectedType);
+    if (selectedPetType !== selectedType) {
+      setSelectedBreed('');
+      setSelectedAge('');
+      setSelectedSize('');
+      setSelectedGender('');
+      setSelectedGoodWith('');
+      setSelectedCoatLength('');
+      setSelectedColor('');
+      setSelectedCareAndBehav('');
+    }
+    petFiltersResults(
+      selectedPetType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Breed
   const handleSelectBreedChange = async (event) => {
     const selectedPetBreed = event.target.value;
     setSelectedBreed(selectedPetBreed);
-    const breed = selectedPetBreed;
-    alert(breed); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedPetBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Color
   const handleSelectColorChange = async (event) => {
     const selectedPetColor = event.target.value;
     setSelectedColor(selectedPetColor);
-    const color = selectedPetColor;
-    alert(color); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedPetColor,
+      selectedCareAndBehav
+    );
   };
   // Age
   const handleSelectAgeChange = async (event) => {
     const selectedPetAge = event.target.value;
     setSelectedAge(selectedPetAge);
-    const age = selectedPetAge;
-    alert(age); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedPetAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Size
   const handleSelectSizeChange = async (event) => {
     const selectedPetSize = event.target.value;
     setSelectedSize(selectedPetSize);
-    const size = selectedPetSize;
-    alert(size); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedPetSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Gender
   const handleSelectGenderChange = async (event) => {
     const selectedPetGender = event.target.value;
     setSelectedGender(selectedPetGender);
-    const gender = selectedPetGender;
-    alert(gender); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedPetGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Good With
   const handleSelectGoodWithChange = async (event) => {
     const selectedPetGoodWith = event.target.value;
     setSelectedGoodWith(selectedPetGoodWith);
-    const goodWith = selectedPetGoodWith;
-    alert(goodWith); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedPetGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Coat Length
   const handleSelectCoatLengthChange = async (event) => {
     const selectedPetCoatLength = event.target.value;
     setSelectedCoatLength(selectedPetCoatLength);
-    const coatLength = selectedPetCoatLength;
-    alert(coatLength); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedPetCoatLength,
+      selectedColor,
+      selectedCareAndBehav
+    );
   };
   // Care & Behavior
   const handleSelectCareAndBehavChange = async (event) => {
     const selectedPetCareAndBehav = event.target.value;
     setSelectedCareAndBehav(selectedPetCareAndBehav);
-    const careAndBehav = selectedPetCareAndBehav;
-    alert(careAndBehav); // temporary alert for testing
+    petFiltersResults(
+      selectedType,
+      selectedBreed,
+      selectedAge,
+      selectedSize,
+      selectedGender,
+      selectedGoodWith,
+      selectedCoatLength,
+      selectedColor,
+      selectedPetCareAndBehav
+    );
   };
-
+  const handleClearFilters = () => {
+    setSelectedType('');
+    setSelectedBreed('');
+    setSelectedAge('');
+    setSelectedSize('');
+    setSelectedGender('');
+    setSelectedGoodWith('');
+    setSelectedCoatLength('');
+    setSelectedColor('');
+    setSelectedCareAndBehav('');
+  };
   return (
     <>
       {errorMessage && (
@@ -285,11 +451,11 @@ const Pets = ({ showFilters }) => {
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>
-        {state.loading ? (
+        {state.loading || statePetFilters.loading ? (
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
-            { showFilters && 
+            {showFilters &&
               <div className={style.selectBox}>
                 <Nav style={{ width: '12rem' }} className="flex-column p-3">
                   {/* -----Type----- */}
@@ -486,8 +652,14 @@ const Pets = ({ showFilters }) => {
                       </option>
                     ))}
                   </Form.Select>
+                  <Button
+                    onClick={handleClearFilters}
+                    className={`btn ${style.clearFiltersBtn}`}
+                  >
+                    <span>Clear all filters</span>
+                  </Button>
                 </Nav>
-              </div> 
+              </div>
             }
             {/* Pet Card container */}
             <div className={style.cardsContainer} fluid="md" id="container">

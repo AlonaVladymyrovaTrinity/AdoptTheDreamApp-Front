@@ -257,5 +257,33 @@ export const dogColorsReducer = (state = { dogColors: [] }, action) => {
   }
 };
 
-export default petReducer;
+export const SearchPetFiltersReducer = (
+  state = { petFiltersResponse: [] },
+  action
+) => {
+  switch (action.type) {
+    case 'GET_PET_FILTERS_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        petFiltersResponse: [],
+      };
+    case 'GET_PET_FILTERS_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        petFiltersResponse: action.payload.pets,
+      };
+    case 'GET_PET_FILTERS_FAILURE':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
 
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export default petReducer;

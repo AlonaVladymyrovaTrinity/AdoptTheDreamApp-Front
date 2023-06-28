@@ -63,8 +63,14 @@ const PetCard = ({ pet, isFavorite, onToggleFavoriteState }) => {
                 <Card.Title>{pet.petName}</Card.Title>
                 <Card.Text>
                   <span className="fw-bold">Gender:</span> {pet.gender} •{' '}
-                  <span className="fw-bold">Age:</span> {pet.age} •{' '}
-                  <span className="fw-bold">Color:</span> {pet.color} •{' '}
+                  <span className="fw-bold">Age:</span>{' '}
+                  {pet.petType === 'Cat' && pet.age === 'Baby'
+                    ? 'Kitten'
+                    : pet.petType === 'Dog' && pet.age === 'Baby'
+                    ? 'Puppy'
+                    : pet.age}{' '}
+                  • <span className="fw-bold">Color:</span> {pet.color} •{' '}
+                  <span className="fw-bold">Size:</span> {pet.size} •{' '}
                   <span className="fw-bold">Breed:</span> {pet.breed}
                 </Card.Text>
               </Card.Body>
