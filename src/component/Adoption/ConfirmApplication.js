@@ -8,13 +8,14 @@ import Container from 'react-bootstrap/Container';
 import style from './ConfirmApplication.module.css';
 import Cookies from 'js-cookie';
 import Alert from 'react-bootstrap/Alert';
+import Modal from 'react-bootstrap/Modal';
+import { BiHomeHeart } from 'react-icons/bi';
 
 const ConfirmApplication = () => {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   //const [form, setForm] = useState([]);
   const [errors, setErrors] = useState({});
-  //const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
@@ -89,6 +90,16 @@ const ConfirmApplication = () => {
   const [checked, setChecked] = useState(false);
   //--------------------------end input type='text'------------------------//
 
+  //---------------------------popup modal---------------------------------//
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+    navigate('/', { replace: true });
+  };
+  //const handleShow = () => setShow(true);
+  //-------------------------------end-------------------------------------//
+
   const currentDate = new Date().toLocaleDateString(); //date of Application
   const petId = Cookies.get('PetID');
   const petType = Cookies.get('PetType');
@@ -106,14 +117,7 @@ const ConfirmApplication = () => {
   const validateForm = (event, form) => {
     const formErrors = {};
     const formErrorsMessage = 'This field is required';
-    // console.log(form);
-    // console.log(form.checkValidity() === false);
-    // if (form.checkValidity() === false) {
-    //   console.log('1');
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-    // console.log(setValidated(true));
+
     setValidated(true);
     if (firstName.trim() === '') {
       formErrors.firstName = 'First Name is required';
@@ -135,9 +139,15 @@ const ConfirmApplication = () => {
     }
     if (zip.trim() === '') {
       formErrors.zip = 'Zip code is required';
+    } else if (!/^([0-9]{5})?$/.test(zip)) {
+      formErrors.zip = 'Invalid Zip code format';
     }
     if (mobile.trim() === '') {
       formErrors.mobile = 'Phone number is required';
+      // } else if (!/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/.test(mobile)) {
+    } else if (!/^([0-9]{3}-[0-9]{3}-[0-9]{4}$)/.test(mobile)) {
+      formErrors.mobile =
+        'Invalid Phone number format. Use format 111-111-1111.';
     }
     if (email.trim() === '') {
       formErrors.email = 'Email is required';
@@ -247,11 +257,6 @@ const ConfirmApplication = () => {
   //-----------------------------------------------------------------------//
   const handleSubmit = (event) => {
     const form = event.currentTarget;
-    // console.log(form);
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
 
     event.preventDefault();
     if (validateForm(event, form)) {
@@ -259,6 +264,9 @@ const ConfirmApplication = () => {
       setErrorMessage('');
       setSuccessMessage('');
       setSuccessMessage('Form is valid');
+      setShow(true);
+      //const handleClose = () => setShow(false);
+
       console.log('Type of ID: ' + petId);
       console.log('Type of pet: ' + petType);
       console.log('Name of pet: ' + petName);
@@ -389,6 +397,8 @@ const ConfirmApplication = () => {
       Cookies.remove('PetName', { path: '/' });
     } else {
       console.log('Form validation failed');
+      setShow(false);
+      //const handleClose = () => setShow(true);
       setSuccessMessage('');
       setErrorMessage('');
       setErrorMessage('Form validation failed');
@@ -413,11 +423,8 @@ const ConfirmApplication = () => {
       )}
       <Container style={{ width: '80%' }}>
         <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
-        {/* {Object.keys(errors).length === 0 && isSubmitting && (
-          <span className="success-msg">Application submited successfuly</span>
-        )} */}
+
         <Form
-          //noValidate
           validated={validated}
           // method="post"
           onSubmit={handleSubmit}
@@ -519,7 +526,6 @@ const ConfirmApplication = () => {
                   value={coApplicantsFirstName}
                   onChange={(e) => setCoApplicantsFirstName(e.target.value)}
                   aria-label=" Input Co-Applicants First Name" // for screen reader
-                  //required
                   placeholder="First name"
                 />
               </Form.Group>
@@ -535,7 +541,6 @@ const ConfirmApplication = () => {
                   value={coApplicantsLastName}
                   onChange={(e) => setCoApplicantsLastName(e.target.value)}
                   aria-label=" Input Co-Applicants Last Name" // for screen reader
-                  //required
                   placeholder="Last name"
                 />
               </Form.Group>
@@ -624,6 +629,7 @@ const ConfirmApplication = () => {
                   placeholder="Zip"
                   onChange={(e) => setZip(e.target.value)}
                   aria-label="input Zip code" // for screen reader
+                  pattern="[0-9]{5}"
                   required
                 />
                 {errors.zip && (
@@ -639,12 +645,13 @@ const ConfirmApplication = () => {
             <Row className="mb-3">
               <Form.Group as={Col} md="6">
                 <Form.Control
-                  type="mobile"
+                  type="tel"
                   id="mobile"
                   value={mobile}
-                  placeholder="Phone Number"
+                  placeholder="111-111-1111"
                   onChange={(e) => setMobile(e.target.value)}
                   aria-label="input Phone Number" // for screen reader
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   required
                 />
                 {errors.mobile && (
@@ -734,7 +741,6 @@ const ConfirmApplication = () => {
                   }
                   aria-label="input Co-Applicant's Occupation, Employer, and Work Address" // for screen reader
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -830,7 +836,6 @@ const ConfirmApplication = () => {
                   onChange={(e) => setAllergicExplain(e.target.value)}
                   aria-label="input Allergic Explanation" // for screen reader
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -877,7 +882,6 @@ const ConfirmApplication = () => {
                   onChange={(e) => setAgrimentExplain(e.target.value)}
                   aria-label="input Agreement Explanation" // for screen reader
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -950,7 +954,6 @@ const ConfirmApplication = () => {
                   onChange={(e) => setFearAnimalsExplain(e.target.value)}
                   aria-label="input Fear Animals Explanation" // for screen reader
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -1077,7 +1080,6 @@ const ConfirmApplication = () => {
                   onChange={(e) => setHomeDescription(e.target.value)}
                   aria-label="input Home Description" // for screen reader
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -1086,11 +1088,9 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect09"> */}
                 <Form.Select
                   value={selectedHaveAYard}
                   onChange={(e) => setSelectedHaveAYard(e.target.value)}
-                  // onChange={handleSelectHaveAYardChange}
                   name="HaveAYard"
                   id="selectHaveAYard"
                   required
@@ -1124,7 +1124,6 @@ const ConfirmApplication = () => {
                   onChange={(e) => setFenceHigh(e.target.value)}
                   aria-label="input Fence High" // for screen reader
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -1478,7 +1477,6 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setPetsInThePastInfo(e.target.value)}
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -1495,7 +1493,6 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setPetsInThePastPeriod(e.target.value)}
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -1560,7 +1557,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect19"> */}
                 <Form.Select
                   value={selectedPetHitByVehicle}
                   onChange={(e) => setSelectedPetHitByVehicle(e.target.value)}
@@ -1589,7 +1585,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect20"> */}
                 <Form.Select
                   value={selectedGivenPetToShelter}
                   onChange={(e) => setSelectedGivenPetToShelter(e.target.value)}
@@ -1618,7 +1613,6 @@ const ConfirmApplication = () => {
             </Col>
             <Row className="mb-3">
               <Form.Group>
-                {/* <Form.Group controlId="formSelect21"> */}
                 <Form.Select
                   value={selectedGivenPetAway}
                   onChange={(e) => setSelectedGivenPetAway(e.target.value)}
@@ -1655,7 +1649,6 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setGivenPetAwayExplain(e.target.value)}
                   rows={3}
-                  //required
                 />
               </Form.Group>
             </Row>
@@ -1746,6 +1739,29 @@ const ConfirmApplication = () => {
                 Submit form
               </Button>
             </div>
+
+            <Modal
+              show={show}
+              onHide={handleClose}
+              backdrop="static"
+              keyboard={false}
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Thank you!</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Your Adoption Application has been sent! <br /> You will be
+                contacted shortly.
+              </Modal.Body>
+              <Modal.Footer>
+                <div className={style.confirmApplicationModalCloseBtn}>
+                  <Button className="mb-5 b" onClick={handleClose}>
+                    Go to <BiHomeHeart size="2rem" className="pb-1" />
+                    <span className="sr-only">go to home page</span>
+                  </Button>
+                </div>
+              </Modal.Footer>
+            </Modal>
           </div>
         </Form>
       </Container>
