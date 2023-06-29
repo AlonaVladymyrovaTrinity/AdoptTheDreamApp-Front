@@ -10,6 +10,7 @@ import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import AuthContext from '../../context/auth-context'
+import NoFavorites from '../NoFavorites/NoFavorites'
 
 const FavoritePets = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,7 +60,7 @@ const FavoritePets = () => {
     <div>
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Favorite Pets</h1>
       {!favorites || favorites.length === 0 ? (
-        <p>No favorite pets selected.</p>
+        <NoFavorites  />
       ) : (
         <Container
           style={{
