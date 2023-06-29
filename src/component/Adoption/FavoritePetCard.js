@@ -46,7 +46,7 @@ const FavoritePetCard = ({ pet, onRemove }) => {
           />
           <Card.Body style={{ color: 'var(--color-txt)' }}>
             <Card.Title>{pet.petName}</Card.Title>
-            <Card.Text className="text-center">
+            <Card.Text className="text-center" style={{ marginBottom: '10px' }}>
               <span className="fw-bold">Gender:</span> {pet.gender} •{' '}
               <span className="fw-bold">Age:</span>{' '}
               {pet.petType === 'Cat' && pet.age === 'Baby'
@@ -59,7 +59,7 @@ const FavoritePetCard = ({ pet, onRemove }) => {
                   variant="danger"
                   onClick={() => handleAdopt(pet)}
                   className={style['button-favorite']}
-                  style={{ marginRight: '10px' }}
+                  style={{ marginRight: '10px', marginTop:"15px" }}
                 >
                   Adopt
                 </Button>
@@ -67,6 +67,7 @@ const FavoritePetCard = ({ pet, onRemove }) => {
                   variant="danger"
                   onClick={() => handleRemove(pet)}
                   className={style['button-favorite-remove']}
+                  style={{ marginRight: '10px', marginTop:"15px" }}
                 >
                   Remove
                 </Button>
