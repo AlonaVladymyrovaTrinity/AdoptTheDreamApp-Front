@@ -1,15 +1,9 @@
 .updateProfileContainer {
-  min-height: 85vh;
+  min-height: 83vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-/* .updateProfileContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
 
 .updateProfileBox {
   width: 20rem;

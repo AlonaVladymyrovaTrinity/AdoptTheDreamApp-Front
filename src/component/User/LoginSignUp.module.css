@@ -1,19 +1,9 @@
 .LoginSignUpContainer {
-  min-height: 85vh;
+  min-height: 83vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-/* .LoginSignUpContainer {
-/* align-items: center; */
-/* position: absolute; */
-/* max-width: 500px; */
-/* margin: auto auto; */
-/* top: 50%;
-  left: 50%; */
-/* transform: translate(-50%, -50%); */
-/* position: relative; */
 
 .LoginSignUpBox {
   margin: 0 auto;
