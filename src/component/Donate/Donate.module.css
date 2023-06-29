@@ -26,36 +26,53 @@
   margin-bottom: 0.625rem;
   color: var(--color-txt);
 }
+.first-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.second-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .selectAmount-btn {
-  background-color: var(--color-btn);
-  border: none;
+  background-color: var(--color-white);
+  border: 1px solid darkgray;
   border-radius: 0.938rem;
   --bs-btn-padding-y: 0.5rem;
-  --bs-btn-padding-x: 2rem;
+  --bs-btn-padding-x: 1rem;
+  min-width: 7rem;
   margin: 1.25rem;
   font-size: 1.25rem;
   font-weight: bold;
-  color: var(--color-white);
+  color: var(--color-black);
   box-shadow: 0 2px 5px var(--color-grey);
   cursor: pointer;
   transition: box-shadow 1s;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
 }
 
 .selectAmount-btn:hover,
 .selectAmount-btn:focus {
-  background-color: var(--color-btn-hover);
-  box-shadow: 0 2px 5px var(--color-grey);
-  color: var(--color-white);
+  box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16);
+  transform: scale3d(1.01, 1.01, 1.01);
+  border: 1px solid darkgray;
+  background-color: var(--color-white);
+  color: var(--color-black);
   cursor: pointer;
 }
 
 .selectAmount-btn:active,
 .selectAmount-btn:visited {
-  background-color: var(--color-btn-active) !important;
-  color: var(--color-white) !important;
-  transform: scale(0.98);
-  box-shadow: 0 2px 5px var(--color-grey);
-  transition-duration: 0.05s;
+  background-color: var(--color-white);
+  box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16);
+  transform: scale3d(1.01, 1.01, 1.01);
+  border: 1px solid darkgray;
+  color: var(--color-black) !important;
 }
 
 .amountSubmitForm {
@@ -70,6 +87,7 @@
   display: flex;
   width: 100%;
   align-items: center;
+  border-radius: 0.938rem;
 }
 
 .amountSubmitForm > div > svg {
@@ -78,4 +96,9 @@
   font-size: 1.2rem;
   color: var(--color-icon-gray);
   margin-left: 0.6rem;
+}
+.custom-amount > input {
+  border-radius: 0.938rem;
+  background-color: var(--color-white);
+  border: 1px solid darkgray;
 }

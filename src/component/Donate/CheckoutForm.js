@@ -7,7 +7,7 @@ import {
 } from '@stripe/react-stripe-js';
 import style from './CheckoutForm.module.css';
 import Button from 'react-bootstrap/Button';
-import CurrencyFormat from 'react-currency-format';
+// import CurrencyFormat from 'react-currency-format';
 
 export default function CheckoutForm({ donation }) {
   const stripe = useStripe();
@@ -94,13 +94,13 @@ export default function CheckoutForm({ donation }) {
     >
       <p>
         Your donation amount:{' '}
-        <CurrencyFormat
+        {/* <CurrencyFormat
           value={donation} // The value to be displayed in the currency format
           displayType={'text'} // The display type (e.g., 'input' or 'text')
           thousandSeparator={true} // Whether to use thousand separators (e.g., 1,000)
           prefix={'$'} // The currency symbol or prefix
           decimalScale={2} // The number of decimal places to display
-        />
+        /> */}
       </p>
       <LinkAuthenticationElement
         id="link-authentication-element"

@@ -6,6 +6,7 @@ import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Alert from 'react-bootstrap/Alert';
+
 // import CurrencyFormat from 'react-currency-format';
 
 function Donate() {
@@ -83,54 +84,63 @@ function Donate() {
               <div className="card">
                 <div className="card-body">
                   <h2>Secure donation</h2>
-                  <Button
-                    className={`btn ${style['selectAmount-btn']}`}
-                    onClick={selectThousand}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    $1,000
-                  </Button>
-                  <Button
-                    className={`btn ${style['selectAmount-btn']}`}
-                    onClick={selectSevenHundredFifty}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    $750
-                  </Button>
-                  <Button
-                    className={`btn ${style['selectAmount-btn']}`}
-                    onClick={selectFiveHundred}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    $500
-                  </Button>
-                  <Button
-                    className={`btn ${style['selectAmount-btn']}`}
-                    onClick={selectTwoHundred}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    $200
-                  </Button>
-                  <Button
-                    className={`btn ${style['selectAmount-btn']}`}
-                    onClick={selectOneHundred}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    $100
-                  </Button>
-                  <Button
-                    className={`btn ${style['selectAmount-btn']}`}
-                    onClick={selectFifty}
-                    variant="btn-primary"
-                    size="btn-lg"
-                  >
-                    $50
-                  </Button>
+                  <div className={style['first-container']}>
+                    <Button
+                      type="button"
+                      className={`btn ${style['selectAmount-btn']}`}
+                      onClick={selectThousand}
+                      variant="btn-outline-dark"
+                      size="btn-lg"
+                    >
+                      $1,000
+                    </Button>
+
+                    <Button
+                      className={`btn ${style['selectAmount-btn']}`}
+                      onClick={selectSevenHundredFifty}
+                      variant="btn-primary"
+                      size="btn-lg"
+                    >
+                      $750
+                    </Button>
+
+                    <Button
+                      className={`btn ${style['selectAmount-btn']}`}
+                      onClick={selectFiveHundred}
+                      variant="btn-primary"
+                      size="btn-lg"
+                    >
+                      $500
+                    </Button>
+                  </div>
+                  <div className={style['second-container']}>
+                    <Button
+                      className={`btn ${style['selectAmount-btn']}`}
+                      onClick={selectTwoHundred}
+                      variant="btn-primary"
+                      size="btn-lg"
+                    >
+                      $200
+                    </Button>
+
+                    <Button
+                      className={`btn ${style['selectAmount-btn']}`}
+                      onClick={selectOneHundred}
+                      variant="btn-primary"
+                      size="btn-lg"
+                    >
+                      $100
+                    </Button>
+
+                    <Button
+                      className={`btn ${style['selectAmount-btn']}`}
+                      onClick={selectFifty}
+                      variant="btn-primary"
+                      size="btn-lg"
+                    >
+                      $50
+                    </Button>
+                  </div>
                   <form
                     className={style.amountSubmitForm}
                     onSubmit={selectAmountSubmit}
