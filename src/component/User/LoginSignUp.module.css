@@ -1,12 +1,8 @@
 .LoginSignUpContainer {
-  /* height: 85vh; */
-  /* height: 100%; */
-  display: grid;
-  grid-template-rows: 85vh;
-  place-items: center;
-  place-self: center;
-  /* justify-items: center; */
-  /* align-items: center; */
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .LoginSignUpContainer {
