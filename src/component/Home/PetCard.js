@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
@@ -6,11 +6,21 @@ import { Link } from 'react-router-dom';
 import FavoriteCheckbox from '../layout/FavoriteCheckbox/FavoriteCheckbox';
 import AuthContext from '../../context/auth-context';
 
-const PetCard = ({ pet }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const PetCard = ({ pet, isFavorite, onToggleFavoriteState }) => {
+  const { userId } = useContext(AuthContext);
+  const [isFavoriteHidden, setIsFavoriteHidden] = useState(true)
+  
+  const handleToggle = () => {
+    onToggleFavoriteState(pet._id);
+  }
+    
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    if (authenticated) {
+      setIsFavoriteHidden(false);
+    }
+  }, [userId])
 
-  const { userName } = useContext(AuthContext);
-  const isFavoriteHidden = userName === null ? true : false;
 
   return (
     <div className="petCard_wrapper ps-1 pe-1">
@@ -23,8 +33,8 @@ const PetCard = ({ pet }) => {
             {!isFavoriteHidden && (
               <div className="position-absolute top-0 end-0 mt-1 me-1">
                 <FavoriteCheckbox
-                  isChecked={isChecked}
-                  setIsChecked={setIsChecked}
+                  isChecked={isFavorite}
+                  onToggleCheckbox={handleToggle}
                 />
               </div>
             )}

@@ -137,7 +137,9 @@
 }
 
 .loginBtn:hover,
-.signUpBtn:hover {
+.signUpBtn:hover,
+.loginBtn:focus,
+.signUpBtn:focus {
   background-color: var(--color-action-btn-hover);
   box-shadow: 0 2px 5px var(--color-grey);
   color: var(--color-white);
@@ -145,8 +147,11 @@
 }
 
 .loginBtn:active,
-.signUpBtn:active {
+.signUpBtn:active,
+.loginBtn:visited,
+.signUpBtn:visited {
   background-color: var(--color-action-btn-hover) !important;
+  color: var(--color-white) !important;
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-grey);
 }

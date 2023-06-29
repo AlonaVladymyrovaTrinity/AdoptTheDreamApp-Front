@@ -1,4 +1,4 @@
-#root {
+/* #root {
   display: flex;
   align-items: center;
 }
@@ -12,9 +12,9 @@ body {
   align-content: center;
   height: 100vh;
   width: 100vw;
-}
+} */
 
-form {
+.checkoutFormContainer {
   width: 30vw;
   min-width: 500px;
   align-self: center;
@@ -36,8 +36,37 @@ form {
   margin-bottom: 24px;
 }
 
-/* Buttons and links */
-button {
+.donation-btn {
+  background-color: var(--color-action-btn);
+  border: none;
+  border-radius: 0.938rem;
+  margin: 1.25rem 1.25rem 1.25rem 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-white);
+  box-shadow: 0 2px 5px var(--color-grey);
+  cursor: pointer;
+  transition: box-shadow 1s;
+}
+
+.donation-btn:hover,
+.donation-btn:focus {
+  background-color: var(--color-action-btn-hover);
+  box-shadow: 0 2px 5px var(--color-grey);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.donation-btn:active,
+.donation-btn:visited {
+  background-color: var(--color-action-btn-active) !important;
+  color: var(--color-white) !important;
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px var(--color-grey);
+  transition-duration: 0.05s;
+}
+
+/* button {
   background: #5469d4;
   font-family: Arial, sans-serif;
   color: #ffffff;
@@ -51,18 +80,17 @@ button {
   transition: all 0.2s ease;
   box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
   width: 100%;
-}
+} */
 
-button:hover {
+/* button:hover {
   filter: contrast(115%);
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: default;
-}
+} */
 
-/* spinner/processing state, errors */
 .spinner,
 .spinner:before,
 .spinner:after {
@@ -114,7 +142,7 @@ button:disabled {
   -webkit-animation: loading 2s infinite ease;
   animation: loading 2s infinite ease;
 }
-
+/* 
 @keyframes loading {
   0% {
     -webkit-transform: rotate(0deg);
@@ -131,4 +159,4 @@ button:disabled {
     width: 80vw;
     min-width: initial;
   }
-}
+} */

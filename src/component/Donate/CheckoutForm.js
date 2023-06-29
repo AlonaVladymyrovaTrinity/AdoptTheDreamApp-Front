@@ -5,8 +5,11 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
+import style from './CheckoutForm.module.css';
+import Button from 'react-bootstrap/Button';
+import CurrencyFormat from 'react-currency-format';
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ donation }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -47,6 +50,7 @@ export default function CheckoutForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(email);
 
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
@@ -83,17 +87,54 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form
+      id="payment-form"
+      onSubmit={handleSubmit}
+      className={style.checkoutFormContainer}
+    >
+      <p>
+        Your donation amount:{' '}
+        <CurrencyFormat
+          value={donation} // The value to be displayed in the currency format
+          displayType={'text'} // The display type (e.g., 'input' or 'text')
+          thousandSeparator={true} // Whether to use thousand separators (e.g., 1,000)
+          prefix={'$'} // The currency symbol or prefix
+          decimalScale={2} // The number of decimal places to display
+        />
+      </p>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <Button
+        className={`btn ${style['donation-btn']}`}
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        variant="btn-primary"
+        size="btn-lg"
+      >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : 'Pay now'}
+          {isLoading ? (
+            <div className={style.spinner} id="spinner"></div>
+          ) : (
+            'Pay now'
+          )}
         </span>
-      </button>
+      </Button>
+      {/* <button
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        className={style['donation-btn']}
+      >
+        <span id="button-text">
+          {isLoading ? (
+            <div className={style.spinner} id="spinner"></div>
+          ) : (
+            'Pay now'
+          )}
+        </span>
+      </button> */}
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>

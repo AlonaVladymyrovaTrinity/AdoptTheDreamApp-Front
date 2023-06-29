@@ -1,0 +1,81 @@
+.donation-header {
+  color: var(--color-txt);
+  display: flex;
+  justify-content: center;
+}
+
+.donation-container {
+  display: flex;
+  /* Horizontal centering */
+  justify-content: center;
+  /* Vertical centering */
+  align-items: center;
+}
+
+.donation-wrapper div {
+  background-color: var(--color-grey-background);
+  max-width: 37.5rem;
+  border-radius: 0.938rem;
+  padding: 0.938rem;
+  margin: 1.25rem;
+}
+
+.donation-wrapper h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+  color: var(--color-txt);
+}
+.selectAmount-btn {
+  background-color: var(--color-btn);
+  border: none;
+  border-radius: 0.938rem;
+  --bs-btn-padding-y: 0.5rem;
+  --bs-btn-padding-x: 2rem;
+  margin: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-white);
+  box-shadow: 0 2px 5px var(--color-grey);
+  cursor: pointer;
+  transition: box-shadow 1s;
+}
+
+.selectAmount-btn:hover,
+.selectAmount-btn:focus {
+  background-color: var(--color-btn-hover);
+  box-shadow: 0 2px 5px var(--color-grey);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.selectAmount-btn:active,
+.selectAmount-btn:visited {
+  background-color: var(--color-btn-active) !important;
+  color: var(--color-white) !important;
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px var(--color-grey);
+  transition-duration: 0.05s;
+}
+
+.amountSubmitForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  justify-content: space-evenly;
+  transition: all 0.5s;
+}
+.amountSubmitForm > div {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.amountSubmitForm > div > svg {
+  position: absolute;
+  transform: translateX(0.8rem);
+  font-size: 1.2rem;
+  color: var(--color-icon-gray);
+  margin-left: 0.6rem;
+}
