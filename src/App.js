@@ -16,7 +16,6 @@ import FavoritePets from './component/Adoption/FavoritePets';
 import ConfirmApplication from './component/Adoption/ConfirmApplication';
 import NotFound from './component/layout/NotFound/NotFound';
 import Footer from './component/layout/Footer/Footer';
-import NoFavorites from './component/NoFavorites/NoFavorites';
 import Donate from './component/Donate/Donate';
 import OurTeam from './component/layout/OurTeam/OurTeam';
 import style from './App.module.css';
@@ -113,15 +112,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/nofavorites"
-            element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <NoFavorites />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/team" element={<OurTeam />} />
+      <Route path="/team" element={<OurTeam />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
