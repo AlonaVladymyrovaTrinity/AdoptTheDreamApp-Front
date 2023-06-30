@@ -1,31 +1,44 @@
-.button-favorite {
+.buttonFavorite{
   background-color: var(--color-action-btn);
   color: var(--color-white);
   border: none;
   margin-right: 10px;
+  margin-top: 15px;
 }
 
-.button-favorite:hover,
-.button-favorite:focus {
-  background-color: var(--color-action-btn);
+.buttonFavorite:hover,
+.buttonFavorite:focus {
+  background-color: var(--color-btn-hover);
   color: var(--color-white);
 }
 
-.button-favorite:active,
-.button-favorite:visited {
-  background-color: var(--color-btn-nofavorites-active) !important;
+.buttonFavorite:active,
+.buttonFavorite:visited {
+  background-color: var(--color-btn-active) !important;
   transform: scale(0.98);
+  color: var(--color-white) !important;
 }
 
-.button-favorite-remove {
+.buttonFavoriteRemove {
   background-color: var(--color-btn);
   color: var(--color-white);
   border: none;
+  margin-right: 10px;
+  margin-top: 15px;
 }
 
-.button-favorite-remove:hover {
-  background-color: var(--color-btn);
+.buttonFavoriteRemove:hover,
+.buttonFavoriteRemove:focus {
+  background-color: var(--color-btn-hover);
   color: var(--color-white);
+}
+
+.buttonFavoriteRemove:active,
+.buttonFavoriteRemove:visited {
+  background-color: var(--color-action-btn-active) !important;
+  outline: none;
+  color: var(--color-white) !important;
+  transform: scale(0.98);
 }
 
 .custom-pagination-item>a {
