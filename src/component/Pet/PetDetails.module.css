@@ -4,13 +4,17 @@
   border: none;
 }
 
-.favoriteButton:hover {
-  background-color: var(--color-btn-hover);
+.favoriteButton:hover
+.favoriteButton:focus {
+  background-color: var(--color-btn-hover)!important;
+  color: var(--color-white);
 }
 
-.favoriteButton:active {
-  background-color: var(--color-action-btn-hover) !important;
-  outline: none;
+.favoriteButton:active,
+.favoriteButton:visited {
+  transform: scale(0.98);
+  background-color: var(--color-btn-hover) !important;
+  color: var(--color-white) !important;
 }
 
 .adoptButton {
@@ -19,13 +23,18 @@
   border: none;
 }
 
-.adoptButton:hover {
-  background-color: var(--color-btn-hover);
+.adoptButton:hover
+.adoptButton:focus {
+  background-color: var(--color-btn-hover)!important;
+  color: var(--color-white)!important;
 }
 
-.adoptButton:active {
+.adoptButton:active
+.adoptButton:visited {
   background-color: var(--color-action-btn-hover) !important;
+  color: var(--color-white) !important;
   outline: none;
+  transform: scale(0.98);
 }
 
 .buttonContainer {
