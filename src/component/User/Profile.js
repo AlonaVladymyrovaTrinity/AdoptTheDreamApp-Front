@@ -163,6 +163,8 @@ const Profile = () => {
                                 className={`btn ${style['color-btn']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
                                 variant="btn-primary"
                                 size="btn-lg"
+                                aria-label="LogOut button"
+                                title="LogOut"
                               >
                                 <span>
                                   <FontAwesomeIcon icon={faSignOut} />

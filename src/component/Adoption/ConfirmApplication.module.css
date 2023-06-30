@@ -1,6 +1,6 @@
 .confirmApplicationSubmitBtn button {
   background-color: var(--color-btn);
-  /* border: 3px solid var(--color-btn-border); */
+  border: 3px solid var(--color-btn-border);
   border-radius: 18px;
   border: none;
   padding: 0.65rem;
@@ -17,6 +17,7 @@
 }
 .confirmApplicationSubmitBtn button:disabled {
   background-color: var(--color-btn-disabled) !important;
+  cursor: default;
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-gray);
 }
