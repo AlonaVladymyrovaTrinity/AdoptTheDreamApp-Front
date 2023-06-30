@@ -2,48 +2,57 @@ import React, { useState } from 'react';
 import style from './Donate.module.css';
 import Button from 'react-bootstrap/Button';
 import DonateProcess from './DonateProcess';
-import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+// import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Alert from 'react-bootstrap/Alert';
-
+import CurrencyInputField from 'react-currency-input-field';
 // import CurrencyFormat from 'react-currency-format';
 
 function Donate() {
-  const [donation, setDonation] = useState(100);
-  const [customAmount, setCustomAmount] = useState(100);
+  const [donation, setDonation] = useState('');
+  const [customAmount, setCustomAmount] = useState('');
   const [donationSelected, setDonationSelected] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const selectThousand = () => {
-    setDonation(100000);
+  const handleAmountChange = (value) => {
+    console.log('value: ' + value);
+    if (
+      value === null ||
+      value === '' ||
+      value.length === 0 ||
+      value === '0' ||
+      value === '0.' ||
+      value === '0.0' ||
+      value === '0.00' ||
+      value === undefined ||
+      value === isNaN
+    ) {
+      setErrorMessage('Please enter a number equal or greater than $1.00');
+    } else {
+      setCustomAmount(value);
+    }
+  };
+
+  const handleDonationSelection = (amount) => {
+    setDonation(amount);
+    setCustomAmount(`${amount / 100}.00`);
     setDonationSelected(true);
   };
-  const selectSevenHundredFifty = () => {
-    setDonation(75000);
-    setDonationSelected(true);
-  };
-  const selectFiveHundred = () => {
-    setDonation(50000);
-    setDonationSelected(true);
-  };
-  const selectTwoHundred = () => {
-    setDonation(20000);
-    setDonationSelected(true);
-  };
-  const selectOneHundred = () => {
-    setDonation(10000);
-    setDonationSelected(true);
-  };
-  const selectFifty = () => {
-    setDonation(5000);
-    setDonationSelected(true);
-  };
-  const selectAmountSubmit = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (customAmount >= 100) {
-      setDonation(customAmount); // 10 ---> 1000
+    const amountInCents = Math.round(
+      parseFloat(customAmount.replace(',', '')) * 100
+    );
+    console.log(
+      'amountInCents without Float' + customAmount.replace(',', '') * 100
+    );
+    console.log('amountInCents: ' + amountInCents);
+
+    if (amountInCents >= 100) {
+      setDonation(amountInCents);
       setDonationSelected(true);
     } else {
       setErrorMessage('');
@@ -56,7 +65,7 @@ function Donate() {
   return (
     <>
       {donationSelected === true ? (
-        <DonateProcess donation={donation} />
+        <DonateProcess donation={donation} customAmount={customAmount} />
       ) : (
         <>
           {' '}
@@ -88,7 +97,7 @@ function Donate() {
                     <Button
                       type="button"
                       className={`btn ${style['selectAmount-btn']}`}
-                      onClick={selectThousand}
+                      onClick={() => handleDonationSelection(100000)}
                       variant="btn-outline-dark"
                       size="btn-lg"
                     >
@@ -97,7 +106,7 @@ function Donate() {
 
                     <Button
                       className={`btn ${style['selectAmount-btn']}`}
-                      onClick={selectSevenHundredFifty}
+                      onClick={() => handleDonationSelection(75000)}
                       variant="btn-primary"
                       size="btn-lg"
                     >
@@ -106,7 +115,7 @@ function Donate() {
 
                     <Button
                       className={`btn ${style['selectAmount-btn']}`}
-                      onClick={selectFiveHundred}
+                      onClick={() => handleDonationSelection(50000)}
                       variant="btn-primary"
                       size="btn-lg"
                     >
@@ -116,7 +125,7 @@ function Donate() {
                   <div className={style['second-container']}>
                     <Button
                       className={`btn ${style['selectAmount-btn']}`}
-                      onClick={selectTwoHundred}
+                      onClick={() => handleDonationSelection(20000)}
                       variant="btn-primary"
                       size="btn-lg"
                     >
@@ -125,7 +134,7 @@ function Donate() {
 
                     <Button
                       className={`btn ${style['selectAmount-btn']}`}
-                      onClick={selectOneHundred}
+                      onClick={() => handleDonationSelection(10000)}
                       variant="btn-primary"
                       size="btn-lg"
                     >
@@ -134,7 +143,7 @@ function Donate() {
 
                     <Button
                       className={`btn ${style['selectAmount-btn']}`}
-                      onClick={selectFifty}
+                      onClick={() => handleDonationSelection(5000)}
                       variant="btn-primary"
                       size="btn-lg"
                     >
@@ -143,10 +152,10 @@ function Donate() {
                   </div>
                   <form
                     className={style.amountSubmitForm}
-                    onSubmit={selectAmountSubmit}
+                    onSubmit={handleSubmit}
                   >
                     <div className={style['custom-amount']}>
-                      <InputWithIcon
+                      {/* <InputWithIcon
                         type={'text'}
                         placeholder="10.00"
                         required
@@ -154,7 +163,17 @@ function Donate() {
                         handleChange={(e) => setCustomAmount(e.target.value)} //handleAmountChange}
                       >
                         <FontAwesomeIcon icon={faDollarSign} />
-                      </InputWithIcon>
+                      </InputWithIcon> */}
+                      <div>
+                        <CurrencyInputField
+                          prefix="$"
+                          placeholder="$1.00"
+                          decimalSeparator="."
+                          groupSeparator=","
+                          value={customAmount}
+                          onValueChange={(value) => handleAmountChange(value)}
+                        />
+                      </div>
 
                       <Button
                         className={`btn ${style['selectAmount-btn']}`}

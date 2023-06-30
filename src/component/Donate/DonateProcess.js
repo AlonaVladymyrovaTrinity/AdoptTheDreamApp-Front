@@ -10,7 +10,7 @@ const stripePromise = loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
 
-const DonateProcess = ({ donation }) => {
+const DonateProcess = ({ donation, customAmount }) => {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const DonateProcess = ({ donation }) => {
         {clientSecret && (
           <>
             <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm donation={donation} />
+              <CheckoutForm donation={donation} customAmount={customAmount} />
             </Elements>
           </>
         )}

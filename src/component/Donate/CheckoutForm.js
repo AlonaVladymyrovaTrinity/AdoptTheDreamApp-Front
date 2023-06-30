@@ -6,16 +6,16 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import style from './CheckoutForm.module.css';
-import Button from 'react-bootstrap/Button';
-// import CurrencyFormat from 'react-currency-format';
+import { useNavigate } from 'react-router-dom';
 
-export default function CheckoutForm({ donation }) {
+export default function CheckoutForm({ donation, customAmount }) {
   const stripe = useStripe();
   const elements = useElements();
 
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -64,7 +64,7 @@ export default function CheckoutForm({ donation }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: 'https://dashboard.stripe.com/test/',
+        return_url: window.location.origin, //`${window.location.origin}/success`,
       },
     });
 
@@ -80,6 +80,11 @@ export default function CheckoutForm({ donation }) {
     }
 
     setIsLoading(false);
+
+    if (!error) {
+      // Redirect to the home page
+      navigate('/');
+    }
   };
 
   const paymentElementOptions = {
@@ -92,37 +97,13 @@ export default function CheckoutForm({ donation }) {
       onSubmit={handleSubmit}
       className={style.checkoutFormContainer}
     >
-      <p>
-        Your donation amount:{' '}
-        {/* <CurrencyFormat
-          value={donation} // The value to be displayed in the currency format
-          displayType={'text'} // The display type (e.g., 'input' or 'text')
-          thousandSeparator={true} // Whether to use thousand separators (e.g., 1,000)
-          prefix={'$'} // The currency symbol or prefix
-          decimalScale={2} // The number of decimal places to display
-        /> */}
-      </p>
+      <p>Your donation amount: {donation + ' - ' + customAmount}</p>
       <LinkAuthenticationElement
         id="link-authentication-element"
         onChange={(e) => setEmail(e.value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <Button
-        className={`btn ${style['donation-btn']}`}
-        disabled={isLoading || !stripe || !elements}
-        id="submit"
-        variant="btn-primary"
-        size="btn-lg"
-      >
-        <span id="button-text">
-          {isLoading ? (
-            <div className={style.spinner} id="spinner"></div>
-          ) : (
-            'Pay now'
-          )}
-        </span>
-      </Button>
-      {/* <button
+      <button
         disabled={isLoading || !stripe || !elements}
         id="submit"
         className={style['donation-btn']}
@@ -134,7 +115,7 @@ export default function CheckoutForm({ donation }) {
             'Pay now'
           )}
         </span>
-      </button> */}
+      </button>
       {/* Show any error or success messages */}
       {message && <div id="payment-message">{message}</div>}
     </form>
