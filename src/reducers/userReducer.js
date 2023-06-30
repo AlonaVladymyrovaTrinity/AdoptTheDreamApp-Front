@@ -2,8 +2,9 @@
 export const initialState = {
   isAuthenticated: false,
   loading: false,
+  msg: '',
 };
-// Reducer function
+// Reducer functions
 export const userReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN_REQUEST':
@@ -46,6 +47,64 @@ export const userReducer = (state, action) => {
         user: null,
         error: action.payload,
       };
+    case 'LOGOUT_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const profileReducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_PROFILE_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'UPDATE_PROFILE_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        isUpdated: true,
+      };
+
+    case 'UPDATE_PROFILE_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const updatePasswordReducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_PASSWORD_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'UPDATE_PASSWORD_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        msg: action.payload,
+      };
+
+    case 'UPDATE_PASSWORD_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }

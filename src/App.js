@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './component/layout/Header/Header';
 import About from './component/layout/About/About';
 import Home from './component/Home/Home';
 import PetDetails from './component/Pet/PetDetails';
 import Pets from './component/Pet/Pets';
-import Search from './component/Pet/Search';
 import Contact from './component/layout/Contact/Contact';
 import Profile from './component/User/Profile';
 import UpdateProfile from './component/User/UpdateProfile';
@@ -17,20 +16,26 @@ import FavoritePets from './component/Adoption/FavoritePets';
 import ConfirmApplication from './component/Adoption/ConfirmApplication';
 import NotFound from './component/layout/NotFound/NotFound';
 import Footer from './component/layout/Footer/Footer';
-import NoFavorites from './component/NoFavorites/NoFavorites';
 import Donate from './component/Donate/Donate';
 import OurTeam from './component/layout/OurTeam/OurTeam';
 import style from './App.module.css';
+import AuthContext from './context/auth-context';
 
 function ProtectedRoute({ isAuthenticated, children }) {
-  if (!isAuthenticated) {
+  if (isAuthenticated === false) {
     return <Navigate to="/login" replace />;
   }
   return children;
 }
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const { userId } = useContext(AuthContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(userId ? true : false);
+
+  useEffect(() => {
+    setIsAuthenticated(userId ? true : false);
+  }, [userId]);
+
   // Function to handle user login
   const handleLogin = () => {
     // authentication logic will be implemented later
@@ -49,8 +54,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/pet/:id" element={<PetDetails />} />
-          <Route path="/pets" element={<Pets />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/pets" element={<Pets showFilters={true} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route
@@ -65,7 +69,7 @@ function App() {
             path="/me/update"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
-                <UpdateProfile onLogout={handleLogout} />
+                <UpdateProfile />
               </ProtectedRoute>
             }
           />
@@ -83,7 +87,14 @@ function App() {
             path="/login"
             element={<LoginSignUp onLogin={handleLogin} />}
           />
-          <Route path="/favorites" element={<FavoritePets />} />
+          <Route
+            path="/favorites"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <FavoritePets />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/process/donate"
             element={
@@ -101,8 +112,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/nofavorites" element={<NoFavorites />} />
-          <Route path="/team" element={<OurTeam />} />
+      <Route path="/team" element={<OurTeam />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

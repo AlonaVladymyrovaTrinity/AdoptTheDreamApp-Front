@@ -1,11 +1,12 @@
 /* Google Fonts - Poppins */
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Roboto', 'Arial', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 #root {
@@ -15,20 +16,26 @@
 }
 
 :root {
-  /* Colors */
-  --color-background: #fff4ec;
-  --color-txt: #45312e;
-  --color-btn: #f27d88;
+  --color-background: #fffffa;
+  --color-txt: #333138;
+  --color-btn: #d83c56;
   --color-btn-hover: #fa9da6;
-  --color-action-btn: #ff3264;
-  --color-action-btn-hover: #ff668c;
-  --color-header-footer: #ff9671;
+  --color-btn-disabled: #fa9da6;
+  --color-search-btn: #d90429;
+  --color-search-btn-hover: #fa7885;
+  --color-action-btn: #d90429;
+  --color-action-btn-hover: #fa7885;
+  --color-action-btn-active: #f55262;
+  --color-header-footer: #333138;
   --color-white: #fff;
   --color-black: #000;
   --color-beige: #f3dedb;
   --color-transparent: transparent;
-  --color-grey: #6e6c6c;
+  --color-grey: #ffffff8c;
+  --color-icon-gray: #747171;
   --color-btn-nofavorites: #f0463a;
+  --color-btn-nofavorites-hover: #ea726a;
+  --color-btn-nofavorites-active: #ee554a;
 }
 
 main {
@@ -71,6 +78,14 @@ html {
   html {
     /*600px*/
     font-size: 70%;
+  }
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 22.5em) {
+  html {
+    /*360*/
+    font-size: 60%;
   }
 }
 

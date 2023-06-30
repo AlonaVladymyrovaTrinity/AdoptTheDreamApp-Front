@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useReducer, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useMemo,
+  useContext,
+} from 'react';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import ProfileImg from '../../images/Profile.png';
+import moment from 'moment';
+import { format } from 'date-fns';
 
 import {
   MDBCol,
@@ -22,14 +30,16 @@ import {
   MDBTypography,
 } from 'mdb-react-ui-kit';
 import style from './Profile.module.css';
+import AuthContext from '../../context/auth-context';
 
 const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
-  const [logout, setLogout] = useState(false);
+  const [logoutResponse, setLogoutResponse] = useState(false);
   const navigate = useNavigate();
 
+  const { logout, dispatch: dispatchLogout } = useContext(AuthContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,22 +51,28 @@ const Profile = () => {
     fetchData();
   }, []);
 
-  const handleLogout = () => {
-    dispatch({ type: 'LOGOUT_SUCCESS' });
-    if (logout === true) {
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
+    try {
+      await logout(dispatchLogout);
+    } catch (error) {
+      setErrorMessage('Error logging out');
+    }
+    if (logoutResponse === true) {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/');
       }, 1000);
     } else {
-      setSuccessMessage('');
       setErrorMessage('Logout unsuccessful. Try again');
     }
   };
 
   useEffect(() => {
     if (state.isAuthenticated === false) {
-      setLogout(true);
+      setLogoutResponse(true);
     }
   }, [state.isAuthenticated]);
 
@@ -179,9 +195,23 @@ const Profile = () => {
                             {/*User Joined On Date */}
                             <MDBCol size="6" className="mb-5">
                               <MDBTypography tag="h6">Joined On:</MDBTypography>
-                              <MDBCardText className="text-muted">
-                                {String(user.createdAt)}
-                              </MDBCardText>
+                              {user.createdAt !== undefined ? (
+                                <MDBCardText className="text-muted">
+                                  {String(
+                                    format(
+                                      new Date(user.createdAt),
+                                      'MM/dd/yyyy HH:mm'
+                                    ) +
+                                      ' (' +
+                                      moment(user.createdAt).fromNow() +
+                                      ')'
+                                  )}
+                                </MDBCardText>
+                              ) : (
+                                <MDBCardText className="text-muted">
+                                  Loading...
+                                </MDBCardText>
+                              )}
                             </MDBCol>
                           </section>
                           {/* -------------------------*/}

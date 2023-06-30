@@ -1,14 +1,13 @@
 import React from 'react';
 import style from './FavoriteCheckbox.module.css';
 
-const FavoriteCheckbox = ({ isChecked, setIsChecked }) => {
+const FavoriteCheckbox = ({ isChecked, onToggleCheckbox }) => {
+
   const handleCheckboxClick = (event) => {
     event.stopPropagation();
-
-    setIsChecked(!isChecked);
-
-    console.log('checkbox inside card click');
+    onToggleCheckbox();
   };
+
   return (
     <div className={style['con-like']}>
       <input
@@ -20,7 +19,6 @@ const FavoriteCheckbox = ({ isChecked, setIsChecked }) => {
       />
       <div className={style.checkmark}>
         {/* --------------------------------- */}
-
         <svg
           viewBox="0 0 24 24"
           className={style.outline}

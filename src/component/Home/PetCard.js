@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-// import whiteCat from '../../images/whiteCat.jpg';
-import contactPage from '../../images/contactPage.jpg';
+import cartoonCat from '../../images/cartoonCat.jpg';
+import cartoonDog from '../../images/cartoonDog.jpg';
 import { Link } from 'react-router-dom';
 import FavoriteCheckbox from '../layout/FavoriteCheckbox/FavoriteCheckbox';
+import AuthContext from '../../context/auth-context';
 
-const PetCard = () => {
-  const [isChecked, setIsChecked] = useState(false);
+const PetCard = ({ pet, isFavorite, onToggleFavoriteState }) => {
+  const { userId } = useContext(AuthContext);
+  const [isFavoriteHidden, setIsFavoriteHidden] = useState(true)
+  
+  const handleToggle = () => {
+    onToggleFavoriteState(pet._id);
+  }
+    
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    if (authenticated) {
+      setIsFavoriteHidden(false);
+    }
+  }, [userId])
+
 
   return (
     <div className="petCard_wrapper ps-1 pe-1">
@@ -16,16 +30,17 @@ const PetCard = () => {
           style={{ width: '19rem' }}
         >
           <div className="link_and_checkbox">
-            <div className="position-absolute top-0 end-0 mt-1 me-1">
-              <FavoriteCheckbox
-                isChecked={isChecked}
-                setIsChecked={setIsChecked}
-              />
-            </div>
-
+            {!isFavoriteHidden && (
+              <div className="position-absolute top-0 end-0 mt-1 me-1">
+                <FavoriteCheckbox
+                  isChecked={isFavorite}
+                  onToggleCheckbox={handleToggle}
+                />
+              </div>
+            )}
             <Link
               className="card-block stretched-link text-decoration-none"
-              to="/pet/cat`"
+              to={`/pet/${pet._id}`}
             >
               <Card.Img
                 variant="top"
@@ -35,13 +50,29 @@ const PetCard = () => {
                   objectFit: 'cover',
                   borderRadius: '20px',
                 }}
-                src={contactPage}
-                // src={whiteCat}
-                // alt="white cat"
+                src={
+                  pet.image.length === 0 && pet.petType === 'Cat'
+                    ? cartoonCat
+                    : pet.image.length === 0 && pet.petType === 'Dog'
+                    ? cartoonDog
+                    : pet.image[0].medium
+                }
+                alt={pet.petName}
               />
               <Card.Body style={{ color: 'var(--color-txt)' }}>
-                <Card.Title>Name</Card.Title>
-                <Card.Text>Gender Age Color Breed</Card.Text>
+                <Card.Title>{pet.petName}</Card.Title>
+                <Card.Text>
+                  <span className="fw-bold">Gender:</span> {pet.gender} •{' '}
+                  <span className="fw-bold">Age:</span>{' '}
+                  {pet.petType === 'Cat' && pet.age === 'Baby'
+                    ? 'Kitten'
+                    : pet.petType === 'Dog' && pet.age === 'Baby'
+                    ? 'Puppy'
+                    : pet.age}{' '}
+                  • <span className="fw-bold">Color:</span> {pet.color} •{' '}
+                  <span className="fw-bold">Size:</span> {pet.size} •{' '}
+                  <span className="fw-bold">Breed:</span> {pet.breed}
+                </Card.Text>
               </Card.Body>
             </Link>
           </div>

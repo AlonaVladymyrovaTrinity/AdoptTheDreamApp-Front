@@ -19,18 +19,35 @@
   background-color: var(--color-white);
   color: var(--color-action-btn);
 }
-.color-btn-edit-prof:hover {
+.color-btn-edit-prof:hover,
+.color-btn-edit-prof:focus {
   background-color: var(--color-white);
   color: var(--color-action-btn-hover);
 }
+.color-btn-edit-prof:active,
+.color-btn-edit-prof:visited {
+  transform: scale(0.98);
+  background-color: var(--color-white);
+  color: var(--color-action-btn-hover);
+}
+
 .color-btn {
   background-color: var(--color-btn);
   color: var(--color-white);
 }
-.color-btn:hover {
+.color-btn:hover,
+.color-btn:focus {
   background-color: var(--color-btn-hover);
   color: var(--color-white);
 }
+
+.color-btn:active,
+.color-btn:visited {
+  transform: scale(0.98);
+  background-color: var(--color-btn-hover) !important;
+  color: var(--color-white) !important;
+}
+
 .bnt-shape {
   border-radius: 50%;
 }

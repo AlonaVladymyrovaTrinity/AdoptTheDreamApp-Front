@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,8 +8,13 @@ import { TbSearch } from 'react-icons/tb';
 import { TbCat } from 'react-icons/tb';
 import { TbDog } from 'react-icons/tb';
 import style from './Header.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import AuthContext from '../../../context/auth-context';
 
 const Header = () => {
+  const { userName } = useContext(AuthContext);
   return (
     <Navbar
       collapseOnSelect
@@ -50,8 +55,8 @@ const Header = () => {
             <Form className="d-flex width-150 align-items-center">
               <Form.Control
                 type="text"
-                // placeholder="Search"
-                // className="me-2"
+                placeholder="Search"
+                //className="me-2"
                 aria-label="Search"
                 style={{
                   height: 33,
@@ -64,18 +69,18 @@ const Header = () => {
               <Button
                 className={style.searchButton}
                 variant="outline-default"
-                style={{
-                  border: 2,
-                  cursor: 'pointer',
-                  textAlign: 'center',
-                  borderRadius: 50,
-                  backgroundColor: 'var(--color-btn)',
-                  position: 'relative',
-                  right: 31,
-                  paddingTop: 1,
-                  paddingBottom: 4,
-                  paddingInline: 5,
-                }}
+                // style={{
+                //   border: 2,
+                //   cursor: 'pointer',
+                //   textAlign: 'center',
+                //   borderRadius: 50,
+                //   backgroundColor: 'var(--color-search-btn)',
+                //   position: 'relative',
+                //   right: 31,
+                //   paddingTop: 1,
+                //   paddingBottom: 4,
+                //   paddingInline: 5,
+                // }}
                 onClick={() => {
                   alert('search');
                 }}
@@ -85,12 +90,43 @@ const Header = () => {
                   className="mb-0.6 color-var(--color-black)"
                 />
               </Button>
+              {userName ? (
+                <Nav>
+                  <Nav.Link
+                    href="/favorites"
+                    className={style.navLinkHeader}
+                    title="Favorites"
+                    aria-label="Favorites"
+                  >
+                    <FontAwesomeIcon icon={faHeart} />
+                    <span className="sr-only">Favorites</span>
+                  </Nav.Link>
+                </Nav>
+              ) : null}
             </Form>
           </div>
           <Nav>
-            <Nav.Link className={style.navLinkLogInHeader} href="/login">
-              LogIn
-            </Nav.Link>
+            {userName ? (
+              <Nav.Link
+                href="/account"
+                title={`${userName}'s profile`}
+                aria-label={`${userName}'s profile`}
+                className={style.navLinkHeader}
+              >
+                <FontAwesomeIcon icon={faUser} />
+                <span className="sr-only">User profile</span>
+              </Nav.Link>
+            ) : null}
+            {!userName ? (
+              <Nav.Link
+                className={style.navLinkLogInHeader}
+                href="/login"
+                title="Login"
+                aria-label={`Login`}
+              >
+                LogIn
+              </Nav.Link>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
       </Container>

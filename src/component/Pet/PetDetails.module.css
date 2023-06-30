@@ -1,10 +1,49 @@
 .favoriteButton {
   background-color: var(--color-btn);
-  color: white;
+  color: var(--color-white);
   border: none;
 }
 
-.frame {
+.favoriteButton:hover {
+  background-color: var(--color-btn-hover);
+}
+
+.favoriteButton:active {
+  background-color: var(--color-action-btn-hover) !important;
+  outline: none;
+}
+
+.adoptButton {
+  background-color: var(--color-btn);
+  color: var(--color-white);
+  border: none;
+}
+
+.adoptButton:hover {
+  background-color: var(--color-btn-hover);
+}
+
+.adoptButton:active {
+  background-color: var(--color-action-btn-hover) !important;
+  outline: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: normal;
+  align-items: center;
+}
+
+.buttonSpacing {
+  margin: 7px;
+}
+
+.frame-border {
   border: 5px solid pink;
-  padding: 2rem;
+}
+.frame-body {
+  padding: 1rem 2rem 2rem 2rem;
+}
+.back-button {
+  margin-left: 1.2rem;
 }

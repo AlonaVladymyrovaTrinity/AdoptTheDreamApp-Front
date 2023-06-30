@@ -1,38 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useReducer, useMemo, useContext } from 'react';
+import { useParams } from 'react-router';
 import { Carousel, Button } from 'react-bootstrap';
+import Loader from '../layout/Loader/Loader';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import style from './PetDetails.module.css';
-const data = {
-  id: 1233356,
-  breed: 'Siamesse',
-  images: [
-    {
-      image: require('../../images/pexels-evg-kowalievska-1170986.jpg'),
-      caption: 'Caption1',
-      description: 'Description Here',
-    },
-    {
-      image: require('../../images/pexels-mustafa-ezz-691583.jpg'),
-      caption: 'Caption2',
-      description: 'Description Here',
-    },
-    {
-      image: require('../../images/pexels-xue-guangjian-1687831.jpg'),
-      caption: 'Caption3',
-      description: 'Description Here',
-    },
-  ],
-};
+import { initialState, petReducer } from '../../reducers/petReducer';
+import { getPet, addPetToFavoritesOnPetDetails, removePetFromFavoritesOnPetDetails, getSinglePetIsFavoriteStatus } from '../../actions/petAction';
+import Alert from 'react-bootstrap/Alert';
+import cartoonCat from '../../images/cartoonCat.jpg';
+import cartoonDog from '../../images/cartoonDog.jpg';
+import { useNavigate } from 'react-router-dom';
+import StyledBackButton from '../layout/BackButton/StyledBackButton';
+import Cookies from 'js-cookie';
+import AuthContext from '../../context/auth-context'
 
-const PetDetails = () => {
-  const [isFavorite, setIsFavorite] = useState(false);
+const PetDetails = ({ pet }) => {
   const [index, setIndex] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [state, dispatch] = useReducer(petReducer, initialState);
+  let { id } = useParams();
+  const petDetails = useMemo(() => state.pet || null, [state.pet]);
+  const isFavorite = useMemo(() => state.isFavorite || false, [state.isFavorite]);
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { userId } = useContext(AuthContext);
 
-  const handleAddToFavorites = () => {
-    setIsFavorite(true);
+  useEffect(() => {
+    const authenticated = userId ? true : false;
+    setIsAuthenticated(authenticated);
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchPetData = async () => {
+      await getPet(id, setErrorMessage, dispatch);
+      if (isAuthenticated) {
+        await getSinglePetIsFavoriteStatus(id, dispatch);
+      }
+    };
+    fetchPetData();
+  }, [id, isAuthenticated]);
+
+  const goodWith = useMemo(() => {
+    if (!state.pet) return '';
+    return Object.entries(state.pet.goodWith)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => key)
+      .join(', ');
+  }, [state.pet]);
+
+  const careAndBehaviour = useMemo(() => {
+    if (!state.pet) return '';
+    return Object.entries(state.pet.careAndBehaviour)
+      .filter(([_, value]) => (value))
+      .map(([key, _]) => key.replace(/_/g, ''))
+      .join(", ")
+  }, [state.pet]);
+
+  const toggleAddToFavorites = () => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    } else {
+      if (!isFavorite) {
+        addPetToFavoritesOnPetDetails(petDetails._id, dispatch)
+      } else {
+        removePetFromFavoritesOnPetDetails(petDetails._id, dispatch)
+      }
+    }
+  };
+
+  const handleAdopt = () => {
+    Cookies.set('PetID', petDetails._id);
+    Cookies.set('PetType', petDetails.petType);
+    Cookies.set('PetName', petDetails.petName);
+    navigate('/application/confirm');
   };
 
   const handleSelect = (selectedIndex, e) => {
@@ -69,7 +112,7 @@ const PetDetails = () => {
         style={{ marginRight: 'auto', marginTop: '4rem' }}
       >
         <div className={style['frame']}>
-          <h1 className={'sr-only'}>Animal Details</h1>
+          <h1 className={style['sr-only']}>Animal Details</h1>
           <p>Name: Whiskers</p>
           <p>ID: {data.id}</p>
           <p>{data.breed}</p>
