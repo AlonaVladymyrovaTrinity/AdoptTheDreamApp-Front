@@ -17,21 +17,32 @@ function Donate() {
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleAmountChange = (value) => {
-    console.log('value: ' + value);
+    console.log('value 1: ' + value);
     if (
       value === null ||
       value === '' ||
-      value.length === 0 ||
+      // value.length === 0 ||
       value === '0' ||
       value === '0.' ||
       value === '0.0' ||
       value === '0.00' ||
       value === undefined ||
-      value === isNaN
+      value === isNaN ||
+      parseFloat(value) < 1
     ) {
-      setErrorMessage('Please enter a number equal or greater than $1.00');
+      console.log('value 2:' + value);
+      setCustomAmount('');
+      console.log('customAmount :' + customAmount);
+      setErrorMessage('');
+      setErrorMessage('Please enter an amount of $1.00 or more!');
+    } else if (value >= 1000000) {
+      setCustomAmount('');
+      setErrorMessage('');
+      setErrorMessage('Please enter an amount below $1,000,000.00!');
     } else {
+      console.log('value 3!!!! :' + value);
       setCustomAmount(value);
+      setErrorMessage('');
     }
   };
 
@@ -51,12 +62,15 @@ function Donate() {
     );
     console.log('amountInCents: ' + amountInCents);
 
-    if (amountInCents >= 100) {
+    if (amountInCents < 100) {
+      setErrorMessage('');
+      setErrorMessage('Please enter an amount of $1.00 or more');
+    } else if (amountInCents >= 100000000) {
+      setErrorMessage('');
+      setErrorMessage('Please enter an amount below $1,000,000.00');
+    } else {
       setDonation(amountInCents);
       setDonationSelected(true);
-    } else {
-      setErrorMessage('');
-      setErrorMessage('Please enter a number equal or greater than $1.00');
     }
   };
   // const handleAmountChange = (e) => {
@@ -154,8 +168,8 @@ function Donate() {
                     className={style.amountSubmitForm}
                     onSubmit={handleSubmit}
                   >
-                    <div className={style['custom-amount']}>
-                      {/* <InputWithIcon
+                    {/* <div className={style['custom-amount']}>
+                     <InputWithIcon
                         type={'text'}
                         placeholder="10.00"
                         required
@@ -163,27 +177,33 @@ function Donate() {
                         handleChange={(e) => setCustomAmount(e.target.value)} //handleAmountChange}
                       >
                         <FontAwesomeIcon icon={faDollarSign} />
-                      </InputWithIcon> */}
-                      <div>
-                        <CurrencyInputField
-                          prefix="$"
-                          placeholder="$1.00"
-                          decimalSeparator="."
-                          groupSeparator=","
-                          value={customAmount}
-                          onValueChange={(value) => handleAmountChange(value)}
-                        />
-                      </div>
-
-                      <Button
-                        className={`btn ${style['selectAmount-btn']}`}
-                        type="submit"
-                        variant="btn-primary"
-                        size="btn-lg"
-                      >
-                        Donate
-                      </Button>
+                      </InputWithIcon>
+                    </div>*/}
+                    <div className={style['custom-amount']}>
+                      <CurrencyInputField
+                        prefix="$"
+                        placeholder="$1.00"
+                        decimalSeparator="."
+                        groupSeparator=","
+                        value={customAmount}
+                        onValueChange={(value) => handleAmountChange(value)}
+                        allowNegativeValue={false}
+                        thousandSeparator={true}
+                        decimalScale={2} // The number of digits after the decimal point is limited to 2
+                        maxLength={10} // The maximum number of characters is limited to prevent excessive input
+                        autoComplete="off" // auto-completion disabled
+                      />
                     </div>
+
+                    <Button
+                      className={`btn ${style['selectAmount-btn']}`}
+                      type="submit"
+                      variant="btn-primary"
+                      size="btn-lg"
+                    >
+                      Donate
+                    </Button>
+
                     {/* <CurrencyFormat
                       value={customAmount}
                       displayType={'input'}

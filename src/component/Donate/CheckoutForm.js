@@ -6,7 +6,7 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import style from './CheckoutForm.module.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm({ donation, customAmount }) {
   const stripe = useStripe();
@@ -15,7 +15,7 @@ export default function CheckoutForm({ donation, customAmount }) {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -64,7 +64,7 @@ export default function CheckoutForm({ donation, customAmount }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: window.location.origin, //`${window.location.origin}/success`,
+        return_url: `${window.location.origin}/donation/success`, //`${window.location.origin}/success`,
       },
     });
 
@@ -81,10 +81,10 @@ export default function CheckoutForm({ donation, customAmount }) {
 
     setIsLoading(false);
 
-    if (!error) {
-      // Redirect to the home page
-      navigate('/');
-    }
+    //   if (!error) {
+    //     // Redirect to the home page
+    //     navigate('/');
+    //   }
   };
 
   const paymentElementOptions = {

@@ -62,6 +62,8 @@ body {
   box-shadow: 0 0.125rem 0.313rem var(--color-grey);
   color: var(--color-white);
   cursor: pointer;
+  border: none;
+  outline: none !important;
 }
 
 .donation-btn:active,
@@ -69,11 +71,14 @@ body {
   background-color: var(--color-action-btn-active) !important;
   color: var(--color-white) !important;
   box-shadow: 0 0.125rem 0.313rem var(--color-grey);
+  border: none;
+  outline: none !important;
 }
 
 .donation-btn:disabled {
   opacity: 0.5;
   cursor: default;
+  outline: none !important;
 }
 
 /* button {
