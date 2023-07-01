@@ -1,21 +1,43 @@
 .confirmApplicationSubmitBtn button {
-  background-color: var(--color-action-btn);
-  /* border: 3px solid var(--color-btn-border); */
+  background-color: var(--color-btn);
   border-radius: 18px;
   border: none;
   padding: 0.65rem;
   box-shadow: 0 2px 5px var(--color-gray);
 }
 .confirmApplicationSubmitBtn button:hover {
-  background-color: var(--color-action-btn-hover);
+  background-color: var(--color-btn-hover);
   box-shadow: 0 2px 5px var(--color-gray);
 }
 .confirmApplicationSubmitBtn button:active {
-  background-color: var(--color-action-btn-hover) !important;
+  background-color: var(--color-btn-hover) !important;
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px var(--color-gray);
+}
+.confirmApplicationSubmitBtn button:disabled {
+  background-color: var(--color-btn-disabled) !important;
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-gray);
 }
 .currentDate h5 {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+.confirmApplicationModalCloseBtn button {
+  background-color: var(--color-btn);
+  border-radius: 18px;
+  border: none;
+  padding: 0.65rem;
+  box-shadow: 0 2px 5px var(--color-gray);
+}
+.confirmApplicationModalCloseBtn button:hover,
+.confirmApplicationModalCloseBtn button:focus {
+  background-color: var(--color-btn-hover);
+  box-shadow: 0 2px 5px var(--color-gray);
+}
+.confirmApplicationModalCloseBtn button:active,
+.confirmApplicationModalCloseBtn button:visited {
+  background-color: var(--color-btn-hover) !important;
+  transform: scale(0.98);
+  box-shadow: 0 2px 5px var(--color-gray);
 }
