@@ -4,6 +4,8 @@ import cartoonDog from '../../images/cartoonDog.jpg';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import style from './FavoritePets.module.css';
+import { BiHomeHeart } from 'react-icons/bi';
+
 const FavoritePetCard = ({ pet, onRemove }) => {
   const navigate = useNavigate();
 
@@ -56,18 +58,21 @@ const FavoritePetCard = ({ pet, onRemove }) => {
                   : pet.age}{' '}
               <div className="d-flex justify-content-center">
                 <Button
-                  variant="danger"
                   onClick={() => handleAdopt(pet)}
-                  className={style['button-favorite']}
-                  style={{ marginRight: '10px', marginTop:"15px" }}
+                  className={`btn ${style.buttonFavorite}`}
+                  variant="btn-primary"
+                  size="btn-lg"
                 >
-                  Adopt
+                  <span>
+                    <BiHomeHeart size="1.5rem" className="pb-1 " />{' '}
+                    Adopt
+                  </span>
                 </Button>
                 <Button
-                  variant="danger"
                   onClick={() => handleRemove(pet)}
-                  className={style['button-favorite-remove']}
-                  style={{ marginRight: '10px', marginTop:"15px" }}
+                  className={`btn ${style.buttonFavoriteRemove}`}
+                  variant="btn-primary"
+                  size="btn-lg"
                 >
                   Remove
                 </Button>

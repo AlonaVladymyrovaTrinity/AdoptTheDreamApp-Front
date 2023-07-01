@@ -1,41 +1,57 @@
-.button-favorite {
+.buttonFavorite{
   background-color: var(--color-action-btn);
   color: var(--color-white);
   border: none;
+  margin-right: 10px;
+  margin-top: 15px;
 }
 
-.button-favorite-remove {
+.buttonFavorite:hover,
+.buttonFavorite:focus {
+  background-color: var(--color-btn-hover);
+  color: var(--color-white);
+}
+
+.buttonFavorite:active,
+.buttonFavorite:visited {
+  background-color: var(--color-btn-active) !important;
+  transform: scale(0.98);
+  color: var(--color-white) !important;
+}
+
+.buttonFavoriteRemove {
   background-color: var(--color-btn);
   color: var(--color-white);
   border: none;
+  margin-right: 10px;
+  margin-top: 15px;
 }
 
-.button-favorite:hover {
-  background-color: var(--color-action-btn);
+.buttonFavoriteRemove:hover,
+.buttonFavoriteRemove:focus {
+  background-color: var(--color-btn-hover);
   color: var(--color-white);
 }
 
-.button-favorite-remove:hover {
-  background-color: var(--color-btn);
-  color: var(--color-white);
+.buttonFavoriteRemove:active,
+.buttonFavoriteRemove:visited {
+  background-color: var(--color-action-btn-active) !important;
+  outline: none;
+  color: var(--color-white) !important;
+  transform: scale(0.98);
 }
 
-.custom-pagination-item > a {
+.custom-pagination-item>a {
   background-color: var(--color-action-btn) !important;
   color: var(--color-white);
   border: none;
 }
 
-.custom-pagination-item > a:hover {
+.custom-pagination-item>a:hover {
   color: var(--color-white);
 }
-.custom-pagination-item > span {
+
+.custom-pagination-item>span {
   background-color: var(--color-btn) !important;
   border: none;
 }
-
-/* .custom-pagination-item:hover {
-  /* background-color: var(--color-btn) !important; */
-  /* color: var(--color-white); 
-} */
-

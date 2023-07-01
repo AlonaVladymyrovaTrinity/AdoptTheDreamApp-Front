@@ -1,7 +1,5 @@
 .home_header {
   position: absolute;
-  /* position: fixed; */
-  /* position: static; */
   top: 0;
   width: auto;
   justify-content: center;
@@ -38,9 +36,6 @@ video {
   font-weight: 300;
 }
 .cardsContainer {
-  /* margin-left: 6rem; */
-  /* margin-top: 2rem;
-  margin-inline: 5rem; */
   padding: 5% 0;
 }
 .grid_item {
@@ -56,24 +51,21 @@ video {
 }
 .find_pet_button button {
   background-color: var(--color-action-btn);
-  /* border: 3px solid var(--color-btn-border); */
   border-radius: 18px;
   border: none;
   padding: 0.65rem;
   box-shadow: 0 2px 5px var(--color-gray);
 }
-.find_pet_button button:hover {
+.find_pet_button button:hover,
+.find_pet_button button:focus {
   background-color: var(--color-action-btn-hover);
   box-shadow: 0 2px 5px var(--color-gray);
 }
-.find_pet_button button:active {
+.find_pet_button button:active,
+.find_pet_button button:visited {
   background-color: var(--color-action-btn-hover) !important;
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-gray);
-}
-.find_pet_button button:active {
-  background-color: var(--color-action-btn-hover) !important;
-  transform: scale(0.98);
 }
 .custom-pagination-item > a {
   background-color: var(--color-action-btn) !important;
