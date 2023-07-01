@@ -5,9 +5,9 @@ import imgPageNotFound from '../../../images/giphy.gif';
 function PageNotFound() {
   return (
     <>
-      <h1 className={style['not-found-header']}>Success!</h1>
-      <div className={style['not-found-page-container']}>
-        <div className={style['not-found-wrapper']}>
+      <h1 className={style['donation-success-header']}>Success!</h1>
+      <div className={style['donation-success-page-container']}>
+        <div className={style['donation-success-wrapper']}>
           <div className="card">
             <div className="card-body">
               {/* Renders a custom StyledBackButton component with a link to the home page, 
@@ -24,7 +24,7 @@ function PageNotFound() {
                   that the requested page could not be found. */}
               <h2>Thank you! Donation was made successfully!</h2>
               <img
-                className={style['img-page-not-found']}
+                className={style['img-page-donation-success']}
                 src={imgPageNotFound}
                 alt="Page not found"
               />

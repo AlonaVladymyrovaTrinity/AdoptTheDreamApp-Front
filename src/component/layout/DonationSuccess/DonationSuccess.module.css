@@ -1,13 +1,13 @@
-.not-found-body {
+.donation-success-body {
   background-color: var(--color-background);
 }
-.not-found-header {
+.donation-success-header {
   color: var(--color-txt);
   display: flex;
   justify-content: center;
 }
 
-.not-found-page-container {
+.donation-success-page-container {
   display: flex;
   /* Horizontal centering */
   justify-content: center;
@@ -15,7 +15,7 @@
   align-items: center;
 }
 
-.not-found-wrapper div {
+.donation-success-wrapper div {
   background-color: var(--color-beige);
   max-width: 37.5rem;
   border-radius: 0.938rem;
@@ -23,14 +23,14 @@
   margin: 1.25rem;
 }
 
-.not-found-wrapper h2 {
+.donation-success-wrapper h2 {
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.625rem;
   color: var(--color-txt);
 }
 
-.img-page-not-found {
+.img-page-donation-success {
   width: 100%;
   height: auto;
   object-fit: cover;
