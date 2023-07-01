@@ -63,7 +63,7 @@ const Profile = () => {
     if (logoutResponse === true) {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
-        navigate('/');
+        navigate('/login');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
@@ -163,6 +163,8 @@ const Profile = () => {
                                 className={`btn ${style['color-btn']} ${style['bnt-shape']} position-absolute top-0 end-0 mt-3 me-3`}
                                 variant="btn-primary"
                                 size="btn-lg"
+                                aria-label="LogOut button"
+                                title="LogOut"
                               >
                                 <span>
                                   <FontAwesomeIcon icon={faSignOut} />

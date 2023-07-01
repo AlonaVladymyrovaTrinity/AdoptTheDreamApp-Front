@@ -16,6 +16,7 @@
 }
 .confirmApplicationSubmitBtn button:disabled {
   background-color: var(--color-btn-disabled) !important;
+  cursor: default;
   transform: scale(0.98);
   box-shadow: 0 2px 5px var(--color-gray);
 }
