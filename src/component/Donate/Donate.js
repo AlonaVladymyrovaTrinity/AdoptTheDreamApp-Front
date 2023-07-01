@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import style from './Donate.module.css';
 import Button from 'react-bootstrap/Button';
 import DonateProcess from './DonateProcess';
-// import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Alert from 'react-bootstrap/Alert';
 import CurrencyInputField from 'react-currency-input-field';
-// import CurrencyFormat from 'react-currency-format';
 
 function Donate() {
   const [donation, setDonation] = useState('');
@@ -17,11 +15,9 @@ function Donate() {
   const [successMessage, setSuccessMessage] = useState('');
 
   const handleAmountChange = (value) => {
-    console.log('value 1: ' + value);
     if (
       value === null ||
       value === '' ||
-      // value.length === 0 ||
       value === '0' ||
       value === '0.' ||
       value === '0.0' ||
@@ -30,9 +26,7 @@ function Donate() {
       value === isNaN ||
       parseFloat(value) < 1
     ) {
-      console.log('value 2:' + value);
       setCustomAmount('');
-      console.log('customAmount :' + customAmount);
       setErrorMessage('');
       setErrorMessage('Please enter an amount of $1.00 or more!');
     } else if (value >= 1000000) {
@@ -40,7 +34,6 @@ function Donate() {
       setErrorMessage('');
       setErrorMessage('Please enter an amount below $1,000,000.00!');
     } else {
-      console.log('value 3!!!! :' + value);
       setCustomAmount(value);
       setErrorMessage('');
     }
@@ -57,10 +50,6 @@ function Donate() {
     const amountInCents = Math.round(
       parseFloat(customAmount.replace(',', '')) * 100
     );
-    console.log(
-      'amountInCents without Float' + customAmount.replace(',', '') * 100
-    );
-    console.log('amountInCents: ' + amountInCents);
 
     if (amountInCents < 100) {
       setErrorMessage('');
@@ -73,9 +62,6 @@ function Donate() {
       setDonationSelected(true);
     }
   };
-  // const handleAmountChange = (e) => {
-  //   setCustomAmount(e.target.value);
-  // };
   return (
     <>
       {donationSelected === true ? (
@@ -107,6 +93,7 @@ function Donate() {
               <div className="card">
                 <div className="card-body">
                   <h2>Secure donation</h2>
+                  <p>Select amount:</p>
                   <div className={style['first-container']}>
                     <Button
                       type="button"
@@ -164,35 +151,26 @@ function Donate() {
                       $50
                     </Button>
                   </div>
+                  <p>Or enter a custom amount:</p>
                   <form
                     className={style.amountSubmitForm}
                     onSubmit={handleSubmit}
                   >
-                    {/* <div className={style['custom-amount']}>
-                     <InputWithIcon
-                        type={'text'}
-                        placeholder="10.00"
-                        required
-                        value={customAmount}
-                        handleChange={(e) => setCustomAmount(e.target.value)} //handleAmountChange}
-                      >
-                        <FontAwesomeIcon icon={faDollarSign} />
-                      </InputWithIcon>
-                    </div>*/}
                     <div className={style['custom-amount']}>
                       <CurrencyInputField
-                        prefix="$"
-                        placeholder="$1.00"
+                        // prefix="$"
+                        placeholder="1.00"
                         decimalSeparator="."
                         groupSeparator=","
                         value={customAmount}
                         onValueChange={(value) => handleAmountChange(value)}
                         allowNegativeValue={false}
-                        thousandSeparator={true}
+                        // thousandSeparator={true}
                         decimalScale={2} // The number of digits after the decimal point is limited to 2
                         maxLength={10} // The maximum number of characters is limited to prevent excessive input
                         autoComplete="off" // auto-completion disabled
                       />
+                      <FontAwesomeIcon icon={faDollarSign} />
                     </div>
 
                     <Button
@@ -203,17 +181,6 @@ function Donate() {
                     >
                       Donate
                     </Button>
-
-                    {/* <CurrencyFormat
-                      value={customAmount}
-                      displayType={'input'}
-                      thousandSeparator={true}
-                      prefix={'$'}
-                      decimalScale={2}
-                      onValueChange={(values) => {
-                        setCustomAmount(values.value);
-                      }}
-                    /> */}
                   </form>
                 </div>
               </div>
@@ -225,5 +192,4 @@ function Donate() {
   );
 }
 
-// {/* {donationSelected && <DonateProcess donation={donation} />} */}
 export default Donate;
