@@ -4,36 +4,55 @@
   border: none;
 }
 
-.favoriteButton:hover
+.favoriteButton:hover,
 .favoriteButton:focus {
-  background-color: var(--color-btn-hover)!important;
+  background-color: var(--color-btn-hover);
   color: var(--color-white);
 }
 
 .favoriteButton:active,
 .favoriteButton:visited {
-  transform: scale(0.98);
-  background-color: var(--color-btn-hover) !important;
+  background-color: var(--color-btn-active) !important;
+  outline: none;
   color: var(--color-white) !important;
+  transform: scale(0.98);
+}
+
+.favorite {
+  background-color: var(--color-action-btn);
+  color: var(--color-white);
+  border: none;
+}
+.favorite:hover,
+.favorite:focus {
+  background-color: var(--color-action-btn-hover);
+  color: var(--color-white);
+}
+.favorite:active,
+.favorite:visited {
+  background-color: var(--color-action-btn-active) !important;
+  outline: none;
+  color: var(--color-white) !important;
+  transform: scale(0.98);
 }
 
 .adoptButton {
-  background-color: var(--color-btn);
+  background-color: var(--color-action-btn);
   color: var(--color-white);
   border: none;
 }
 
-.adoptButton:hover
+.adoptButton:hover,
 .adoptButton:focus {
-  background-color: var(--color-btn-hover)!important;
-  color: var(--color-white)!important;
+  background-color: var(--color-action-btn-hover);
+  color: var(--color-white);
 }
 
-.adoptButton:active
+.adoptButton:active,
 .adoptButton:visited {
-  background-color: var(--color-action-btn-hover) !important;
-  color: var(--color-white) !important;
+  background-color: var(--color-action-btn-active) !important;
   outline: none;
+  color: var(--color-white) !important;
   transform: scale(0.98);
 }
 
