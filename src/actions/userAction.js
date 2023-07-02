@@ -185,3 +185,28 @@ export const updateUserPassword = async (
     );
   }
 };
+
+// Forgot Password
+export const forgotPassword = async (email, setErrorMessage, dispatch) => {
+  try {
+    dispatch({ type: 'FORGOT_PASSWORD_REQUEST' });
+
+    const { data } = await axios.post(`/api/v1/password/forgot`, email, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    dispatch({ type: 'FORGOT_PASSWORD_SUCCESS', payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: 'FORGOT_PASSWORD_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+    // Error handling: showing an error message
+    console.error('Error:', error);
+    setErrorMessage(
+      'An error occurred during forgot password request. Please try again.'
+    );
+  }
+};

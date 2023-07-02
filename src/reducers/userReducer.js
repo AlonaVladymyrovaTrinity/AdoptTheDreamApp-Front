@@ -109,3 +109,30 @@ export const updatePasswordReducer = (state, action) => {
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
+
+export const forgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'FORGOT_PASSWORD_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case 'FORGOT_PASSWORD_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        response: action.payload,
+      };
+
+    case 'FORGOT_PASSWORD_FAIL':
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
