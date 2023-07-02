@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './Donate.module.css';
 import Button from 'react-bootstrap/Button';
-// import DonateProcess from './DonateProcess';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import Alert from 'react-bootstrap/Alert';
@@ -9,6 +8,7 @@ import CurrencyInputField from 'react-currency-input-field';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 import sadCat from '../../images/sadCat.jpg';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Donate() {
   const [donation, setDonation] = useState('');
@@ -17,6 +17,7 @@ function Donate() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+
   const handleAmountChange = (value) => {
     if (
       value === null ||
@@ -67,16 +68,14 @@ function Donate() {
   };
   useEffect(() => {
     if (donationSelected === true) {
-      navigate(`/process/donate/${donation}/${customAmount}`);
+      Cookies.set('donation', donation);
+      Cookies.set('customAmount', customAmount);
+      navigate(`/process/donate`);
     }
   }, [navigate, donationSelected, donation, customAmount]);
 
   return (
     <>
-      {/* {donationSelected === true ? (
-         <DonateProcess donation={donation} customAmount={customAmount} />
-       ) : (
-         <> */}
       {successMessage && (
         <Alert
           variant="success"
@@ -224,9 +223,6 @@ function Donate() {
           </div>
         </div>
       </div>
-      {/* </>
-      )
-    } */}
     </>
   );
 }

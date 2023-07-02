@@ -6,19 +6,23 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import style from './CheckoutForm.module.css';
+import StyledBackButton from '../layout/BackButton/StyledBackButton';
 
-export default function CheckoutForm({ donation, customAmount }) {
+export default function CheckoutForm({ customAmount }) {
   const stripe = useStripe();
   const elements = useElements();
 
   // const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStripeLoaded, setIsStripeLoaded] = useState(false);
 
   useEffect(() => {
     if (!stripe) {
       return;
     }
+    // Stripe.js has loaded
+    setIsStripeLoaded(true);
 
     const clientSecret = new URLSearchParams(window.location.search).get(
       'payment_intent_client_secret'
@@ -50,9 +54,8 @@ export default function CheckoutForm({ donation, customAmount }) {
     e.preventDefault();
     // console.log(email);
 
-    if (!stripe || !elements) {
+    if (!isStripeLoaded || !stripe || !elements) {
       // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -78,11 +81,6 @@ export default function CheckoutForm({ donation, customAmount }) {
     }
 
     setIsLoading(false);
-
-    //   if (!error) {
-    //     // Redirect to the home page
-    //     navigate('/');
-    //   }
   };
 
   const paymentElementOptions = {
@@ -95,6 +93,19 @@ export default function CheckoutForm({ donation, customAmount }) {
       onSubmit={handleSubmit}
       className={style.checkoutFormContainer}
     >
+      {' '}
+      {/* Renders a custom StyledBackButton component with a link to the home page, 
+    styled by default with a className "link-color" color, and text "Go to home page" 
+    which passed to the component as a child */}
+      <div className={style['back-button']}>
+        <StyledBackButton
+          linkName={'/donate'}
+          className={'link-color'}
+          children
+        >
+          <span>Go to previous page</span>
+        </StyledBackButton>
+      </div>
       <p>
         Your donation amount: <b>${customAmount}</b>
       </p>
@@ -104,7 +115,7 @@ export default function CheckoutForm({ donation, customAmount }) {
       /> */}
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button
-        disabled={isLoading || !stripe || !elements}
+        disabled={!isStripeLoaded || isLoading || !stripe || !elements}
         id="submit"
         className={style['donation-btn']}
       >
