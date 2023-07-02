@@ -1,15 +1,22 @@
 import style from './DonationSuccess.module.css';
 import StyledBackButton from '../BackButton/StyledBackButton';
-import imgPageNotFound from '../../../images/giphy.gif';
-
-function PageNotFound() {
+import catDogFeeding from '../../../images/catDogFeeding.jpeg';
+function DonationSuccess() {
   return (
     <>
       <h1 className={style['donation-success-header']}>Success!</h1>
-      <div className={style['donation-success-page-container']}>
+      <div className={style['donation-success-container']}>
         <div className={style['donation-success-wrapper']}>
-          <div className="card">
-            <div className="card-body">
+          <div className={style['card-body-img']}>
+            <img
+              className={style['img-page-donation-success']}
+              // src={imgPageNotFound}
+              src={catDogFeeding}
+              alt="cat and dog feeding"
+            />
+          </div>
+          <div className={style['card-body']}>
+            <div className={style['card-body-btn']}>
               {/* Renders a custom StyledBackButton component with a link to the home page, 
              styled by default with a className "link-color" color, and text "Go to home page" 
              which passed to the component as a child */}
@@ -20,14 +27,14 @@ function PageNotFound() {
               >
                 <span>Go to home page</span>
               </StyledBackButton>
-              {/* Header with error message "The requested page does not exist." and an image of a 404 Error to indicate 
+            </div>
+            {/* Header with error message "The requested page does not exist." and an image of a 404 Error to indicate 
                   that the requested page could not be found. */}
-              <h2>Thank you! Donation was made successfully!</h2>
-              <img
-                className={style['img-page-donation-success']}
-                src={imgPageNotFound}
-                alt="Page not found"
-              />
+            <h2 className={style['card-body-h2']}>
+              Thank you! <br /> Donation was made successfully!
+            </h2>
+
+            <div className={style['card-body-text']}>
               <p>
                 Thank you for your generous donation! Your contribution will
                 play a crucial role in helping us find loving homes for
@@ -61,4 +68,4 @@ function PageNotFound() {
   );
 }
 
-export default PageNotFound;
+export default DonationSuccess;
