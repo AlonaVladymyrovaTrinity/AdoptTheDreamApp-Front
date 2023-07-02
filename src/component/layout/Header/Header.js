@@ -109,10 +109,7 @@ const Header = () => {
                 <Nav.Link className={style.navLinkHeader} href="/pets">
                   Pets
                 </Nav.Link>
-                <Nav.Link
-                  className={style.navLinkHeader}
-                  href="/process/donate"
-                >
+                <Nav.Link className={style.navLinkHeader} href="/donate">
                   Donate
                 </Nav.Link>
                 <Nav.Link className={style.navLinkHeader} href="/contact">
