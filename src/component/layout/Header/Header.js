@@ -51,7 +51,7 @@ const Header = () => {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/login');
-        setSuccessMessage();
+        setSuccessMessage('');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
