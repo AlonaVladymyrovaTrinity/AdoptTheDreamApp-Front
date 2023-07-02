@@ -13,7 +13,6 @@
   align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 2rem;
   color: var(--color-txt);
   min-width: 80%;
