@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
   PaymentElement,
-  LinkAuthenticationElement,
+  // LinkAuthenticationElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
 import style from './CheckoutForm.module.css';
-// import { useNavigate } from 'react-router-dom';
 
 export default function CheckoutForm({ donation, customAmount }) {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState('');
+  // const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  // const navigate = useNavigate();
 
   useEffect(() => {
     if (!stripe) {
@@ -50,7 +48,7 @@ export default function CheckoutForm({ donation, customAmount }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
+    // console.log(email);
 
     if (!stripe || !elements) {
       // Stripe.js hasn't yet loaded.
@@ -64,7 +62,7 @@ export default function CheckoutForm({ donation, customAmount }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${window.location.origin}/donation/success`, //`${window.location.origin}/success`,
+        return_url: `${window.location.origin}/donation/success`,
       },
     });
 
@@ -97,11 +95,13 @@ export default function CheckoutForm({ donation, customAmount }) {
       onSubmit={handleSubmit}
       className={style.checkoutFormContainer}
     >
-      <p>Your donation amount: {donation + ' - ' + customAmount}</p>
-      <LinkAuthenticationElement
+      <p>
+        Your donation amount: <b>${customAmount}</b>
+      </p>
+      {/* <LinkAuthenticationElement
         id="link-authentication-element"
         onChange={(e) => setEmail(e.value)}
-      />
+      /> */}
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button
         disabled={isLoading || !stripe || !elements}

@@ -8,7 +8,6 @@ import Alert from 'react-bootstrap/Alert';
 import CurrencyInputField from 'react-currency-input-field';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 import sadCat from '../../images/sadCat.jpg';
-// import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Donate() {
@@ -68,9 +67,9 @@ function Donate() {
   };
   useEffect(() => {
     if (donationSelected === true) {
-      navigate('/process/donate');
+      navigate(`/process/donate/${donation}/${customAmount}`);
     }
-  }, [navigate, donationSelected]);
+  }, [navigate, donationSelected, donation, customAmount]);
 
   return (
     <>

@@ -106,7 +106,7 @@ function App() {
             }
           />
           <Route
-            path="/process/donate"
+            path="/process/donate/:donation/:customAmount"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <DonateProcess />

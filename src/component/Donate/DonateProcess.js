@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import style from './DonateProcess.module.css';
+import { useParams } from 'react-router-dom';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -11,7 +12,8 @@ const stripePromise = loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
 
-const DonateProcess = ({ donation, customAmount }) => {
+const DonateProcess = () => {
+  const { donation, customAmount } = useParams();
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
