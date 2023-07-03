@@ -1,41 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import style from './ForgotPassword.module.css';
 import Loader from '../layout/Loader/Loader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Button from 'react-bootstrap/Button';
 import InputWithIcon from '../layout/InputWithIcon/InputWithIcon';
+import { forgotPassword } from '../../actions/userAction';
+import {
+  forgotPasswordReducer,
+  initialState,
+} from '../../reducers/userReducer';
+import Alert from 'react-bootstrap/Alert';
 
 const ForgotPassword = () => {
-  //---server loading simulation---
-  const [loading, setLoading] = useState(true);
-  setTimeout(() => {
-    setLoading(false);
-  }, 1000);
-  //--------------------------------
-
+  const [state, dispatch] = useReducer(forgotPasswordReducer, initialState);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [email, setEmail] = useState('');
 
-  const forgotPasswordSubmit = (e) => {
+  const forgotPasswordSubmit = async (e) => {
     e.preventDefault();
-
     const myForm = new FormData();
 
     myForm.set('email', email);
-    //---temporary console output of Register Submit form. This data will be passed to beknd later---
-    console.log('Form Data');
-    for (let obj of myForm) {
-      console.log(obj);
+    if (email !== '') {
+      try {
+        await forgotPassword(myForm, setErrorMessage, dispatch);
+      } catch (error) {
+        setErrorMessage('Error during password reset');
+      }
+      setEmail('');
+    } else {
+      setErrorMessage('');
+      setErrorMessage('Please provide your email address');
     }
-    //-------------------------
   };
+
+  const { response, error } = state;
+
+  useEffect(() => {
+    console.log(error, response);
+    if (
+      ((response && response.length !== 0) || response !== undefined) &&
+      response.success === true
+    ) {
+      setSuccessMessage(response.message);
+    } else if (error || (response && response.success === false)) {
+      setErrorMessage('');
+      setErrorMessage(error && response.message);
+    }
+  }, [error, response]);
 
   return (
     <>
-      {loading ? (
+      {state.loading ? (
         <Loader className="small-spinner" />
       ) : (
         <>
+          {' '}
+          {successMessage && (
+            <Alert
+              variant="success"
+              onClose={() => setSuccessMessage('')}
+              dismissible
+            >
+              {successMessage}
+            </Alert>
+          )}
+          {errorMessage && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorMessage('')}
+              dismissible
+            >
+              {errorMessage}
+            </Alert>
+          )}
           <div className={style['forgotPasswordContainer']}>
             <div className={style['forgotPasswordBox']}>
               <h1 className={style['forgotPasswordHeading']}>

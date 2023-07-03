@@ -188,16 +188,16 @@ export const updateUserPassword = async (
 
 // Forgot Password
 export const forgotPassword = async (email, setErrorMessage, dispatch) => {
+  dispatch({ type: 'FORGOT_PASSWORD_REQUEST' });
   try {
-    dispatch({ type: 'FORGOT_PASSWORD_REQUEST' });
-
-    const { data } = await axios.post(`/api/v1/password/forgot`, email, {
+    const response = await axios.post(`/api/v1/password/forgot`, email, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    dispatch({ type: 'FORGOT_PASSWORD_SUCCESS', payload: data.message });
+    dispatch({ type: 'FORGOT_PASSWORD_SUCCESS', payload: response.data });
+    console.log('Forgot password request:', response.data); // logging the response message for testing purposes
   } catch (error) {
     dispatch({
       type: 'FORGOT_PASSWORD_FAIL',
