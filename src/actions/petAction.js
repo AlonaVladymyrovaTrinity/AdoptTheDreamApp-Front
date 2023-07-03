@@ -50,7 +50,7 @@ export const getAllFavorites = async (dispatch) => {
     });
     dispatch({
       type: 'ALL_FAVORITE_PETS_SUCCESS',
-      payload: response.data.pets.map(it => it._id),
+      payload: response.data.pets.map((it) => it._id),
     });
   } catch (error) {
     dispatch({
@@ -152,11 +152,15 @@ export const getDogColors = async (dispatch) => {
 export const addPetToFavoritesOnPetDetails = async (id, dispatch) => {
   dispatch({ type: 'FAVORITE_PET_ON_PET_DETAILS_REQUEST' });
   try {
-    await axios.patch('/api/v1/favorites/add', { petId: id }, {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    await axios.patch(
+      '/api/v1/favorites/add',
+      { petId: id },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
     dispatch({
-      type: 'FAVORITE_PET_ON_PET_DETAILS_SUCCESS'
+      type: 'FAVORITE_PET_ON_PET_DETAILS_SUCCESS',
     });
   } catch (error) {
     dispatch({
@@ -170,11 +174,15 @@ export const addPetToFavoritesOnPetDetails = async (id, dispatch) => {
 export const removePetFromFavoritesOnPetDetails = async (id, dispatch) => {
   dispatch({ type: 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST' });
   try {
-    await axios.patch('/api/v1/favorites/remove', { petId: id }, {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    await axios.patch(
+      '/api/v1/favorites/remove',
+      { petId: id },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
     dispatch({
-      type: 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS'
+      type: 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS',
     });
   } catch (error) {
     dispatch({
@@ -193,7 +201,7 @@ export const getSinglePetIsFavoriteStatus = async (id, dispatch) => {
     });
     dispatch({
       type: 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS',
-      payload: response.data.isFavorite
+      payload: response.data.isFavorite,
     });
   } catch (error) {
     dispatch({
@@ -206,12 +214,16 @@ export const getSinglePetIsFavoriteStatus = async (id, dispatch) => {
 export const addPetToFavoritesOnPets = async (id, dispatch) => {
   dispatch({ type: 'ADD_PET_TO_FAVORITES_ON_PETS_REQUEST' });
   try {
-    const response = await axios.patch('/api/v1/favorites/add', { petId: id }, {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response = await axios.patch(
+      '/api/v1/favorites/add',
+      { petId: id },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
     dispatch({
       type: 'ADD_PET_TO_FAVORITES_ON_PETS_SUCCESS',
-      payload: response.data.user.favorites
+      payload: response.data.user.favorites,
     });
   } catch (error) {
     dispatch({
@@ -224,12 +236,16 @@ export const addPetToFavoritesOnPets = async (id, dispatch) => {
 export const removePetFromFavoritesOnPets = async (id, dispatch) => {
   dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_ON_PETS_REQUEST' });
   try {
-    const response = await axios.patch('/api/v1/favorites/remove', { petId: id }, {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const response = await axios.patch(
+      '/api/v1/favorites/remove',
+      { petId: id },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
     dispatch({
       type: 'REMOVE_PET_FROM_FAVORITES_ON_PETS_SUCCESS',
-      payload: response.data.user.favorites
+      payload: response.data.user.favorites,
     });
   } catch (error) {
     dispatch({
@@ -250,44 +266,55 @@ export const getSearchPetFilters = async (
   coatLength,
   color,
   careAndBehaviour,
-  dispatch
+  dispatch,
+  petName
 ) => {
   console.log(
     'getSearchPetFilters: ' +
-    petType +
-    ' ' +
-    breed +
-    ' ' +
-    age +
-    ' ' +
-    size +
-    ' ' +
-    gender +
-    ' ' +
-    goodWith +
-    ' ' +
-    coatLength +
-    ' ' +
-    color +
-    ' ' +
-    careAndBehaviour
+      petType +
+      ' ' +
+      breed +
+      ' ' +
+      age +
+      ' ' +
+      size +
+      ' ' +
+      gender +
+      ' ' +
+      goodWith +
+      ' ' +
+      coatLength +
+      ' ' +
+      color +
+      ' ' +
+      careAndBehaviour +
+      ' ' +
+      petName
   );
   console.log(
-    `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${breed ? `&breed=${breed}` : ''
-    }${age ? `&age=${age}` : ''}${size ? `&size=${size}` : ''}${gender ? `&gender=${gender}` : ''
-    }${goodWith ? `&goodWith=${goodWith}` : ''}${coatLength ? `&coatLength=${coatLength}` : ''
-    }${color ? `&color=${color}` : ''}${careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
-    }`
+    `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${
+      breed ? `&breed=${breed}` : ''
+    }${age ? `&age=${age}` : ''}${size ? `&size=${size}` : ''}${
+      gender ? `&gender=${gender}` : ''
+    }${goodWith ? `&goodWith=${goodWith}` : ''}${
+      coatLength ? `&coatLength=${coatLength}` : ''
+    }${color ? `&color=${color}` : ''}${
+      careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
+    }${petName ? `&petName=${petName}` : ''}`
     // petType=${petType}&breed=${breed}&age=${age}&gender=${gender}&goodWith=${goodWith}&coatLength=${coatLength}&color=${color}&careAndBehaviour=${careAndBehaviour}`
   );
   dispatch({ type: 'GET_PET_FILTERS_REQUEST' });
   try {
     const response = await axios.get(
-      `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${breed ? `&breed=${breed}` : ''
-      }${age ? `&age=${age}` : ''}${size ? `&size=${size}` : ''}${gender ? `&gender=${gender}` : ''
-      }${goodWith ? `&goodWith=${goodWith}` : ''}${coatLength ? `&coatLength=${coatLength}` : ''
-      }${color ? `&color=${color}` : ''}${careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
-      }`,
+      `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${
+        breed ? `&breed=${breed}` : ''
+      }${age ? `&age=${age}` : ''}${size ? `&size=${size}` : ''}${
+        gender ? `&gender=${gender}` : ''
+      }${goodWith ? `&goodWith=${goodWith}` : ''}${
+        coatLength ? `&coatLength=${coatLength}` : ''
+      }${color ? `&color=${color}` : ''}${
+        careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
+      }${petName ? `&petName=${petName}` : ''}`,
 
       //petType=${petType}&breed=${breed}&age=${age}&gender=${gender}&goodWith=${goodWith}&coatLength=${coatLength}&color=${color}&careAndBehaviour=${careAndBehaviour}`,
 
@@ -297,9 +324,13 @@ export const getSearchPetFilters = async (
         },
       }
     );
+    // console.log(
+    //   'API Get search pet filters response count: ' +
+    //     JSON.stringify(response.data.pets.length)
+    // ); // logging the response for testing purposes
     console.log(
       'API Get search pet filters response count: ' +
-      JSON.stringify(response.data.pets.length)
+        JSON.stringify(response.data.pets)
     ); // logging the response for testing purposes
     dispatch({ type: 'GET_PET_FILTERS_SUCCESS', payload: response.data });
   } catch (error) {

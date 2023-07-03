@@ -41,17 +41,16 @@
   padding-top: 1px;
   padding-bottom: 4px;
   padding-inline: 5px;
-  background-color: var(--color-action-btn-hover);
+  background-color: var(--color-action-btn-active);
   box-shadow: 0 2px 5px var(--color-gray);
 }
-.searchButton:active,
-.searchButton:visited {
+.searchButton:active {
   border: 2px;
   cursor: pointer;
   text-align: center;
   border-radius: 50px;
   position: relative;
-  background-color: var(--color-action-btn-hover) !important;
+  background-color: var(--color-action-btn) !important;
   box-shadow: 0 2px 5px var(--color-gray);
 }
 
