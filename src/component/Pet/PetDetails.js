@@ -1,21 +1,34 @@
-import React, { useState, useEffect, useReducer, useMemo, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useReducer,
+  useMemo,
+  useContext,
+} from 'react';
 import { useParams } from 'react-router';
 import { Carousel, Button } from 'react-bootstrap';
 import Loader from '../layout/Loader/Loader';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faHeartCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { faHeartCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { BiHomeHeart } from 'react-icons/bi';
 import style from './PetDetails.module.css';
 import { initialState, petReducer } from '../../reducers/petReducer';
-import { getPet, addPetToFavoritesOnPetDetails, removePetFromFavoritesOnPetDetails, getSinglePetIsFavoriteStatus } from '../../actions/petAction';
+import {
+  getPet,
+  addPetToFavoritesOnPetDetails,
+  removePetFromFavoritesOnPetDetails,
+  getSinglePetIsFavoriteStatus,
+} from '../../actions/petAction';
 import Alert from 'react-bootstrap/Alert';
 import cartoonCat from '../../images/cartoonCat.jpg';
 import cartoonDog from '../../images/cartoonDog.jpg';
 import { useNavigate } from 'react-router-dom';
 import StyledBackButton from '../layout/BackButton/StyledBackButton';
 import Cookies from 'js-cookie';
-import AuthContext from '../../context/auth-context'
+import AuthContext from '../../context/auth-context';
 
 const PetDetails = ({ pet }) => {
   const [index, setIndex] = useState(0);
@@ -23,7 +36,10 @@ const PetDetails = ({ pet }) => {
   const [state, dispatch] = useReducer(petReducer, initialState);
   let { id } = useParams();
   const petDetails = useMemo(() => state.pet || null, [state.pet]);
-  const isFavorite = useMemo(() => state.isFavorite || false, [state.isFavorite]);
+  const isFavorite = useMemo(
+    () => state.isFavorite || false,
+    [state.isFavorite]
+  );
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { userId } = useContext(AuthContext);
@@ -54,9 +70,9 @@ const PetDetails = ({ pet }) => {
   const careAndBehaviour = useMemo(() => {
     if (!state.pet) return '';
     return Object.entries(state.pet.careAndBehaviour)
-      .filter(([_, value]) => (value))
+      .filter(([_, value]) => value)
       .map(([key, _]) => key.replace(/_/g, ''))
-      .join(", ")
+      .join(', ');
   }, [state.pet]);
 
   const toggleAddToFavorites = () => {
@@ -64,9 +80,9 @@ const PetDetails = ({ pet }) => {
       navigate('/login');
     } else {
       if (!isFavorite) {
-        addPetToFavoritesOnPetDetails(petDetails._id, dispatch)
+        addPetToFavoritesOnPetDetails(petDetails._id, dispatch);
       } else {
-        removePetFromFavoritesOnPetDetails(petDetails._id, dispatch)
+        removePetFromFavoritesOnPetDetails(petDetails._id, dispatch);
       }
     }
   };
@@ -83,89 +99,205 @@ const PetDetails = ({ pet }) => {
   };
 
   return (
-    <Row>
-      <Col
-        sm={12}
-        md={6}
-        className="d-flex align-items-center justify-content-center"
-      >
-        <div style={{ maxWidth: '75%', margin: '4rem' }}>
-          <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
-            {data.images.map((image, i) => {
-              return (
-                <Carousel.Item key={i}>
-                  <img
-                    className="img-fluid w-100"
-                    src={image.image}
-                    alt="Animal 1"
-                  />
-                </Carousel.Item>
-              );
-            })}
-          </Carousel>
-        </div>
-      </Col>
-      <Col
-        sm={12}
-        md={6}
-        className="d-flex flex-column align-items-start justify-content-start align-items-md-end"
-        style={{ marginRight: 'auto', marginTop: '4rem' }}
-      >
-        <div className={style['frame']}>
-          <h1 className={style['sr-only']}>Animal Details</h1>
-          <p>Name: Whiskers</p>
-          <p>ID: {data.id}</p>
-          <p>{data.breed}</p>
-          <p>Type: Cat</p>
-          <p>Age: 2 years</p>
-          <p>Size: Medium</p>
-          <p>Gender: Female</p>
-          <p>Good with: Dogs, Children</p>
-          <p>Coat Length: Short</p>
-          <p>Color: Tabby</p>
-          <p>Care & Behavior: Friendly, Playful</p>
-          <p>
-            "Meet Whiskers, the adorable feline who has found her forever home!
-            Whiskers, a beautiful tabby cat with mesmerizing green eyes, was
-            once a stray wandering the streets until she was rescued and brought
-            to our shelter. Whiskers captured the hearts of our staff and
-            volunteers with her playful personality and affectionate nature.
-            After spending some time in our care, Whiskers finally found her
-            perfect match—a loving and caring family who instantly fell in love
-            with her charm. Since being adopted, Whiskers has settled into her
-            new home seamlessly. She spends her days exploring every nook and
-            cranny, chasing her favorite toys, and cuddling up with her new
-            family members. Whiskers brings joy and laughter to everyone she
-            encounters, and her presence has truly enriched the lives of her
-            adoptive family. We couldn't be happier to see Whiskers thriving in
-            her new environment. Her journey from a homeless cat to a beloved
-            family member is a testament to the power of adoption and the
-            incredible bond that can be formed between humans and animals. If
-            you're considering adding a furry companion to your family, we
-            encourage you to visit our shelter and explore the wonderful cats
-            and kittens waiting for their forever homes. Every adoption story is
-            unique, and there's a special cat out there just waiting to steal
-            your heart, just like Whiskers did with her lucky family."
-          </p>
-          <Button
-            className={isFavorite ? `${style.favoriteButton} ${style.favorite}` : style.favoriteButton}
-            onClick={handleAddToFavorites}
-          >
-            {isFavorite ? (
-              <>
-                <FontAwesomeIcon icon={faHeart} className="me-2" />
-                Added to Favorites
-              </>
-            ) : (
-              <>
-                <FontAwesomeIcon icon={faHeart} className="me-2" />
-                Add to Favorites
-              </>
-            )}
-          </Button>
-        </div>
-        </Col>
-    </Row>
+    <>
+      {state.loading ? (
+        <Loader className="small-spinner" />
+      ) : (
+        <>
+          {errorMessage && (
+            <Alert
+              variant="danger"
+              onClose={() => setErrorMessage('')}
+              dismissible
+            >
+              {errorMessage}
+            </Alert>
+          )}
+          {petDetails && (
+            <Row className="g-0">
+              <Col
+                sm={12}
+                md={6}
+                className="d-flex align-items-start justify-content-center"
+                style={{
+                  marginTop: '2rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                }}
+              >
+                <Carousel
+                  activeIndex={index}
+                  onSelect={handleSelect}
+                  hover="pause"
+                  style={{ overflow: 'hidden' }}
+                >
+                  {petDetails.image.length > 0 ? (
+                    petDetails.image
+                      .map((it) => it.full)
+                      .map((img, i) => (
+                        <Carousel.Item key={i}>
+                          <img
+                            src={img}
+                            alt={petDetails.petName}
+                            style={{ width: '100%', height: '35rem' }}
+                          />
+                        </Carousel.Item>
+                      ))
+                  ) : (
+                    <Carousel.Item
+                      key={0}
+                      className="d-flex align-items-center justify-content-center"
+                    >
+                      <img
+                        src={
+                          petDetails.petType === 'Cat' ? cartoonCat : cartoonDog
+                        }
+                        alt={petDetails.petName}
+                        style={{
+                          width: '90%',
+                          height: '90%',
+                          objectFit: 'stretch',
+                        }}
+                      />
+                    </Carousel.Item>
+                  )}
+                </Carousel>
+              </Col>
+              <Col
+                sm={12}
+                md={6}
+                className="d-flex align-items-center justify-content-center"
+                style={{
+                  marginRight: 'auto',
+                  marginTop: '2rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                }}
+              >
+                <div
+                  className={style['frame-border']}
+                  style={{ width: '100%', height: '100%' }}
+                >
+                  <div className={style['back-button']}>
+                    <StyledBackButton
+                      linkName={'/pets'}
+                      className={'link-color'}
+                      style={{ marginBottom: '1rem' }}
+                      children
+                    >
+                      <span>Go to Pets page</span>
+                    </StyledBackButton>
+                  </div>
+                  <div className={style['frame-body']}>
+                    <h1 className={'sr-only'}>Animal Details</h1>
+                    <p>
+                      Name:{' '}
+                      {petDetails.petName === '' || petDetails.petName === null
+                        ? 'no information'
+                        : petDetails.petName}
+                    </p>
+                    <p>
+                      ID:{' '}
+                      {petDetails._id === '' || petDetails._id === null
+                        ? 'no information'
+                        : petDetails._id}
+                    </p>
+                    <p>
+                      Breed:{' '}
+                      {petDetails.breed === '' || petDetails.breed === null
+                        ? 'no information'
+                        : petDetails.breed}
+                    </p>
+                    <p>
+                      Type:{' '}
+                      {petDetails.petType === '' || petDetails.petType === null
+                        ? 'no information'
+                        : petDetails.petType}
+                    </p>
+                    <p>
+                      Age:{' '}
+                      {petDetails.age === '' || petDetails.age === null
+                        ? 'no information'
+                        : petDetails.age}
+                    </p>
+                    <p>
+                      Size:{' '}
+                      {petDetails.size === '' || petDetails.size === null
+                        ? 'no information'
+                        : petDetails.size}
+                    </p>
+                    <p>
+                      Gender:{' '}
+                      {petDetails.gender === '' || petDetails.gender === null
+                        ? 'no information'
+                        : petDetails.gender}
+                    </p>
+                    <p>
+                      Good with:{' '}
+                      {goodWith === '' || goodWith === null
+                        ? 'no information'
+                        : goodWith}
+                    </p>
+                    <p>
+                      Coat Length:{' '}
+                      {petDetails.coatLength === '' ||
+                      petDetails.coatLength === null
+                        ? 'no information'
+                        : petDetails.coatLength}
+                    </p>
+                    <p>
+                      Color:{' '}
+                      {petDetails.color === '' || petDetails.color === null
+                        ? 'no information'
+                        : petDetails.color}
+                    </p>
+                    <p>Care & Behavior: {careAndBehaviour}</p>
+                    <p>Description: {petDetails.description}</p>
+                    <div className={style.buttonContainer}>
+                      <Button
+                        className={
+                          isFavorite
+                            ? `btn ${style.favoriteButton} `
+                            : `btn ${style.favorite}`
+                        }
+                        onClick={toggleAddToFavorites}
+                        variant="btn-primary"
+                        size="btn-lg"
+                      >
+                        {isFavorite ? (
+                          <>
+                            <FontAwesomeIcon icon={faHeartCircleMinus} /> Added
+                            to Favorites
+                          </>
+                        ) : (
+                          <>
+                            <FontAwesomeIcon icon={faHeartCirclePlus} /> Add to
+                            Favorites
+                          </>
+                        )}
+                      </Button>
+                      <div className={style.buttonSpacing}>
+                        <Button
+                          onClick={handleAdopt}
+                          className={`btn ${style.adoptButton}`}
+                          variant="btn-primary"
+                          size="btn-lg"
+                        >
+                          <span>
+                            <BiHomeHeart size="1.5rem" className="pb-1 " />{' '}
+                            Adopt
+                          </span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          )}
+        </>
+      )}
+    </>
   );
 };
 

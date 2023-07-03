@@ -3,9 +3,9 @@
   padding-inline: 1rem;
 }
 .navLinkHeader,
-.navLinkLogInHeader {
+.navLinkLogInHeader,
+.navLinkLogOutHeader {
   font-size: 18px;
-  /* font-weight: bold; */
   font-style: normal;
   font-stretch: normal;
   line-height: 1.56;
@@ -22,17 +22,16 @@
   border: 2px;
   text-align: center;
   border-radius: 50px;
-  /* background-color: var(--color-search-btn); */
   position: relative;
   right: 31px;
   padding-top: 1px;
   padding-bottom: 4px;
   padding-inline: 5px;
   background-color: var(--color-action-btn);
-  /* border: 3px solid var(--color-btn-border); */
   box-shadow: 0 2px 5px var(--color-gray);
 }
-.searchButton:hover {
+.searchButton:hover,
+.searchButton:focus {
   border: 2px;
   cursor: pointer;
   text-align: center;
@@ -45,17 +44,36 @@
   background-color: var(--color-action-btn-hover);
   box-shadow: 0 2px 5px var(--color-gray);
 }
-.searchButton:active {
+.searchButton:active,
+.searchButton:visited {
   border: 2px;
   cursor: pointer;
   text-align: center;
   border-radius: 50px;
   position: relative;
-  /* padding-top: 1px;
-  padding-bottom: 4px;
-  padding-inline: 5px; */
   background-color: var(--color-action-btn-hover) !important;
   box-shadow: 0 2px 5px var(--color-gray);
+}
+
+.color-btn {
+  background-color: var(--color-btn);
+  color: var(--color-white);
+}
+.color-btn:hover,
+.color-btn:focus {
+  background-color: var(--color-btn-hover);
+  color: var(--color-white);
+}
+
+.color-btn:active,
+.color-btn:visited {
+  transform: scale(0.98);
+  background-color: var(--color-btn-hover) !important;
+  color: var(--color-white) !important;
+}
+
+.bnt-shape {
+  border-radius: 50%;
 }
 
 /* Responsive Design Tablet */

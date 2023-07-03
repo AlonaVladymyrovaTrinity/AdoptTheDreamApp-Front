@@ -1349,7 +1349,7 @@ const ConfirmApplication = () => {
                   id="selectVetCare"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Special care for pet with develop special needs"
                 >
                   <option value="" disabled>
                     Please select
@@ -1387,7 +1387,7 @@ const ConfirmApplication = () => {
                   id="selectFinancialResponsibilities"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Financial responsibilities for pet"
                 >
                   <option value="" disabled>
                     Please select
@@ -1422,7 +1422,7 @@ const ConfirmApplication = () => {
                   id="selectHireProfTrainer"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Willing to hire a professional trainer"
                 >
                   <option value="" disabled>
                     Please select
@@ -1449,7 +1449,7 @@ const ConfirmApplication = () => {
                   id="PetsInThePast"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Pets in the past"
                 >
                   <option value="" disabled>
                     Please select
@@ -1477,6 +1477,7 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setPetsInThePastInfo(e.target.value)}
                   rows={3}
+                  aria-label="input info about pets in the past"
                 />
               </Form.Group>
             </Row>
@@ -1493,6 +1494,7 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setPetsInThePastPeriod(e.target.value)}
                   rows={3}
+                  aria-label="input Pets in the past period"
                 />
               </Form.Group>
             </Row>
@@ -1508,7 +1510,7 @@ const ConfirmApplication = () => {
                   id="selectPetsGottenLost"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Have your pets gotten lost?"
                 >
                   <option value="" disabled>
                     Please select
@@ -1536,7 +1538,7 @@ const ConfirmApplication = () => {
                   id="selectPetsBeenPoisoned"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Have your pets been poisoned?"
                 >
                   <option value="" disabled>
                     Please select
@@ -1564,7 +1566,7 @@ const ConfirmApplication = () => {
                   id="selectPetHitByVehicle"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Have your pets been hit by car?"
                 >
                   <option value="" disabled>
                     Please select
@@ -1592,7 +1594,7 @@ const ConfirmApplication = () => {
                   id="selectGivenPetToShelter"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Have you given a pet to a shelter?"
                 >
                   <option value="" disabled>
                     Please select
@@ -1620,7 +1622,7 @@ const ConfirmApplication = () => {
                   id="selectGivenPetAway"
                   required
                   className="w-50"
-                  aria-label="Default select example"
+                  aria-label="Have you given a pet away to someone?"
                 >
                   <option value="" disabled>
                     Please select
@@ -1649,6 +1651,7 @@ const ConfirmApplication = () => {
                   placeholder=""
                   onChange={(e) => setGivenPetAwayExplain(e.target.value)}
                   rows={3}
+                  aria-label="input explanation about give away pet in the past"
                 />
               </Form.Group>
             </Row>
@@ -1669,6 +1672,7 @@ const ConfirmApplication = () => {
                   onChange={(e) => setNotRelatedPeopleInfo(e.target.value)}
                   rows={3}
                   required
+                  aria-label="input info of two not related to you people"
                 />
                 {errors.notRelatedPeopleInfo && (
                   <Form.Control.Feedback type="invalid">
@@ -1691,6 +1695,7 @@ const ConfirmApplication = () => {
                   onChange={(e) => setVetInfo(e.target.value)}
                   rows={3}
                   required
+                  aria-label="input Vet`s info"
                 />
                 {errors.vetInfo && (
                   <Form.Control.Feedback type="invalid">
