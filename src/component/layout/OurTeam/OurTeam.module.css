@@ -16,3 +16,19 @@ h1 {
   display: flex;
   justify-content: center;
 }
+
+.custom-card .card-text {
+  height: 100px; /* Adjust the height as per your requirements */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-card .card-text.expanded {
+  height: auto;
+  overflow: visible;
+  text-overflow: initial;
+}
+
+.custom-link-button {
+  color: var(--color-txt);
+}
