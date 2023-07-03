@@ -1,6 +1,6 @@
 .circle-img-wrapper {
-  width: 100px; /* Adjust the size according to your preference */
-  height: 100px;
+  width: 15rem; /* Adjust the size according to your preference */
+  height: 15rem;
   overflow: hidden;
   border-radius: 50%;
   margin: 0 auto;
@@ -10,4 +10,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
 }
