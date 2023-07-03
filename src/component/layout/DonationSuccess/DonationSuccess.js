@@ -1,6 +1,7 @@
 import style from './DonationSuccess.module.css';
 import StyledBackButton from '../BackButton/StyledBackButton';
 import catDogFeeding from '../../../images/catDogFeeding.jpeg';
+
 function DonationSuccess() {
   return (
     <>
@@ -10,7 +11,6 @@ function DonationSuccess() {
           <div className={style['card-body-img']}>
             <img
               className={style['img-page-donation-success']}
-              // src={imgPageNotFound}
               src={catDogFeeding}
               alt="cat and dog feeding"
             />
@@ -49,16 +49,16 @@ function DonationSuccess() {
                 that every pet finds a loving family. Your donation will enable
                 us to continue our efforts in rescuing, rehabilitating, and
                 rehoming animals in need. Together, we are creating a better
-                future for these wonderful creatures. Once again, we extend our
-                heartfelt gratitude for your contribution. Your support
-                demonstrates your compassion for animals and your dedication to
-                their well-being. We couldn't do this without you. If you have
-                any further questions or would like to stay connected with our
-                pet adoption community, please don't hesitate to reach out. We
-                appreciate your involvement and look forward to keeping you
-                informed about the impact of your donation. Thank you for making
-                a difference in the lives of our furry friends and for being a
-                vital part of our pet adoption journey.
+                future for these wonderful creatures. <br /> Once again, we
+                extend our heartfelt gratitude for your contribution. Your
+                support demonstrates your compassion for animals and your
+                dedication to their well-being. We couldn't do this without you.
+                If you have any further questions or would like to stay
+                connected with our pet adoption community, please don't hesitate
+                to reach out. We appreciate your involvement and look forward to
+                keeping you informed about the impact of your donation. Thank
+                you for making a difference in the lives of our furry friends
+                and for being a vital part of our pet adoption journey.
               </p>
             </div>
           </div>
