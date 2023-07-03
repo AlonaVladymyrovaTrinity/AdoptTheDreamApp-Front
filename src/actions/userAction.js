@@ -197,7 +197,7 @@ export const forgotPassword = async (email, setErrorMessage, dispatch) => {
     });
 
     dispatch({ type: 'FORGOT_PASSWORD_SUCCESS', payload: response.data });
-    console.log('Forgot password request:', response.data); // logging the response message for testing purposes
+    // console.log('Forgot password request:', response.data); // logging the response message for testing purposes
   } catch (error) {
     dispatch({
       type: 'FORGOT_PASSWORD_FAIL',

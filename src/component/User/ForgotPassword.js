@@ -39,12 +39,11 @@ const ForgotPassword = () => {
   const { response, error } = state;
 
   useEffect(() => {
-    console.log(error, response);
     if (
       ((response && response.length !== 0) || response !== undefined) &&
       response.success === true
     ) {
-      setSuccessMessage(response.message);
+      setSuccessMessage(response.message + ' Please check your email.');
     } else if (error || (response && response.success === false)) {
       setErrorMessage('');
       setErrorMessage(error && response.message);
