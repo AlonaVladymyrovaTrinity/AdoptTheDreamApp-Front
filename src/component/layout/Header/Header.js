@@ -25,6 +25,7 @@ const Header = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
   const [logoutResponse, setLogoutResponse] = useState(false);
+  // eslint-disable-next-line
   const [search, setSearch] = useState('');
   const [statePetName, dispatchPetName] = useReducer(
     SearchPetNameReducer,
@@ -87,8 +88,6 @@ const Header = () => {
     setSearch(searchInput);
     try {
       await petNameSearchResults(searchInput);
-
-      // setSearch('');
     } catch (error) {
       setErrorMessage(
         'An error occurred while searching. Sorry for the inconvenience. Please try again later.'

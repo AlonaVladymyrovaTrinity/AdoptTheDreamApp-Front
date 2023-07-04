@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useMemo,
   useContext,
-  useRef,
 } from 'react';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
@@ -125,6 +124,7 @@ const Pets = ({ showFilters }) => {
     }
   }, [isAuthenticated]);
 
+  //useEffect for Search: petNameResults
   useEffect(() => {
     const handleStorageChange = (event) => {
       const currentValue = localStorage.getItem('petNameResults');
@@ -141,7 +141,7 @@ const Pets = ({ showFilters }) => {
             console.error('Error parsing JSON:', error);
           }
         }
-        console.log('The value of the petNameResults key has changed!');
+        // console.log('The value of the petNameResults key has changed!');
       }
     };
 
@@ -152,6 +152,7 @@ const Pets = ({ showFilters }) => {
     };
   }, []);
 
+  //useEffect for display all pets or filtered pets
   useEffect(() => {
     if (selectedType === '') {
       setPets(state.pets || []);
