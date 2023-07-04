@@ -266,8 +266,7 @@ export const getSearchPetFilters = async (
   coatLength,
   color,
   careAndBehaviour,
-  dispatch,
-  petName
+  dispatch
 ) => {
   console.log(
     'getSearchPetFilters: ' +
@@ -287,9 +286,7 @@ export const getSearchPetFilters = async (
       ' ' +
       color +
       ' ' +
-      careAndBehaviour +
-      ' ' +
-      petName
+      careAndBehaviour
   );
   console.log(
     `/api/v1/pets/?${petType ? `petType=${petType}` : ''}${
@@ -300,7 +297,7 @@ export const getSearchPetFilters = async (
       coatLength ? `&coatLength=${coatLength}` : ''
     }${color ? `&color=${color}` : ''}${
       careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
-    }${petName ? `&petName=${petName}` : ''}`
+    }`
     // petType=${petType}&breed=${breed}&age=${age}&gender=${gender}&goodWith=${goodWith}&coatLength=${coatLength}&color=${color}&careAndBehaviour=${careAndBehaviour}`
   );
   dispatch({ type: 'GET_PET_FILTERS_REQUEST' });
@@ -314,7 +311,7 @@ export const getSearchPetFilters = async (
         coatLength ? `&coatLength=${coatLength}` : ''
       }${color ? `&color=${color}` : ''}${
         careAndBehaviour ? `&careAndBehaviour=${careAndBehaviour}` : ''
-      }${petName ? `&petName=${petName}` : ''}`,
+      }`,
 
       //petType=${petType}&breed=${breed}&age=${age}&gender=${gender}&goodWith=${goodWith}&coatLength=${coatLength}&color=${color}&careAndBehaviour=${careAndBehaviour}`,
 
@@ -324,18 +321,49 @@ export const getSearchPetFilters = async (
         },
       }
     );
-    // console.log(
-    //   'API Get search pet filters response count: ' +
-    //     JSON.stringify(response.data.pets.length)
-    // ); // logging the response for testing purposes
     console.log(
       'API Get search pet filters response count: ' +
-        JSON.stringify(response.data.pets)
+        JSON.stringify(response.data.pets.length)
     ); // logging the response for testing purposes
+    // console.log(
+    //   'API Get search pet filters response count: ' +
+    //     JSON.stringify(response.data)
+    // ); // logging the response for testing purposes
     dispatch({ type: 'GET_PET_FILTERS_SUCCESS', payload: response.data });
   } catch (error) {
     dispatch({
       type: 'GET_PET_FILTERS_FAILURE',
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Search pet name
+export const getSearchPetName = async (petName, dispatch) => {
+  console.log('getSearchPetName: ' + petName);
+  console.log(`/api/v1/pets/?${petName ? `petName=${petName}` : ''}`);
+  dispatch({ type: 'GET_PET_NAMES_REQUEST' });
+  try {
+    const response = await axios.get(
+      `/api/v1/pets/?${petName ? `petName=${petName}` : ''}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(
+      'API Get search pet name response count: ' +
+        JSON.stringify(response.data.pets.length)
+    ); // logging the response for testing purposes
+    // console.log(
+    //   'API Get search pet name response count: ' +
+    //     JSON.stringify(response.data)
+    // ); // logging the response for testing purposes
+    dispatch({ type: 'GET_PET_NAMES_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: 'GET_PET_NAMES_FAILURE',
       payload: error.response?.data?.message || error.message,
     });
   }

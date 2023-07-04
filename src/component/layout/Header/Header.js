@@ -17,8 +17,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../context/auth-context';
-import { getSearchPetFilters } from '../../../actions/petAction';
-import { SearchPetFiltersReducer } from '../../../reducers/petReducer';
+import { getSearchPetName } from '../../../actions/petAction';
+import { SearchPetNameReducer } from '../../../reducers/petReducer';
 
 const Header = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,8 +26,8 @@ const Header = () => {
   const [state, dispatch] = useReducer(userReducer, initialState);
   const [logoutResponse, setLogoutResponse] = useState(false);
   const [search, setSearch] = useState('');
-  const [statePetFilters, dispatchPetFilters] = useReducer(
-    SearchPetFiltersReducer,
+  const [statePetName, dispatchPetName] = useReducer(
+    SearchPetNameReducer,
     initialState
   );
 
@@ -71,41 +71,9 @@ const Header = () => {
     }
   }, [state.isAuthenticated]);
 
-  const petFiltersResults = async (
-    petType,
-    breed,
-    age,
-    size,
-    gender,
-    goodWith,
-    coatLength,
-    color,
-    careAndBehaviour,
-    petName
-  ) => {
+  const petNameSearchResults = async (petName) => {
     try {
-      await getSearchPetFilters(
-        petType,
-        breed,
-        age,
-        size,
-        gender,
-        goodWith,
-        coatLength,
-        color,
-        careAndBehaviour,
-        dispatchPetFilters,
-        petName
-      );
-
-      if (statePetFilters.petFiltersResponse.pets.length > 0) {
-        // Handle the response when pets are found
-        // For example, you can update your state or display the pets
-        console.log('Pets found:', statePetFilters.petFiltersResponse.pets);
-      } else {
-        // Pets not found, try again with the next parameter
-        return false;
-      }
+      await getSearchPetName(petName, dispatchPetName);
     } catch (error) {
       setErrorMessage('');
       setErrorMessage(error);
@@ -117,55 +85,26 @@ const Header = () => {
     e.preventDefault();
     const searchInput = e.target.firstChild.value;
     setSearch(searchInput);
-    // if (searchInput !== search) {
-    //   setSearch('');
-    // }
-    const parameters = [
-      { param: 'petType', value: null },
-      { param: 'breed', value: null },
-      { param: 'age', value: null },
-      { param: 'size', value: null },
-      { param: 'gender', value: null },
-      { param: 'goodWith', value: null },
-      { param: 'coatLength', value: null },
-      { param: 'color', value: null },
-      { param: 'careAndBehaviour', value: null },
-      { param: 'petName', value: null },
-    ];
+    try {
+      await petNameSearchResults(searchInput);
 
-    let success = false;
-
-    for (let i = 0; i < parameters.length; i++) {
-      const { param, value } = parameters[i];
-      const params = {
-        petType: param === 'petType' ? searchInput : value,
-        breed: param === 'breed' ? searchInput : value,
-        age: param === 'age' ? searchInput : value,
-        size: param === 'size' ? searchInput : value,
-        gender: param === 'gender' ? searchInput : value,
-        goodWith: param === 'goodWith' ? searchInput : value,
-        coatLength: param === 'coatLength' ? searchInput : value,
-        color: param === 'color' ? searchInput : value,
-        careAndBehaviour: param === 'careAndBehaviour' ? searchInput : value,
-        petName: param === 'petName' ? searchInput : value,
-      };
-
-      const result = await petFiltersResults(...Object.values(params));
-      if (result) {
-        success = true;
-        break;
-      }
-    }
-
-    if (!success) {
-      // Handle the case when no pets are found with any parameter
-      console.log('No pets found with any parameter');
+      // setSearch('');
+    } catch (error) {
+      setErrorMessage(
+        'An error occurred while searching. Sorry for the inconvenience. Please try again later.'
+      );
     }
   };
+
   useEffect(() => {
-    console.log('search:' + search);
-    console.log('statePetFilters: ' + statePetFilters.pets);
-  }, [search, statePetFilters.pets]);
+    localStorage.setItem(
+      'petNameResults',
+      JSON.stringify(statePetName.petNameResponse)
+    ); // Save to local storage
+    console.log(
+      'statePetName: ' + JSON.stringify(statePetName.petNameResponse)
+    );
+  }, [statePetName.petNameResponse]);
 
   return (
     <>
@@ -225,11 +164,11 @@ const Header = () => {
               >
                 <Form.Control
                   type="search"
-                  placeholder="Search"
+                  placeholder="Search pet name"
                   aria-label="Search"
                   style={{
                     height: 33,
-                    width: 170,
+                    width: 190,
                     border: 0,
                     borderRadius: 18,
                     position: 'relative',

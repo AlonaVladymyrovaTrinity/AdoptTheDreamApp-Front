@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useContext,
+  useRef,
 } from 'react';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
@@ -99,6 +100,8 @@ const Pets = ({ showFilters }) => {
     initialState
   );
 
+  // const [petNameResults, setPetNameResults] = useState('');
+
   useEffect(() => {
     const authenticated = userId ? true : false;
     setIsAuthenticated(authenticated);
@@ -121,6 +124,34 @@ const Pets = ({ showFilters }) => {
       fetchAllFavorites();
     }
   }, [isAuthenticated]);
+
+  const previousValueRef = useRef(localStorage.getItem('petNameResults'));
+
+  useEffect(() => {
+    const checkStorageChange = () => {
+      const currentValue = localStorage.getItem('petNameResults');
+      if (currentValue !== previousValueRef.current) {
+        // if (Array.isArray(currentValue) && currentValue.length > 0) {
+        if (currentValue && currentValue !== 'undefined') {
+          console.log('Stored petNameResults:', currentValue);
+          try {
+            const parsedResults = JSON.parse(currentValue);
+            setPets(parsedResults);
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+          }
+        }
+        console.log('The value of the petNameResults key has changed!');
+        previousValueRef.current = currentValue;
+      }
+    };
+
+    const intervalId = setInterval(checkStorageChange, 1000); // Check every second
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   useEffect(() => {
     if (selectedType === '') {
