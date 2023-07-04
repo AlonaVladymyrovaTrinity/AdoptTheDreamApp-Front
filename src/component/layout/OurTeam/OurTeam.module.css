@@ -1,9 +1,9 @@
 .circle-img-wrapper {
-  width: 15rem; /* Adjust the size according to your preference */
-  height: 15rem;
+  width: 10rem; /* Adjust the size according to your preference */
+  height: 10rem;
   overflow: hidden;
   border-radius: 50%;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 .circle-img {
@@ -18,9 +18,23 @@ h1 {
 }
 
 .custom-card .card-text {
-  height: 100px; /* Adjust the height as per your requirements */
+  height: 6.25rem; /* Adjust the height as per your requirements */
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.card-body {
+  height: 15.5rem; /* Adjust the height as per your requirement */
+  overflow: hidden;
+}
+
+.card-body.expanded {
+  height: auto;
+}
+
+.custom-card .card-text {
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .custom-card .card-text.expanded {
