@@ -66,16 +66,15 @@ const FavoritePets = () => {
       ) : (
         <Container
           style={{
-            marginTop: '20px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            marginTop: '1rem',
+            width: '100%',
+            paddingInline: '3rem',
           }}
         >
           {/* -------------------------------------------------- */}
           <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
             {currentPets.map((pet) => (
-              <Col className="mb-4 ps-0 pe-0 jc-center">
+              <Col className="mb-4 ps-0 pe-0">
                 <FavoritePetCard pet={pet} onRemove={removeFavorite} />
               </Col>
             ))}
