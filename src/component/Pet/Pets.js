@@ -125,13 +125,13 @@ const Pets = ({ showFilters }) => {
     }
   }, [isAuthenticated]);
 
-  const previousValueRef = useRef(localStorage.getItem('petNameResults'));
-
   useEffect(() => {
-    const checkStorageChange = () => {
+    const handleStorageChange = (event) => {
       const currentValue = localStorage.getItem('petNameResults');
-      if (currentValue !== previousValueRef.current) {
-        // if (Array.isArray(currentValue) && currentValue.length > 0) {
+      if (
+        event.origin === window.location.origin &&
+        event.data.key === 'petNameResults'
+      ) {
         if (currentValue && currentValue !== 'undefined') {
           console.log('Stored petNameResults:', currentValue);
           try {
@@ -142,14 +142,13 @@ const Pets = ({ showFilters }) => {
           }
         }
         console.log('The value of the petNameResults key has changed!');
-        previousValueRef.current = currentValue;
       }
     };
 
-    const intervalId = setInterval(checkStorageChange, 1000); // Check every second
+    window.addEventListener('message', handleStorageChange);
 
     return () => {
-      clearInterval(intervalId);
+      window.removeEventListener('message', handleStorageChange);
     };
   }, []);
 

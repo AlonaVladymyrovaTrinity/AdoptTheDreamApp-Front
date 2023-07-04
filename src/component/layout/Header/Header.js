@@ -101,9 +101,7 @@ const Header = () => {
       'petNameResults',
       JSON.stringify(statePetName.petNameResponse)
     ); // Save to local storage
-    console.log(
-      'statePetName: ' + JSON.stringify(statePetName.petNameResponse)
-    );
+    window.postMessage({ key: 'petNameResults' }, window.location.origin);
   }, [statePetName.petNameResponse]);
 
   return (
