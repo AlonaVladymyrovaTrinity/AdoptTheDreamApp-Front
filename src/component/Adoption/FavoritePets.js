@@ -10,10 +10,20 @@ import {
   getFavoritePets,
   removePetFromFavorites,
 } from '../../actions/favoritePetsAction';
+import {
+  initialStateFavoritePets,
+  favoritePetsReducer,
+} from '../../reducers/favoritePetsReducer';
+import {
+  getFavoritePets,
+  removePetFromFavorites,
+} from '../../actions/favoritePetsAction';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/auth-context';
 import FavoritePetCard from './FavoritePetCard';
 import NoFavorites from '../NoFavorites/NoFavorites';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const FavoritePets = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +54,7 @@ const FavoritePets = () => {
   };
 
   // Pagination logic
-  const petsPerPage = 3;
+  const petsPerPage = 6;
   const indexOfLastPet = currentPage * petsPerPage;
   const indexOfFirstPet = indexOfLastPet - petsPerPage;
   const favorites = useMemo(
@@ -64,19 +74,19 @@ const FavoritePets = () => {
       ) : (
         <Container
           style={{
-            marginTop: '20px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            marginTop: '1rem',
+            width: '100%',
+            paddingInline: '3rem',
           }}
         >
-          {currentPets.map((pet) => (
-            <FavoritePetCard
-              key={pet._id}
-              pet={pet}
-              onRemove={removeFavorite}
-            />
-          ))}
+          {/* -------------------------------------------------- */}
+          <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
+            {currentPets.map((pet) => (
+              <Col className="mb-4 ps-0 pe-0">
+                <FavoritePetCard pet={pet} onRemove={removeFavorite} />
+              </Col>
+            ))}
+          </Row>
         </Container>
       )}
       <div

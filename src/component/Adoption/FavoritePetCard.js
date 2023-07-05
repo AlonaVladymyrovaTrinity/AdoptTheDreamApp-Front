@@ -24,7 +24,10 @@ const FavoritePetCard = ({ pet, onRemove }) => {
 
   return (
     <div className="petCard_wrapper ps-1 pe-1">
-      <div className="petCard" style={{ margin: '1rem' }}>
+      <div
+        className="petCard"
+        style={{ margin: '1rem', display: 'flex', justifyContent: 'center' }}
+      >
         <Card
           className="border-0 bg-transparent rounded relative"
           style={{ width: '19rem' }}
