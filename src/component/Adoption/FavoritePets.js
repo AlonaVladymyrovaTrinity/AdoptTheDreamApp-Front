@@ -10,14 +10,6 @@ import {
   getFavoritePets,
   removePetFromFavorites,
 } from '../../actions/favoritePetsAction';
-import {
-  initialStateFavoritePets,
-  favoritePetsReducer,
-} from '../../reducers/favoritePetsReducer';
-import {
-  getFavoritePets,
-  removePetFromFavorites,
-} from '../../actions/favoritePetsAction';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/auth-context';
 import FavoritePetCard from './FavoritePetCard';
