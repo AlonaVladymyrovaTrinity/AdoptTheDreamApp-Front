@@ -6,12 +6,12 @@ import NavigateButton from '../layout/NavigateButton/NavigateButton';
 const Home = () => {
   return (
     <>
-      <div /*className={style.home_container}*/>
+      <div>
         <div className={style.home_banner}>
           <div className={style.overlay}></div>
           <video src={redCat} autoPlay loop muted />
           <div className={style.home_banner_content}>
-            <h1>WELCOME TO ADOPT PET</h1>
+            <h1>WELCOME TO ADOPT THE DREAM</h1>
             <div className={style.find_pet_button}>
               <NavigateButton
                 linkName={'/pets'}

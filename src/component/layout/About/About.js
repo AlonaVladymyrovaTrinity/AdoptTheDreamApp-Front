@@ -9,7 +9,7 @@ const About = () => {
         <h1>About our business</h1>
         <div className={style['about-page-text']}>
           <img src={photoDog} className={style['about-img']} alt="dog" />
-          <p>"Find Your Fur-ever Friend!"</p>
+          <p>"Adopt the Dream!"</p>
           <p>
             Description: Welcome to Pawsome Companions, your go-to online
             destination for pet adoption. We believe that every pet deserves a
