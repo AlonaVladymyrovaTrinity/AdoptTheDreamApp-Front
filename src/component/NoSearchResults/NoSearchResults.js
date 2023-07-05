@@ -11,10 +11,10 @@ const NoSearchResults = () => {
           src={imgNoPets}
           alt="no-pets"
         />
-        <h3 className={style['no-search-result-header']}>
-          No results matching your criteria. Consider broadening your search.
-        </h3>
       </div>
+      <h3 className={style['no-search-result-header']}>
+        No results matching your criteria. Consider broadening your search.
+      </h3>
     </div>
   );
 };
