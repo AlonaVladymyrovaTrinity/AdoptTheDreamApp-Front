@@ -339,7 +339,6 @@ export const adoptionApplication = async (
   formData,
   petId,
   setErrorMessage,
-  setSuccessMessage,
   dispatch
 ) => {
   dispatch({ type: 'ADOPTION_APPLICATION_REQUEST' });
@@ -349,15 +348,21 @@ export const adoptionApplication = async (
         'Content-Type': 'application/json',
       },
     });
-    dispatch({ type: 'ADOPTION_APPLICATION_SUCCESS' });
+    dispatch({
+      type: 'ADOPTION_APPLICATION_SUCCESS',
+      payload: response.data,
+    });
 
     console.log(JSON.stringify(response)); // logging the response for testing purposes
     //console.log(res.statusText); // logging the statusText response for testing purposes
-    setSuccessMessage(
-      'Your Adoption Application has been sent! You will be contacted shortly.'
-    );
+    // setSuccessMessage(
+    //   'Your Adoption Application has been sent! You will be contacted shortly.'
+    // );
   } catch (error) {
-    dispatch({ type: 'ADOPTION_APPLICATION_FAIL' });
+    dispatch({
+      type: 'ADOPTION_APPLICATION_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
     // Error handling: showing an error message
     console.error('Error:', error);
     if (error.response && error.response.data && error.response.data.msg) {
