@@ -17,6 +17,8 @@ import ConfirmApplication from './component/Adoption/ConfirmApplication';
 import NotFound from './component/layout/NotFound/NotFound';
 import Footer from './component/layout/Footer/Footer';
 import Donate from './component/Donate/Donate';
+import DonateProcess from './component/Donate/DonateProcess';
+import DonationSuccess from './component/layout/DonationSuccess/DonationSuccess';
 import OurTeam from './component/layout/OurTeam/OurTeam';
 import style from './App.module.css';
 import AuthContext from './context/auth-context';
@@ -96,10 +98,26 @@ function App() {
             }
           />
           <Route
-            path="/process/donate"
+            path="/donate"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <Donate />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/process/donate"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <DonateProcess />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/donation/success"
+            element={
+              <ProtectedRoute isAuthenticated={isAuthenticated}>
+                <DonationSuccess />
               </ProtectedRoute>
             }
           />
@@ -112,7 +130,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-      <Route path="/team" element={<OurTeam />} />
+          <Route path="/team" element={<OurTeam />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

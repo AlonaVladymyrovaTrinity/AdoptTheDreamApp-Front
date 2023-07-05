@@ -1,4 +1,10 @@
-import React, { useState, useReducer, useEffect, useMemo, useContext } from 'react';
+import React, {
+  useState,
+  useReducer,
+  useEffect,
+  useMemo,
+  useContext,
+} from 'react';
 import Loader from '../layout/Loader/Loader';
 import PetCard from '../Home/PetCard';
 import Col from 'react-bootstrap/Col';
@@ -6,7 +12,7 @@ import Row from 'react-bootstrap/Row';
 import style from './Pets.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import AuthContext from '../../context/auth-context'
+import AuthContext from '../../context/auth-context';
 import Alert from 'react-bootstrap/Alert';
 import Pagination from 'react-bootstrap/Pagination';
 import { Button } from 'react-bootstrap';
@@ -28,14 +34,17 @@ import {
   addPetToFavoritesOnPets,
   removePetFromFavoritesOnPets,
   getAllFavorites,
-  getSearchPetFilters
+  getSearchPetFilters,
 } from '../../actions/petAction';
 
 const Pets = ({ showFilters }) => {
   const { userId } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState('');
   const [state, dispatch] = useReducer(petsReducer, initialState);
-  const [stateCatBreed, dispatchCatBreed] = useReducer(catBreedsReducer, initialState);
+  const [stateCatBreed, dispatchCatBreed] = useReducer(
+    catBreedsReducer,
+    initialState
+  );
   const [selectedType, setSelectedType] = useState('');
   const [selectedAge, setSelectedAge] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
@@ -46,7 +55,10 @@ const Pets = ({ showFilters }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const itemsPerPage = 18;
-  const favorites = useMemo(() => Object.values(state.favorites || []), [state.favorites]);
+  const favorites = useMemo(
+    () => Object.values(state.favorites || []),
+    [state.favorites]
+  );
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const [pets, setPets] = useState([]);
@@ -54,15 +66,15 @@ const Pets = ({ showFilters }) => {
 
   const toggleFavoriteState = async (petId) => {
     if (!favorites.includes(petId)) {
-      await addPetToFavoritesOnPets(petId, dispatch)
+      await addPetToFavoritesOnPets(petId, dispatch);
     } else {
-      await removePetFromFavoritesOnPets(petId, dispatch)
+      await removePetFromFavoritesOnPets(petId, dispatch);
     }
   };
 
   const isFavorite = (petId) => {
-    return favorites.includes(petId)
-  }
+    return favorites.includes(petId);
+  };
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -96,7 +108,7 @@ const Pets = ({ showFilters }) => {
   useEffect(() => {
     const fetchData = async () => {
       await getAllPets(dispatch);
-    }
+    };
     fetchData();
   }, []);
 
@@ -104,9 +116,9 @@ const Pets = ({ showFilters }) => {
   useEffect(() => {
     const fetchAllFavorites = async () => {
       await getAllFavorites(dispatch);
-    }
+    };
     if (isAuthenticated) {
-      fetchAllFavorites()
+      fetchAllFavorites();
     }
   }, [isAuthenticated]);
 
@@ -455,7 +467,7 @@ const Pets = ({ showFilters }) => {
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
-            {showFilters &&
+            {showFilters && (
               <div className={style.selectBox}>
                 <Nav style={{ width: '12rem' }} className="flex-column p-3">
                   {/* -----Type----- */}
@@ -463,7 +475,7 @@ const Pets = ({ showFilters }) => {
                     id="PetType"
                     name="PetType"
                     className="border-1 bg-transparent rounded mb-3"
-                    disabled={!Array.isArray(pets) || pets.length === 0}
+                    disabled={!Array.isArray(pets)}
                     onChange={handleSelectTypeChange}
                     value={selectedType}
                   >
@@ -646,11 +658,13 @@ const Pets = ({ showFilters }) => {
                     <option disabled value="">
                       Care & behavior
                     </option>
-                    {Object.entries(optionsCareAndBehav).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
+                    {Object.entries(optionsCareAndBehav).map(
+                      ([value, label]) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      )
+                    )}
                   </Form.Select>
                   <Button
                     onClick={handleClearFilters}
@@ -660,14 +674,19 @@ const Pets = ({ showFilters }) => {
                   </Button>
                 </Nav>
               </div>
-            }
+            )}
             {/* Pet Card container */}
             <div className={style.cardsContainer} fluid="md" id="container">
               <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
                 {Object.values(currentPets).map((pet, idx) => (
                   <Col className="mb-4 ps-0 pe-0" key={idx}>
                     <div className={style.grid_item}>
-                      <PetCard onToggleFavoriteState={toggleFavoriteState} key={idx} pet={pet} isFavorite={isFavorite(pet._id)} />
+                      <PetCard
+                        onToggleFavoriteState={toggleFavoriteState}
+                        key={idx}
+                        pet={pet}
+                        isFavorite={isFavorite(pet._id)}
+                      />
                     </div>
                   </Col>
                 ))}
