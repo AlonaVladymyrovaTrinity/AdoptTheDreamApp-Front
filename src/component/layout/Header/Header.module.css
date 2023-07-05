@@ -44,8 +44,7 @@
   background-color: var(--color-action-btn-hover);
   box-shadow: 0 2px 5px var(--color-gray);
 }
-.searchButton:active,
-.searchButton:visited {
+.searchButton:active {
   border: 2px;
   cursor: pointer;
   text-align: center;

@@ -1,0 +1,37 @@
+.donation-success-body {
+  background-color: var(--color-background);
+}
+.donation-success-header {
+  color: var(--color-txt);
+  display: flex;
+  justify-content: center;
+}
+
+.donation-success-page-container {
+  display: flex;
+  /* Horizontal centering */
+  justify-content: center;
+  /* Vertical centering */
+  align-items: center;
+}
+
+.donation-success-wrapper div {
+  background-color: var(--color-beige);
+  max-width: 37.5rem;
+  border-radius: 0.938rem;
+  padding: 0.938rem;
+  margin: 1.25rem;
+}
+
+.donation-success-wrapper h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.625rem;
+  color: var(--color-txt);
+}
+
+.img-page-donation-success {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
