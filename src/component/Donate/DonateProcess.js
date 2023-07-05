@@ -3,6 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './CheckoutForm';
 import style from './DonateProcess.module.css';
+import Cookies from 'js-cookie';
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -11,9 +12,10 @@ const stripePromise = loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
 
-const DonateProcess = ({ donation, customAmount }) => {
+const DonateProcess = () => {
   const [clientSecret, setClientSecret] = useState('');
-
+  const donation = Cookies.get('donation');
+  const customAmount = Cookies.get('customAmount');
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch('http://localhost:8000/api/v1/stripe', {
@@ -39,7 +41,7 @@ const DonateProcess = ({ donation, customAmount }) => {
         {clientSecret && (
           <>
             <Elements options={options} stripe={stripePromise}>
-              <CheckoutForm donation={donation} customAmount={customAmount} />
+              <CheckoutForm customAmount={customAmount} />
             </Elements>
           </>
         )}

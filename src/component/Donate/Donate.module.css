@@ -13,7 +13,6 @@
   align-items: stretch;
   justify-content: center;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 2rem;
   color: var(--color-txt);
   min-width: 80%;
@@ -164,7 +163,8 @@
   outline-color: var(--color-header-footer);
   min-width: 100%;
   min-height: 100%;
-  padding: 0.6rem 0.5rem 0.6rem 2.5rem;
+  font-size: 1.3rem;
+  padding: 0.4rem 0.5rem 0.4rem 2.5rem;
 }
 .donation-card-body-text {
   padding: 0.938rem;

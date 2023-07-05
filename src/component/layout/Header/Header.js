@@ -51,7 +51,7 @@ const Header = () => {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/login');
-        setSuccessMessage();
+        setSuccessMessage('');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
@@ -109,10 +109,7 @@ const Header = () => {
                 <Nav.Link className={style.navLinkHeader} href="/pets">
                   Pets
                 </Nav.Link>
-                <Nav.Link
-                  className={style.navLinkHeader}
-                  href="/process/donate"
-                >
+                <Nav.Link className={style.navLinkHeader} href="/donate">
                   Donate
                 </Nav.Link>
                 <Nav.Link className={style.navLinkHeader} href="/contact">

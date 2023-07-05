@@ -11,7 +11,7 @@ const FavoritePetCard = ({ pet, onRemove }) => {
 
   const handleRemove = () => {
     onRemove(pet._id);
-  }
+  };
 
   // Function to handle adopting a pet
   const handleAdopt = (pet) => {
@@ -41,8 +41,8 @@ const FavoritePetCard = ({ pet, onRemove }) => {
               pet.image.length === 0 && pet.petType === 'Cat'
                 ? cartoonCat
                 : pet.image.length === 0 && pet.petType === 'Dog'
-                  ? cartoonDog
-                  : pet.image[0].medium
+                ? cartoonDog
+                : pet.image[0].medium
             }
             alt={pet.petName}
           />
@@ -54,30 +54,29 @@ const FavoritePetCard = ({ pet, onRemove }) => {
               {pet.petType === 'Cat' && pet.age === 'Baby'
                 ? 'Kitten'
                 : pet.petType === 'Dog' && pet.age === 'Baby'
-                  ? 'Puppy'
-                  : pet.age}{' '}
-              <div className="d-flex justify-content-center">
-                <Button
-                  onClick={() => handleAdopt(pet)}
-                  className={`btn ${style.buttonFavorite}`}
-                  variant="btn-primary"
-                  size="btn-lg"
-                >
-                  <span>
-                    <BiHomeHeart size="1.5rem" className="pb-1 " />{' '}
-                    Adopt
-                  </span>
-                </Button>
-                <Button
-                  onClick={() => handleRemove(pet)}
-                  className={`btn ${style.buttonFavoriteRemove}`}
-                  variant="btn-primary"
-                  size="btn-lg"
-                >
-                  Remove
-                </Button>
-              </div>
+                ? 'Puppy'
+                : pet.age}{' '}
             </Card.Text>
+            <div className="d-flex justify-content-center">
+              <Button
+                onClick={() => handleAdopt(pet)}
+                className={`btn ${style.buttonFavorite}`}
+                variant="btn-primary"
+                size="btn-lg"
+              >
+                <span>
+                  <BiHomeHeart size="1.5rem" className="pb-1 " /> Adopt
+                </span>
+              </Button>
+              <Button
+                onClick={() => handleRemove(pet)}
+                className={`btn ${style.buttonFavoriteRemove}`}
+                variant="btn-primary"
+                size="btn-lg"
+              >
+                Remove
+              </Button>
+            </div>
           </Card.Body>
         </Card>
       </div>
