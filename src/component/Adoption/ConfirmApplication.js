@@ -16,7 +16,6 @@ import {
   initialState,
 } from '../../reducers/petReducer';
 import Loader from '../layout/Loader/Loader';
-// import FillingApplicationFormButton from './FillingApplicationFormButton';
 
 const ConfirmApplication = () => {
   const navigate = useNavigate();
@@ -350,152 +349,17 @@ const ConfirmApplication = () => {
       myForm.set('notRelatedPeopleInfo', notRelatedPeopleInfo);
       myForm.set('vetInfo', vetInfo);
       myForm.set('currentDate', currentDate);
-      try {
-        await adoptionApplication(
-          myForm,
-          petId,
-          setErrorMessage,
-          dispatchAdoption
-        );
 
-        // Reset fields
-        // resetFields();
-        //---------------------------------------------//
-        setShow(true);
-        //const handleClose = () => setShow(false);
+      adoptionApplication(myForm, petId, setErrorMessage, dispatchAdoption);
 
-        // console.log('Type of ID: ' + petId);
-        // console.log('Type of pet: ' + petType);
-        // console.log('Name of pet: ' + petName);
-        // console.log('First Name: ' + firstName);
-        // console.log('Last Name: ' + lastName);
-        // console.log('First Name of Co-Applicants: ' + coApplicantsFirstName);
-        // console.log('Last Name of Co-Applicants: ' + coApplicantsLastName);
-        // console.log('Age of Applicant: ' + applicantAge);
-        // console.log(
-        //   'Address: ' + streetAddress + ' ' + city + ' ' + state + ' ' + zip
-        // );
-        // console.log('Phone Number: ' + mobile);
-        // console.log('E-mail Address: ' + email);
-        // console.log('Occupation and Employer: ' + occupationAndEmployer);
-        // console.log('Work Address: ' + workAddress);
-        // console.log(
-        //   'Co-Applicant`s Occupation, Employer, and Work Address: ' +
-        //     coApplicantOccupationEmployerWorkAddress
-        // );
-        // console.log('Do you work from home?: ' + selectedWorkFromHome);
-        // console.log(
-        //   'Names and Ages of Children in Your Home: ' + nameAgeChildren
-        // );
-        // console.log(
-        //   'Is anyone in your home allergic to animals?: ' + selectedAllergic
-        // );
-        // console.log('If yes, explain: ' + allergicExplain);
-        // console.log(
-        //   'Is everyone in your home in agreement about adopting a pet?: ' +
-        //     selectedAgreementAdoptingPet
-        // );
-        // console.log('If no, explain: ' + agreementExplain);
-        // console.log(
-        //   'Who will be responsible for the grooming, housebreaking, and training of this pet?: ' +
-        //     responsibleGroomingTrainingPerson
-        // );
-        // console.log(
-        //   'Does anyone in your home fear animals?: ' + selectedFearAnimals
-        // );
-        // console.log('If yes, explain: ' + fearAnimalsExplain);
-        // console.log(
-        //   'Are you familiar with animal regulations in your area? ' +
-        //     selectedAreaAnimalRegulation
-        // );
-        // console.log('Do you own or rent your home? ' + selectedOwnOrRentHome);
-        // console.log(
-        //   'Please list management company`s or landlord`s name, address, and phone number: ' +
-        //     managementCompanyInfo
-        // );
-        // console.log(
-        //   'Are you planning to move in the near future? ' + selectedPlanningToMove
-        // );
-        // console.log('Please briefly describe your home: ' + homeDescription);
-        // console.log('Do you have a yard? ' + selectedHaveAYard);
-        // console.log('If yes, is it fenced? How high is the fence? ' + fenceHigh);
-        // console.log(
-        //   'Tell us briefly, in your own words, why you want to bring a pet into your home: ' +
-        //     reasonOfAdoption
-        // );
-        // console.log(
-        //   'Do you already have a pet(s) in your home? ' + selectedAlredyHavePets
-        // );
-        // console.log('If yes, what kind and how old? ' + kindAgeExistingPet);
-        // console.log(
-        //   'Are all your current pets spayed/neutered? ' + selectedSprayedNeutered
-        // );
-        // console.log(
-        //   'Is the pet you are applying for, going to be a gift? ' +
-        //     selectedPetAGift
-        // );
-        // console.log(
-        //   'If no one is home, where will the pet be kept? ' + keptPetAlone
-        // );
-        // console.log(
-        //   'How many hours during a typical day will the pet be left alone? ' +
-        //     howLongPetLeftAlone
-        // );
-        // console.log(
-        //   'If you can no longer care for pet , who will contact our rescue to return pet? Please include their name, address, and phone number: ' +
-        //     returnPetPerson
-        // );
-        // console.log(
-        //   'Should your adopted pet develop special needs over time, will you still keep this pet, get proper veterinary care and follow your vet`s guidelines, including whatever treatments/medications/special foods are required? ' +
-        //     selectedVetCare
-        // );
-        // console.log(
-        //   'Will you assume all financial responsibilities for the pet you adopt, including inoculations, regular veterinary care, good quality food, licensing, ID tag, dog bed, leash, collar, etc.? ' +
-        //     selectedFinancialResponsibilities
-        // );
-        // console.log(
-        //   'Are you willing to hire a professional trainer to correct any behavioral issues that arise? ' +
-        //     selectedHireProfTrainer
-        // );
-        // console.log('Have you had pets in the past? ' + selectedPetsInThePast);
-        // console.log('If yes, please tell us about them: ' + petsInThePastInfo);
-        // console.log(
-        //   'How many years did you own your pet(s)? ' + petsInThePastPeriod
-        // );
-        // console.log(
-        //   'Have any of your pets ever gotten lost? ' + selectedPetsGottenLost
-        // );
-        // console.log(
-        //   'Have any of your pets ever been poisoned? ' + selectedPetsBeenPoisoned
-        // );
-        // console.log(
-        //   'Has any pet in your care ever been hit by a vehicle? ' +
-        //     selectedPetHitByVehicle
-        // );
-        // console.log(
-        //   'Have you ever given a pet to a shelter? ' + selectedGivenPetToShelter
-        // );
-        // console.log(
-        //   'Have you ever given a pet away to someone? ' + selectedGivenPetAway
-        // );
-        // console.log(
-        //   'If you`ve given away a pet in the past, please explain: ' +
-        //     givenPetAwayExplain
-        // );
-        // console.log(
-        //   'Please provide names, phone numbers, and relationship of two (see vet reference note) people not related to you: ' +
-        //     notRelatedPeopleInfo
-        // );
-        // console.log('Vet`s name, address, and phone number: ' + vetInfo);
-        // console.log(currentDate);
+      // Reset fields
+      // resetFields();
+      //---------------------------------------------//
+      setShow(true);
 
-        Cookies.remove('PetID', { path: '/' });
-        Cookies.remove('PetType', { path: '/' });
-        Cookies.remove('PetName', { path: '/' });
-      } catch (error) {
-        setErrorMessage('Error during confirm Application reset');
-      }
-      //   setEmail('');
+      Cookies.remove('PetID', { path: '/' });
+      Cookies.remove('PetType', { path: '/' });
+      Cookies.remove('PetName', { path: '/' });
     } else {
       console.log('Form validation failed');
       setShow(false);
@@ -505,21 +369,21 @@ const ConfirmApplication = () => {
       setErrorMessage('Form validation failed');
     }
   };
+  let message = '';
   const { response, error } = stateAdoption;
   useEffect(() => {
-    if (
-      ((response && response.length !== 0) || response !== undefined) &&
-      response.success === true
-    ) {
-      setSuccessMessage(response.message + '. Please chack validation form.');
+    if (response !== undefined || error !== undefined) {
       console.log('response :' + JSON.stringify(response.success));
       console.log('response :' + JSON.stringify(response.message));
+
       console.log('error :' + error);
-    } else if (error || (response && response.success === false)) {
-      setErrorMessage('');
-      setErrorMessage(error && response.message);
     }
   }, [response, error]);
+  //--------------------------//
+
+  if (response.message !== 0) {
+    message = JSON.stringify(response.message);
+  }
 
   return (
     <>
@@ -1873,7 +1737,6 @@ const ConfirmApplication = () => {
                   Submit form
                 </Button>
               </div>
-              {/* <FillingApplicationFormButton /> */}
 
               <Modal
                 show={show}
@@ -1885,8 +1748,9 @@ const ConfirmApplication = () => {
                   <Modal.Title>Thank you!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  Your Adoption Application has been sent! <br /> You will be
-                  contacted shortly.
+                  {successMessage}
+                  {/* Your Adoption Application has been sent! <br /> You will be
+                  contacted shortly. */}
                 </Modal.Body>
                 <Modal.Footer>
                   <div className={style.confirmApplicationModalCloseBtn}>
