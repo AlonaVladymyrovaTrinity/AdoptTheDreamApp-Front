@@ -1,7 +1,21 @@
-/* Desctop Design*/
+/* Desktop Design*/
 .logo_wrapper {
-  padding-inline: 1rem;
+  padding-inline: 1rem 3rem;
 }
+
+.logo {
+  width: 4rem;  
+  height: 4rem;  
+  text-align: center;  
+  /* padding: 15px;  
+  border: 3px solid red;  */
+}
+
+.logo  img {
+  /* object-fit: scale-down; */
+  height: 100%;
+}
+
 .navLinkHeader,
 .navLinkLogInHeader,
 .navLinkLogOutHeader {
