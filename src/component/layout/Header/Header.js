@@ -8,7 +8,6 @@ import React, {
 import { initialState, userReducer } from '../../../reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
-import Loader from '../../layout/Loader/Loader';
 import Logo from '../../../images/Logo.png'
 import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
@@ -17,8 +16,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { TbSearch } from 'react-icons/tb';
-import { TbCat } from 'react-icons/tb';
-import { TbDog } from 'react-icons/tb';
 import style from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -73,9 +70,6 @@ const Header = () => {
   const user = useMemo(() => state.user || {}, [state.user]);
   return (
     <>
-      {/* {state.loading ? (
-        <Loader className="small-spinner" />
-      ) : ( */}
       <>
         {successMessage && (
           <Alert
@@ -110,8 +104,6 @@ const Header = () => {
                     <img src={Logo} alt="Logo" />
                   </div>
                 </div>
-                {/* <TbCat size="2rem" />
-                <TbDog size="2rem" /> */}
               </div>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -156,18 +148,6 @@ const Header = () => {
                     variant="outline-default"
                     aria-label="Search button"
                     title="Search"
-                    // style={{
-                    //   border: 2,
-                    //   cursor: 'pointer',
-                    //   textAlign: 'center',
-                    //   borderRadius: 50,
-                    //   backgroundColor: 'var(--color-search-btn)',
-                    //   position: 'relative',
-                    //   right: 31,
-                    //   paddingTop: 1,
-                    //   paddingBottom: 4,
-                    //   paddingInline: 5,
-                    // }}
                     onClick={() => {
                       alert('search');
                     }}
