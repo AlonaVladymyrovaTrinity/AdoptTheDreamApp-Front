@@ -4,8 +4,16 @@ import style from './FavoritePets.module.css';
 import { useReducer, useMemo } from 'react';
 import { initialStateFavoritePets, favoritePetsReducer } from '../../reducers/favoritePetsReducer';
 import { getFavoritePets, removePetFromFavorites, resetError } from '../../actions/favoritePetsAction';
+import {
+  initialStateFavoritePets,
+  favoritePetsReducer,
+} from '../../reducers/favoritePetsReducer';
+import {
+  getFavoritePets,
+  removePetFromFavorites,
+} from '../../actions/favoritePetsAction';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../../context/auth-context'
+import AuthContext from '../../context/auth-context';
 import FavoritePetCard from './FavoritePetCard';
 import NoFavorites from '../NoFavorites/NoFavorites'
 import Loader from '../layout/Loader/Loader';
@@ -13,7 +21,10 @@ import Alert from 'react-bootstrap/Alert';
 
 const FavoritePets = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [state, dispatch] = useReducer(favoritePetsReducer, initialStateFavoritePets);
+  const [state, dispatch] = useReducer(
+    favoritePetsReducer,
+    initialStateFavoritePets
+  );
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
   const loading = useMemo(() => state.loading, [state.loading]);
@@ -44,14 +55,25 @@ const FavoritePets = () => {
       setGotFavorites(true)
     };
     fetchFavoritePets();
-  }, [])
+  }, []);
 
   // Function to remove a pet from favorites
   const removeFavorite = async (petId) => {
-    await removePetFromFavorites({ petId: petId }, dispatch)
+    await removePetFromFavorites({ petId: petId }, dispatch);
   };
 
-  const resetErrorMessage = () => resetError(dispatch)
+  // Pagination logic
+  const petsPerPage = 6;
+  const indexOfLastPet = currentPage * petsPerPage;
+  const indexOfFirstPet = indexOfLastPet - petsPerPage;
+  const favorites = useMemo(
+    () => Object.values(state.favorites || {}),
+    [state.favorites]
+  );
+  const currentPets = favorites.slice(indexOfFirstPet, indexOfLastPet);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>

@@ -20,7 +20,7 @@
   --color-txt: #333138;
   --color-btn: #d83c56;
   --color-btn-hover: #fa9da6;
-  --color-btn-active: #d44d64;
+  --color-btn-active: #d7576c;
   --color-btn-disabled: #fa9da6;
   --color-search-btn: #d90429;
   --color-search-btn-hover: #fa7885;
@@ -34,6 +34,7 @@
   --color-transparent: transparent;
   --color-grey: #ffffff8c;
   --color-icon-gray: #747171;
+  --color-grey-background: #eae9e9;
   --color-btn-nofavorites: #f0463a;
   --color-btn-nofavorites-hover: #ea726a;
   --color-btn-nofavorites-active: #ee554a;

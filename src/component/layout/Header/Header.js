@@ -1,14 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  useMemo,
-  useContext,
-} from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { initialState, userReducer } from '../../../reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
-import Loader from '../../layout/Loader/Loader';
 import Alert from 'react-bootstrap/Alert';
 
 import Container from 'react-bootstrap/Container';
@@ -58,7 +51,7 @@ const Header = () => {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/login');
-        setSuccessMessage();
+        setSuccessMessage('');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
@@ -70,12 +63,8 @@ const Header = () => {
     }
   }, [state.isAuthenticated]);
 
-  const user = useMemo(() => state.user || {}, [state.user]);
   return (
     <>
-      {/* {state.loading ? (
-        <Loader className="small-spinner" />
-      ) : ( */}
       <>
         {successMessage && (
           <Alert
@@ -120,10 +109,7 @@ const Header = () => {
                 <Nav.Link className={style.navLinkHeader} href="/pets">
                   Pets
                 </Nav.Link>
-                <Nav.Link
-                  className={style.navLinkHeader}
-                  href="/process/donate"
-                >
+                <Nav.Link className={style.navLinkHeader} href="/donate">
                   Donate
                 </Nav.Link>
                 <Nav.Link className={style.navLinkHeader} href="/contact">
@@ -138,7 +124,6 @@ const Header = () => {
                   <Form.Control
                     type="text"
                     placeholder="Search"
-                    //className="me-2"
                     aria-label="Search"
                     style={{
                       height: 33,
@@ -153,18 +138,6 @@ const Header = () => {
                     variant="outline-default"
                     aria-label="Search button"
                     title="Search"
-                    // style={{
-                    //   border: 2,
-                    //   cursor: 'pointer',
-                    //   textAlign: 'center',
-                    //   borderRadius: 50,
-                    //   backgroundColor: 'var(--color-search-btn)',
-                    //   position: 'relative',
-                    //   right: 31,
-                    //   paddingTop: 1,
-                    //   paddingBottom: 4,
-                    //   paddingInline: 5,
-                    // }}
                     onClick={() => {
                       alert('search');
                     }}
@@ -223,7 +196,6 @@ const Header = () => {
           </Container>
         </Navbar>
       </>
-      {/* )} */}
     </>
   );
 };

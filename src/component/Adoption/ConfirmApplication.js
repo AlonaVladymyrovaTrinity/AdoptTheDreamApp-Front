@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -10,6 +10,10 @@ import Cookies from 'js-cookie';
 import Alert from 'react-bootstrap/Alert';
 import Modal from 'react-bootstrap/Modal';
 import { BiHomeHeart } from 'react-icons/bi';
+//import AuthContext from '../../context/auth-context';
+//import { adoptionApplication } from '../../actions/petAction';
+import { adoptionApplicationReducer } from '../../reducers/petReducer';
+//import { petReducer } from '../../reducers/petReducer';
 
 const ConfirmApplication = () => {
   const navigate = useNavigate();
@@ -104,7 +108,14 @@ const ConfirmApplication = () => {
   const petId = Cookies.get('PetID');
   const petType = Cookies.get('PetType');
   const petName = Cookies.get('PetName');
+  //const [dispatch, adoptionApplication] = useReducer(petReducer);
+  //const [state, dispatch] = useReducer(petReducer, initialState);
 
+  const [dispatch, adoptionApplication] = useReducer(
+    adoptionApplicationReducer
+  );
+
+  //const { dispatch, adoptionApplication } = useContext(AuthContext);
   useEffect(() => {
     if (!Cookies.get('PetID')) {
       navigate('/pets');
@@ -112,6 +123,7 @@ const ConfirmApplication = () => {
       navigate('/application/confirm');
     }
   }, [navigate]);
+
   //-----------------------------------------------//
 
   const validateForm = (event, form) => {
@@ -264,6 +276,88 @@ const ConfirmApplication = () => {
       setErrorMessage('');
       setSuccessMessage('');
       setSuccessMessage('Form is valid');
+      //-------------------------------------------//
+      // const resetFields = () => {
+      //   setForm({ ...myForm, petId: '', petType: '', petName: '' });
+
+      // };
+      const myForm = new FormData();
+      myForm.set('petId', petId);
+      myForm.set('petType', petType);
+      myForm.set('petName', petName);
+      myForm.set('firstName', firstName);
+      myForm.set('lastName', lastName);
+      myForm.set('coApplicantsFirstName', coApplicantsFirstName);
+      myForm.set('coApplicantsLastName', coApplicantsLastName);
+      myForm.set('applicantAge', applicantAge);
+      myForm.set('streetAddress', streetAddress);
+      myForm.set('city', city);
+      myForm.set('state', state);
+      myForm.set('zip', zip);
+      myForm.set('mobile', mobile);
+      myForm.set('email', email);
+      myForm.set('occupationAndEmployer', occupationAndEmployer);
+      myForm.set('workAddress', workAddress);
+      myForm.set(
+        'coApplicantOccupationEmployerWorkAddress',
+        coApplicantOccupationEmployerWorkAddress
+      );
+      myForm.set('selectedWorkFromHome', selectedWorkFromHome);
+      myForm.set('nameAgeChildren', nameAgeChildren);
+      myForm.set('selectedAllergic', selectedAllergic);
+      myForm.set('allergicExplain', allergicExplain);
+      myForm.set('selectedAgreementAdoptingPet', selectedAgreementAdoptingPet);
+      myForm.set('agreementExplain', agreementExplain);
+      myForm.set(
+        'responsibleGroomingTrainingPerson',
+        responsibleGroomingTrainingPerson
+      );
+      myForm.set('selectedFearAnimals', selectedFearAnimals);
+      myForm.set('fearAnimalsExplain', fearAnimalsExplain);
+      myForm.set('selectedAreaAnimalRegulation', selectedAreaAnimalRegulation);
+      myForm.set('selectedOwnOrRentHome', selectedOwnOrRentHome);
+      myForm.set('managementCompanyInfo', managementCompanyInfo);
+      myForm.set('selectedPlanningToMove', selectedPlanningToMove);
+      myForm.set('homeDescription', homeDescription);
+      myForm.set('selectedHaveAYard', selectedHaveAYard);
+      myForm.set('fenceHigh', fenceHigh);
+      myForm.set('reasonOfAdoption', reasonOfAdoption);
+      myForm.set('selectedAlredyHavePets', selectedAlredyHavePets);
+      myForm.set('kindAgeExistingPet', kindAgeExistingPet);
+      myForm.set('selectedSprayedNeutered', selectedSprayedNeutered);
+      myForm.set('selectedPetAGift', selectedPetAGift);
+      myForm.set('keptPetAlone', keptPetAlone);
+      myForm.set('howLongPetLeftAlone', howLongPetLeftAlone);
+      myForm.set('returnPetPerson', returnPetPerson);
+      myForm.set('selectedVetCare', selectedVetCare);
+      myForm.set(
+        'selectedFinancialResponsibilities',
+        selectedFinancialResponsibilities
+      );
+      myForm.set('selectedHireProfTrainer', selectedHireProfTrainer);
+      myForm.set('selectedPetsInThePast', selectedPetsInThePast);
+      myForm.set('petsInThePastInfo', petsInThePastInfo);
+      myForm.set('petsInThePastPeriod', petsInThePastPeriod);
+      myForm.set('selectedPetsGottenLost', selectedPetsGottenLost);
+      myForm.set('selectedPetsBeenPoisoned', selectedPetsBeenPoisoned);
+      myForm.set('selectedPetHitByVehicle', selectedPetHitByVehicle);
+      myForm.set('selectedGivenPetToShelter', selectedGivenPetToShelter);
+      myForm.set('selectedGivenPetAway', selectedGivenPetAway);
+      myForm.set('givenPetAwayExplain', givenPetAwayExplain);
+      myForm.set('notRelatedPeopleInfo', notRelatedPeopleInfo);
+      myForm.set('vetInfo', vetInfo);
+      myForm.set('currentDate', currentDate);
+
+      adoptionApplication(
+        myForm,
+        petId,
+        setErrorMessage,
+        setSuccessMessage,
+        dispatch
+      );
+      // Reset fields
+      // resetFields();
+      //---------------------------------------------//
       setShow(true);
       //const handleClose = () => setShow(false);
 

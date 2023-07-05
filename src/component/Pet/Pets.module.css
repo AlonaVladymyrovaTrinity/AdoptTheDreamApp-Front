@@ -53,8 +53,7 @@
 .clearFiltersBtn:focus {
   background-color: var(--color-action-btn-hover);
 }
-.clearFiltersBtn:active,
-.clearFiltersBtn:visited {
+.clearFiltersBtn:active {
   background-color: var(--color-action-btn-active) !important;
   transform: scale(0.98);
 }
