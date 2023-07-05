@@ -9,8 +9,8 @@ import { initialState, userReducer } from '../../../reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
 import Loader from '../../layout/Loader/Loader';
+import Logo from '../../../images/Logo.png'
 import Alert from 'react-bootstrap/Alert';
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -103,12 +103,15 @@ const Header = () => {
           style={{ minHeight: 80 }}
         >
           <Container fluid>
-            <Navbar.Brand className="mx-0" href="/">
-              <div className={style.logo_wrapper}>
-                <div className={style.logo}>
-                  <TbCat size="2rem" />
-                  <TbDog size="2rem" />
+            <Navbar.Brand className="mx-0" href="/" >
+              <div className="d-flex justify-content-center align-items-center">
+                <div className={style['logo_wrapper']}>
+                  <div className={style['logo']}>
+                    <img src={Logo} alt="Logo" />
+                  </div>
                 </div>
+                {/* <TbCat size="2rem" />
+                <TbDog size="2rem" /> */}
               </div>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
