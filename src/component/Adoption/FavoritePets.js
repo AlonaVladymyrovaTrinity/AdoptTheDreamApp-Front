@@ -4,14 +4,6 @@ import style from './FavoritePets.module.css';
 import { useReducer, useMemo } from 'react';
 import { initialStateFavoritePets, favoritePetsReducer } from '../../reducers/favoritePetsReducer';
 import { getFavoritePets, removePetFromFavorites, resetError } from '../../actions/favoritePetsAction';
-import {
-  initialStateFavoritePets,
-  favoritePetsReducer,
-} from '../../reducers/favoritePetsReducer';
-import {
-  getFavoritePets,
-  removePetFromFavorites,
-} from '../../actions/favoritePetsAction';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/auth-context';
 import FavoritePetCard from './FavoritePetCard';
@@ -31,16 +23,6 @@ const FavoritePets = () => {
   console.log('loading: ' + loading);
   const errorMessage = useMemo(() => state.error, [state.error]);
   const [gotFavorites, setGotFavorites] = useState(false);
-  
-  // Pagination logic
-  const petsPerPage = 3;
-  const indexOfLastPet = currentPage * petsPerPage;
-  const indexOfFirstPet = indexOfLastPet - petsPerPage;
-  const favorites = useMemo(() => Object.values(state.favorites || {}), [state.favorites]);
-  const currentFavoritesPage = favorites.slice(indexOfFirstPet, indexOfLastPet);
-
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     const authenticated = userId ? true : false;
@@ -79,13 +61,13 @@ const FavoritePets = () => {
     <>
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Favorite Pets</h1>
       {errorMessage && (
-          <Alert
-            variant="danger"
-            onClose={() => resetErrorMessage(dispatch)}
-            dismissible
-          >
-            {errorMessage}
-          </Alert>
+        <Alert
+          variant="danger"
+          onClose={() => resetError(dispatch)}
+          dismissible
+        >
+          {errorMessage}
+        </Alert>
       )}
 
       {loading ? (
@@ -103,7 +85,7 @@ const FavoritePets = () => {
                 alignItems: 'center',
               }}
             >
-              {currentFavoritesPage.map((pet) => (
+              {currentPets.map((pet) => (
                 <FavoritePetCard pet={pet} onRemove={removeFavorite} />
               ))}
             </Container>
