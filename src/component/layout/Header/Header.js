@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useReducer,
-  useMemo,
-  useContext,
-} from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { initialState, userReducer } from '../../../reducers/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
@@ -55,7 +49,7 @@ const Header = () => {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/login');
-        setSuccessMessage();
+        setSuccessMessage('');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
@@ -67,7 +61,6 @@ const Header = () => {
     }
   }, [state.isAuthenticated]);
 
-  const user = useMemo(() => state.user || {}, [state.user]);
   return (
     <>
       <>
@@ -115,10 +108,7 @@ const Header = () => {
                 <Nav.Link className={style.navLinkHeader} href="/pets">
                   Pets
                 </Nav.Link>
-                <Nav.Link
-                  className={style.navLinkHeader}
-                  href="/process/donate"
-                >
+                <Nav.Link className={style.navLinkHeader} href="/donate">
                   Donate
                 </Nav.Link>
                 <Nav.Link className={style.navLinkHeader} href="/contact">
@@ -133,7 +123,6 @@ const Header = () => {
                   <Form.Control
                     type="text"
                     placeholder="Search"
-                    //className="me-2"
                     aria-label="Search"
                     style={{
                       height: 33,
@@ -206,7 +195,6 @@ const Header = () => {
           </Container>
         </Navbar>
       </>
-      {/* )} */}
     </>
   );
 };

@@ -64,6 +64,7 @@ const Profile = () => {
       setSuccessMessage('User successfully signed out!');
       setTimeout(() => {
         navigate('/login');
+        setSuccessMessage('');
       }, 1000);
     } else {
       setErrorMessage('Logout unsuccessful. Try again');
