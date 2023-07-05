@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { initialState, userReducer } from '../../../reducers/userReducer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
 import Alert from 'react-bootstrap/Alert';
 
@@ -21,6 +21,10 @@ import { getSearchPetName } from '../../../actions/petAction';
 import { SearchPetNameReducer } from '../../../reducers/petReducer';
 
 const Header = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  const hideSearch = pathname === '/' || pathname === '/pets';
+
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
@@ -100,8 +104,13 @@ const Header = () => {
       'petNameResults',
       JSON.stringify(statePetName.petNameResponse)
     ); // Save to local storage
+    localStorage.setItem(
+      'petNameLoading',
+      JSON.stringify(statePetName.loading)
+    );
     window.postMessage({ key: 'petNameResults' }, window.location.origin);
-  }, [statePetName.petNameResponse]);
+    window.postMessage({ key: 'petNameLoading' }, window.location.origin);
+  }, [statePetName.petNameResponse, statePetName.loading]);
 
   return (
     <>
@@ -154,7 +163,12 @@ const Header = () => {
                 About
               </Nav.Link>
             </Nav>
-            <div className={style.searchHeader}>
+            <div
+              className={`${style.searchHeader} ${
+                hideSearch ? '' : `${style['hide-search']}`
+              }
+              `}
+            >
               <Form
                 className="d-flex width-150 align-items-center"
                 onSubmit={HandleSearch}

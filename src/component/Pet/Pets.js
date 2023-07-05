@@ -127,15 +127,25 @@ const Pets = ({ showFilters }) => {
       fetchAllFavorites();
     }
   }, [isAuthenticated]);
-
+  const [loadingNameStar, setLoadingNameStar] = useState(false);
   //useEffect for Search: petNameResults
   useEffect(() => {
     const handleStorageChange = (event) => {
       const currentValue = localStorage.getItem('petNameResults');
+      const petNameLoading = localStorage.getItem('petNameLoading');
       if (
         event.origin === window.location.origin &&
-        event.data.key === 'petNameResults'
+        (event.data.key === 'petNameResults' ||
+          event.data.key === 'petNameLoading')
       ) {
+        if (petNameLoading && petNameLoading !== 'undefined') {
+          if (petNameLoading === 'false') {
+            setLoadingNameStar(false);
+          }
+          if (petNameLoading === 'true') {
+            setLoadingNameStar(true);
+          }
+        }
         if (currentValue && currentValue !== 'undefined') {
           try {
             const parsedResults = JSON.parse(currentValue);
@@ -491,7 +501,7 @@ const Pets = ({ showFilters }) => {
         <span className={style.homePage_txt}>
           <h3>CHOOSE YOUR PET</h3>
         </span>
-        {state.loading || statePetFilters.loading ? (
+        {state.loading || statePetFilters.loading || loadingNameStar ? (
           <Loader className="small-spinner" />
         ) : (
           <div className={style.cardsContainerWithSelect}>
@@ -654,7 +664,8 @@ const Pets = ({ showFilters }) => {
               </div>
             )}
             {/* Pet Card container */}
-            {pets.length === 0 ? (
+            {(!state.loading || !statePetFilters.loading || !loadingNameStar) &&
+            pets.length === 0 ? (
               <div className={style.cardsContainer} fluid="md" id="container">
                 <NoSearchResults />
               </div>

@@ -74,6 +74,9 @@
 .bnt-shape {
   border-radius: 50%;
 }
+.hide-search {
+  display: none;
+}
 
 /* Responsive Design Tablet */
 @media screen and (max-width: 61.94em) {
