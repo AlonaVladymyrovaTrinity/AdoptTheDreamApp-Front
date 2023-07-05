@@ -337,6 +337,42 @@ export const getSearchPetFilters = async (
     });
   }
 };
+//Adoption application
+
+export const adoptionApplication = async (
+  formData,
+  petId,
+  setErrorMessage,
+  setSuccessMessage,
+  dispatch
+) => {
+  dispatch({ type: 'ADOPTION_APPLICATION_REQUEST' });
+  try {
+    const response = await axios.post(`/api/v1/pets/${petId}/adopt`, formData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    dispatch({ type: 'ADOPTION_APPLICATION_SUCCESS' });
+
+    console.log(JSON.stringify(response)); // logging the response for testing purposes
+    //console.log(res.statusText); // logging the statusText response for testing purposes
+    setSuccessMessage(
+      'Your Adoption Application has been sent! You will be contacted shortly.'
+    );
+  } catch (error) {
+    dispatch({ type: 'ADOPTION_APPLICATION_FAIL' });
+    // Error handling: showing an error message
+    console.error('Error:', error);
+    if (error.response && error.response.data && error.response.data.msg) {
+      setErrorMessage(
+        error.response?.data?.msg ||
+          'An error occurred during application submit. Please try again.'
+      );
+      //console.log(error.response.data.msg);
+    }
+  }
+};
 
 // Search pet name
 export const getSearchPetName = async (petName, dispatch) => {

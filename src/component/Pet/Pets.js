@@ -506,7 +506,7 @@ const Pets = ({ showFilters }) => {
                     id="PetType"
                     name="PetType"
                     className="border-1 bg-transparent rounded mb-3"
-                    disabled={!Array.isArray(pets) || pets.length === 0}
+                    disabled={!Array.isArray(pets)}
                     onChange={handleSelectTypeChange}
                     value={selectedType}
                   >

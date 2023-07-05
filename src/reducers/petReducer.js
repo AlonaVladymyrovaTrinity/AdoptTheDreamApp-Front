@@ -285,6 +285,32 @@ export const SearchPetFiltersReducer = (
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 };
+// Adoption application reducer
+export const adoptionApplicationReducer = (state = { myForm: {} }, action) => {
+  switch (action.type) {
+    case 'ADOPTION_APPLICATION_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'ADOPTION_APPLICATION_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        response: action.payload,
+      };
+    case 'ADOPTION_APPLICATION_FAIL':
+      return {
+        ...state,
+        loading: false,
+        // response: null,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
 
 export const SearchPetNameReducer = (
   state = { petNameResponse: [] },
