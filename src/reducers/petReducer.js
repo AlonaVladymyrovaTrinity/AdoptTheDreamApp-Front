@@ -5,7 +5,7 @@ export const initialState = {
   pets: null,
   isAuthenticated: false,
   loadingFavorites: false,
-  favorites: null
+  favorites: null,
 };
 
 export const petReducer = (state, action) => {
@@ -31,7 +31,7 @@ export const petReducer = (state, action) => {
     case 'FAVORITE_PET_ON_PET_DETAILS_REQUEST':
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case 'FAVORITE_PET_ON_PET_DETAILS_SUCCESS':
       return {
@@ -47,7 +47,7 @@ export const petReducer = (state, action) => {
     case 'UNFAVORITE_PET_ON_PET_DETAILS_REQUEST':
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case 'UNFAVORITE_PET_ON_PET_DETAILS_SUCCESS':
       return {
@@ -59,12 +59,12 @@ export const petReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
     case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_REQUEST':
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case 'GET_PET_IS_FAVORITE_STATUS_ON_PET_DETAILS_SUCCESS':
       return {
@@ -76,7 +76,7 @@ export const petReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload
+        error: action.payload,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -132,22 +132,22 @@ export const petsReducer = (state = { pets: [] }, action) => {
     case 'ADD_PET_TO_FAVORITES_ON_PETS_FAIL':
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       };
-      case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_REQUEST':
-        return {
-          ...state,
-        };
-      case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_SUCCESS':
-        return {
-          ...state,
-          favorites: action.payload,
-        };
-      case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_FAIL':
-        return {
-          ...state,
-          error: action.payload
-        };
+    case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_REQUEST':
+      return {
+        ...state,
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_SUCCESS':
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+    case 'REMOVE_PET_FROM_FAVORITES_ON_PETS_FAIL':
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
@@ -278,6 +278,32 @@ export const SearchPetFiltersReducer = (
       return {
         ...state,
         loading: false,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+// Adoption application reducer
+export const adoptionApplicationReducer = (state = { myForm: {} }, action) => {
+  switch (action.type) {
+    case 'ADOPTION_APPLICATION_REQUEST':
+      return {
+        ...state,
+        loading: true,
+      };
+    case 'ADOPTION_APPLICATION_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        response: action.payload,
+      };
+    case 'ADOPTION_APPLICATION_FAIL':
+      return {
+        ...state,
+        loading: false,
+        // response: null,
         error: action.payload,
       };
 
