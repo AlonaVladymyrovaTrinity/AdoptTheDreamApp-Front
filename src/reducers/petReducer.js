@@ -303,7 +303,6 @@ export const adoptionApplicationReducer = (state = { myForm: {} }, action) => {
       return {
         ...state,
         loading: false,
-        // response: null,
         error: action.payload,
       };
 

@@ -36,6 +36,7 @@ import {
   getAllFavorites,
   getSearchPetFilters,
 } from '../../actions/petAction';
+import NoSearchResults from '../NoSearchResults/NoSearchResults';
 
 const Pets = ({ showFilters }) => {
   const { userId } = useContext(AuthContext);
@@ -99,8 +100,6 @@ const Pets = ({ showFilters }) => {
     initialState
   );
 
-  // const [petNameResults, setPetNameResults] = useState('');
-
   useEffect(() => {
     const authenticated = userId ? true : false;
     setIsAuthenticated(authenticated);
@@ -109,7 +108,12 @@ const Pets = ({ showFilters }) => {
   // useEffect for getAllPets
   useEffect(() => {
     const fetchData = async () => {
-      await getAllPets(dispatch);
+      try {
+        await getAllPets(dispatch);
+      } catch (error) {
+        setErrorMessage('');
+        setErrorMessage('Error loading pets');
+      }
     };
     fetchData();
   }, []);
@@ -133,7 +137,6 @@ const Pets = ({ showFilters }) => {
         event.data.key === 'petNameResults'
       ) {
         if (currentValue && currentValue !== 'undefined') {
-          console.log('Stored petNameResults:', currentValue);
           try {
             const parsedResults = JSON.parse(currentValue);
             setPets(parsedResults);
@@ -141,7 +144,6 @@ const Pets = ({ showFilters }) => {
             console.error('Error parsing JSON:', error);
           }
         }
-        // console.log('The value of the petNameResults key has changed!');
       }
     };
 
@@ -284,9 +286,6 @@ const Pets = ({ showFilters }) => {
     color,
     careAndBehaviour
   ) => {
-    console.log('petType: ' + petType);
-    console.log('selectedType: ' + selectedType);
-    console.log(petType !== selectedType);
     if (petType !== selectedType) {
       breed = '';
       age = '';
@@ -320,8 +319,6 @@ const Pets = ({ showFilters }) => {
   const handleSelectTypeChange = (event) => {
     const selectedPetType = event.target.value;
     setSelectedType(selectedPetType);
-    console.log('petType: ' + selectedPetType);
-    console.log('selectedType: ' + selectedType);
     if (selectedPetType !== selectedType) {
       setSelectedBreed('');
       setSelectedAge('');
@@ -510,9 +507,7 @@ const Pets = ({ showFilters }) => {
                     onChange={handleSelectTypeChange}
                     value={selectedType}
                   >
-                    <option disabled value="">
-                      Type
-                    </option>
+                    <option value="">Type:</option>
                     {Object.entries(optionsType).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -524,17 +519,11 @@ const Pets = ({ showFilters }) => {
                     id="PetBreed"
                     name="PetBreed"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectBreedChange}
                     value={selectedBreed}
                   >
-                    <option disabled value="">
-                      Breed
-                    </option>
+                    <option value="">Breed:</option>
                     {Object.entries(optionsBreed).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -546,17 +535,11 @@ const Pets = ({ showFilters }) => {
                     id="PetAge"
                     name="PetAge"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectAgeChange}
                     value={selectedAge}
                   >
-                    <option disabled value="">
-                      Age
-                    </option>
+                    <option value="">Age:</option>
                     {Object.entries(optionsAge).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -568,17 +551,11 @@ const Pets = ({ showFilters }) => {
                     id="PetSize"
                     name="PetSize"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectSizeChange}
                     value={selectedSize}
                   >
-                    <option disabled value="">
-                      Size
-                    </option>
+                    <option value="">Size:</option>
                     {Object.entries(optionsSize).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -590,17 +567,11 @@ const Pets = ({ showFilters }) => {
                     id="PetGender"
                     name="PetGender"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectGenderChange}
                     value={selectedGender}
                   >
-                    <option disabled value="">
-                      Gender
-                    </option>
+                    <option value="">Gender:</option>
                     {Object.entries(optionsGender).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -612,17 +583,11 @@ const Pets = ({ showFilters }) => {
                     id="PetGoodWith"
                     name="PetGoodWith"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectGoodWithChange}
                     value={selectedGoodWith}
                   >
-                    <option disabled value="">
-                      Good with
-                    </option>
+                    <option value="">Good with:</option>
                     {Object.entries(optionsGoodWith).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -634,17 +599,11 @@ const Pets = ({ showFilters }) => {
                     id="PetCoatLength"
                     name="PetCoatLength"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectCoatLengthChange}
                     value={selectedCoatLength}
                   >
-                    <option disabled value="">
-                      Coat length
-                    </option>
+                    <option value="">Coat length:</option>
                     {Object.entries(optionsCoatLength).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -656,17 +615,11 @@ const Pets = ({ showFilters }) => {
                     id="PetColor"
                     name="PetColor"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectColorChange}
                     value={selectedColor}
                   >
-                    <option disabled value="">
-                      Color
-                    </option>
+                    <option value="">Color:</option>
                     {Object.entries(optionsColor).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
@@ -678,17 +631,11 @@ const Pets = ({ showFilters }) => {
                     id="PetCareAndBehav"
                     name="PetCareAndBehav"
                     className={`${style['select-option']} border-1 bg-transparent rounded mb-3`}
-                    disabled={
-                      !Array.isArray(pets) ||
-                      pets.length === 0 ||
-                      selectedType === ''
-                    }
+                    disabled={!Array.isArray(pets) || selectedType === ''}
                     onChange={handleSelectCareAndBehavChange}
                     value={selectedCareAndBehav}
                   >
-                    <option disabled value="">
-                      Care & behavior
-                    </option>
+                    <option value="">Care & behavior:</option>
                     {Object.entries(optionsCareAndBehav).map(
                       ([value, label]) => (
                         <option key={value} value={value}>
@@ -707,22 +654,28 @@ const Pets = ({ showFilters }) => {
               </div>
             )}
             {/* Pet Card container */}
-            <div className={style.cardsContainer} fluid="md" id="container">
-              <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
-                {Object.values(currentPets).map((pet, idx) => (
-                  <Col className="mb-4 ps-0 pe-0" key={idx}>
-                    <div className={style.grid_item}>
-                      <PetCard
-                        onToggleFavoriteState={toggleFavoriteState}
-                        key={idx}
-                        pet={pet}
-                        isFavorite={isFavorite(pet._id)}
-                      />
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </div>
+            {pets.length === 0 ? (
+              <div className={style.cardsContainer} fluid="md" id="container">
+                <NoSearchResults />
+              </div>
+            ) : (
+              <div className={style.cardsContainer} fluid="md" id="container">
+                <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
+                  {Object.values(currentPets).map((pet, idx) => (
+                    <Col className="mb-4 ps-0 pe-0" key={idx}>
+                      <div className={style.grid_item}>
+                        <PetCard
+                          onToggleFavoriteState={toggleFavoriteState}
+                          key={idx}
+                          pet={pet}
+                          isFavorite={isFavorite(pet._id)}
+                        />
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            )}
           </div>
         )}
       </div>
