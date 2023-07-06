@@ -20,7 +20,6 @@ const FavoritePets = () => {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
   const loading = useMemo(() => state.loading, [state.loading]);
-  console.log('loading: ' + loading);
   const errorMessage = useMemo(() => state.error, [state.error]);
   const [gotFavorites, setGotFavorites] = useState(false);
 
@@ -86,7 +85,7 @@ const FavoritePets = () => {
               }}
             >
               {currentPets.map((pet) => (
-                <FavoritePetCard pet={pet} onRemove={removeFavorite} />
+                <FavoritePetCard key={pet._id} pet={pet} onRemove={removeFavorite} />
               ))}
             </Container>
             <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
