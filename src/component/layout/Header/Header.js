@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { initialState, userReducer } from '../../../reducers/userReducer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
-import Logo from '../../../images/Logo.png'
+import Logo from '../../../images/Logo.png';
 import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -15,12 +15,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import AuthContext from '../../../context/auth-context';
+import { getSearchPetName } from '../../../actions/petAction';
+import { SearchPetNameReducer } from '../../../reducers/petReducer';
 
 const Header = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  const hideSearch = pathname === '/' || pathname === '/pets';
+
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [state, dispatch] = useReducer(userReducer, initialState);
   const [logoutResponse, setLogoutResponse] = useState(false);
+  // eslint-disable-next-line
+  const [search, setSearch] = useState('');
+  const [statePetName, dispatchPetName] = useReducer(
+    SearchPetNameReducer,
+    initialState
+  );
+
   const navigate = useNavigate();
   const { userName } = useContext(AuthContext);
 
@@ -61,140 +74,176 @@ const Header = () => {
     }
   }, [state.isAuthenticated]);
 
+  const petNameSearchResults = async (petName) => {
+    try {
+      await getSearchPetName(petName, dispatchPetName);
+    } catch (error) {
+      setErrorMessage('');
+      setErrorMessage(error);
+      return false;
+    }
+  };
+
+  const HandleSearch = async (e) => {
+    e.preventDefault();
+    const searchInput = e.target.firstChild.value;
+    setSearch(searchInput);
+    try {
+      await petNameSearchResults(searchInput);
+    } catch (error) {
+      setErrorMessage(
+        'An error occurred while searching. Sorry for the inconvenience. Please try again later.'
+      );
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem(
+      'petNameResults',
+      JSON.stringify(statePetName.petNameResponse)
+    ); // Save to local storage
+    localStorage.setItem(
+      'petNameLoading',
+      JSON.stringify(statePetName.loading)
+    );
+    window.postMessage({ key: 'petNameResults' }, window.location.origin);
+    window.postMessage({ key: 'petNameLoading' }, window.location.origin);
+  }, [statePetName.petNameResponse, statePetName.loading]);
+
   return (
     <>
-      <>
-        {successMessage && (
-          <Alert
-            variant="success"
-            onClose={() => setSuccessMessage('')}
-            dismissible
-          >
-            {successMessage}
-          </Alert>
-        )}
-        {errorMessage && (
-          <Alert
-            variant="danger"
-            onClose={() => setErrorMessage('')}
-            dismissible
-          >
-            {errorMessage}
-          </Alert>
-        )}
-        <Navbar
-          collapseOnSelect
-          expand="lg"
-          bg="dark"
-          variant="dark"
-          style={{ minHeight: 80 }}
+      {successMessage && (
+        <Alert
+          variant="success"
+          onClose={() => setSuccessMessage('')}
+          dismissible
         >
-          <Container fluid>
-            <Navbar.Brand className="mx-0" href="/" >
-              <div className="d-flex justify-content-center align-items-center">
-                <div className={style['logo_wrapper']}>
-                  <div className={style['logo']}>
-                    <img src={Logo} alt="Logo" />
-                  </div>
+          {successMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert variant="danger" onClose={() => setErrorMessage('')} dismissible>
+          {errorMessage}
+        </Alert>
+      )}
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        style={{ minHeight: 80 }}
+      >
+        <Container fluid>
+          <Navbar.Brand className="mx-0" href="/">
+            <div className="d-flex justify-content-center align-items-center">
+              <div className={style['logo_wrapper']}>
+                <div className={style['logo']}>
+                  <img src={Logo} alt="Logo" />
                 </div>
               </div>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto gap-5">
-                <Nav.Link className={style.navLinkHeader} href="/">
-                  Home
+            </div>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto gap-5">
+              <Nav.Link className={style.navLinkHeader} href="/">
+                Home
+              </Nav.Link>
+              <Nav.Link className={style.navLinkHeader} href="/pets">
+                Pets
+              </Nav.Link>
+              <Nav.Link className={style.navLinkHeader} href="/donate">
+                Donate
+              </Nav.Link>
+              <Nav.Link className={style.navLinkHeader} href="/contact">
+                Contact
+              </Nav.Link>
+              <Nav.Link className={style.navLinkHeader} href="/about">
+                About
+              </Nav.Link>
+            </Nav>
+            <div
+              className={`${style.searchHeader} ${
+                hideSearch ? '' : `${style['hide-search']}`
+              }
+              `}
+            >
+              <Form
+                className="d-flex width-150 align-items-center"
+                onSubmit={HandleSearch}
+              >
+                <Form.Control
+                  type="search"
+                  placeholder="Search pet name"
+                  aria-label="Search"
+                  style={{
+                    height: 33,
+                    width: 190,
+                    border: 0,
+                    borderRadius: 18,
+                    position: 'relative',
+                  }}
+                />
+                <Button
+                  className={style.searchButton}
+                  variant="outline-default"
+                  aria-label="Search button"
+                  title="Search"
+                  type="submit"
+                >
+                  <TbSearch
+                    size="1.2rem"
+                    className="mb-0.6 color-var(--color-black)"
+                  />
+                </Button>
+              </Form>
+            </div>
+            {userName ? (
+              <Nav>
+                <Nav.Link
+                  href="/favorites"
+                  className={style.navLinkHeader}
+                  title="Favorites"
+                  aria-label="Favorites"
+                >
+                  <FontAwesomeIcon icon={faHeart} />
+                  <span className="sr-only">Favorites</span>
                 </Nav.Link>
-                <Nav.Link className={style.navLinkHeader} href="/pets">
-                  Pets
+                <Nav.Link
+                  href="/account"
+                  title={`${userName}'s profile`}
+                  aria-label={`${userName}'s profile`}
+                  className={style.navLinkHeader}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                  <span className="sr-only">User profile</span>
                 </Nav.Link>
-                <Nav.Link className={style.navLinkHeader} href="/donate">
-                  Donate
-                </Nav.Link>
-                <Nav.Link className={style.navLinkHeader} href="/contact">
-                  Contact
-                </Nav.Link>
-                <Nav.Link className={style.navLinkHeader} href="/about">
-                  About
+                <Nav.Link
+                  className={style.navLinkLogOutHeader}
+                  href="/login"
+                  title="Logout"
+                  aria-label={`Logout`}
+                  onClick={handleLogout}
+                >
+                  LogOut
                 </Nav.Link>
               </Nav>
-              <div className={style.searchHeader}>
-                <Form className="d-flex width-150 align-items-center">
-                  <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    aria-label="Search"
-                    style={{
-                      height: 33,
-                      width: 170,
-                      border: 0,
-                      borderRadius: 18,
-                      position: 'relative',
-                    }}
-                  />
-                  <Button
-                    className={style.searchButton}
-                    variant="outline-default"
-                    aria-label="Search button"
-                    title="Search"
-                    onClick={() => {
-                      alert('search');
-                    }}
-                  >
-                    <TbSearch
-                      size="1.2rem"
-                      className="mb-0.6 color-var(--color-black)"
-                    />
-                  </Button>
-                </Form>
-              </div>
-              {userName ? (
-                <Nav>
-                  <Nav.Link
-                    href="/favorites"
-                    className={style.navLinkHeader}
-                    title="Favorites"
-                    aria-label="Favorites"
-                  >
-                    <FontAwesomeIcon icon={faHeart} />
-                    <span className="sr-only">Favorites</span>
-                  </Nav.Link>
-                  <Nav.Link
-                    href="/account"
-                    title={`${userName}'s profile`}
-                    aria-label={`${userName}'s profile`}
-                    className={style.navLinkHeader}
-                  >
-                    <FontAwesomeIcon icon={faUser} />
-                    <span className="sr-only">User profile</span>
-                  </Nav.Link>
-                  <Nav.Link
-                    className={style.navLinkLogOutHeader}
-                    href="/login"
-                    title="Logout"
-                    aria-label={`Logout`}
-                    onClick={handleLogout}
-                  >
-                    LogOut
-                  </Nav.Link>
-                </Nav>
-              ) : null}
-              {!userName ? (
-                <Nav>
-                  <Nav.Link
-                    className={style.navLinkLogInHeader}
-                    href="/login"
-                    title="Login"
-                    aria-label={`Login`}
-                  >
-                    LogIn
-                  </Nav.Link>
-                </Nav>
-              ) : null}
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      </>
+            ) : null}
+            {!userName ? (
+              <Nav>
+                <Nav.Link
+                  className={style.navLinkLogInHeader}
+                  href="/login"
+                  title="Login"
+                  aria-label={`Login`}
+                >
+                  LogIn
+                </Nav.Link>
+              </Nav>
+            ) : null}
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </>
   );
 };

@@ -49,8 +49,7 @@
   border-radius: 18px;
   color: var(--color-white);
 }
-.clearFiltersBtn:hover,
-.clearFiltersBtn:focus {
+.clearFiltersBtn:hover {
   background-color: var(--color-action-btn-hover);
 }
 .clearFiltersBtn:active {
