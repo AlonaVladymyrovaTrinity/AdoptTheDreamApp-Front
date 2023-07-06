@@ -2,16 +2,14 @@ import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { initialState, userReducer } from '../../../reducers/userReducer';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { loadUser } from '../../../actions/userAction';
+import Logo from '../../../images/Logo.png';
 import Alert from 'react-bootstrap/Alert';
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { TbSearch } from 'react-icons/tb';
-import { TbCat } from 'react-icons/tb';
-import { TbDog } from 'react-icons/tb';
 import style from './Header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -137,10 +135,11 @@ const Header = () => {
       >
         <Container fluid>
           <Navbar.Brand className="mx-0" href="/">
-            <div className={style.logo_wrapper}>
-              <div className={style.logo}>
-                <TbCat size="2rem" />
-                <TbDog size="2rem" />
+            <div className="d-flex justify-content-center align-items-center">
+              <div className={style['logo_wrapper']}>
+                <div className={style['logo']}>
+                  <img src={Logo} alt="Logo" />
+                </div>
               </div>
             </div>
           </Navbar.Brand>
