@@ -144,7 +144,7 @@
 }
 .amountSubmitForm > div {
   display: flex;
-  width: 100%;
+  max-width: 65%;
   align-items: center;
   border-radius: 0.938rem;
 }
@@ -161,7 +161,7 @@
   background-color: var(--color-white);
   border: 1px solid darkgray;
   outline-color: var(--color-header-footer);
-  min-width: 100%;
+  width: 100%;
   min-height: 100%;
   font-size: 1.3rem;
   padding: 0.4rem 0.5rem 0.4rem 2.5rem;

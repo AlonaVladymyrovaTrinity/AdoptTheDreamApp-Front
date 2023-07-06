@@ -20,7 +20,6 @@ import Loader from '../layout/Loader/Loader';
 const ConfirmApplication = () => {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  //const [form, setForm] = useState([]);
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
@@ -103,15 +102,12 @@ const ConfirmApplication = () => {
     setShow(false);
     navigate('/', { replace: true });
   };
-  //const handleShow = () => setShow(true);
   //-------------------------------end-------------------------------------//
 
   const currentDate = new Date().toLocaleDateString(); //date of Application
   const petId = Cookies.get('PetID');
   const petType = Cookies.get('PetType');
   const petName = Cookies.get('PetName');
-  //const [dispatch, adoptionApplication] = useReducer(petReducer);
-  //const [state, dispatch] = useReducer(petReducer, initialState);
 
   const [stateAdoption, dispatchAdoption] = useReducer(
     adoptionApplicationReducer,
@@ -158,7 +154,6 @@ const ConfirmApplication = () => {
     }
     if (mobile.trim() === '') {
       formErrors.mobile = 'Phone number is required';
-      // } else if (!/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/.test(mobile)) {
     } else if (!/^([0-9]{3}-[0-9]{3}-[0-9]{4}$)/.test(mobile)) {
       formErrors.mobile =
         'Invalid Phone number format. Use format 111-111-1111.';
@@ -369,21 +364,34 @@ const ConfirmApplication = () => {
       setErrorMessage('Form validation failed');
     }
   };
-  let message = '';
+
   const { response, error } = stateAdoption;
+  // useEffect(() => {
+  //   if (response !== undefined || error !== undefined) {
+  //     console.log('response :' + JSON.stringify(response.success));
+  //     console.log('response :' + JSON.stringify(response.message));
+
+  //     console.log('error :' + error);
+  //   }
+  // }, [response, error]);
+  //--------------------------//
   useEffect(() => {
-    if (response !== undefined || error !== undefined) {
+    if (
+      ((response && response.message !== 0) ||
+        (response && error !== undefined)) &&
+      response.success === true
+    ) {
+      setSuccessMessage(response.message + ' You will be contacted shortly.');
       console.log('response :' + JSON.stringify(response.success));
       console.log('response :' + JSON.stringify(response.message));
-
       console.log('error :' + error);
+    } else if (error || (response && response.success === false)) {
+      setErrorMessage('');
+      setErrorMessage(error && response.message);
+    } else {
+      setErrorMessage(error);
     }
-  }, [response, error]);
-  //--------------------------//
-
-  if (response.message !== 0) {
-    message = JSON.stringify(response.message);
-  }
+  }, [error, response]);
 
   return (
     <>
@@ -407,11 +415,7 @@ const ConfirmApplication = () => {
         <Container style={{ width: '80%' }}>
           <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
 
-          <Form
-            validated={validated}
-            // method="post"
-            onSubmit={handleSubmit}
-          >
+          <Form validated={validated} onSubmit={handleSubmit}>
             <Row xs={1} md={1} lg={2} xl={2} className="ms-1 me-1">
               <Col md={8}>
                 <p>Pet ID</p>
@@ -1747,11 +1751,7 @@ const ConfirmApplication = () => {
                 <Modal.Header closeButton>
                   <Modal.Title>Thank you!</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                  {successMessage}
-                  {/* Your Adoption Application has been sent! <br /> You will be
-                  contacted shortly. */}
-                </Modal.Body>
+                <Modal.Body>{successMessage}</Modal.Body>
                 <Modal.Footer>
                   <div className={style.confirmApplicationModalCloseBtn}>
                     <Button className="mb-5 b" onClick={handleClose}>
