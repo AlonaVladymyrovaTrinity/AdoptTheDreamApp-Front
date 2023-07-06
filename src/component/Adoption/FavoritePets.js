@@ -2,20 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Container, Pagination } from 'react-bootstrap';
 import style from './FavoritePets.module.css';
 import { useReducer, useMemo } from 'react';
-import {
-  initialStateFavoritePets,
-  favoritePetsReducer,
-} from '../../reducers/favoritePetsReducer';
-import {
-  getFavoritePets,
-  removePetFromFavorites,
-} from '../../actions/favoritePetsAction';
+import { initialStateFavoritePets, favoritePetsReducer } from '../../reducers/favoritePetsReducer';
+import { getFavoritePets, removePetFromFavorites, resetError } from '../../actions/favoritePetsAction';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/auth-context';
 import FavoritePetCard from './FavoritePetCard';
-import NoFavorites from '../NoFavorites/NoFavorites';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import NoFavorites from '../NoFavorites/NoFavorites'
+import Loader from '../layout/Loader/Loader';
+import Alert from 'react-bootstrap/Alert';
 
 const FavoritePets = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +19,9 @@ const FavoritePets = () => {
   );
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
+  const loading = useMemo(() => state.loading, [state.loading]);
+  const errorMessage = useMemo(() => state.error, [state.error]);
+  const [gotFavorites, setGotFavorites] = useState(false);
 
   useEffect(() => {
     const authenticated = userId ? true : false;
@@ -36,6 +33,7 @@ const FavoritePets = () => {
   useEffect(() => {
     const fetchFavoritePets = async () => {
       await getFavoritePets(dispatch);
+      setGotFavorites(true)
     };
     fetchFavoritePets();
   }, []);
@@ -59,49 +57,60 @@ const FavoritePets = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
+    <>
       <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Favorite Pets</h1>
-      {!favorites || favorites.length === 0 ? (
-        <NoFavorites />
-      ) : (
-        <Container
-          style={{
-            marginTop: '1rem',
-            width: '100%',
-            paddingInline: '3rem',
-          }}
+      {errorMessage && (
+        <Alert
+          variant="danger"
+          onClose={() => resetError(dispatch)}
+          dismissible
         >
-          {/* -------------------------------------------------- */}
-          <Row xs={1} md={2} lg={2} xl={3} className="ps-0 pe-0">
-            {currentPets.map((pet) => (
-              <Col className="mb-4 ps-0 pe-0">
-                <FavoritePetCard pet={pet} onRemove={removeFavorite} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
+          {errorMessage}
+        </Alert>
       )}
-      <div
-        style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}
-      >
-        <Pagination>
-          {Array.from(
-            { length: Math.ceil(favorites.length / petsPerPage) },
-            (_, index) => (
-              <Pagination.Item
-                key={index + 1}
-                active={index + 1 === currentPage}
-                onClick={() => paginate(index + 1)}
-                className={style['custom-pagination-item']}
-              >
-                {index + 1}
-              </Pagination.Item>
-            )
-          )}
-        </Pagination>
-      </div>
-    </div>
+
+      {loading ? (
+        <Loader className="small-spinner" />
+      ) : (
+        gotFavorites && favorites.length === 0 ? (
+          <NoFavorites />
+        ) : (
+          <>
+            <Container
+              style={{
+                marginTop: '20px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {currentPets.map((pet) => (
+                <FavoritePetCard key={pet._id} pet={pet} onRemove={removeFavorite} />
+              ))}
+            </Container>
+            <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+              <Pagination>
+                {Array.from(
+                  { length: Math.ceil(favorites.length / petsPerPage) },
+                  (_, index) => (
+                    <Pagination.Item
+                      key={index + 1}
+                      active={index + 1 === currentPage}
+                      onClick={() => paginate(index + 1)}
+                      className={style['custom-pagination-item']}
+                    >
+                      {index + 1}
+                    </Pagination.Item>
+                  )
+                )}
+              </Pagination>
+            </div>
+          </>
+        )
+      )
+      }
+    </>
   );
-};
+}
 
 export default FavoritePets;

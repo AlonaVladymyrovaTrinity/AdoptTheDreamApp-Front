@@ -8,6 +8,7 @@ export const favoritePetsReducer = (state = { favorites: []}, action) => {
       return {
         ...state,
         loading: true,
+        favorites: null
       };
     case 'GET_FAVORITE_PETS_SUCCESS':
       return {
@@ -39,6 +40,11 @@ export const favoritePetsReducer = (state = { favorites: []}, action) => {
         ...state,
         loading: false,
         error: action.payload
+      };
+    case 'RESET_ERROR_MESSAGE_REQUEST':
+      return {
+        ...state,
+        error: null
       };
 
     default:

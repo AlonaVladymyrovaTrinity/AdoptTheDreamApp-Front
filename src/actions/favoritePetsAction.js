@@ -12,7 +12,7 @@ export const getFavoritePets = async (dispatch) => {
     });
     dispatch({ type: 'GET_FAVORITE_PETS_SUCCESS', payload: response.data.pets });
   } catch (error) {
-    dispatch({ type: 'GET_FAVORITE_PETS_FAILURE' });
+    dispatch({ type: 'GET_FAVORITE_PETS_FAILURE', payload: error.response?.data?.message || error.message });
   }
 };
 
@@ -30,4 +30,9 @@ export const removePetFromFavorites = async (petData, dispatch) => {
   } catch (error) {
     dispatch({ type: 'REMOVE_PET_FROM_FAVORITES_FAILURE' });
   }
+};
+
+// Reset error message
+export const resetError = (dispatch) => {
+  dispatch({ type: 'RESET_ERROR_MESSAGE_REQUEST' });
 };
