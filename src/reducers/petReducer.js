@@ -303,7 +303,35 @@ export const adoptionApplicationReducer = (state = { myForm: {} }, action) => {
       return {
         ...state,
         loading: false,
-        // response: null,
+        error: action.payload,
+      };
+
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+};
+
+export const SearchPetNameReducer = (
+  state = { petNameResponse: [] },
+  action
+) => {
+  switch (action.type) {
+    case 'GET_PET_NAMES_REQUEST':
+      return {
+        ...state,
+        loading: true,
+        petNameResponse: [],
+      };
+    case 'GET_PET_NAMES_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        petNameResponse: action.payload.pets,
+      };
+    case 'GET_PET_NAMES_FAILURE':
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
       };
 

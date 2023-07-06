@@ -1,6 +1,6 @@
 import redCat from '../../images/redCat.mp4';
 import style from './Home.module.css';
-import Pets from '../Pet/Pets'
+import Pets from '../Pet/Pets';
 import NavigateButton from '../layout/NavigateButton/NavigateButton';
 
 const Home = () => {
