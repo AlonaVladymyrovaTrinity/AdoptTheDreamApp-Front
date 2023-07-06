@@ -102,7 +102,7 @@ function Donate() {
             </h2>
             <h3 className={style['donation-h3']}> Make a Difference Today!</h3>
             <p>
-              Your gift to the animals at Adopt Pet has the power to save lives.
+              Your gift to the animals at Adopt the Dream has the power to save lives.
               By making a contribution, you directly support our mission of
               helping thousands of animals in need.
             </p>

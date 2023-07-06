@@ -60,7 +60,7 @@ const Contact = () => (
             }}
             size="2xl"
           />{' '}
-          petadopted@gmail.com
+          adoptthedream@gmail.com
         </ListGroup.Item>
       </ListGroup>
     </Card>
