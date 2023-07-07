@@ -286,7 +286,7 @@ export const SearchPetFiltersReducer = (
   }
 };
 // Adoption application reducer
-export const adoptionApplicationReducer = (state = { myForm: {} }, action) => {
+export const adoptionApplicationReducer = (state, action) => {
   switch (action.type) {
     case 'ADOPTION_APPLICATION_REQUEST':
       return {

@@ -27,7 +27,8 @@ export const login = async (
     Cookies.set('user-name', res.data.user.name, {
       expires: 60,
     });
-    //console.log('login result:' + JSON.stringify(res)); // logging the response for testing purposes
+
+    console.log('login result:' + JSON.stringify(res)); // logging the response for testing purposes
     setSuccessMessage('User successfully logged in.');
   } catch (error) {
     dispatch({ type: 'LOGIN_FAILURE' });
@@ -58,6 +59,7 @@ export const register = async (
     Cookies.set('user-name', res.data.user.name, {
       expires: 60,
     });
+
     //console.log(JSON.stringify(res)); // logging the response for testing purposes
     //console.log(res.statusText); // logging the statusText response for testing purposes
     setSuccessMessage('User account successfully created. You can login now');
