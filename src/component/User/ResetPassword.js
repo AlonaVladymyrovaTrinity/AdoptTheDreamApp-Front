@@ -21,14 +21,20 @@ const ResetPassword = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { userID } = useParams();
   const { token } = useParams();
-
   const resetPasswordSubmit = async (e) => {
     e.preventDefault();
     console.log(token);
     if (newPassword === confirmPassword) {
       try {
-        await resetPassword(newPassword, confirmPassword, token, dispatch);
+        await resetPassword(
+          newPassword,
+          confirmPassword,
+          userID,
+          token,
+          dispatch
+        );
       } catch (error) {
         setErrorMessage('');
         setErrorMessage(

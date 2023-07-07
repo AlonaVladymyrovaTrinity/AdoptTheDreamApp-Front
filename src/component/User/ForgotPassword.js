@@ -45,9 +45,9 @@ const ForgotPassword = () => {
     ) {
       console.log(response);
       setSuccessMessage(response.msg + '. Please check your email.');
-    } else if (error || (response && response.success === false)) {
+    } else if (error) {
       setErrorMessage('');
-      setErrorMessage(error && response.msg);
+      setErrorMessage(error && error);
     }
   }, [error, response]);
 

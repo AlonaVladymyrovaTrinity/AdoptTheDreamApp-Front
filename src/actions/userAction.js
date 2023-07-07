@@ -215,6 +215,7 @@ export const forgotPassword = async (email, setErrorMessage, dispatch) => {
 export const resetPassword = async (
   newPassword,
   confirmPassword,
+  userID,
   token,
   dispatch
 ) => {
@@ -223,7 +224,7 @@ export const resetPassword = async (
     // const userId = Cookies.get('user-id');
     const response = await axios.post(
       // `/api/v1/password/reset/${userId}/${token}`,
-      `/api/v1/password/reset/${token}`,
+      `/api/v1/password/reset/${userID}/${token}`,
       { newPassword, confirmPassword },
       {
         headers: {

@@ -84,7 +84,10 @@ function App() {
             }
           />
           <Route path="/password/forgot" element={<ForgotPassword />} />
-          <Route path="/password/reset/:token" element={<ResetPassword />} />
+          <Route
+            path="/password/reset/:userID/:token"
+            element={<ResetPassword />}
+          />
           <Route
             path="/login"
             element={<LoginSignUp onLogin={handleLogin} />}
