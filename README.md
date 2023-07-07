@@ -1,28 +1,93 @@
-# Front-End Repo for Node/React Practicum
+# Adopt the Dream App
 
-This will be the front-end for your team's practicum project.
+This is the front-end repository for the CC Practicum Team 4 project.
 
-It is suggested that you run these instructions **after** you setup the back-end server first.
-You can go through these steps during your first group meeting in case you need assistance from your mentors.
+Welcome to Adopt the Dream! This application allows users to browse and adopt adorable pets in need of loving homes. With a user-friendly interface and a range of features, our app aims to connect pet lovers with their perfect furry companions.
 
-You will have two folders inside one team folder (one for front-end and one for back-end). Name the parent folder something appropriate (in the below example we title it "Practicum Project").  Then clone directly (do not fork and clone) the front and back repos while inside the parent ("Practicum Project") project folder.
+## Getting Started
 
-![folders](images/folder_structure.png)
+To run the Pet Adoption App locally on your machine, follow these steps:
 
->The front-end app (React) will be running on port 3000. The back-end server will be running on port 8000. You will need to run both the front-end app and the back-end server at the same time to test your app.
+1. Clone the repository.
+   ```shell
+   git clone https://github.com/Code-the-Dream-School/cc-practiccum-team-4-front
+   ```
 
-### Setting up local development environment
+2. Install dependencies.
+   ```shell
+   cd cc-practicum-team-4-front
+   npm install
+   ```
 
-1. Clone this repository to the folder that was already created for both the front-end and back-end repos
-2. Run `npm install` to install dependencies
-3. Pull the latest version of the `main` branch (when needed)
-4. Run `npm start` to start the development server
-5. Open http://localhost:3000 with your browser to see the data received the back-end server.
-6. Now you have your front-end and back-end running locally!
+3. Build and run the project.
+   ```shell
+   npm start
+   ```
 
-#### Running the front-end server in Visual Studio Code
-Note: In the below example, the group's front-end repository was named `bb-practicum-team1-front` and the back-end repository was named `bb-practicum-team-1-back`.  Your repository will have a different name, but the rest should look the same.
-![vsc running](images/front-end-running-vsc.png)
+4. Navigate to http://localhost:3000 in your web browser to access the Pet Adoption App.
 
-#### Running the front-end server in the browser
-![browser running](images/front-end-running-browser.png)
+Make sure to set up the back-end server first by following the instructions in the back-end README. Also, ensure you have Node.js installed on your system.
+
+## Features
+
+- User Registration: Users can create an account by providing their basic information. Registration allows them to access additional features and personalize their experience.
+
+<img src="images\login page.png" width="400">
+
+<img src="images\login-page-screen.png" width="400">
+
+- User Profile: Each user has a profile page where they can view and update their personal information, manage their favorite pets, and track the status of their adoption applications.
+
+<img src="images\user update page.png" width="400">
+
+- Browse Pets: Users can explore a wide variety of pets available for adoption. Each pet listing includes details such as breed, age, gender, and a brief description.
+
+<img src="images\Screenshot pet details.png" width="400">
+
+- Favorites: Users can add pets to their favorites list for easy reference. They can view and manage their favorite pets from their profile.
+
+<img src="images\Screenshot Favorite pets.png" width="400">
+
+- Search: The search by name feature quickly retrieves relevant results from our extensive database of available pets.
+
+- Filters: In addition to the search function, the Adopt the Dream App offers various filters that users can apply to further refine their search results. These filters enable users to specify their preferences based on specific attributes such as:
+Breed: Users can select one or multiple breeds from a comprehensive list to narrow down the search results to pets of the chosen breed(s).
+Age Range: Users can filter pets based on their desired age range, such as puppies, young adults, or seniors.
+Gender: Users can choose to view pets of a specific gender, whether male, female, or both.
+Size: Users can filter pets based on their size, such as small, medium, or large breeds.
+
+<img src="images\pets page.png" width="400">
+
+- Adoption Process: Interested users can initiate the adoption process for a specific pet. This involves filling out an application form, which will be reviewed by pet shelter.
+
+- Application Form: We have provided an adoption application form for interested users. The form collects essential information about the user, their living situation, and their preferences for adopting a pet.
+
+<img src="images\aplication .png" width="400">
+
+- Adoption Confirmation: Once the adoption application is reviewed and approved, the user will receive a confirmation letter containing further instructions and details about the adoption process.
+
+- Donate: We have a dedicated donation page for users who wish to contribute to shelter. Users can choose to make a one-time donation or set up recurring donations.
+
+<img src="images\donate page.png" width="400">
+<img src="images\Screenshot donate page.png" width="400">
+
+- About Us: Users can learn more about our pet sheltor and their mission and their commitment to animal welfare on the About Us page. It provides insight into our pet shelter work and achievements.
+
+<img src="images\about.png" width="400">
+
+- Contact: If users have any questions, concerns, or feedback, they can reach out to us through the contact page. 
+
+## Technologies Used
+
+The Adopt the Dream App is built using the following technologies:
+
+- React: A JavaScript library for building user interfaces.
+- CSS, React bootstrap styled-components.
+- Node.js: A runtime environment for executing JavaScript code on the server.
+- MongoDB: A NoSQL database for storing pet and user information.
+- Axios: A promise-based HTTP client for making API requests.
+
+## Contact
+
+Thank you for choosing the Adopt the Dream App. We hope you find your perfect furry companion and make a
+positive impact on their lives!
