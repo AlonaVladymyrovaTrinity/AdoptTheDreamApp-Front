@@ -210,3 +210,34 @@ export const forgotPassword = async (email, setErrorMessage, dispatch) => {
     );
   }
 };
+
+// Reset Password
+export const resetPassword = async (
+  newPassword,
+  confirmPassword,
+  token,
+  dispatch
+) => {
+  try {
+    dispatch({ type: 'RESET_PASSWORD_REQUEST' });
+    // const userId = Cookies.get('user-id');
+    const response = await axios.post(
+      // `/api/v1/password/reset/${userId}/${token}`,
+      `/api/v1/password/reset/${token}`,
+      { newPassword, confirmPassword },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log('Update Profile response: ' + JSON.stringify(response.data)); // logging the response for testing purposes
+    dispatch({ type: 'RESET_PASSWORD_SUCCESS', payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: 'RESET_PASSWORD_FAIL',
+      payload: error.response?.data?.message || error.message,
+    });
+    console.error('Error:', error);
+  }
+};
