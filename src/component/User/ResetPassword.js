@@ -25,7 +25,6 @@ const ResetPassword = () => {
   const { token } = useParams();
   const resetPasswordSubmit = async (e) => {
     e.preventDefault();
-    console.log(token);
     if (newPassword === confirmPassword) {
       try {
         await resetPassword(

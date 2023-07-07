@@ -64,7 +64,7 @@ export const register = async (
   } catch (error) {
     dispatch({ type: 'REGISTER_USER_FAIL' });
     // Error handling: showing an error message
-    console.error('Error:', error);
+    //console.error('Error:', error);
     if (error.response && error.response.data && error.response.data.msg) {
       setErrorMessage(
         error.response?.data?.msg ||
@@ -143,7 +143,7 @@ export const updateUserProfile = async (
       type: 'UPDATE_PROFILE_FAIL',
       payload: error.response?.data?.message || error.message,
     });
-    console.log('Error', error.message); // logging the error for testing purposes
+    //console.log('Error', error.message); // logging the error for testing purposes
     setErrorMessage(
       'Apologies, but an error occurred while updating your profile. Please try again later.'
     );
@@ -172,14 +172,14 @@ export const updateUserPassword = async (
       type: 'UPDATE_PASSWORD_SUCCESS',
       payload: res.statusText,
     });
-    console.log('Update password result:', res.statusText); // logging the response message for testing purposes
+    // console.log('Update password result:', res.statusText); // logging the response message for testing purposes
   } catch (error) {
     dispatch({
       type: 'UPDATE_PASSWORD_FAIL',
       payload: error.response?.data?.message || error.message,
     });
     // Error handling: showing an error message
-    console.error('Error:', error);
+    // console.error('Error:', error);
     setErrorMessage(
       'An error occurred during password update. Please try again.'
     );
@@ -204,7 +204,7 @@ export const forgotPassword = async (email, setErrorMessage, dispatch) => {
       payload: error.response?.data?.message || error.message,
     });
     // Error handling: showing an error message
-    console.error('Error:', error);
+    // console.error('Error:', error);
     setErrorMessage(
       'An error occurred during forgot password request. Please try again.'
     );
@@ -232,13 +232,13 @@ export const resetPassword = async (
         },
       }
     );
-    console.log('Update Profile response: ' + JSON.stringify(response.data)); // logging the response for testing purposes
+    // console.log('Update Profile response: ' + JSON.stringify(response.data)); // logging the response for testing purposes
     dispatch({ type: 'RESET_PASSWORD_SUCCESS', payload: response.data });
   } catch (error) {
     dispatch({
       type: 'RESET_PASSWORD_FAIL',
       payload: error.response?.data?.message || error.message,
     });
-    console.error('Error:', error);
+    // console.error('Error:', error);
   }
 };
