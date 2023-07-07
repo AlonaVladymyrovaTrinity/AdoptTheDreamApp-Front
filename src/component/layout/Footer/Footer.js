@@ -24,6 +24,9 @@ const Footer = () => {
               <li className={style['footer-link']}>
                 <Link to="/contact">Contact</Link>
               </li>
+              <li className={style['footer-link']}>
+                <Link to="http://localhost:8000/api-docs/">API Documentation</Link>
+              </li>
             </ul>
           </Col>
         </Row>
