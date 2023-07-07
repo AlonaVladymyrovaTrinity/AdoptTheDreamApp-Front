@@ -41,3 +41,26 @@
 .list-group-item {
   color: var(--color-txt);
 }
+/* Responsive Design Tablet */
+@media screen and (max-width: 61.94em) {
+  /*991px*/
+}
+
+/* Responsive Design Mobile */
+@media screen and (max-width: 37.5em) {
+  /*600px*/
+  .background-container {
+    background-image: none;
+    align-items: flex-start;
+  }
+  .background-container > div {
+    margin-right: auto;
+    margin-left: auto !important;
+    margin-top: 8rem !important;
+    position: relative !important;
+  }
+  .contact-card {
+    min-width: 60%;
+    color: var(--color-txt);
+  }
+}
