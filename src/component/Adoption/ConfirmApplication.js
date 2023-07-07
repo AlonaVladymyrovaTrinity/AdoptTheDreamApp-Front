@@ -376,20 +376,22 @@ const ConfirmApplication = () => {
   // }, [response, error]);
   //--------------------------//
   useEffect(() => {
-    if (
-      ((response && response.message !== 0) ||
-        (response && error !== undefined)) &&
-      response.success === true
-    ) {
+    if (error) {
+      setErrorMessage('');
+      setErrorMessage(error);
+    } else if (response && response.length !== 0 && response.success === true) {
+      setSuccessMessage('');
       setSuccessMessage(response.message + ' You will be contacted shortly.');
       console.log('response :' + JSON.stringify(response.success));
       console.log('response :' + JSON.stringify(response.message));
       console.log('error :' + error);
-    } else if (error || (response && response.success === false)) {
+    } else if (
+      response &&
+      response.length !== 0 &&
+      response.success === false
+    ) {
       setErrorMessage('');
-      setErrorMessage(error && response.message);
-    } else {
-      setErrorMessage(error);
+      setErrorMessage(response.message);
     }
   }, [error, response]);
 
