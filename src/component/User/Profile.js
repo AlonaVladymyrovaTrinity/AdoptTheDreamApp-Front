@@ -180,7 +180,7 @@ const Profile = () => {
                           <hr className="mt-0 mb-4" />
                           <section className="pt-1">
                             {/*User Full Name*/}
-                            <MDBCol size="6" className="mb-5">
+                            <MDBCol size="7" className="mb-5">
                               <MDBTypography tag="h6">Full Name:</MDBTypography>
                               <MDBCardText className="text-muted">
                                 {user.name}
@@ -188,7 +188,7 @@ const Profile = () => {
                             </MDBCol>
 
                             {/* User Email */}
-                            <MDBCol size="6" className="mb-5">
+                            <MDBCol size="7" className="mb-5">
                               <MDBTypography tag="h6">Email</MDBTypography>
                               <MDBCardText className="text-muted">
                                 {user.email}
@@ -196,7 +196,7 @@ const Profile = () => {
                             </MDBCol>
 
                             {/*User Joined On Date */}
-                            <MDBCol size="6" className="mb-5">
+                            <MDBCol size="7" className="mb-5">
                               <MDBTypography tag="h6">Joined On:</MDBTypography>
                               {user.createdAt !== undefined ? (
                                 <MDBCardText className="text-muted">

@@ -321,7 +321,7 @@ export const adoptionApplication = async (
       payload: error.response?.data?.message || error.message,
     });
     // Error handling: showing an error message
-    console.error('Error:', error);
+    // console.error('Error:', error);
     if (error.response && error.response.data && error.response.data.msg) {
       setErrorMessage(
         error.response?.data?.msg ||
