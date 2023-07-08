@@ -11,7 +11,7 @@ const About = () => {
           <img src={photoDog} className={style['about-img']} alt="dog" />
           <p>"Adopt the Dream!"</p>
           <p>
-            Description: Welcome to Pawsome Companions, your go-to online
+            Description: Welcome to Adopt the Dream, your go-to online
             destination for pet adoption. We believe that every pet deserves a
             loving home, and we're dedicated to connecting adorable animals with
             caring individuals or families like yours. Our platform offers a
@@ -55,7 +55,7 @@ const About = () => {
             pets in need.
           </p>
           <p>
-            Pawsome Companions is dedicated to facilitating the pet adoption
+            Adopt the Dream is dedicated to facilitating the pet adoption
             process, spreading awareness about responsible pet ownership, and
             creating a loving community of pet enthusiasts. Start your journey
             today and find your perfect four-legged companion through our
