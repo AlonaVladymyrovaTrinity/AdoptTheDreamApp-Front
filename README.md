@@ -90,6 +90,14 @@ The Adopt the Dream App is built using the following technologies:
 - MongoDB: A NoSQL database for storing pet and user information.
 - Axios: A promise-based HTTP client for making API requests.
 
+## Contributors
+
+- Alona ([GitHub](https://github.com/AlonaVladymyrovaTrinity))
+- Anna ([GitHub](https://github.com/arigakova))
+- Luba ([GitHub](https://github.com/LiubovCass))
+- Natasha ([GitHub](https://github.com/Nata-Kalina))
+- Vitalii ([GitHub](https://github.com/vitaliipp))
+
 ## Closing Remarks
 
 Thank you for choosing the Adopt the Dream App. We hope you find your perfect furry companion and make a

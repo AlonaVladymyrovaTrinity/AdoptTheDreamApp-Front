@@ -264,6 +264,7 @@ const ConfirmApplication = () => {
   };
 
   //-----------------------------------------------------------------------//
+
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
 
@@ -416,7 +417,6 @@ const ConfirmApplication = () => {
       ) : (
         <Container style={{ width: '80%' }}>
           <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
-
           <Form validated={validated} onSubmit={handleSubmit}>
             <Row xs={1} md={1} lg={2} xl={2} className="ms-1 me-1">
               <Col md={8}>
