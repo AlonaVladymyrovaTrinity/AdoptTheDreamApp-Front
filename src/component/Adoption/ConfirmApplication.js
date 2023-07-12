@@ -264,61 +264,7 @@ const ConfirmApplication = () => {
   };
 
   //-----------------------------------------------------------------------//
-  const fillTheForm = () => {
-    setFirstName('John');
-    setLastName('Smith');
-    setCoApplicantsFirstName('Jane');
-    setCoApplicantsLastName('Smith');
-    setApplicantAge('30');
-    setStreetAddress('123 Main St');
-    setCity('New York');
-    setState('NY');
-    setZip('10001');
-    setMobile('111-111-1111');
-    setEmail('UserNameAdoptPet@outlook.com');
-    setOccupationAndEmployer('Software Engineer');
-    setWorkAddress('123 Main St');
-    setCoApplicantOccupationEmployerWorkAddress('Software Engineer');
-    setNameAgeChildren('John Smith Jr. 5 years old');
-    setAllergicExplain('No');
-    setAgrimentExplain('No');
-    setResponsibleGroomingTrainingPerson('No');
-    setFearAnimalsExplain('No');
-    setManagementCompanyInfo('No');
-    setHomeDescription('No');
-    setFenceHigh('No');
-    setReasonOfAdoption('No');
-    setKeptPetAlone('No');
-    setHowLongPetLeftAlone('No');
-    setReturnPetPerson('No');
-    setPetsInThePastInfo('No');
-    setPetsInThePastPeriod('No');
-    setGivenPetAwayExplain('No');
-    setNotRelatedPeopleInfo('No');
-    setVetInfo('No');
-    setSelectedWorkFromHome('No');
-    setSelectedAllergic('No');
-    setSelectedAgreementAdoptingPet('No');
-    setSelectedFearAnimals('No');
-    setSelectedAreaAnimalRegulation('No');
-    setSelectedOwnOrRentHome('No');
-    setSelectedPlanningToMove('No');
-    setSelectedHaveAYard('No');
-    setSelectedAlredyHavePets('No');
-    setKindAgeExistingPet('No');
-    setSelectedSprayedNeutered('No');
-    setSelectedPetAGift('No');
-    setSelectedVetCare('No');
-    setSelectedFinancialResponsibilities('No');
-    setSelectedHireProfTrainer('No');
-    setSelectedPetsInThePast('No');
-    setSelectedPetsGottenLost('No');
-    setSelectedPetsBeenPoisoned('No');
-    setSelectedPetHitByVehicle('No');
-    setSelectedGivenPetToShelter('No');
-    setSelectedGivenPetAway('No');
-    setChecked(true);
-  };
+
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
 
@@ -471,11 +417,6 @@ const ConfirmApplication = () => {
       ) : (
         <Container style={{ width: '80%' }}>
           <h1 className="text-center mt-5 mb-5">Adoption Application</h1>
-          <div className={style.confirmApplicationSubmitBtn}>
-            <Button className="mb-5 b" onClick={fillTheForm}>
-              Fill the Form
-            </Button>
-          </div>
           <Form validated={validated} onSubmit={handleSubmit}>
             <Row xs={1} md={1} lg={2} xl={2} className="ms-1 me-1">
               <Col md={8}>
